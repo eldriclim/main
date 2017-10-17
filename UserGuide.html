@@ -276,28 +276,34 @@ Edits the phone number and email address of the 1st person to be <code>91234567<
 <h3 id="locating-persons-by-different-attributes-code-find-code-code-search-code-code-get-code"><a class="link" href="#locating-persons-by-different-attributes-code-find-code-code-search-code-code-get-code">2.5. Locating persons by different attributes: <code>find</code> <code>search</code> <code>get</code></a></h3>
 <div class="paragraph">
 <p>Finds persons whose specified attributes contain any of the given keywords.<br>
-Format: <code>find [NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]&#8230;&#8203;</code>
-(or)<code>search [NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]&#8230;&#8203;</code>
-(or)<code>get [NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]&#8230;&#8203;</code></p>
+Format: <code>find [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]</code>
+(or)<code>search [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]</code>
+(or)<code>get [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>The search is case insensitive. e.g <code>hans</code> will match <code>Hans</code></p>
+<p>The search for <code>Name</code> <code>Email</code> <code>Address</code> is case insensitive. e.g <code>hans</code> will match <code>Hans</code>, <code>Clementi Street</code> will match <code>clementi street</code>.</p>
 </li>
 <li>
-<p>The order of the keywords does not matter. e.g. <code>Hans Bo</code> will match <code>Bo Hans</code></p>
+<p>The order of the keywords does not matter. e.g. <code>Hans Bo</code> will match <code>Bo Hans</code>.</p>
 </li>
 <li>
-<p>The person can be found by searching any substring of the name. e.g. <code>hn</code> will match <code>John</code></p>
+<p>The person can be found by searching any substring of the attibute. e.g. <code>hn</code> will match <code>John</code>, <code>1234</code> will match <code>98123476</code>.</p>
 </li>
 <li>
-<p>Name is searched by default without any tag required.</p>
+<p>A prefix is required before entering a different type of keyword.</p>
 </li>
 <li>
-<p>Persons matching at least one keyword will be returned (i.e. <code>OR</code> search). e.g. <code>Hans Bo</code> will return <code>Hans Gruber</code>, <code>Bo Yang</code></p>
+<p>Each prefix should appear at most once with its keywords grouping behind. e.g. <code>n/alice bob</code>.</p>
+</li>
+<li>
+<p>Searching by multiple keywords of the same type is allowed except for <code>Address</code> type.</p>
+</li>
+<li>
+<p>Persons matching at least one keyword will be returned (i.e. <code>OR</code> search). e.g. <code>Hans Bo</code> will return <code>Hans Gruber</code>, <code>Bo Yang</code>.</p>
 </li>
 <li>
 <p>At least one of the optional fields must be provided.</p>
@@ -312,7 +318,7 @@ Format: <code>find [NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]&#8230;&#8203;</code>
 <div class="ulist">
 <ul>
 <li>
-<p><code>find John</code><br>
+<p><code>find n/John</code><br>
 Returns <code>john</code> and <code>John Doe</code></p>
 </li>
 <li>
@@ -324,8 +330,8 @@ Returns the person having phone number <code>98765432</code></p>
 Returns the person having email <code>johndoe@gmail.com</code></p>
 </li>
 <li>
-<p><code>find Betsy Tim John</code><br>
-Returns any person having names <code>Betsy</code>, <code>Tim</code>, or <code>John</code></p>
+<p><code>find n/Betsy Tim John a/clementi street</code><br>
+Returns any person having names <code>Betsy</code>, <code>Tim</code>, <code>John</code> or living at <code>Clementi Street</code></p>
 </li>
 </ul>
 </div>
@@ -774,7 +780,7 @@ e.g.<code>select 2</code></p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-10-17 18:38:39 +00:00
+Last updated 2017-10-17 19:17:54 +00:00
 </div>
 </div>
 </body>
