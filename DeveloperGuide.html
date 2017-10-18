@@ -79,9 +79,9 @@
 </li>
 <li><a href="#user-stories">Appendix B: User Stories</a></li>
 <li><a href="#use-cases">Appendix C: Use Cases</a></li>
-<li><a href="#non-functional-requirements">Appendix D: Non Functional Requirements</a></li>
-<li><a href="#glossary">Appendix E: Glossary</a></li>
-<li><a href="#product-survey">Appendix F: Product Survey</a></li>
+<li><a href="#non-functional-requirements">7. Non Functional Requirements</a></li>
+<li><a href="#glossary">Appendix D: Glossary</a></li>
+<li><a href="#product-survey">Appendix E: Product Survey</a></li>
 </ul>
 </div>
 </div>
@@ -1920,23 +1920,17 @@ for <code>RemarkCommandParser</code>.</p>
 <div class="paragraph">
 <p>(For all use cases below, the <strong>System</strong> is the <code>AddressBook</code> and the <strong>Actor</strong> is the <code>user</code>, unless specified otherwise)</p>
 </div>
-<h3 id="use-case-add-contact-by-name" class="discrete">Use case: Add contact by name</h3>
+<h3 id="use-case-add-contact" class="discrete">Use case: Add contact</h3>
 <div class="paragraph">
 <p><strong>MSS</strong></p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User input command to add contact: add [NAME]</p>
+<p>User input command to add contact: add n/[NAME] p/[PHONE] e/[EMAIL] a/[ADDRESS]</p>
 </li>
 <li>
-<p>Address book launches a window prompting user to fill in required fields (phone number, address&#8230;&#8203;)</p>
-</li>
-<li>
-<p>User fill in required fields and confirms inputted values</p>
-</li>
-<li>
-<p>Address book stores contact entered and shows “Added” message</p>
+<p>Address book stores contact and outputs success message</p>
 <div class="paragraph">
 <p>Use case ends.</p>
 </div>
@@ -1949,49 +1943,47 @@ for <code>RemarkCommandParser</code>.</p>
 <div class="ulist none">
 <ul class="none">
 <li>
-<p>3a. User enters incomplete contact information with missing fields</p>
+<p>2a. User enters incomplete contact information with missing fields</p>
 <div class="ulist none">
 <ul class="none">
 <li>
-<p>3a1. Address book shows warning and prompt user to fill in missing fields.</p>
+<p>2a1. Address book shows error message</p>
 <div class="paragraph">
-<p>Use case resumes at step 3.</p>
+<p>Use case ends.</p>
 </div>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>*a. User exits from the “add” window</p>
 <div class="paragraph">
 <p>Use case ends.</p>
 </div>
 </li>
 </ul>
 </div>
-<h3 id="use-case-edit-contact-by-name" class="discrete">Use case: Edit contact by name</h3>
+</li>
+<li>
+<p>2b. Similar contact already exist in Address Book</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>2b1. Address book shows error message</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<h3 id="use-case-edit-contact" class="discrete">Use case: Edit contact</h3>
 <div class="paragraph">
 <p><strong>MSS</strong></p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User input command to edit contact: edit [NAME]</p>
+<p>User input command to edit contact: edit INDEX n/[NAME] p/[PHONE] e/[EMAIL] a/[ADDRESS]</p>
 </li>
 <li>
-<p>Address book returns list of users with given name</p>
-</li>
-<li>
-<p>User input appends index to command</p>
-</li>
-<li>
-<p>Address book launches a window prompting user to edit contacts</p>
-</li>
-<li>
-<p>User edit contact details and confirms inputted values</p>
-</li>
-<li>
-<p>Address book updates contact details</p>
+<p>Address book edits relevant contact details and outputs success message</p>
 <div class="paragraph">
 <p>Use case ends.</p>
 </div>
@@ -2004,11 +1996,11 @@ for <code>RemarkCommandParser</code>.</p>
 <div class="ulist none">
 <ul class="none">
 <li>
-<p>2a. No contacts with given name</p>
+<p>2a. Invalid index inputted</p>
 <div class="ulist none">
 <ul class="none">
 <li>
-<p>2a1. Address book notify no user found</p>
+<p>2a1. Address book shows error message</p>
 <div class="paragraph">
 <p>Use case ends.</p>
 </div>
@@ -2017,11 +2009,11 @@ for <code>RemarkCommandParser</code>.</p>
 </div>
 </li>
 <li>
-<p>2b. Only one contact match with given name</p>
+<p>2b. No attributes was inputted</p>
 <div class="ulist none">
 <ul class="none">
 <li>
-<p>2b1. Address book deletes user and outputs result</p>
+<p>2b1. Address book shows error message</p>
 <div class="paragraph">
 <p>Use case ends.</p>
 </div>
@@ -2029,31 +2021,19 @@ for <code>RemarkCommandParser</code>.</p>
 </ul>
 </div>
 </li>
-<li>
-<p>*a. User exits from the “edit” window</p>
-<div class="paragraph">
-<p>Use case ends.</p>
-</div>
-</li>
 </ul>
 </div>
-<h3 id="use-case-delete-contact-by-name" class="discrete">Use case: Delete contact by name</h3>
+<h3 id="use-case-delete-contact" class="discrete">Use case: Delete contact</h3>
 <div class="paragraph">
 <p><strong>MSS</strong></p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User input command to delete contact: delete [NAME]</p>
+<p>User input command to delete contact: delete INDEX</p>
 </li>
 <li>
-<p>Address book returns list of users with given name</p>
-</li>
-<li>
-<p>User input appends index to command</p>
-</li>
-<li>
-<p>Address book deletes user and outputs result</p>
+<p>Address delete contact from list and outputs success message</p>
 <div class="paragraph">
 <p>Use case ends.</p>
 </div>
@@ -2066,24 +2046,11 @@ for <code>RemarkCommandParser</code>.</p>
 <div class="ulist none">
 <ul class="none">
 <li>
-<p>2a. No contacts with given name</p>
+<p>2a. Invalid index inputted</p>
 <div class="ulist none">
 <ul class="none">
 <li>
-<p>2a1. Address book notify no user found</p>
-<div class="paragraph">
-<p>Use case ends.</p>
-</div>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>2b. Only one contact match with given name</p>
-<div class="ulist none">
-<ul class="none">
-<li>
-<p>2b1. Address book deletes user and outputs result</p>
+<p>2a1. Address book shows error message</p>
 <div class="paragraph">
 <p>Use case ends.</p>
 </div>
@@ -2189,16 +2156,10 @@ for <code>RemarkCommandParser</code>.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>User request to sort the persons in address book</p>
+<p>User input command to sort contacts: sort [PREFIX]/[ORDER]</p>
 </li>
 <li>
-<p>Address book shows the sortable attributes and request user to select one</p>
-</li>
-<li>
-<p>User selects an attribute to sort by and if ascending or descending</p>
-</li>
-<li>
-<p>Address book shows the sorted list to user</p>
+<p>Address book sorts contacts and output sorted list</p>
 <div class="paragraph">
 <p>Use case ends.</p>
 </div>
@@ -2207,6 +2168,40 @@ for <code>RemarkCommandParser</code>.</p>
 </div>
 <div class="paragraph">
 <p><strong>Extensions</strong></p>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>2a. No arguments inputted</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>2a1. Address book sorts contacts by name in ascending order and output sorted list</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>2a. No sort order inputted</p>
+<div class="ulist none">
+<ul class="none">
+<li>
+<p>2a1. Address book sort by inputted attribute in ascending order and output sorted list</p>
+<div class="paragraph">
+<p>Use case ends.</p>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ul>
 </div>
 <div class="ulist none">
 <ul class="none">
@@ -2224,103 +2219,11 @@ for <code>RemarkCommandParser</code>.</p>
 </div>
 </li>
 <li>
-<p>3a. User enters an invalid attribute</p>
+<p>2a. Invalid arguments inputted</p>
 <div class="ulist none">
 <ul class="none">
 <li>
-<p>3a1. Address book shows an error message</p>
-<div class="paragraph">
-<p>Use case ends.</p>
-</div>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-<h3 id="use-case-route-to-contact-s-address" class="discrete">Use case: Route to contact’s address</h3>
-<div class="paragraph">
-<p><strong>MSS</strong></p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>User inputs command to locate contact: map [name]</p>
-</li>
-<li>
-<p>Address book returns list of users with given name</p>
-</li>
-<li>
-<p>User input appends index to command</p>
-</li>
-<li>
-<p>System launches Google Maps with destination set to contact’s home address</p>
-</li>
-<li>
-<p>User input source address in Google Maps and select enter</p>
-</li>
-<li>
-<p>Google Maps displays route from source to destination</p>
-<div class="paragraph">
-<p>Use case ends.</p>
-</div>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p><strong>Extensions</strong></p>
-</div>
-<div class="ulist none">
-<ul class="none">
-<li>
-<p>5a. User is only interested in know where is contact’s address</p>
-<div class="paragraph">
-<p>Use case ends.</p>
-</div>
-</li>
-<li>
-<p>5*a. User decides to move on to other commands</p>
-<div class="ulist none">
-<ul class="none">
-<li>
-<p>5*a1. Address book removes Google Map from view</p>
-<div class="paragraph">
-<p>Use case ends.</p>
-</div>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-<h3 id="use-case-search-recycle-list" class="discrete">Use case: Search Recycle list</h3>
-<div class="paragraph">
-<p><strong>MSS</strong></p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>User input command to list previously deleted contacts: bin</p>
-</li>
-<li>
-<p>Address book display a list of previously deleted contacts</p>
-<div class="paragraph">
-<p>Use case ends.</p>
-</div>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p><strong>Extensions</strong></p>
-</div>
-<div class="ulist none">
-<ul class="none">
-<li>
-<p>2a. No contacts have been deleted before</p>
-<div class="ulist none">
-<ul class="none">
-<li>
-<p>2a1. Address book shows an empty list message</p>
+<p>2a1. Address book shows an error message</p>
 <div class="paragraph">
 <p>Use case ends.</p>
 </div>
@@ -2333,7 +2236,7 @@ for <code>RemarkCommandParser</code>.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="non-functional-requirements"><a class="link" href="#non-functional-requirements">Appendix D: Non Functional Requirements</a></h2>
+<h2 id="non-functional-requirements"><a class="link" href="#non-functional-requirements">7. Non Functional Requirements</a></h2>
 <div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
@@ -2372,7 +2275,7 @@ for <code>RemarkCommandParser</code>.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="glossary"><a class="link" href="#glossary">Appendix E: Glossary</a></h2>
+<h2 id="glossary"><a class="link" href="#glossary">Appendix D: Glossary</a></h2>
 <div class="sectionbody">
 <div id="mainstream-os" class="paragraph">
 <p>Mainstream OS</p>
@@ -2417,7 +2320,7 @@ for <code>RemarkCommandParser</code>.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="product-survey"><a class="link" href="#product-survey">Appendix F: Product Survey</a></h2>
+<h2 id="product-survey"><a class="link" href="#product-survey">Appendix E: Product Survey</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><strong>Product Name</strong></p>
@@ -2456,7 +2359,7 @@ for <code>RemarkCommandParser</code>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-10-17 19:17:54 +00:00
+Last updated 2017-10-18 09:59:04 +00:00
 </div>
 </div>
 </body>

@@ -42,9 +42,12 @@
 <li><a href="#listing-entered-commands-code-history-code-code-record-code">2.13. Listing entered commands : <code>history</code> <code>record</code></a></li>
 <li><a href="#undoing-previous-command-code-undo-code">2.14. Undoing previous command : <code>undo</code></a></li>
 <li><a href="#redoing-the-previously-undone-command-code-redo-code">2.15. Redoing the previously undone command : <code>redo</code></a></li>
-<li><a href="#clearing-all-entries-code-clear-code">2.16. Clearing all entries : <code>clear</code></a></li>
-<li><a href="#exiting-the-program-code-exit-code">2.17. Exiting the program : <code>exit</code></a></li>
-<li><a href="#saving-the-data">2.18. Saving the data</a></li>
+<li><a href="#listing-all-persons-removed-code-bin-list-code-_-coming-in-v2-0">2.16. Listing all persons removed: <code>bin-list</code> _[Coming in v2.0]</a></li>
+<li><a href="#restoring-person-s-code-bin-restore-code-_-coming-in-v2-0">2.17. Restoring person(s) : <code>bin-restore</code> _[Coming in v2.0]</a></li>
+<li><a href="#clearing-all-contacts-from-bin-code-bin-clear-code-_-coming-in-v2-0">2.18. Clearing all contacts from bin : <code>bin-clear</code> _[Coming in v2.0]</a></li>
+<li><a href="#clearing-all-entries-code-clear-code">2.19. Clearing all entries : <code>clear</code></a></li>
+<li><a href="#exiting-the-program-code-exit-code">2.20. Exiting the program : <code>exit</code></a></li>
+<li><a href="#saving-the-data">2.21. Saving the data</a></li>
 </ul>
 </li>
 <li><a href="#faq">3. FAQ</a></li>
@@ -340,7 +343,7 @@ Returns any person having names <code>Betsy</code>, <code>Tim</code>, <code>John
 <h3 id="sorting-list-of-persons-code-sort-code"><a class="link" href="#sorting-list-of-persons-code-sort-code">2.6. Sorting list of persons: <code>sort</code></a></h3>
 <div class="paragraph">
 <p>Sorts the full list of persons based on the specified attribute<br>
-Format: <code>sort [n/(ASC/DSC)] [p/(ASC/DSC)] [e/(ASC/DSC)] [a/(ASC/DSC)]</code></p>
+Format: <code>sort [n/(ASC OR DSC)]</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -350,7 +353,7 @@ Format: <code>sort [n/(ASC/DSC)] [p/(ASC/DSC)] [e/(ASC/DSC)] [a/(ASC/DSC)]</code
 <p>Sort command only accepts one attribute.</p>
 </li>
 <li>
-<p>The list can be sorted by one of the following attribute: name, phone, email, address</p>
+<p>The list can be sorted by one of the following attribute: name, phone, email, address, time added</p>
 </li>
 <li>
 <p>Sorting order depends on the specified choice.</p>
@@ -360,6 +363,12 @@ Format: <code>sort [n/(ASC/DSC)] [p/(ASC/DSC)] [e/(ASC/DSC)] [a/(ASC/DSC)]</code
 </li>
 <li>
 <p>The <code>DSC</code> signifies sorting in descending order.</p>
+</li>
+<li>
+<p>Entering command without any argument will default to name in ascending order</p>
+</li>
+<li>
+<p>Entering command without specifying order will default to ascending order.</p>
 </li>
 </ul>
 </div>
@@ -371,12 +380,16 @@ Format: <code>sort [n/(ASC/DSC)] [p/(ASC/DSC)] [e/(ASC/DSC)] [a/(ASC/DSC)]</code
 <div class="ulist">
 <ul>
 <li>
-<p><code>sort n/ASC</code><br>
-Returns list of persons sorted by names in ascending order</p>
+<p><code>sort</code><br>
+Returns list of persons sorted by name added in ascending order</p>
 </li>
 <li>
-<p><code>sort p/DSC</code><br>
-Returns list of persons sorted by phone in descending order</p>
+<p><code>sort p/ASC</code><br>
+Returns list of persons sorted by phone in ascending order</p>
+</li>
+<li>
+<p><code>sort t/DSC</code><br>
+Returns list of persons sorted by time added in descending order</p>
 </li>
 </ul>
 </div>
@@ -695,21 +708,74 @@ The <code>redo</code> command fails as there are no <code>undo</code> commands e
 </div>
 </div>
 <div class="sect2">
-<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">2.16. Clearing all entries : <code>clear</code></a></h3>
+<h3 id="listing-all-persons-removed-code-bin-list-code-_-coming-in-v2-0"><a class="link" href="#listing-all-persons-removed-code-bin-list-code-_-coming-in-v2-0">2.16. Listing all persons removed: <code>bin-list</code> _[Coming in v2.0]</a></h3>
+<div class="paragraph">
+<p>Shows a list of persons removed from the address book.<br>
+Format: <code>bin-list</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="restoring-person-s-code-bin-restore-code-_-coming-in-v2-0"><a class="link" href="#restoring-person-s-code-bin-restore-code-_-coming-in-v2-0">2.17. Restoring person(s) : <code>bin-restore</code> _[Coming in v2.0]</a></h3>
+<div class="paragraph">
+<p>Restores person(s) from bin.<br>
+Format:'bin-restore INDEX INDEX &#8230;&#8203;'</p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Recovers the people at these given specified <code>INDEX</code>.</p>
+</li>
+<li>
+<p>The index refers to the index number shown in the most recent bin-list.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+<li>
+<p>The index must not be greater than the most recent bin size.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>bin-list</code><br>
+<code>bin-restore 1 2</code><br>
+Restores the 1st and 2nd person in the bin-list.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="clearing-all-contacts-from-bin-code-bin-clear-code-_-coming-in-v2-0"><a class="link" href="#clearing-all-contacts-from-bin-code-bin-clear-code-_-coming-in-v2-0">2.18. Clearing all contacts from bin : <code>bin-clear</code> _[Coming in v2.0]</a></h3>
+<div class="paragraph">
+<p>Clears all entries in the bin.<br>
+Format: <code>clear-bin</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">2.19. Clearing all entries : <code>clear</code></a></h3>
 <div class="paragraph">
 <p>Clears all entries from the address book.<br>
 Format: <code>clear</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">2.17. Exiting the program : <code>exit</code></a></h3>
+<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">2.20. Exiting the program : <code>exit</code></a></h3>
 <div class="paragraph">
 <p>Exits the program.<br>
 Format: <code>exit</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="saving-the-data"><a class="link" href="#saving-the-data">2.18. Saving the data</a></h3>
+<h3 id="saving-the-data"><a class="link" href="#saving-the-data">2.21. Saving the data</a></h3>
 <div class="paragraph">
 <p>Address book data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.</p>
@@ -747,6 +813,10 @@ e.g. <code>delete 3 4</code></p>
 e.g. <code>edit 2 n/James Lee e/jameslee@example.com</code></p>
 </li>
 <li>
+<p><strong>TagAdd</strong> : <code>t-add [TAG] INDEX INDEX&#8230;&#8203;</code><br>
+e.g. <code>t-add friends 3 4</code></p>
+</li>
+<li>
 <p><strong>Find</strong> : <code>find KEYWORD [MORE_KEYWORDS]</code><br>
 e.g. <code>find James Jake</code></p>
 </li>
@@ -780,7 +850,7 @@ e.g.<code>select 2</code></p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-10-17 19:17:54 +00:00
+Last updated 2017-10-18 09:59:04 +00:00
 </div>
 </div>
 </body>
