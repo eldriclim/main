@@ -44,9 +44,11 @@
 </li>
 <li><a href="#implementation">3. Implementation</a>
 <ul class="sectlevel2">
-<li><a href="#undo-redo-mechanism">3.1. Undo/Redo mechanism</a></li>
-<li><a href="#logging">3.2. Logging</a></li>
-<li><a href="#configuration">3.3. Configuration</a></li>
+<li><a href="#enhanced-find-mechanism">3.1. Enhanced Find mechanism</a></li>
+<li><a href="#undo-redo-mechanism">3.2. Undo/Redo mechanism</a></li>
+<li><a href="#logging">3.3. Logging</a></li>
+<li><a href="#adding-a-tag-to-multiple-people">3.4. Adding a tag to multiple people</a></li>
+<li><a href="#configuration">3.5. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a>
@@ -571,7 +573,168 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <p>This section describes some noteworthy details on how certain features are implemented.</p>
 </div>
 <div class="sect2">
-<h3 id="undo-redo-mechanism"><a class="link" href="#undo-redo-mechanism">3.1. Undo/Redo mechanism</a></h3>
+<h3 id="enhanced-find-mechanism"><a class="link" href="#enhanced-find-mechanism">3.1. Enhanced Find mechanism</a></h3>
+<div class="paragraph">
+<p>The enhanced version of find mechanism is facilitated by the <code>AddressBookParser</code>, which resides inside <code>LogicManager</code>. It allows the users to search for person(s) by substrings of multiple different attributes (e.g. <code>Name</code>, <code>Phone</code>, <code>Email</code>, <code>Address</code>), which the case is insensitive for <code>Name</code>, <code>Email</code> and <code>Address</code> attributes.</p>
+</div>
+<div class="paragraph">
+<p>Users can only do searching by <code>Name</code>, <code>Phone</code>, <code>Email</code> or <code>Address</code>. They are not allowed to search by <code>Tag</code>. Instead, they can search for person(s) by tags using <code>t-find</code> command.</p>
+</div>
+<div class="paragraph">
+<p>The following diagram shows the inheritance diagram for commands:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/LogicCommandClassDiagram.png" alt="LogicCommandClassDiagram" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>When the users are using the find command, they are required to provided at least one keyword for any available attribute. Keywords of the same attribute need to be grouped together with a prefix (e.g. <code>n/</code>, <code>p/</code>, <code>e/</code>, <code>a/</code>). In this case, each prefix is allowed to appear at most once.</p>
+</div>
+<div class="paragraph">
+<p>During the implementation, <code>FindCommandParser</code> class splits the keywords of different attributes by searching for the location of the prefixes, and store the keywords into separate ArrayLists. As a <code>NameContainsKeywordsPredicate</code> needs to be passed to <code>FindCommand</code> class, all the keywords from the ArrayLists are added to the predicate in order with each prefix added at front for separation.</p>
+</div>
+<div class="paragraph">
+<p>For example, the parser for name keywords is implemented this way:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="type">int</span> indexOfName = trimmedArgs.indexOf(PREFIX_NAME.getPrefix());
+
+<span class="keyword">if</span> (indexOfName != -<span class="integer">1</span>) {
+    <span class="type">int</span> index = <span class="integer">0</span>;
+    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="integer">0</span>; i &lt; attributeIndexArray.length; i++) {
+        <span class="keyword">if</span> (attributeIndexArray[i] == indexOfName) {
+            index = i;
+            <span class="keyword">break</span>;
+        }
+    }
+    trimmedNames = trimmedArgs.substring(indexOfName + <span class="integer">2</span>, attributeIndexArray[index + <span class="integer">1</span>]).trim();
+}
+
+<span class="predefined-type">List</span>&lt;<span class="predefined-type">String</span>&gt; keyWordsToSearch = <span class="keyword">new</span> <span class="predefined-type">ArrayList</span>&lt;&gt;();
+
+<span class="keyword">if</span> (trimmedNames != <span class="predefined-constant">null</span>) {
+    <span class="predefined-type">String</span><span class="type">[]</span> nameKeywords = trimmedNames.split(<span class="string"><span class="delimiter">&quot;</span><span class="content"> </span><span class="delimiter">&quot;</span></span>);
+    keyWordsToSearch.add(PREFIX_NAME.getPrefix());
+    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="integer">0</span>; i &lt; nameKeywords.length; i++) {
+        keyWordsToSearch.add(nameKeywords[i]);
+    }
+}
+
+NameContainsKeywordsPredicate predicate = <span class="keyword">new</span> NameContainsKeywordsPredicate(keyWordsToSearch);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When the <code>FindCommand</code> class is executing, the keywords are taken out from the predicate and stored into separate ArrayLists again by distinguishing the prefixes stored in front of each type of keywords. The reason we do this twice is because we want to keep the consistency of all the command classes instead of changing the parameter type passed into <code>FindCommand</code> class to a list of ArrayLists. Then the person(s) can be searched separately by different attributes. For each attribute, every keyword is taken out and compared to the corresponding details of all the persons in the list. Once the keyword is matched to any substring of the detail of a person, then the person&#8217;s name will be stored into an ArrayList <code>namesToSearch</code>. After searching all the keywords, a name list with persons with details matching at least one keyword is obtained and passed to <code>updateFilteredPersonList</code> method. Finally, the person list is updated and shown on the user interface.</p>
+</div>
+<div class="paragraph">
+<p>For example, searching for name keywords is implemented this way:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="integer">0</span>; i &lt; model.getAddressBook().getPersonList().size(); i++) {
+    nameList.add(model.getAddressBook().getPersonList().get(i).getName().toString().toLowerCase());
+}
+<span class="keyword">for</span> (<span class="type">int</span> i = <span class="integer">0</span>; i &lt; nameKeywords.size(); i++) {
+    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="integer">0</span>; j &lt; nameList.size(); j++) {
+        <span class="keyword">if</span> (nameList.get(j).contains(nameKeywords.get(i).toLowerCase())) {
+            matchedNames.add(nameList.get(j));
+        }
+    }
+}
+
+<span class="keyword">if</span> (namesMatched != <span class="predefined-constant">null</span>) {
+    namesToSearch.addAll(matchedNames);
+}
+
+NameContainsKeywordsPredicate updatedPredicate = <span class="keyword">new</span> NameContainsKeywordsPredicate(namesToSearch);
+model.updateFilteredPersonList(updatedPredicate);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows how the find command works:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/FindCommandSequenceDiagram.png" alt="FindCommandSequenceDiagram" width="800">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If no argument is provided by users after the command word, an invalid format <code>Exception</code> will be thrown.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If no prefix is found inside the argument, then an invalid format <code>Exception</code> will be thrown.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If some dummy values are found before the first prefix and after the command word, then an invalid format <code>Exception</code> will be thrown.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If no keywords are provided by user after a prefix, then an invalid format <code>Exception</code> will be thrown.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If more than one same prefix is provided by user, then the person list will be searched only by keywords behind the first prefix.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="design-considerations"><a class="link" href="#design-considerations">3.1.1. Design Considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Find person by <code>Address</code> keyword<br>
+<strong>Alternative 1 (current choice):</strong> Find person by a single <code>Address</code> keyword<br>
+<strong>Pros:</strong> We will not need to separate multiple addresses since it is difficult to distinguish.<br>
+<strong>Cons:</strong> It is inconvenient for users to find persons from different locations.<br>
+<strong>Alternative 2:</strong> Separate different addresses by a special character (e.g. <code>;</code> or <code>*</code>)<br>
+<strong>Pros:</strong> Users are able to find person(s) staying at different locations.<br>
+<strong>Cons:</strong> The find command becomes very long. It is hard for users to type the addresses correctly.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="undo-redo-mechanism"><a class="link" href="#undo-redo-mechanism">3.2. Undo/Redo mechanism</a></h3>
 <div class="paragraph">
 <p>The undo/redo mechanism is facilitated by an <code>UndoRedoStack</code>, which resides inside <code>LogicManager</code>. It supports undoing and redoing of commands that modifies the state of the address book (e.g. <code>add</code>, <code>edit</code>). Such commands will inherit from <code>UndoableCommand</code>.</p>
 </div>
@@ -723,7 +886,7 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations"><a class="link" href="#design-considerations">3.1.1. Design Considerations</a></h4>
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">3.2.1. Design Considerations</a></h4>
 <div class="paragraph">
 <p><strong>Aspect:</strong> Implementation of <code>UndoableCommand</code><br>
 <strong>Alternative 1 (current choice):</strong> Add a new abstract method <code>executeUndoableCommand()</code><br>
@@ -767,7 +930,7 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.2. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">3.3. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
@@ -805,7 +968,81 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </div>
 </div>
 <div class="sect2">
-<h3 id="configuration"><a class="link" href="#configuration">3.3. Configuration</a></h3>
+<h3 id="adding-a-tag-to-multiple-people"><a class="link" href="#adding-a-tag-to-multiple-people">3.4. Adding a tag to multiple people</a></h3>
+<div class="paragraph">
+<p>Adding a tag to multiple people is facilitated by <code>TagAddCommand</code>, which extends <code>UndoableCommand</code>, it supports undoing and redoing of commands that modifies the state of the address book.</p>
+</div>
+<div class="paragraph">
+<p>TagAddCommand is implemented in this way:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">TagAddCommand</span> <span class="directive">extends</span> UndoableCommand {
+<span class="annotation">@Override</span>
+    <span class="directive">public</span> CommandResult executeUndoableCommand() <span class="directive">throws</span> CommandException {
+        <span class="comment">// ... TagAddCommand logic ...</span>
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For example, the user input might be <code>t-add college friend 1 2 3</code>.
+After the command word <code>t-add</code> is parsed at the <code>AddresBookParser</code>, the remaining user input(tag to add, indices in the list), in the example <code>college friend 1 2 3</code>, will be passed to and parsed by <code>TagAddCommandParser</code>.
+Different from the previous limitation on the choice of word for <code>tag</code>, which is <code>Alnum</code>, we allow multiple words <code>tagName</code> as well, such as <code>college friend</code>.
+The change of <code>tagName</code> format requires a new algorithm for parsing in the <code>TagAddCommandParser</code>.
+The key is to differentiate between command words and the indices to follow. The parser algorithm would first split the input string into parts by space as delimiter.
+It would then determine whether a part is a word or a number, the parser keeps track of the last recognized word. After processing the entire user input, the parser would treat all parts after the last recognized word as indices and those before it as <code>tagName</code>.
+In this case, as <code>friend</code> is the last part that is not numeric, <code>college friend</code> is treated as <code>tagName</code>; <code>1 2 3</code> is treated as indices.
+The <code>TagAddCommandParser</code> returns <code>TagAddCommand</code> after execution, which will be further processed by <code>logic</code> component.</p>
+</div>
+<div class="paragraph">
+<p>TagAddCommandParser is implemented in this way:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">TagAddCommandParser</span> <span class="directive">implements</span> <span class="predefined-type">Parser</span>&lt;TagAddCommand&gt; {
+
+    <span class="directive">public</span> TagAddCommand parse(<span class="predefined-type">String</span> args) <span class="directive">throws</span> <span class="exception">ParseException</span> {
+        <span class="comment">// ... TagAddCommandParser logic ...</span>
+    }
+}</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.4.1. Design Considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Implementation of adding a tag to person(s) by indices<br>
+<strong>Alternative 1 (current choice):</strong> Add a new Command class <code>TagAddCommand</code><br>
+<strong>Pros:</strong> Having a separate command for adding a tag is consistent with a series of tag related operations we designed to have. We can implements <code>UndoableCommand</code> Abstract Class, so that we have undo/redo functionality<br>
+<strong>Cons:</strong> Have to add in a new Command class and the corresponding parser class<br>
+<strong>Alternative 2:</strong> Rewrite EditCommand class<br>
+<strong>Pros:</strong> We only need to change a small part of code and the undo/redo functionality can be preserved<br>
+<strong>Cons:</strong> The current <code>EditCommand</code> only enables the user to edit one person at a time, which makes adding a tag to multiple contacts tedious.</p>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Implementation of parsing a TagAddCommand<br>
+<strong>Alternative 1 (current choice):</strong> Add a new Parser class <code>TagAddCommandParser</code><br>
+<strong>Pros:</strong> We can design the input format for TagAddCommand and customize the parser<br>
+<strong>Cons:</strong> Have to add in a new Parser class<br>
+<strong>Alternative 2:</strong> Rewrite EditCommandParser class<br>
+<strong>Pros:</strong> We only need to change a small part of code<br>
+<strong>Cons:</strong> User input is restricted by the EditCommand input format.</p>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Whether to accept user input that has partially invalid indices<br>
+<strong>Alternative 1 (current choice):</strong> Do not accept<br>
+<strong>Pros:</strong> Easy to implement<br>
+<strong>Cons:</strong> User have to type in the valid indices again<br>
+<strong>Alternative 2:</strong> Ignore the invalid indices<br>
+<strong>Pros:</strong> It is efficient for the user<br>
+<strong>Cons:</strong> Difficult to implement.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="configuration"><a class="link" href="#configuration">3.5. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
@@ -2359,7 +2596,7 @@ for <code>RemarkCommandParser</code>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-10-18 09:59:04 +00:00
+Last updated 2017-10-20 18:56:59 +00:00
 </div>
 </div>
 </body>
