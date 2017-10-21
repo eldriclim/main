@@ -46,9 +46,11 @@
 <ul class="sectlevel2">
 <li><a href="#enhanced-find-mechanism">3.1. Enhanced Find mechanism</a></li>
 <li><a href="#undo-redo-mechanism">3.2. Undo/Redo mechanism</a></li>
-<li><a href="#logging">3.3. Logging</a></li>
-<li><a href="#adding-a-tag-to-multiple-people">3.4. Adding a tag to multiple people</a></li>
-<li><a href="#configuration">3.5. Configuration</a></li>
+<li><a href="#sorting-mechanism">3.3. Sorting Mechanism</a></li>
+<li><a href="#logging">3.4. Logging</a></li>
+<li><a href="#adding-a-tag-to-multiple-people">3.5. Adding a tag to multiple people</a></li>
+<li><a href="#configuration">3.6. Configuration</a></li>
+<li><a href="#improvements-on-deletecommand">3.7. Improvements on DeleteCommand</a></li>
 </ul>
 </li>
 <li><a href="#documentation">4. Documentation</a>
@@ -930,7 +932,91 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">3.3. Logging</a></h3>
+<h3 id="sorting-mechanism"><a class="link" href="#sorting-mechanism">3.3. Sorting Mechanism</a></h3>
+<div class="paragraph">
+<p>The sorting mechanism is facilitated by <code>SortCommandParser</code> and <code>SortCommand</code>, with both classes residing in the <code>Logic</code> component of the address book. Since the address book state will be modified during the sorting process, the <code>sort</code> has to be undoable.</p>
+</div>
+<div class="paragraph">
+<p><code>SortCommandParser</code> takes in an argument in the form of <code>[PREFIX]/[ORDER]</code> that defines how <code>UniquePersonList</code> should be sorted, with <code>PREFIX</code> specifying the sort type and <code>ORDER</code> specifying the sort order. It first checks for validity against a regular expression. Once verified, the argument will be tokenized to identify the sort order and sort type. A <code>SortCommand</code> object is then created with the identified sort type and sort order.</p>
+</div>
+<div class="paragraph">
+<p>The <code>PREFIX</code> can be any of the following: <code>n/</code> for sorting persons by name, <code>p/</code> for sorting persons by phone number, <code>e/</code> for sorting persons by email, <code>a/</code> for sorting persons by address and <code>t/</code> for sorting persons by the time they was first added into the address book. The <code>ORDER</code> can be either <code>asc</code> for sorting in ascending order or <code>dsc</code> for sorting in descending order. Suppose both <code>PREFIX</code> and <code>ORDER</code> are not specified, the argument will be defaulted to name in ascending order. Alternatively, suppose the <code>ORDER</code> is not specified, it will be defaulted to ascending.</p>
+</div>
+<div class="paragraph">
+<p>Upon execution of <code>SortCommand</code>, a <code>Comparator&lt;ReadOnlyPerson&gt;</code> will be initialised based on the sort type and sort order it receives. A <code>sortPerson</code> function call will be made to <code>Model</code>, which propagates down to <code>UniquePersonList</code>, where the sorting of the <code>internalList</code> occurs. Since sorting of <code>internalList</code> results in the change of state to address book, <code>SortCommand</code> is to be implemented as an <code>UndoableCommand</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/LogicCommandClassDiagram_Sort.png" alt="LogicCommandClassDiagram Sort" width="800">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Implementation of Sorting Mechanism requires both the manipulation of <code>Logic</code> and <code>Model</code> component of address book.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows the flow of operation from the point the address book receives an input to the output of the result.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/SortPersonSdForLogic.png" alt="SortPersonSdForLogic" width="800">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If the list is found to be empty, an <code>EmptyListException</code> will be thrown from <code>UniquePersonList</code>. The command should be terminated without any state change, keeping the redoStack clean of changes.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.3.1. Design Considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Initialising of <code>Comparator&lt;ReadOnlyPerson&gt;</code><br>
+<strong>Alternative 1 (current choice):</strong> Initialise in <code>SortCommand</code><br>
+<strong>Pros:</strong> Clear separation of concerns, <code>SortCommandParser</code> to handle identifying of attribute to sort by only.<br>
+<strong>Cons:</strong> Hard for new developers to follow as other commands like <code>AddCommand</code> handles object creation in its parser.<br>
+<strong>Alternative 2: </strong> Initialise in <code>UniquePersonList</code><br>
+<strong>Pros:</strong> Straightforward as initialises the <code>Comparator</code> where it is used.<br>
+<strong>Cons:</strong> <code>UniquePersonList</code> is at a lower level and should only handle a minimal set of <code>Person</code> related operations, and not logical operations like string matching.<br></p>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Sorting by multiple attribute<br>
+<strong>Alternative 1 (current choice):</strong> Only allows sorting by single attribute<br>
+<strong>Pros:</strong> Fast and arguments to input is straightforward.<br>
+<strong>Cons:</strong> Unable to have fine grain control of how list should appear.<br>
+<strong>Alternative 2:</strong> Allow sorting by multiple attribute<br>
+<strong>Pros:</strong> Enables fine grain control of how list should appear.<br>
+<strong>Cons:</strong> Not necessary as effect is only obvious when contact list is long and has multiple common names. As target audience for iConnect are students, contact list will not be more than few thousand contacts long.<br></p>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Justification for sorting contacts by time added<br>
+<strong>Alternative 1 (current choice):</strong> Allows sorting by time added<br>
+<strong>Pros:</strong> iConnect is design to be an all-in-one scheduling app where it is left open for extended period of time for students to check schedule. Previous implementations required user to exit and relaunch the application for viewing contacts in chronological order again. By allowing sorting by time added, user are also able to toggle to see recently added contacts first.<br>
+<strong>Cons:</strong> Extra attribute has to be added to each user.<br>
+<strong>Alternative 2:</strong> Not implementing sorting by time added<br>
+<strong>Pros:</strong> Can be achieved by restarting app.<br>
+<strong>Cons:</strong> Requires restarting of app which waste time and processing resources when list is long.<br></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="logging"><a class="link" href="#logging">3.4. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
@@ -968,7 +1054,7 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </div>
 </div>
 <div class="sect2">
-<h3 id="adding-a-tag-to-multiple-people"><a class="link" href="#adding-a-tag-to-multiple-people">3.4. Adding a tag to multiple people</a></h3>
+<h3 id="adding-a-tag-to-multiple-people"><a class="link" href="#adding-a-tag-to-multiple-people">3.5. Adding a tag to multiple people</a></h3>
 <div class="paragraph">
 <p>Adding a tag to multiple people is facilitated by <code>TagAddCommand</code>, which extends <code>UndoableCommand</code>, it supports undoing and redoing of commands that modifies the state of the address book.</p>
 </div>
@@ -1009,7 +1095,7 @@ The <code>TagAddCommandParser</code> returns <code>TagAddCommand</code> after ex
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">3.4.1. Design Considerations</a></h4>
+<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">3.5.1. Design Considerations</a></h4>
 <div class="paragraph">
 <p><strong>Aspect:</strong> Implementation of adding a tag to person(s) by indices<br>
 <strong>Alternative 1 (current choice):</strong> Add a new Command class <code>TagAddCommand</code><br>
@@ -1042,9 +1128,97 @@ The <code>TagAddCommandParser</code> returns <code>TagAddCommand</code> after ex
 </div>
 </div>
 <div class="sect2">
-<h3 id="configuration"><a class="link" href="#configuration">3.5. Configuration</a></h3>
+<h3 id="configuration"><a class="link" href="#configuration">3.6. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: <code>config.json</code>).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="improvements-on-deletecommand"><a class="link" href="#improvements-on-deletecommand">3.7. Improvements on DeleteCommand</a></h3>
+<div class="paragraph">
+<p>We have improved the delete command to let it be able to delete by multiple indexes or a name with prefix. The reason why we do this is to improve the efficiency to delete the contacts.The prefix for deleting by name is <code>n/</code>. The prefix for deleting by indexes is <code>I/</code>.</p>
+</div>
+<div class="paragraph">
+<p>The way we implemented this is to change the DeleteCommandParser and DeleteCommand.</p>
+</div>
+<div class="paragraph">
+<p>As for the DeleteCommandParser, we check whether there is the prefix we want in the userInput. Once the prefix is identified, if it is a <code>n/</code>, it will directly return back the parameters to DeleteCommand. If it is a <code>I/</code>, the parameters will be parsed by ParserUtil and return back the results to DeleteCommand.</p>
+</div>
+<div class="paragraph">
+<p>As for the DeleteCommand, it can deal with two kinds of parameters: a list of indexes or a name string. If it is a list of indexes, the DeleteCommand will check whether the indexes are within the size of all persons and assert command failure if there is an illegal index. If it is a name string, the DeleteCommand will assert command failure when there is no such person in the list with name given and when there are multiple persons with the same name given.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If the parameter doesn&#8217;t start with correct prefix, then the command can&#8217;t identify what kind of input it deals with, and a <code>ParseException</code> will be thrown when parsing.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If the parameter contains illegal values or nothing after the prefix, the the command can&#8217;t identify the target person, and a <code>ParseException</code> will be thrown when parsing.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If the parameter is index and it is out of bound of person list, then the command can&#8217;t find the person to delete, and a <code>CommandException</code> will be thrown when processsing.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If the parameter is name and there is no person with such name in the list, then the command can&#8217;t find the person to delete, and a <code>CommandException</code> will be thrown when processsing.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Moreover, if there is more than one person in the list with the name give, then the command don&#8217;t know which one ot delete. It will show all the person with same name in GUI and remind the user to choose one to delete.</p>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">3.7.1. Design Considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect:</strong>  Implementation of <code>DeleteCommandParser</code>+
+<strong>Alternative 1 (current choice):</strong>  Add a prefix after the command word to distinguish between delete by name or indexes.<br>
+<strong>Pros:</strong>  It is more convenient to identify the type of input to deal with.+
+<strong>Cons:</strong>  It is less convenient for users to type in the prefix.<br>
+<strong>Alternative 2:</strong> Use the type of first input word after command word to differentiate.<br>
+<strong>Pros:</strong>  It is more convenient for the users to type.+
+<strong>Cons:</strong> It is harder for the developer to find the type if the users give a name with all numbers to a contact.</p>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Aspect:</strong>  How to deal with multiple persons with same name condition<br>
+<strong>Alternative 1 (current choice):</strong>  Do not delete the persons and show all the persons with the same target name on the list. Remind the user to decide which one to delete.<br>
+<strong>Pros:</strong>  It considers more about the users. Try to ensure the target is the person who the users want to delete.+
+<strong>Cons:</strong>  It cost users more time to delete a person if they don&#8217;t know the index of the target.<br>
+<strong>Alternative 2:</strong> Delete the first person with the name in the list and show it to user.<br>
+<strong>Pros:</strong>  It cost users less time to delete a person if they know the sequence of the persons with the same name.<br>
+<strong>Cons:</strong> It is hard to guarantee the right person is deleted. The user may need to redo to fix it.</p>
+</div>
 </div>
 </div>
 </div>
@@ -2005,6 +2179,12 @@ for <code>RemarkCommandParser</code>.</p>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">lazy user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">delete user by name</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">perform faster deletion without finding the index</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>* * *</code></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">worried user</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">export my contact list to a backup file (separate from data/addressbook.xml)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">restore my contact list in case corruption happens</p></td>
@@ -2596,7 +2776,7 @@ for <code>RemarkCommandParser</code>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-10-20 18:56:59 +00:00
+Last updated 2017-10-21 07:05:57 +00:00
 </div>
 </div>
 </body>
