@@ -27,7 +27,7 @@
 <li><a href="#quick-start">1. Quick Start</a></li>
 <li><a href="#features">2. Features</a>
 <ul class="sectlevel2">
-<li><a href="#viewing-help-code-help-code-code-h-code-em-coming-in-v2-0-em">2.1. Viewing help : <code>help</code> <code>h</code> <em>[Coming in v2.0]</em></a></li>
+<li><a href="#viewing-help-code-help-code-code-h-code-em-since-v1-3-em">2.1. Viewing help : <code>help</code> <code>h</code> <em>[Since v1.3]</em></a></li>
 <li><a href="#adding-a-person-code-add-code-code-create-code-code-put-code-em-since-v1-1-em">2.2. Adding a person: <code>add</code> <code>create</code> <code>put</code> <em>[Since v1.1]</em></a></li>
 <li><a href="#listing-all-persons-code-list-code-code-show-code-code-all-code-em-since-v1-1-em">2.3. Listing all persons : <code>list</code> <code>show</code> <code>all</code> <em>[Since v1.1]</em></a></li>
 <li><a href="#editing-a-person-code-edit-code-code-update-code-code-modify-code-em-since-v1-1-em">2.4. Editing a person : <code>edit</code> <code>update</code> <code>modify</code> <em>[Since v1.1]</em></a></li>
@@ -36,9 +36,9 @@
 <li><a href="#deleting-a-person-code-delete-code-code-remove-code-code-code-em-since-v1-2-em">2.7. Deleting a person : <code>delete</code> <code>remove</code> <code>-</code> <em>[Since v1.2]</em></a></li>
 <li><a href="#adding-a-tag-to-a-person-s-code-t-add-code-em-since-v1-1-em">2.8. Adding a tag to a person(s) : <code>t-add</code> <em>[Since v1.1]</em></a></li>
 <li><a href="#removing-a-tag-to-a-person-s-code-t-remove-code-em-since-v1-2-em">2.9. Removing a tag to a person(s) : <code>t-remove</code> <em>[Since v1.2]</em></a></li>
-<li><a href="#find-the-person-s-with-given-tags-code-t-find-code-em-coming-in-v2-0-em">2.10. Find the person(s) with given tags: <code>t-find</code> <em>[Coming in v2.0]</em></a></li>
-<li><a href="#find-the-location-of-a-person-using-google-map-code-m-show-code-em-coming-in-v2-0-em">2.11. Find the location of a person using Google Map: <code>m-show</code> <em>[Coming in v2.0]</em></a></li>
-<li><a href="#find-the-route-from-user-s-current-location-to-the-person-seleted-code-m-route-code-em-coming-in-v2-0-em">2.12. Find the route from user&#8217;s current location to the person seleted: <code>m-route</code> <em>[Coming in v2.0]</em></a></li>
+<li><a href="#find-the-person-s-with-given-tags-code-t-find-code-em-since-v1-3-em">2.10. Find the person(s) with given tags: <code>t-find</code> <em>[Since v1.3]</em></a></li>
+<li><a href="#find-the-location-of-a-person-using-google-map-code-m-show-code-em-since-v1-3-em">2.11. Find the location of a person using Google Map: <code>m-show</code> <em>[Since v1.3]</em></a></li>
+<li><a href="#find-the-route-from-user-s-current-location-to-the-person-seleted-code-m-route-code-em-since-v1-3-em">2.12. Find the route from user&#8217;s current location to the person seleted: <code>m-route</code> <em>[Since v1.3]</em></a></li>
 <li><a href="#making-a-backup-address-book-code-export-code-em-coming-in-v2-0-em">2.13. Making a backup address book: <code>export</code> <em>[Coming in v2.0]</em></a></li>
 <li><a href="#selecting-a-person-code-select-code-code-choose-code-em-since-v1-1-em">2.14. Selecting a person : <code>select</code> <code>choose</code> <em>[Since v1.1]</em></a></li>
 <li><a href="#listing-entered-commands-code-history-code-code-record-code-em-since-v1-1-em">2.15. Listing entered commands : <code>history</code> <code>record</code> <em>[Since v1.1]</em></a></li>
@@ -149,7 +149,7 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 </div>
 </div>
 <div class="sect2">
-<h3 id="viewing-help-code-help-code-code-h-code-em-coming-in-v2-0-em"><a class="link" href="#viewing-help-code-help-code-code-h-code-em-coming-in-v2-0-em">2.1. Viewing help : <code>help</code> <code>h</code> <em>[Coming in v2.0]</em></a></h3>
+<h3 id="viewing-help-code-help-code-code-h-code-em-since-v1-3-em"><a class="link" href="#viewing-help-code-help-code-code-h-code-em-since-v1-3-em">2.1. Viewing help : <code>help</code> <code>h</code> <em>[Since v1.3]</em></a></h3>
 <div class="paragraph">
 <p>Format: <code>help command</code>
  (or) <code>h command</code></p>
@@ -471,6 +471,9 @@ Format: <code>t-add [TAG] INDEX</code></p>
 <li>
 <p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
 </li>
+<li>
+<p>The [TAG] <strong>must not have its first word as number</strong></p>
+</li>
 </ul>
 </div>
 </div>
@@ -482,7 +485,7 @@ Format: <code>t-add [TAG] INDEX</code></p>
 <ul>
 <li>
 <p><code>list</code><br>
-<code>t-add friends 2 3</code><br>
+<code>t-add 2 3 friends</code><br>
 Adds the tag friends to the 2nd and 3rd person in the address book</p>
 </li>
 </ul>
@@ -492,7 +495,7 @@ Adds the tag friends to the 2nd and 3rd person in the address book</p>
 <h3 id="removing-a-tag-to-a-person-s-code-t-remove-code-em-since-v1-2-em"><a class="link" href="#removing-a-tag-to-a-person-s-code-t-remove-code-em-since-v1-2-em">2.9. Removing a tag to a person(s) : <code>t-remove</code> <em>[Since v1.2]</em></a></h3>
 <div class="paragraph">
 <p>Removes a tag from specified person(s) from the address book.<br>
-Format: <code>t-remove [TAG] INDEX</code></p>
+Format: <code>t-remove INDEX&#8230;&#8203; [TAG]</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -507,6 +510,9 @@ Format: <code>t-remove [TAG] INDEX</code></p>
 <li>
 <p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
 </li>
+<li>
+<p>The [TAG] <strong>must not have its first word as number</strong></p>
+</li>
 </ul>
 </div>
 </div>
@@ -518,16 +524,16 @@ Format: <code>t-remove [TAG] INDEX</code></p>
 <ul>
 <li>
 <p><code>list</code><br>
-<code>t-remove friends 2 3</code><br>
+<code>t-remove 2 3 friends</code><br>
 Removes the tag friends from the 2nd and 3rd person in the address book</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="find-the-person-s-with-given-tags-code-t-find-code-em-coming-in-v2-0-em"><a class="link" href="#find-the-person-s-with-given-tags-code-t-find-code-em-coming-in-v2-0-em">2.10. Find the person(s) with given tags: <code>t-find</code> <em>[Coming in v2.0]</em></a></h3>
+<h3 id="find-the-person-s-with-given-tags-code-t-find-code-em-since-v1-3-em"><a class="link" href="#find-the-person-s-with-given-tags-code-t-find-code-em-since-v1-3-em">2.10. Find the person(s) with given tags: <code>t-find</code> <em>[Since v1.3]</em></a></h3>
 <div class="paragraph">
-<p>Format: <code>t-find TAG TAG..</code></p>
+<p>Format: <code>t-find TAG</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -556,9 +562,9 @@ Shows all the people with tag <code>friend</code> or tag <code>classmate</code><
 </div>
 </div>
 <div class="sect2">
-<h3 id="find-the-location-of-a-person-using-google-map-code-m-show-code-em-coming-in-v2-0-em"><a class="link" href="#find-the-location-of-a-person-using-google-map-code-m-show-code-em-coming-in-v2-0-em">2.11. Find the location of a person using Google Map: <code>m-show</code> <em>[Coming in v2.0]</em></a></h3>
+<h3 id="find-the-location-of-a-person-using-google-map-code-m-show-code-em-since-v1-3-em"><a class="link" href="#find-the-location-of-a-person-using-google-map-code-m-show-code-em-since-v1-3-em">2.11. Find the location of a person using Google Map: <code>m-show</code> <em>[Since v1.3]</em></a></h3>
 <div class="paragraph">
-<p>Format: <code>s-show INDEX</code></p>
+<p>Format: <code>m-show INDEX</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -586,16 +592,16 @@ Shows all the people with tag <code>friend</code> or tag <code>classmate</code><
 <div class="ulist">
 <ul>
 <li>
-<p><code>s-show 1</code><br>
+<p><code>m-show 1</code><br>
 Shows the address of person with index 1 on the google map</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="find-the-route-from-user-s-current-location-to-the-person-seleted-code-m-route-code-em-coming-in-v2-0-em"><a class="link" href="#find-the-route-from-user-s-current-location-to-the-person-seleted-code-m-route-code-em-coming-in-v2-0-em">2.12. Find the route from user&#8217;s current location to the person seleted: <code>m-route</code> <em>[Coming in v2.0]</em></a></h3>
+<h3 id="find-the-route-from-user-s-current-location-to-the-person-seleted-code-m-route-code-em-since-v1-3-em"><a class="link" href="#find-the-route-from-user-s-current-location-to-the-person-seleted-code-m-route-code-em-since-v1-3-em">2.12. Find the route from user&#8217;s current location to the person seleted: <code>m-route</code> <em>[Since v1.3]</em></a></h3>
 <div class="paragraph">
-<p>Format: <code>s-route INDEX ADDRESS</code></p>
+<p>Format: <code>m-route INDEX a/ADDRESS</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -626,11 +632,11 @@ Shows the address of person with index 1 on the google map</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>s-route 1 Clementi Street</code><br>
+<p><code>m-route 1 a/Clementi Street</code><br>
 Shows the route from <code>Clementi Street</code> to the address of person with index number <code>1</code></p>
 </li>
 <li>
-<p><code>s-route 7 John street, block 123, #01-01</code><br>
+<p><code>m-route 7 a/John street, block 123, #01-01</code><br>
 Shows the route from <code>John street, block 123, #01-01</code> to the address of person with index number <code>7</code></p>
 </li>
 </ul>
@@ -899,8 +905,16 @@ e.g. <code>delete 3 4</code></p>
 e.g. <code>edit 2 n/James Lee e/jameslee@example.com</code></p>
 </li>
 <li>
-<p><strong>TagAdd</strong> : <code>t-add [TAG] INDEX INDEX&#8230;&#8203;</code><br>
-e.g. <code>t-add friends 3 4</code></p>
+<p><strong>TagAdd</strong> : <code>t-add INDEX INDEX&#8230;&#8203; [TAG]</code><br>
+e.g. <code>t-add 3 4 friends</code></p>
+</li>
+<li>
+<p><strong>TagFind</strong> : <code>t-find [TAG]</code><br>
+e.g. <code>t-find friends</code></p>
+</li>
+<li>
+<p><strong>TagRemove</strong> : <code>t-remove INDEX INDEX&#8230;&#8203; [TAG]</code><br>
+e.g. <code>t-remove 3 4 friends</code></p>
 </li>
 <li>
 <p><strong>Find</strong> : <code>find KEYWORD [MORE_KEYWORDS]</code><br>
@@ -936,7 +950,7 @@ e.g.<code>select 2</code></p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-10-21 07:05:57 +00:00
+Last updated 2017-10-26 07:43:05 +00:00
 </div>
 </div>
 </body>

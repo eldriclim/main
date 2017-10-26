@@ -1201,19 +1201,19 @@ If the parameter is name and there is no person with such name in the list, then
 <div class="sect3">
 <h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">3.7.1. Design Considerations</a></h4>
 <div class="paragraph">
-<p><strong>Aspect:</strong>  Implementation of <code>DeleteCommandParser</code>+
+<p><strong>Aspect:</strong>  Implementation of <code>DeleteCommandParser</code><br>
 <strong>Alternative 1 (current choice):</strong>  Add a prefix after the command word to distinguish between delete by name or indexes.<br>
-<strong>Pros:</strong>  It is more convenient to identify the type of input to deal with.+
+<strong>Pros:</strong>  It is more convenient to identify the type of input to deal with.<br>
 <strong>Cons:</strong>  It is less convenient for users to type in the prefix.<br>
 <strong>Alternative 2:</strong> Use the type of first input word after command word to differentiate.<br>
-<strong>Pros:</strong>  It is more convenient for the users to type.+
+<strong>Pros:</strong>  It is more convenient for the users to type.<br>
 <strong>Cons:</strong> It is harder for the developer to find the type if the users give a name with all numbers to a contact.</p>
 </div>
 <hr>
 <div class="paragraph">
 <p><strong>Aspect:</strong>  How to deal with multiple persons with same name condition<br>
 <strong>Alternative 1 (current choice):</strong>  Do not delete the persons and show all the persons with the same target name on the list. Remind the user to decide which one to delete.<br>
-<strong>Pros:</strong>  It considers more about the users. Try to ensure the target is the person who the users want to delete.+
+<strong>Pros:</strong>  It considers more about the users. Try to ensure the target is the person who the users want to delete.<br>
 <strong>Cons:</strong>  It cost users more time to delete a person if they don&#8217;t know the index of the target.<br>
 <strong>Alternative 2:</strong> Delete the first person with the name in the list and show it to user.<br>
 <strong>Pros:</strong>  It cost users less time to delete a person if they know the sequence of the persons with the same name.<br>
@@ -2776,7 +2776,7 @@ for <code>RemarkCommandParser</code>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-10-21 07:05:57 +00:00
+Last updated 2017-10-26 07:43:05 +00:00
 </div>
 </div>
 </body>
