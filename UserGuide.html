@@ -40,17 +40,19 @@
 <li><a href="#find-the-person-s-with-given-tags-code-t-find-code-em-since-v1-3-em">3.10. Find the person(s) with given tags: <code>t-find</code> <em>[Since v1.3]</em></a></li>
 <li><a href="#find-the-location-of-a-person-using-google-map-code-m-show-code-em-since-v1-3-em">3.11. Find the location of a person using Google Map: <code>m-show</code> <em>[Since v1.3]</em></a></li>
 <li><a href="#find-the-route-from-user-s-current-location-to-the-person-seleted-code-m-route-code-em-since-v1-3-em">3.12. Find the route from user&#8217;s current location to the person seleted: <code>m-route</code> <em>[Since v1.3]</em></a></li>
-<li><a href="#making-a-backup-address-book-code-export-code-em-coming-in-v2-0-em">3.13. Making a backup address book: <code>export</code> <em>[Coming in v2.0]</em></a></li>
-<li><a href="#selecting-a-person-code-select-code-em-since-v1-1-em">3.14. Selecting a person : <code>select</code> <em>[Since v1.1]</em></a></li>
-<li><a href="#listing-entered-commands-code-history-code-em-since-v1-1-em">3.15. Listing entered commands : <code>history</code> <em>[Since v1.1]</em></a></li>
-<li><a href="#undoing-previous-command-code-undo-code">3.16. Undoing previous command : <code>undo</code></a></li>
-<li><a href="#redoing-the-previously-undone-command-code-redo-code">3.17. Redoing the previously undone command : <code>redo</code></a></li>
-<li><a href="#listing-all-persons-removed-code-bin-list-code-em-coming-in-v2-0-em">3.18. Listing all persons removed: <code>bin-list</code> <em>[Coming in v2.0]</em></a></li>
-<li><a href="#restoring-person-s-code-bin-restore-code-em-coming-in-v2-0-em">3.19. Restoring person(s) : <code>bin-restore</code> <em>[Coming in v2.0]</em></a></li>
-<li><a href="#clearing-all-contacts-from-bin-code-bin-clear-code-em-coming-in-v2-0-em">3.20. Clearing all contacts from bin : <code>bin-clear</code> <em>[Coming in v2.0]</em></a></li>
-<li><a href="#clearing-all-entries-code-clear-code">3.21. Clearing all entries : <code>clear</code></a></li>
-<li><a href="#exiting-the-program-code-exit-code">3.22. Exiting the program : <code>exit</code></a></li>
-<li><a href="#saving-the-data">3.23. Saving the data</a></li>
+<li><a href="#schedule-an-event-s-add-em-since-v1-4-em">3.13. Schedule an Event: s-add <em>[Since v1.4]</em></a></li>
+<li><a href="#cancel-an-event-s-remove-em-since-v1-4-em">3.14. Cancel an Event: s-remove <em>[Since v1.4]</em></a></li>
+<li><a href="#making-a-backup-address-book-code-export-code-em-coming-in-v2-0-em">3.15. Making a backup address book: <code>export</code> <em>[Coming in v2.0]</em></a></li>
+<li><a href="#selecting-a-person-code-select-code-em-since-v1-1-em">3.16. Selecting a person : <code>select</code> <em>[Since v1.1]</em></a></li>
+<li><a href="#listing-entered-commands-code-history-code-em-since-v1-1-em">3.17. Listing entered commands : <code>history</code> <em>[Since v1.1]</em></a></li>
+<li><a href="#undoing-previous-command-code-undo-code">3.18. Undoing previous command : <code>undo</code></a></li>
+<li><a href="#redoing-the-previously-undone-command-code-redo-code">3.19. Redoing the previously undone command : <code>redo</code></a></li>
+<li><a href="#listing-all-persons-removed-code-bin-list-code-em-coming-in-v2-0-em">3.20. Listing all persons removed: <code>bin-list</code> <em>[Coming in v2.0]</em></a></li>
+<li><a href="#restoring-person-s-code-bin-restore-code-em-coming-in-v2-0-em">3.21. Restoring person(s) : <code>bin-restore</code> <em>[Coming in v2.0]</em></a></li>
+<li><a href="#clearing-all-contacts-from-bin-code-bin-clear-code-em-coming-in-v2-0-em">3.22. Clearing all contacts from bin : <code>bin-clear</code> <em>[Coming in v2.0]</em></a></li>
+<li><a href="#clearing-all-entries-code-clear-code">3.23. Clearing all entries : <code>clear</code></a></li>
+<li><a href="#exiting-the-program-code-exit-code">3.24. Exiting the program : <code>exit</code></a></li>
+<li><a href="#saving-the-data">3.25. Saving the data</a></li>
 </ul>
 </li>
 <li><a href="#faq">4. FAQ</a></li>
@@ -92,10 +94,10 @@ This app will not work with earlier versions of Java 8.
 </div>
 </li>
 <li>
-<p>Download the latest <code>addressbook.jar</code> <a href="https://github.com/CS2103AUG2017-W09-B3/main/releases">here</a>.</p>
+<p>Download the latest <code>iConnect.jar</code> <a href="https://github.com/CS2103AUG2017-W09-B3/main/releases">here</a>.</p>
 </li>
 <li>
-<p>Copy the file to the folder you want to use as the home folder for your Address Book.</p>
+<p>Copy the file to the folder you want to use as the home folder for your iConnect.</p>
 </li>
 <li>
 <p>Double-click the file to start the app. The GUI should appear in a few seconds.</p>
@@ -161,29 +163,31 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 </div>
 </div>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+iConnect will be referred to as <strong>address book</strong> in the following documentation.
+</td>
+</tr>
+</table>
+</div>
 <div class="sect2">
 <h3 id="viewing-help-code-help-code-em-since-v1-3-em"><a class="link" href="#viewing-help-code-help-code-em-since-v1-3-em">3.1. Viewing help : <code>help</code> <em>[Since v1.3]</em></a></h3>
 <div class="paragraph">
-<p><em>Alias: `h`</em></p>
+<p><em>Alias:</em> <code>h</code></p>
 </div>
 <div class="paragraph">
-<p>Format: <code>help command</code></p>
+<p>Shows the usage of the given command word.</p>
 </div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Shows the command usage of the given command name.</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>Format: <code>help COMMAND</code></p>
 </div>
-</div>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>Examples:</pre>
-</div>
+<div class="paragraph">
+<p>Examples:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -191,17 +195,23 @@ e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> wil
 <p><code>help list</code><br>
 Shows the usage of command <code>list</code></p>
 </li>
+<li>
+<p><code>help add</code><br>
+Shows the usage of command <code>add</code></p>
+</li>
 </ul>
 </div>
 </div>
 <div class="sect2">
 <h3 id="adding-a-person-code-add-code-em-since-v1-1-em"><a class="link" href="#adding-a-person-code-add-code-em-since-v1-1-em">3.2. Adding a person: <code>add</code> <em>[Since v1.1]</em></a></h3>
 <div class="paragraph">
-<p><em>Alias: <code>create</code> `put`</em></p>
+<p><em>Alias:</em> <code>create</code> <code>put</code></p>
 </div>
 <div class="paragraph">
-<p>Adds a person to the address book.<br>
-Format: <code>add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]&#8230;&#8203;</code></p>
+<p>Stores a person’s contact details to address book records.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]&#8230;&#8203;</code></p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -238,28 +248,32 @@ A person can have any number of tags (including 0)
 <div class="sect2">
 <h3 id="listing-all-persons-code-list-code-em-since-v1-1-em"><a class="link" href="#listing-all-persons-code-list-code-em-since-v1-1-em">3.3. Listing all persons : <code>list</code> <em>[Since v1.1]</em></a></h3>
 <div class="paragraph">
-<p><em>Alias: <code>show</code> `all`</em></p>
+<p><em>Alias:</em> <code>show</code> <code>all</code></p>
 </div>
 <div class="paragraph">
-<p>Shows a list of all persons in the address book.<br>
-Format: <code>list</code></p>
+<p>Shows a list of all persons stored in address book.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>list</code></p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="editing-a-person-code-edit-code-em-since-v1-1-em"><a class="link" href="#editing-a-person-code-edit-code-em-since-v1-1-em">3.4. Editing a person : <code>edit</code> <em>[Since v1.1]</em></a></h3>
 <div class="paragraph">
-<p><em>Alias: <code>update</code> `modify`</em></p>
+<p><em>Alias:</em> <code>update</code> <code>modify</code></p>
 </div>
 <div class="paragraph">
-<p>Edits an existing person in the address book.<br>
-Format: <code>edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]&#8230;&#8203;</code></p>
+<p>Edits an existing person in the address book.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]&#8230;&#8203;</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>Edits the person at the specified <code>INDEX</code>. The index refers to the index number shown in the last person listing. The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+<p>Modifies the person at the specified INDEX. The index refers to the index number shown in the last persons listing. The index must be a positive integer 1, 2, 3, …​</p>
 </li>
 <li>
 <p>At least one of the optional fields must be provided.</p>
@@ -271,7 +285,7 @@ Format: <code>edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]&#8230;
 <p>When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.</p>
 </li>
 <li>
-<p>You can remove all the person&#8217;s tags by typing <code>t/</code> without specifying any tags after it.</p>
+<p>You can remove all the person’s tags by typing t/ without specifying any tags after it.</p>
 </li>
 </ul>
 </div>
@@ -304,36 +318,35 @@ Edits the phone number and email address of the 1st person to be <code>91234567<
 <div class="sect2">
 <h3 id="locating-persons-by-different-attributes-code-find-code-em-since-v1-2-em"><a class="link" href="#locating-persons-by-different-attributes-code-find-code-em-since-v1-2-em">3.5. Locating persons by different attributes: <code>find</code> <em>[Since v1.2]</em></a></h3>
 <div class="paragraph">
-<p><em>Alias: <code>search</code> `get`</em></p>
+<p><em>Alias:</em> <code>search</code> <code>get</code></p>
 </div>
 <div class="paragraph">
-<p>Finds persons whose specified attributes contain any of the given keywords.<br>
-Format: <code>find [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]</code></p>
+<p>Searches for persons whose specified attribute contains any of the given keywords.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>find [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>The search for <code>Name</code> <code>Email</code> <code>Address</code> is case insensitive. e.g <code>hans</code> will match <code>Hans</code>, <code>Clementi Street</code> will match <code>clementi street</code>.</p>
-</li>
-<li>
-<p>The order of the keywords does not matter. e.g. <code>Hans Bo</code> will match <code>Bo Hans</code>.</p>
-</li>
-<li>
-<p>The person can be found by searching any substring of the attibute. e.g. <code>hn</code> will match <code>John</code>, <code>1234</code> will match <code>98123476</code>.</p>
-</li>
-<li>
 <p>A prefix is required before entering a different type of keyword.</p>
 </li>
 <li>
-<p>Each prefix should appear at most once with its keywords grouping behind. e.g. <code>n/alice bob</code>.</p>
+<p>The order of the keywords does not matter. e.g. Hans Bo will match Bo Hans.</p>
 </li>
 <li>
-<p>Searching by multiple keywords of the same type is allowed except for <code>Address</code> type.</p>
+<p>You can find a person by searching for any substring of the attribute. e.g. hn will match John, 1234 will match 98123476.</p>
 </li>
 <li>
-<p>Persons matching at least one keyword will be returned (i.e. <code>OR</code> search). e.g. <code>Hans Bo</code> will return <code>Hans Gruber</code>, <code>Bo Yang</code>.</p>
+<p>All keywords regarding a certain attribute should be put after the prefix. e.g. n/alice bob.</p>
+</li>
+<li>
+<p>You can only search for one address per time for Address type.</p>
+</li>
+<li>
+<p>Persons matching at least one keyword will be returned. e.g. Hans Bo will return Hans Gruber, Bo Yang.</p>
 </li>
 <li>
 <p>At least one of the optional fields must be provided.</p>
@@ -369,8 +382,22 @@ Returns any person having names <code>Betsy</code>, <code>Tim</code>, <code>John
 <div class="sect2">
 <h3 id="sorting-list-of-persons-code-sort-code-em-since-v1-2-em"><a class="link" href="#sorting-list-of-persons-code-sort-code-em-since-v1-2-em">3.6. Sorting list of persons: <code>sort</code> <em>[Since v1.2]</em></a></h3>
 <div class="paragraph">
-<p>Sorts the full list of persons based on the specified attribute.<br>
-Format: <code>sort [n/(ASC OR DSC)]</code></p>
+<p>Sorts the full list of persons based on the specified attribute.<br></p>
+</div>
+<div class="paragraph">
+<p>Format: <code>sort [n/(ASC OR DSC)]</code></p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+The list can be sorted by one of the following attribute: name, phone, email, address, time added.
+</td>
+</tr>
+</table>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -424,11 +451,13 @@ Returns list of persons sorted by time added in descending order</p>
 <div class="sect2">
 <h3 id="deleting-a-person-code-delete-code-em-since-v1-2-em"><a class="link" href="#deleting-a-person-code-delete-code-em-since-v1-2-em">3.7. Deleting a person : <code>delete</code> <em>[Since v1.2]</em></a></h3>
 <div class="paragraph">
-<p><em>Alias: <code>remove</code> `-`</em></p>
+<p><em>Alias:</em> <code>remove</code> <code>-</code></p>
 </div>
 <div class="paragraph">
-<p>Deletes a group of people from the address book.<br>
-Format:`delete I/INDEX INDEX &#8230;&#8203;` (or) <code>delete n/Name</code></p>
+<p>Deletes a group of people from the address book.</p>
+</div>
+<div class="paragraph">
+<p>Format:`delete I/INDEX INDEX &#8230;&#8203;` (or) <code>delete n/Name</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -484,8 +513,10 @@ Deletes the 1st person in the results of the <code>find</code> command</p>
 <div class="sect2">
 <h3 id="adding-a-tag-to-a-person-s-code-t-add-code-em-since-v1-1-em"><a class="link" href="#adding-a-tag-to-a-person-s-code-t-add-code-em-since-v1-1-em">3.8. Adding a tag to a person(s) : <code>t-add</code> <em>[Since v1.1]</em></a></h3>
 <div class="paragraph">
-<p>Adds tag to specified person(s) from the address book.<br>
-Format: <code>t-add [TAG] INDEX</code></p>
+<p>Adds tag to specified person(s) from the address book.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>t-add TAG INDEX</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -523,8 +554,10 @@ Adds the tag friends to the 2nd and 3rd person in the address book</p>
 <div class="sect2">
 <h3 id="removing-a-tag-to-a-person-s-code-t-remove-code-em-since-v1-2-em"><a class="link" href="#removing-a-tag-to-a-person-s-code-t-remove-code-em-since-v1-2-em">3.9. Removing a tag to a person(s) : <code>t-remove</code> <em>[Since v1.2]</em></a></h3>
 <div class="paragraph">
-<p>Removes a tag from specified person(s) from the address book.<br>
-Format: <code>t-remove INDEX&#8230;&#8203; [TAG]</code></p>
+<p>Removes a tag from specified person(s) from the address book.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>t-remove INDEX&#8230;&#8203; TAG</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -562,6 +595,9 @@ Removes the tag friends from the 2nd and 3rd person in the address book</p>
 <div class="sect2">
 <h3 id="find-the-person-s-with-given-tags-code-t-find-code-em-since-v1-3-em"><a class="link" href="#find-the-person-s-with-given-tags-code-t-find-code-em-since-v1-3-em">3.10. Find the person(s) with given tags: <code>t-find</code> <em>[Since v1.3]</em></a></h3>
 <div class="paragraph">
+<p>Finds all persons with the given tag.</p>
+</div>
+<div class="paragraph">
 <p>Format: <code>t-find TAG</code></p>
 </div>
 <div class="sidebarblock">
@@ -592,6 +628,9 @@ Shows all the people with tag <code>friend</code> or tag <code>classmate</code><
 </div>
 <div class="sect2">
 <h3 id="find-the-location-of-a-person-using-google-map-code-m-show-code-em-since-v1-3-em"><a class="link" href="#find-the-location-of-a-person-using-google-map-code-m-show-code-em-since-v1-3-em">3.11. Find the location of a person using Google Map: <code>m-show</code> <em>[Since v1.3]</em></a></h3>
+<div class="paragraph">
+<p>Finds the location of a person as specified in the contact address in Google Map.</p>
+</div>
 <div class="paragraph">
 <p>Format: <code>m-show INDEX</code></p>
 </div>
@@ -629,6 +668,9 @@ Shows the address of person with index 1 on the google map</p>
 </div>
 <div class="sect2">
 <h3 id="find-the-route-from-user-s-current-location-to-the-person-seleted-code-m-route-code-em-since-v1-3-em"><a class="link" href="#find-the-route-from-user-s-current-location-to-the-person-seleted-code-m-route-code-em-since-v1-3-em">3.12. Find the route from user&#8217;s current location to the person seleted: <code>m-route</code> <em>[Since v1.3]</em></a></h3>
+<div class="paragraph">
+<p>Gets the shortest path from the location provided to the address of the selected person in Google map.</p>
+</div>
 <div class="paragraph">
 <p>Format: <code>m-route INDEX a/ADDRESS</code></p>
 </div>
@@ -672,7 +714,122 @@ Shows the route from <code>John street, block 123, #01-01</code> to the address 
 </div>
 </div>
 <div class="sect2">
-<h3 id="making-a-backup-address-book-code-export-code-em-coming-in-v2-0-em"><a class="link" href="#making-a-backup-address-book-code-export-code-em-coming-in-v2-0-em">3.13. Making a backup address book: <code>export</code> <em>[Coming in v2.0]</em></a></h3>
+<h3 id="schedule-an-event-s-add-em-since-v1-4-em"><a class="link" href="#schedule-an-event-s-add-em-since-v1-4-em">3.13. Schedule an Event: s-add <em>[Since v1.4]</em></a></h3>
+<div class="paragraph">
+<p>Adds an event, along with the members involved, into the calendar.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>s-add [m/INDEX INDEX…] n/NAME t/TIME d/DURATION</code></p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+It is possible to create an event without any members.
+</td>
+</tr>
+</table>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Creates an event with the given event name, event time and duration.</p>
+</li>
+<li>
+<p>Members added will be reflected in the event list panel.</p>
+</li>
+<li>
+<p>The index must be a positive integer 1, 2, 3, &#8230;&#8203;</p>
+</li>
+<li>
+<p>TIME will be added in the following format: yyyy-MM-dd HH:mm</p>
+</li>
+<li>
+<p>Duration must be a positive integer and is in minutes.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>s-add m/1 2 3 n/iConnect Conference t/2017-12-04 08:45 d/120</code><br>
+Adds a two-hour long event called ‘iConnect Conference’ on 4th of December 2017 at 8:45AM ,with the specified person at index 1, 2 and 3 into the addressbook calendar.</p>
+</li>
+<li>
+<p><code>s-add n/Exam Date t/2017-12-04 14:30 d/120</code><br>
+Adds a two-hour long event called ‘Exam Date’ on 4th of December 2017 at 2:30PM into the addressbook calendar.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="cancel-an-event-s-remove-em-since-v1-4-em"><a class="link" href="#cancel-an-event-s-remove-em-since-v1-4-em">3.14. Cancel an Event: s-remove <em>[Since v1.4]</em></a></h3>
+<div class="paragraph">
+<p>Removes an event from the calendar.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>s-remove e/INDEX INDEX&#8230;&#8203;</code></p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+It is possible to remove multiple events with a single command.
+</td>
+</tr>
+</table>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>INDEX is referring to the index of an event in the event list panel</p>
+</li>
+<li>
+<p>The index must be a positive integer 1, 2, 3, &#8230;&#8203;</p>
+</li>
+<li>
+<p>Person details will be updated each time a deletion of event is made.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>s-remove 1</code><br>
+Removes a single event with the index 1.</p>
+</li>
+<li>
+<p><code>s-remove 1 2 3</code><br>
+Removes 3 events with the index 1, 2 and 3.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="making-a-backup-address-book-code-export-code-em-coming-in-v2-0-em"><a class="link" href="#making-a-backup-address-book-code-export-code-em-coming-in-v2-0-em">3.15. Making a backup address book: <code>export</code> <em>[Coming in v2.0]</em></a></h3>
+<div class="paragraph">
+<p>Backup your contact details to the given path.</p>
+</div>
 <div class="paragraph">
 <p>Format: <code>export PATH</code></p>
 </div>
@@ -689,13 +846,15 @@ Shows the route from <code>John street, block 123, #01-01</code> to the address 
 </div>
 </div>
 <div class="sect2">
-<h3 id="selecting-a-person-code-select-code-em-since-v1-1-em"><a class="link" href="#selecting-a-person-code-select-code-em-since-v1-1-em">3.14. Selecting a person : <code>select</code> <em>[Since v1.1]</em></a></h3>
+<h3 id="selecting-a-person-code-select-code-em-since-v1-1-em"><a class="link" href="#selecting-a-person-code-select-code-em-since-v1-1-em">3.16. Selecting a person : <code>select</code> <em>[Since v1.1]</em></a></h3>
 <div class="paragraph">
-<p><em>Alias: `choose`</em></p>
+<p><em>Alias:</em> <code>choose</code></p>
 </div>
 <div class="paragraph">
-<p>Selects the person identified by the index number used in the last person listing.<br>
-Format: <code>select INDEX</code></p>
+<p>Selects the person identified by the index number used in the last person listing.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>select INDEX</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -733,13 +892,15 @@ Selects the 1st person in the results of the <code>find</code> command</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="listing-entered-commands-code-history-code-em-since-v1-1-em"><a class="link" href="#listing-entered-commands-code-history-code-em-since-v1-1-em">3.15. Listing entered commands : <code>history</code> <em>[Since v1.1]</em></a></h3>
+<h3 id="listing-entered-commands-code-history-code-em-since-v1-1-em"><a class="link" href="#listing-entered-commands-code-history-code-em-since-v1-1-em">3.17. Listing entered commands : <code>history</code> <em>[Since v1.1]</em></a></h3>
 <div class="paragraph">
-<p><em>Alias: `record`</em></p>
+<p><em>Alias:</em> <code>record</code></p>
 </div>
 <div class="paragraph">
-<p>Lists all the commands that you have entered in reverse chronological order.<br>
-Format: <code>history</code> or <code>record</code></p>
+<p>Lists all the commands that you have entered in reverse chronological order.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>history</code> or <code>record</code></p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -757,10 +918,12 @@ Format: <code>history</code> or <code>record</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">3.16. Undoing previous command : <code>undo</code></a></h3>
+<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">3.18. Undoing previous command : <code>undo</code></a></h3>
 <div class="paragraph">
-<p>Restores the address book to the state before the previous <em>undoable</em> command was executed.<br>
-Format: <code>undo</code></p>
+<p>Restores the address book to the state before the previous <em>undoable</em> command was executed.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>undo</code></p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -802,10 +965,12 @@ The <code>undo</code> command fails as there are no undoable commands executed p
 </div>
 </div>
 <div class="sect2">
-<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">3.17. Redoing the previously undone command : <code>redo</code></a></h3>
+<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">3.19. Redoing the previously undone command : <code>redo</code></a></h3>
 <div class="paragraph">
-<p>Reverses the most recent <code>undo</code> command.<br>
-Format: <code>redo</code></p>
+<p>Reverses the most recent <code>undo</code> command.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>redo</code></p>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -834,17 +999,21 @@ The <code>redo</code> command fails as there are no <code>undo</code> commands e
 </div>
 </div>
 <div class="sect2">
-<h3 id="listing-all-persons-removed-code-bin-list-code-em-coming-in-v2-0-em"><a class="link" href="#listing-all-persons-removed-code-bin-list-code-em-coming-in-v2-0-em">3.18. Listing all persons removed: <code>bin-list</code> <em>[Coming in v2.0]</em></a></h3>
+<h3 id="listing-all-persons-removed-code-bin-list-code-em-coming-in-v2-0-em"><a class="link" href="#listing-all-persons-removed-code-bin-list-code-em-coming-in-v2-0-em">3.20. Listing all persons removed: <code>bin-list</code> <em>[Coming in v2.0]</em></a></h3>
 <div class="paragraph">
-<p>Shows a list of persons removed from the address book.<br>
-Format: <code>bin-list</code></p>
+<p>Shows a list of persons removed from the address book.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>bin-list</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="restoring-person-s-code-bin-restore-code-em-coming-in-v2-0-em"><a class="link" href="#restoring-person-s-code-bin-restore-code-em-coming-in-v2-0-em">3.19. Restoring person(s) : <code>bin-restore</code> <em>[Coming in v2.0]</em></a></h3>
+<h3 id="restoring-person-s-code-bin-restore-code-em-coming-in-v2-0-em"><a class="link" href="#restoring-person-s-code-bin-restore-code-em-coming-in-v2-0-em">3.21. Restoring person(s) : <code>bin-restore</code> <em>[Coming in v2.0]</em></a></h3>
 <div class="paragraph">
-<p>Restores person(s) from bin.<br>
-Format:`bin-restore INDEX INDEX &#8230;&#8203;`</p>
+<p>Restores person(s) from bin.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>bin-restore INDEX INDEX &#8230;&#8203;</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -880,28 +1049,34 @@ Restores the 1st and 2nd person in the bin-list</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="clearing-all-contacts-from-bin-code-bin-clear-code-em-coming-in-v2-0-em"><a class="link" href="#clearing-all-contacts-from-bin-code-bin-clear-code-em-coming-in-v2-0-em">3.20. Clearing all contacts from bin : <code>bin-clear</code> <em>[Coming in v2.0]</em></a></h3>
+<h3 id="clearing-all-contacts-from-bin-code-bin-clear-code-em-coming-in-v2-0-em"><a class="link" href="#clearing-all-contacts-from-bin-code-bin-clear-code-em-coming-in-v2-0-em">3.22. Clearing all contacts from bin : <code>bin-clear</code> <em>[Coming in v2.0]</em></a></h3>
 <div class="paragraph">
-<p>Clears all entries in the bin.<br>
-Format: <code>clear-bin</code></p>
+<p>Clears all entries in the bin.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>clear-bin</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">3.21. Clearing all entries : <code>clear</code></a></h3>
+<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">3.23. Clearing all entries : <code>clear</code></a></h3>
 <div class="paragraph">
-<p>Clears all entries from the address book.<br>
-Format: <code>clear</code></p>
+<p>Clears all entries from the address book.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>clear</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">3.22. Exiting the program : <code>exit</code></a></h3>
+<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">3.24. Exiting the program : <code>exit</code></a></h3>
 <div class="paragraph">
-<p>Exits the program.<br>
-Format: <code>exit</code></p>
+<p>Exits the program.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>exit</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="saving-the-data"><a class="link" href="#saving-the-data">3.23. Saving the data</a></h3>
+<h3 id="saving-the-data"><a class="link" href="#saving-the-data">3.25. Saving the data</a></h3>
 <div class="paragraph">
 <p>Address book data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.</p>
@@ -975,6 +1150,14 @@ e.g. <code>m-show 1</code></p>
 e.g. <code>m-show 1 a/NUS</code></p>
 </li>
 <li>
+<p><strong>ScheduleAdd</strong> : <code>s-add [m/INDEX INDEX…] n/NAME t/TIME d/DURATION</code><br>
+e.g. <code>s-add m/1 2 3 n/iConnect Conference t/2017-12-04 08:45 d/120</code></p>
+</li>
+<li>
+<p><strong>ScheduleRemove</strong> : <code>s-remove e/INDEX INDEX&#8230;&#8203;</code><br>
+e.g. <code>s-remove e/1 2 3</code></p>
+</li>
+<li>
 <p><strong>Export</strong> : <code>export PATH</code><br>
 e.g. <code>export /desktop/new_folder</code></p>
 </li>
@@ -1014,7 +1197,7 @@ e.g. <code>bin-restore 1 2</code></p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-10-27 06:15:38 +00:00
+Last updated 2017-10-27 09:45:29 +00:00
 </div>
 </div>
 </body>
