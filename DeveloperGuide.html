@@ -84,8 +84,8 @@
 </li>
 <li><a href="#user-stories">Appendix B: User Stories</a></li>
 <li><a href="#use-cases">Appendix C: Use Cases</a></li>
-<li><a href="#non-functional-requirements">8. Non Functional Requirements</a></li>
-<li><a href="#glossary">Appendix D: Glossary</a></li>
+<li><a href="#non-functional-requirements">Appendix D: Non Functional Requirements</a></li>
+<li><a href="#glossary">Appendix E: Glossary</a></li>
 </ul>
 </div>
 </div>
@@ -1042,13 +1042,13 @@ If the list is found to be empty, an <code>EmptyListException</code> will be thr
 </div>
 </div>
 <div class="paragraph">
-<p>For example, the user input might be <code>t-add college friend 1 2 3</code>.
-After the command word <code>t-add</code> is parsed at the <code>AddresBookParser</code>, the remaining user input(tag to add, indices in the list), in the example <code>college friend 1 2 3</code>, will be passed to and parsed by <code>TagAddCommandParser</code>.
+<p>For example, the user input might be <code>t-add 1 2 3 college friend</code>.<br>
+After the command word <code>t-add</code> is parsed at the <code>AddresBookParser</code>, the remaining user input(indices in the list, tag to add), in the example <code>t-add 1 2 3 college friend</code>, will be passed to and parsed by <code>TagAddCommandParser</code>.
 Different from the previous limitation on the choice of word for <code>tag</code>, which is <code>Alnum</code>, we allow multiple words <code>tagName</code> as well, such as <code>college friend</code>.
 The change of <code>tagName</code> format requires a new algorithm for parsing in the <code>TagAddCommandParser</code>.
-The key is to differentiate between command words and the indices to follow. The parser algorithm would first split the input string into parts by space as delimiter.
-It would then determine whether a part is a word or a number, the parser keeps track of the last recognized word. After processing the entire user input, the parser would treat all parts after the last recognized word as indices and those before it as <code>tagName</code>.
-In this case, as <code>friend</code> is the last part that is not numeric, <code>college friend</code> is treated as <code>tagName</code>; <code>1 2 3</code> is treated as indices.
+The key is to differentiate between indices and tagName. The parser algorithm would first split the input string into parts by space as delimiter.<br>
+It would then determine whether a part is a word or a number, the parser keeps track of the last recognized number. After processing the entire user input, the parser would treat all parts after the last recognized number as indices and those after it as <code>tagName</code>.
+In this case, as <code>3</code> is the last part that is numeric, <code>1 2 3</code> is treated as indices and <code>college friend</code> is treated as <code>tagName</code>.<br>
 The <code>TagAddCommandParser</code> returns <code>TagAddCommand</code> after execution, which will be further processed by <code>logic</code> component.</p>
 </div>
 <div class="paragraph">
@@ -2661,7 +2661,7 @@ for <code>RemarkCommandParser</code>.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="non-functional-requirements"><a class="link" href="#non-functional-requirements">8. Non Functional Requirements</a></h2>
+<h2 id="non-functional-requirements"><a class="link" href="#non-functional-requirements">Appendix D: Non Functional Requirements</a></h2>
 <div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
@@ -2700,7 +2700,7 @@ for <code>RemarkCommandParser</code>.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="glossary"><a class="link" href="#glossary">Appendix D: Glossary</a></h2>
+<h2 id="glossary"><a class="link" href="#glossary">Appendix E: Glossary</a></h2>
 <div class="sectionbody">
 <div id="mainstream-os" class="paragraph">
 <p>Mainstream OS</p>
@@ -2716,6 +2716,22 @@ for <code>RemarkCommandParser</code>.</p>
 <div class="literalblock">
 <div class="content">
 <pre>A contact detail that is not meant to be shared with others</pre>
+</div>
+</div>
+<div id="Alnum" class="paragraph">
+<p>Alnum</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>A regular expression that matches all numbers and letters</pre>
+</div>
+</div>
+<div id="tagName" class="paragraph">
+<p>tagName</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>Name of a tag</pre>
 </div>
 </div>
 <div id="index" class="paragraph">
@@ -2747,7 +2763,7 @@ for <code>RemarkCommandParser</code>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-10-27 09:45:29 +00:00
+Last updated 2017-11-07 06:40:14 +00:00
 </div>
 </div>
 </body>
