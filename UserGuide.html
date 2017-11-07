@@ -44,17 +44,20 @@
 <li><a href="#find-the-route-from-user-s-current-location-to-the-person-seleted-code-m-route-code-em-since-v1-3-em">3.14. Find the route from user&#8217;s current location to the person seleted: <code>m-route</code> <em>[Since v1.3]</em></a></li>
 <li><a href="#schedule-an-event-s-add-em-since-v1-4-em">3.15. Schedule an Event: s-add <em>[Since v1.4]</em></a></li>
 <li><a href="#cancel-an-event-s-remove-em-since-v1-4-em">3.16. Cancel an Event: s-remove <em>[Since v1.4]</em></a></li>
-<li><a href="#making-a-backup-address-book-code-export-code-em-coming-in-v1-4-em">3.17. Making a backup address book: <code>export</code> <em>[Coming in v1.4]</em></a></li>
-<li><a href="#selecting-a-person-code-select-code-em-since-v1-1-em">3.18. Selecting a person : <code>select</code> <em>[Since v1.1]</em></a></li>
-<li><a href="#listing-entered-commands-code-history-code-em-since-v1-1-em">3.19. Listing entered commands : <code>history</code> <em>[Since v1.1]</em></a></li>
-<li><a href="#undoing-previous-command-code-undo-code">3.20. Undoing previous command : <code>undo</code></a></li>
-<li><a href="#redoing-the-previously-undone-command-code-redo-code">3.21. Redoing the previously undone command : <code>redo</code></a></li>
-<li><a href="#listing-all-persons-removed-code-bin-list-code-em-coming-in-v2-0-em">3.22. Listing all persons removed: <code>bin-list</code> <em>[Coming in v2.0]</em></a></li>
-<li><a href="#restoring-person-s-code-bin-restore-code-em-coming-in-v2-0-em">3.23. Restoring person(s) : <code>bin-restore</code> <em>[Coming in v2.0]</em></a></li>
-<li><a href="#clearing-all-contacts-from-bin-code-bin-clear-code-em-coming-in-v2-0-em">3.24. Clearing all contacts from bin : <code>bin-clear</code> <em>[Coming in v2.0]</em></a></li>
-<li><a href="#clearing-all-entries-code-clear-code">3.25. Clearing all entries : <code>clear</code></a></li>
-<li><a href="#exiting-the-program-code-exit-code">3.26. Exiting the program : <code>exit</code></a></li>
-<li><a href="#saving-the-data">3.27. Saving the data</a></li>
+<li><a href="#selecting-a-person-code-select-code-em-since-v1-1-em">3.17. Selecting a person : <code>select</code> <em>[Since v1.1]</em></a></li>
+<li><a href="#listing-entered-commands-code-history-code-em-since-v1-1-em">3.18. Listing entered commands : <code>history</code> <em>[Since v1.1]</em></a></li>
+<li><a href="#undoing-previous-command-code-undo-code">3.19. Undoing previous command : <code>undo</code></a></li>
+<li><a href="#redoing-the-previously-undone-command-code-redo-code">3.20. Redoing the previously undone command : <code>redo</code></a></li>
+<li><a href="#restoring-person-s-code-bin-restore-code-em-since-v1-5-em">3.21. Restoring person(s) : <code>bin-restore</code> <em>[Since v1.5]</em></a></li>
+<li><a href="#restoring-person-s-code-bin-delete-code-em-since-v1-5-em">3.22. Restoring person(s) : <code>bin-delete</code> <em>[Since v1.5]</em></a></li>
+<li><a href="#clearing-all-contacts-from-bin-code-bin-clear-code-em-since-v1-5-em">3.23. Clearing all contacts from bin : <code>bin-clear</code> <em>[Since v1.5]</em></a></li>
+<li><a href="#adding-the-birthday-to-a-person-code-b-add-code-em-since-v1-4-em">3.24. Adding the birthday to a person : <code>b-add</code> <em>[Since v1.4]</em></a></li>
+<li><a href="#removing-the-birthday-from-a-person-code-b-remove-code-em-since-v1-5-em">3.25. Removing the birthday from a person : <code>b-remove</code> <em>[Since v1.5]</em></a></li>
+<li><a href="#adding-a-social-media-url-to-a-person-code-l-add-code-em-coming-in-v2-0-em">3.26. Adding a social media URL to a person: <code>l-add</code> <em>[Coming in v2.0]</em></a></li>
+<li><a href="#launching-shell-version-code-shell-code-em-coming-in-v2-0-em">3.27. Launching shell version : <code>shell</code> <em>[Coming in v2.0]</em></a></li>
+<li><a href="#clearing-all-entries-code-clear-code">3.28. Clearing all entries : <code>clear</code></a></li>
+<li><a href="#exiting-the-program-code-exit-code">3.29. Exiting the program : <code>exit</code></a></li>
+<li><a href="#saving-the-data">3.30. Saving the data</a></li>
 </ul>
 </li>
 <li><a href="#faq">4. FAQ</a></li>
@@ -180,10 +183,13 @@ iConnect will be referred to as <strong>address book</strong> in the following d
 <div class="sect2">
 <h3 id="viewing-help-code-help-code-em-since-v1-3-em"><a class="link" href="#viewing-help-code-help-code-em-since-v1-3-em">3.1. Viewing help : <code>help</code> <em>[Since v1.3]</em></a></h3>
 <div class="paragraph">
+<p>If you don&#8217;t know how to use some commands, don&#8217;t worry, help command can guide you.</p>
+</div>
+<div class="paragraph">
 <p><em>Alias:</em> <code>h</code></p>
 </div>
 <div class="paragraph">
-<p>Shows the usage of the given command word.</p>
+<p>You can look up the usage of the given command word using help command.</p>
 </div>
 <div class="paragraph">
 <p>Format: <code>help COMMAND</code></p>
@@ -323,7 +329,7 @@ Edits the phone number and email address of the 1st person to be <code>91234567<
 <p><em>Alias:</em> <code>search</code> <code>get</code></p>
 </div>
 <div class="paragraph">
-<p>Searches for persons whose specified attribute contains any of the given keywords.</p>
+<p>Sometimes you might not remember the full name of a person. Perhaps you only know the phone number or home address of the person. But don&#8217;t worry! By using this command, you are able to search for your contacts by some other informations such as phone number, email and home address. Even if you cannot remember the full name of your friend, you can still easily find him by his partial name!</p>
 </div>
 <div class="paragraph">
 <p>Format: <code>find [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]</code></p>
@@ -453,10 +459,13 @@ Returns list of persons sorted by time added in descending order</p>
 <div class="sect2">
 <h3 id="deleting-a-person-code-delete-code-em-since-v1-2-em"><a class="link" href="#deleting-a-person-code-delete-code-em-since-v1-2-em">3.7. Deleting a person : <code>delete</code> <em>[Since v1.2]</em></a></h3>
 <div class="paragraph">
+<p>If you want to keep your person list clean, just using delete command to remove some people to bin.</p>
+</div>
+<div class="paragraph">
 <p><em>Alias:</em> <code>remove</code> <code>-</code></p>
 </div>
 <div class="paragraph">
-<p>Deletes a group of people from the address book.</p>
+<p>You can delete a group of people from the address book.</p>
 </div>
 <div class="paragraph">
 <p>Format:`delete I/INDEX INDEX &#8230;&#8203;` (or) <code>delete n/Name</code></p>
@@ -722,7 +731,7 @@ Shows all the people with tag <code>friend</code> or tag <code>classmate</code><
 <div class="sect2">
 <h3 id="find-the-location-of-a-person-using-google-map-code-m-show-code-em-since-v1-3-em"><a class="link" href="#find-the-location-of-a-person-using-google-map-code-m-show-code-em-since-v1-3-em">3.13. Find the location of a person using Google Map: <code>m-show</code> <em>[Since v1.3]</em></a></h3>
 <div class="paragraph">
-<p>Finds the location of a person as specified in the contact address in Google Map.</p>
+<p>You might find it not very convenient to only show the contact&#8217;s location as text. Therefore, iConnect allows you to see the location! By using this command, without typing in the person&#8217;s address, you can easily find the location of your friend in Google Map, which will show in the centre browser.</p>
 </div>
 <div class="paragraph">
 <p>Format: <code>m-show INDEX</code></p>
@@ -762,7 +771,7 @@ Shows the address of person with index 1 on the google map</p>
 <div class="sect2">
 <h3 id="find-the-route-from-user-s-current-location-to-the-person-seleted-code-m-route-code-em-since-v1-3-em"><a class="link" href="#find-the-route-from-user-s-current-location-to-the-person-seleted-code-m-route-code-em-since-v1-3-em">3.14. Find the route from user&#8217;s current location to the person seleted: <code>m-route</code> <em>[Since v1.3]</em></a></h3>
 <div class="paragraph">
-<p>Gets the shortest path from the location provided to the address of the selected person in Google map.</p>
+<p>Not only can iConnect show the location, it can also show you how to go there! Simply by adding your current location, it will show you the shortest path from your current address to your friend&#8217;s home in the Google map.</p>
 </div>
 <div class="paragraph">
 <p>Format: <code>m-route INDEX a/ADDRESS</code></p>
@@ -913,15 +922,16 @@ Removes a single event with the index 1.</p>
 </li>
 <li>
 <p><code>s-remove 1 2 3</code><br>
-Removes 3 events with the index 1, 2 and 3.</p>
+Removes 3 events with the index 1, 2 and 3.
+=== Making a backup address book: <code>export</code> <em>[Coming in v1.4]</em></p>
 </li>
 </ul>
 </div>
-</div>
-<div class="sect2">
-<h3 id="making-a-backup-address-book-code-export-code-em-coming-in-v1-4-em"><a class="link" href="#making-a-backup-address-book-code-export-code-em-coming-in-v1-4-em">3.17. Making a backup address book: <code>export</code> <em>[Coming in v1.4]</em></a></h3>
 <div class="paragraph">
-<p>Backup your contact details to the given path.</p>
+<p>If you want to keep your address book clean and worry about how to get the contacts back, just export the information.</p>
+</div>
+<div class="paragraph">
+<p>You can keep a backup of your contact details to the given path.</p>
 </div>
 <div class="paragraph">
 <p>Format: <code>export PATH</code></p>
@@ -939,7 +949,7 @@ Removes 3 events with the index 1, 2 and 3.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="selecting-a-person-code-select-code-em-since-v1-1-em"><a class="link" href="#selecting-a-person-code-select-code-em-since-v1-1-em">3.18. Selecting a person : <code>select</code> <em>[Since v1.1]</em></a></h3>
+<h3 id="selecting-a-person-code-select-code-em-since-v1-1-em"><a class="link" href="#selecting-a-person-code-select-code-em-since-v1-1-em">3.17. Selecting a person : <code>select</code> <em>[Since v1.1]</em></a></h3>
 <div class="paragraph">
 <p><em>Alias:</em> <code>choose</code></p>
 </div>
@@ -985,7 +995,7 @@ Selects the 1st person in the results of the <code>find</code> command</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="listing-entered-commands-code-history-code-em-since-v1-1-em"><a class="link" href="#listing-entered-commands-code-history-code-em-since-v1-1-em">3.19. Listing entered commands : <code>history</code> <em>[Since v1.1]</em></a></h3>
+<h3 id="listing-entered-commands-code-history-code-em-since-v1-1-em"><a class="link" href="#listing-entered-commands-code-history-code-em-since-v1-1-em">3.18. Listing entered commands : <code>history</code> <em>[Since v1.1]</em></a></h3>
 <div class="paragraph">
 <p><em>Alias:</em> <code>record</code></p>
 </div>
@@ -1011,7 +1021,7 @@ Selects the 1st person in the results of the <code>find</code> command</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">3.20. Undoing previous command : <code>undo</code></a></h3>
+<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">3.19. Undoing previous command : <code>undo</code></a></h3>
 <div class="paragraph">
 <p>Restores the address book to the state before the previous <em>undoable</em> command was executed.</p>
 </div>
@@ -1058,7 +1068,7 @@ The <code>undo</code> command fails as there are no undoable commands executed p
 </div>
 </div>
 <div class="sect2">
-<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">3.21. Redoing the previously undone command : <code>redo</code></a></h3>
+<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">3.20. Redoing the previously undone command : <code>redo</code></a></h3>
 <div class="paragraph">
 <p>Reverses the most recent <code>undo</code> command.</p>
 </div>
@@ -1086,24 +1096,28 @@ The <code>redo</code> command fails as there are no <code>undo</code> commands e
 <code>undo</code> (reverses the <code>clear</code> command)<br>
 <code>undo</code> (reverses the <code>delete 1</code> command)<br>
 <code>redo</code> (reapplies the <code>delete 1</code> command)<br>
-<code>redo</code> (reapplies the <code>clear</code> command)<br></p>
+<code>redo</code> (reapplies the <code>clear</code> command)<br>
+=== Listing all persons removed: <code>bin-list</code> <em>[Since v1.5]</em></p>
 </li>
 </ul>
 </div>
-</div>
-<div class="sect2">
-<h3 id="listing-all-persons-removed-code-bin-list-code-em-coming-in-v2-0-em"><a class="link" href="#listing-all-persons-removed-code-bin-list-code-em-coming-in-v2-0-em">3.22. Listing all persons removed: <code>bin-list</code> <em>[Coming in v2.0]</em></a></h3>
 <div class="paragraph">
-<p>Shows a list of persons removed from the address book.</p>
+<p>If you are worrying about deleting people wrongly, it would be a good way to see if they are in recycle bin.</p>
+</div>
+<div class="paragraph">
+<p>You can see a list of persons removed from the address book.</p>
 </div>
 <div class="paragraph">
 <p>Format: <code>bin-list</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="restoring-person-s-code-bin-restore-code-em-coming-in-v2-0-em"><a class="link" href="#restoring-person-s-code-bin-restore-code-em-coming-in-v2-0-em">3.23. Restoring person(s) : <code>bin-restore</code> <em>[Coming in v2.0]</em></a></h3>
+<h3 id="restoring-person-s-code-bin-restore-code-em-since-v1-5-em"><a class="link" href="#restoring-person-s-code-bin-restore-code-em-since-v1-5-em">3.21. Restoring person(s) : <code>bin-restore</code> <em>[Since v1.5]</em></a></h3>
 <div class="paragraph">
-<p>Restores person(s) from bin.</p>
+<p>You find that people you wrongly deleted from address book in recycle bin, you can restore them back now.</p>
+</div>
+<div class="paragraph">
+<p>You can restore person(s) from bin to address book.</p>
 </div>
 <div class="paragraph">
 <p>Format: <code>bin-restore INDEX INDEX &#8230;&#8203;</code></p>
@@ -1142,7 +1156,51 @@ Restores the 1st and 2nd person in the bin-list</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="clearing-all-contacts-from-bin-code-bin-clear-code-em-coming-in-v2-0-em"><a class="link" href="#clearing-all-contacts-from-bin-code-bin-clear-code-em-coming-in-v2-0-em">3.24. Clearing all contacts from bin : <code>bin-clear</code> <em>[Coming in v2.0]</em></a></h3>
+<h3 id="restoring-person-s-code-bin-delete-code-em-since-v1-5-em"><a class="link" href="#restoring-person-s-code-bin-delete-code-em-since-v1-5-em">3.22. Restoring person(s) : <code>bin-delete</code> <em>[Since v1.5]</em></a></h3>
+<div class="paragraph">
+<p>If you want to keep your recycle bin clean, you can delete some of them from recycle bin. But you can&#8217;t get them back.</p>
+</div>
+<div class="paragraph">
+<p>You can delete person(s) from bin.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>bin-delete INDEX INDEX &#8230;&#8203;</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Recovers the people at these given specified <code>INDEX</code>.</p>
+</li>
+<li>
+<p>The index refers to the index number shown in the most recent bin-list.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+<li>
+<p>The index must not be greater than the most recent bin size.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>bin-list</code><br>
+<code>bin-delete 1 2</code><br>
+Delete the 1st and 2nd person in the bin-list</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="clearing-all-contacts-from-bin-code-bin-clear-code-em-since-v1-5-em"><a class="link" href="#clearing-all-contacts-from-bin-code-bin-clear-code-em-since-v1-5-em">3.23. Clearing all contacts from bin : <code>bin-clear</code> <em>[Since v1.5]</em></a></h3>
 <div class="paragraph">
 <p>Clears all entries in the bin.</p>
 </div>
@@ -1151,7 +1209,152 @@ Restores the 1st and 2nd person in the bin-list</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">3.25. Clearing all entries : <code>clear</code></a></h3>
+<h3 id="adding-the-birthday-to-a-person-code-b-add-code-em-since-v1-4-em"><a class="link" href="#adding-the-birthday-to-a-person-code-b-add-code-em-since-v1-4-em">3.24. Adding the birthday to a person : <code>b-add</code> <em>[Since v1.4]</em></a></h3>
+<div class="paragraph">
+<p>Would it be nice if you can store the birthday of your contact so that you won&#8217;t forget to send him a gift? Of course! By using this command, you are allowed to add birthday to a person. You can easily check it out using the calendar in the app. If you accidentally typed a wrong birthday, you can use this command again and enter the correct one.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>b-add INDEX BIRTHDAY</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Adds birthday to the person at the specified <code>INDEX</code>.</p>
+</li>
+<li>
+<p>The index refers to the index number shown in the most recent listing, only one index is allowed.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+<li>
+<p>The <code>BIRTHDAY</code> must follow the format DD/MM/YYYY, and it must be a valid date.</p>
+</li>
+<li>
+<p>To update the birthday of a specified person, use <code>b-add</code> command and enter the new <code>BIRTHDAY</code> value.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>find n/john</code><br>
+<code>b-add 1 18/10/1993</code><br>
+Adds the birthday 18/10/1993 to the first person named john in the address book</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="removing-the-birthday-from-a-person-code-b-remove-code-em-since-v1-5-em"><a class="link" href="#removing-the-birthday-from-a-person-code-b-remove-code-em-since-v1-5-em">3.25. Removing the birthday from a person : <code>b-remove</code> <em>[Since v1.5]</em></a></h3>
+<div class="paragraph">
+<p>If you add the birthday to a wrong person, you can always enter this command to remove the birthday from the person.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>b-remove INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Removes the birthday value from the person at the specified <code>INDEX</code>.</p>
+</li>
+<li>
+<p>The index refers to the index number shown in the most recent listing, only one index is allowed.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+<li>
+<p>The <code>BIRTHDAY</code> removed just now can be restored by using the <code>undo</code> command.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>find n/john</code><br>
+<code>b-remove 1</code><br>
+Removes the birthday from the first person named john in the address book</p>
+</li>
+<li>
+<p><code>b-remove 6</code><br>
+Removes the birthday from the 6th person in the most recent listing, and shows an error if there are less than 6 persons in the list</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="adding-a-social-media-url-to-a-person-code-l-add-code-em-coming-in-v2-0-em"><a class="link" href="#adding-a-social-media-url-to-a-person-code-l-add-code-em-coming-in-v2-0-em">3.26. Adding a social media URL to a person: <code>l-add</code> <em>[Coming in v2.0]</em></a></h3>
+<div class="paragraph">
+<p>You will find it very convenient to add some social media URLs to your friends so that you are able to see their posts and recent activities simply by clicking those social media icons in the centre person details panel. In this way, you do not need to open each social media app and search for the person before you can see their posts.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>l-add INDEX [tt/TWITTER] / [fb/FACEBOOK] / [nm/NUSMODS] / [ig/INSTAGRAM] / [gh/GITHUB]</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Adds the social media link to the person at the specified <code>INDEX</code>.</p>
+</li>
+<li>
+<p>The index refers to the index number shown in the most recent listing, only one index is allowed.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+<li>
+<p>A prefix is required before entering the corresponding URL. Only one prefix and one URL is allowed for each command.</p>
+</li>
+<li>
+<p>This command will also update the existing value to the input value.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>l-add 1 fb/https://www.facebook.com/dale.sun.507</code><br>
+Adds the Facebook URL to the 1st person in the contact list</p>
+</li>
+<li>
+<p><code>l-add 3 gh/https://github.com/dalessr</code><br>
+Adds the GitHub URL to the 3rd person in the contact list</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="launching-shell-version-code-shell-code-em-coming-in-v2-0-em"><a class="link" href="#launching-shell-version-code-shell-code-em-coming-in-v2-0-em">3.27. Launching shell version : <code>shell</code> <em>[Coming in v2.0]</em></a></h3>
+<div class="paragraph">
+<p>By using this command, you can open the shell version of the app. In this way, you are able to use the app without the clutter. You can still achieve most of the operations by only using the shell, except for some features related to the browser (e.g. the Map feature).</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>shell</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">3.28. Clearing all entries : <code>clear</code></a></h3>
 <div class="paragraph">
 <p>Clears all entries from the address book.</p>
 </div>
@@ -1160,7 +1363,7 @@ Restores the 1st and 2nd person in the bin-list</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">3.26. Exiting the program : <code>exit</code></a></h3>
+<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">3.29. Exiting the program : <code>exit</code></a></h3>
 <div class="paragraph">
 <p>Exits the program.</p>
 </div>
@@ -1169,7 +1372,7 @@ Restores the 1st and 2nd person in the bin-list</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="saving-the-data"><a class="link" href="#saving-the-data">3.27. Saving the data</a></h3>
+<h3 id="saving-the-data"><a class="link" href="#saving-the-data">3.30. Saving the data</a></h3>
 <div class="paragraph">
 <p>Address book data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.</p>
@@ -1255,6 +1458,22 @@ e.g. <code>s-remove e/1 2 3</code></p>
 e.g. <code>export /desktop/new_folder</code></p>
 </li>
 <li>
+<p><strong>Bindelete</strong> : <code>bin-delete INDEX INDEX&#8230;&#8203;</code><br>
+e.g. <code>bin-delete 1 2 3</code></p>
+</li>
+<li>
+<p><strong>Binlist</strong> : <code>bin-list</code><br>
+e.g. <code>bin-list</code></p>
+</li>
+<li>
+<p><strong>Binrestore</strong> : <code>bin-restore INDEX INDEX&#8230;&#8203;</code><br>
+e.g. <code>bin-restore 1 2 3</code></p>
+</li>
+<li>
+<p><strong>Binclear</strong> : <code>bin-clear</code><br>
+e.g. <code>bin-clear</code></p>
+</li>
+<li>
 <p><strong>Select</strong> : <code>select INDEX</code><br>
 e.g.<code>select 2</code></p>
 </li>
@@ -1278,6 +1497,21 @@ e.g. <code>bin-restore 1 2</code></p>
 <p><strong>BinClear</strong> : <code>bin-clear</code></p>
 </li>
 <li>
+<p><strong>BirthdayAdd</strong> : <code>b-add INDEX BIRTHDAY</code><br>
+e.g. <code>b-add 1 18/10/1993</code></p>
+</li>
+<li>
+<p><strong>BirthdayRemove</strong> : <code>b-remove INDEX</code><br>
+e.g. <code>b-remove 1</code></p>
+</li>
+<li>
+<p><strong>LinkAdd</strong> : <code>l-add INDEX [tt/TWITTER] / [fb/FACEBOOK] / [nm/NUSMODS] / [ig/INSTAGRAM] / [gh/GITHUB]</code><br>
+e.g. <code>l-add 1 gh/https://github.com/dalessr</code></p>
+</li>
+<li>
+<p><strong>Shell</strong> : <code>shell</code></p>
+</li>
+<li>
 <p><strong>Clear</strong> : <code>clear</code></p>
 </li>
 <li>
@@ -1290,7 +1524,7 @@ e.g. <code>bin-restore 1 2</code></p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-07 06:40:14 +00:00
+Last updated 2017-11-07 18:19:46 +00:00
 </div>
 </div>
 </body>

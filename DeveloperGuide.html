@@ -46,12 +46,14 @@
 <li><a href="#implementation">4. Implementation</a>
 <ul class="sectlevel2">
 <li><a href="#enhanced-find-mechanism">4.1. Enhanced Find mechanism</a></li>
-<li><a href="#undo-redo-mechanism">4.2. Undo/Redo mechanism</a></li>
-<li><a href="#sorting-mechanism">4.3. Sorting Mechanism</a></li>
-<li><a href="#adding-a-tag-to-multiple-people">4.4. Adding a tag to multiple people</a></li>
-<li><a href="#improvements-on-deletecommand">4.5. Improvements on DeleteCommand</a></li>
-<li><a href="#logging">4.6. Logging</a></li>
-<li><a href="#configuration">4.7. Configuration</a></li>
+<li><a href="#map-mechanism">4.2. Map mechanism</a></li>
+<li><a href="#birthday-mechanism">4.3. Birthday mechanism</a></li>
+<li><a href="#undo-redo-mechanism">4.4. Undo/Redo mechanism</a></li>
+<li><a href="#sorting-mechanism">4.5. Sorting Mechanism</a></li>
+<li><a href="#adding-a-tag-to-multiple-people">4.6. Adding a tag to multiple people</a></li>
+<li><a href="#improvements-on-deletecommand">4.7. Improvements on DeleteCommand</a></li>
+<li><a href="#logging">4.8. Logging</a></li>
+<li><a href="#configuration">4.9. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#documentation">5. Documentation</a>
@@ -585,13 +587,13 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <div class="sect2">
 <h3 id="enhanced-find-mechanism"><a class="link" href="#enhanced-find-mechanism">4.1. Enhanced Find mechanism</a></h3>
 <div class="paragraph">
-<p>The enhanced version of find mechanism is facilitated by the <code>AddressBookParser</code>, which resides inside <code>LogicManager</code>. It allows the users to search for person(s) by substrings of multiple different attributes (e.g. <code>Name</code>, <code>Phone</code>, <code>Email</code>, <code>Address</code>), which the case is insensitive for <code>Name</code>, <code>Email</code> and <code>Address</code> attributes.</p>
+<p>The enhanced version of find mechanism is facilitated by the <code>AddressBookParser</code>, which resides inside <code>LogicManager</code>. It allows you to search for person(s) by substrings of multiple different attributes (e.g. <code>Name</code>, <code>Phone</code>, <code>Email</code>, <code>Address</code>), which the case is insensitive for <code>Name</code>, <code>Email</code> and <code>Address</code> attributes.</p>
 </div>
 <div class="paragraph">
-<p>Users can only do searching by <code>Name</code>, <code>Phone</code>, <code>Email</code> or <code>Address</code>. They are not allowed to search by <code>Tag</code>. Instead, they can search for person(s) by tags using <code>t-find</code> command.</p>
+<p>You are only allowed to search by <code>Name</code>, <code>Phone</code>, <code>Email</code> or <code>Address</code>. Searching by <code>Tag</code> or <code>Birthday</code> is not allowed. In order to search by tags, you can use the tag-find (<code>t-find</code>) command.</p>
 </div>
 <div class="paragraph">
-<p>The following diagram shows the inheritance diagram for commands:</p>
+<p>The following diagram shows the inheritance diagram for Find command:</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -599,10 +601,10 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 </div>
 </div>
 <div class="paragraph">
-<p>When the users are using the find command, they are required to provided at least one keyword for any available attribute. Keywords of the same attribute need to be grouped together with a prefix (e.g. <code>n/</code>, <code>p/</code>, <code>e/</code>, <code>a/</code>). In this case, each prefix is allowed to appear at most once.</p>
+<p>When you are using the find command, you need to provided at least one keyword for any available attribute. Keywords of the same attribute need to be grouped together with a prefix (e.g. <code>n/</code>, <code>p/</code>, <code>e/</code>, <code>a/</code>). In this case, each prefix is allowed to appear at most once.</p>
 </div>
 <div class="paragraph">
-<p>During the implementation, <code>FindCommandParser</code> class splits the keywords of different attributes by searching for the location of the prefixes, and store the keywords into separate ArrayLists. As a <code>NameContainsKeywordsPredicate</code> needs to be passed to <code>FindCommand</code> class, all the keywords from the ArrayLists are added to the predicate in order with each prefix added at front for separation.</p>
+<p>During the implementation, <code>FindCommandParser</code> class splits the keywords of different attributes by searching for the locations of the prefixes, and then stores the keywords into separate ArrayLists. As a <code>NameContainsKeywordsPredicate</code> needs to be passed to <code>FindCommand</code> class, all the keywords from the ArrayLists are added to the predicate in order with each prefix added in front for separation.</p>
 </div>
 <div class="paragraph">
 <p>For example, the parser for name keywords is implemented this way:</p>
@@ -636,7 +638,7 @@ NameContainsKeywordsPredicate predicate = <span class="keyword">new</span> NameC
 </div>
 </div>
 <div class="paragraph">
-<p>When the <code>FindCommand</code> class is executing, the keywords are taken out from the predicate and stored into separate ArrayLists again by distinguishing the prefixes stored in front of each type of keywords. The reason we do this twice is because we want to keep the consistency of all the command classes instead of changing the parameter type passed into <code>FindCommand</code> class to a list of ArrayLists. Then the person(s) can be searched separately by different attributes. For each attribute, every keyword is taken out and compared to the corresponding details of all the persons in the list. Once the keyword is matched to any substring of the detail of a person, then the person&#8217;s name will be stored into an ArrayList <code>namesToSearch</code>. After searching all the keywords, a name list with persons with details matching at least one keyword is obtained and passed to <code>updateFilteredPersonList</code> method. Finally, the person list is updated and shown on the user interface.</p>
+<p>When <code>FindCommand</code> class is executing, the keywords are taken out from the predicate and stored into separate ArrayLists again by distinguishing the prefixes stored in front of each type of keywords. The reason we do this twice is because we want to keep the consistency of all the command classes instead of changing the parameter type passed into <code>FindCommand</code> class. The contacts can be searched separately by different attributes. For each attribute, every keyword is taken out and compared to the corresponding details of all the persons in the list. Once the keyword is matched to any substring of the person details, then the person&#8217;s name will be stored into a list. After searching all the keywords, a name list with persons with details matching at least one keyword is obtained and passed to <code>updateFilteredPersonList</code> method. Finally, the person list is updated and displayed in the person list panel.</p>
 </div>
 <div class="paragraph">
 <p>For example, searching for name keywords is implemented this way:</p>
@@ -677,7 +679,7 @@ model.updateFilteredPersonList(updatedPredicate);</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-If no argument is provided by users after the command word, an invalid format <code>Exception</code> will be thrown.
+If no argument is provided after the command word, an invalid format message will be shown.
 </td>
 </tr>
 </table>
@@ -689,7 +691,7 @@ If no argument is provided by users after the command word, an invalid format <c
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-If no prefix is found inside the argument, then an invalid format <code>Exception</code> will be thrown.
+If no prefix is found inside the argument, then an invalid format message will be shown.
 </td>
 </tr>
 </table>
@@ -701,7 +703,7 @@ If no prefix is found inside the argument, then an invalid format <code>Exceptio
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-If some dummy values are found before the first prefix and after the command word, then an invalid format <code>Exception</code> will be thrown.
+If some dummy values are found before the first prefix and after the command word, then an invalid format message will be shown.
 </td>
 </tr>
 </table>
@@ -713,7 +715,7 @@ If some dummy values are found before the first prefix and after the command wor
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-If no keywords are provided by user after a prefix, then an invalid format <code>Exception</code> will be thrown.
+If no keywords are provided after a prefix, then an invalid format message will be shown.
 </td>
 </tr>
 </table>
@@ -725,7 +727,7 @@ If no keywords are provided by user after a prefix, then an invalid format <code
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-If more than one same prefix is provided by user, then the person list will be searched only by keywords behind the first prefix.
+If more than one same prefix is provided, then the person list will be searched only by keywords behind the first prefix.
 </td>
 </tr>
 </table>
@@ -736,15 +738,345 @@ If more than one same prefix is provided by user, then the person list will be s
 <p><strong>Aspect:</strong> Find person by <code>Address</code> keyword<br>
 <strong>Alternative 1 (current choice):</strong> Find person by a single <code>Address</code> keyword<br>
 <strong>Pros:</strong> We will not need to separate multiple addresses since it is difficult to distinguish.<br>
-<strong>Cons:</strong> It is inconvenient for users to find persons from different locations.<br>
+<strong>Cons:</strong> It is inconvenient to find multiple persons from different locations.<br>
 <strong>Alternative 2:</strong> Separate different addresses by a special character (e.g. <code>;</code> or <code>*</code>)<br>
-<strong>Pros:</strong> Users are able to find person(s) staying at different locations.<br>
-<strong>Cons:</strong> The find command becomes very long. It is hard for users to type the addresses correctly.</p>
+<strong>Pros:</strong> You are able to find person(s) staying at different locations.<br>
+<strong>Cons:</strong> The find command becomes very long. It is hard for you to type all the addresses correctly.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="undo-redo-mechanism"><a class="link" href="#undo-redo-mechanism">4.2. Undo/Redo mechanism</a></h3>
+<h3 id="map-mechanism"><a class="link" href="#map-mechanism">4.2. Map mechanism</a></h3>
+<div class="paragraph">
+<p>Map function shows you the home address of a person in Google Map, which is displayed in the centre browser view panel. It allows you to see your friend&#8217;s location by specifying the index number of the person inside the app. In addition, by entering your current location, it can also show you the shortest path from your location to the selected person&#8217;s location.</p>
+</div>
+<div class="paragraph">
+<p>You are not allowed to find the locations of multiple persons by using this feature. Also, only one starting location is allowed when you are trying to find the route.</p>
+</div>
+<div class="paragraph">
+<p>The following diagram shows the inheritance diagram for the Map commands:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/MapCommandClassDiagram.png" alt="MapCommandClassDiagram" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>When you are using the map-show <code>(m-show)</code> command, you need to specify the index number of the person whom you would like to see the location of. As for the map-route <code>(m-route)</code> command, apart from specifying the index number, you also need to add a prefix <code>a/</code> before you enter your current location. The prefix should appear only once.</p>
+</div>
+<div class="paragraph">
+<p>During the implementation, map command parser class extracts the index number of the contact and passes the value to the corresponding map command. For <code>m-route</code> command, the parser class also extracts your current location by using the prefix symbol. The map command classes will post and raise an event once they are called, based on the parameters they have received.</p>
+</div>
+<div class="paragraph">
+<p>If you enter <code>m-show</code> command, a <code>BrowserPanelShowLocationEvent</code> will start. It will build a Google map URL with the specified location of the person selected, and load the Google map in the browser panel.</p>
+</div>
+<div class="paragraph">
+<p>The event for showing the location is implemented this way:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">BrowserPanelShowLocationEvent</span> <span class="directive">extends</span> BaseEvent {
+
+    <span class="directive">private</span> <span class="directive">final</span> ReadOnlyPerson person;
+
+    <span class="directive">public</span> BrowserPanelShowLocationEvent(ReadOnlyPerson person) {
+        <span class="local-variable">this</span>.person = person;
+    }
+
+    <span class="annotation">@Override</span>
+    <span class="directive">public</span> <span class="predefined-type">String</span> toString() {
+        <span class="keyword">return</span> <span class="local-variable">this</span>.getClass().getSimpleName();
+    }
+
+    <span class="directive">public</span> ReadOnlyPerson getNewSelection() {
+        <span class="keyword">return</span> person;
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The browser panel class that handles this event is implemented this way:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">void</span> loadLocationPage(ReadOnlyPerson person) {
+    loadPage(GOOGLE_MAP_SEARCH_URL_PREFIX + person.getAddress().toString().replaceAll(<span class="string"><span class="delimiter">&quot;</span><span class="content"> </span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">+</span><span class="delimiter">&quot;</span></span>)
+            + GOOGLE_MAP_SEARCH_URL_SUFFIX);
+}
+
+<span class="directive">public</span> <span class="type">void</span> loadPage(<span class="predefined-type">String</span> url) {
+    Platform.runLater(() -&gt; browser.getEngine().load(url));
+}
+
+<span class="directive">private</span> <span class="type">void</span> handleBrowserPanelShowLocationEvent(BrowserPanelShowLocationEvent event) {
+    logger.info(LogsCenter.getEventHandlingLogMessage(event));
+    loadLocationPage(event.getNewSelection());
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you enter <code>m-route</code> command, a <code>BrowserPanelFindRouteEvent</code> will start. It will build a Google map URL with the specified location of the person selected and your location, and load the Google map in the browser panel.</p>
+</div>
+<div class="paragraph">
+<p>The event for displaying the route is implemented this way:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">BrowserPanelFindRouteEvent</span> <span class="directive">extends</span> BaseEvent {
+
+    <span class="directive">private</span> <span class="directive">final</span> ReadOnlyPerson person;
+    <span class="directive">private</span> <span class="directive">final</span> <span class="predefined-type">String</span> address;
+
+    <span class="directive">public</span> BrowserPanelFindRouteEvent(ReadOnlyPerson person, <span class="predefined-type">String</span> address) {
+        <span class="local-variable">this</span>.person = person;
+        <span class="local-variable">this</span>.address = address;
+    }
+
+    <span class="annotation">@Override</span>
+    <span class="directive">public</span> <span class="predefined-type">String</span> toString() {
+        <span class="keyword">return</span> <span class="local-variable">this</span>.getClass().getSimpleName();
+    }
+
+    <span class="directive">public</span> ReadOnlyPerson getSelectedPerson() {
+        <span class="keyword">return</span> person;
+    }
+
+    <span class="directive">public</span> <span class="predefined-type">String</span> getAddress() {
+        <span class="keyword">return</span> address;
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The browser panel class that handles this event is implemented this way:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">void</span> loadRoutePage(ReadOnlyPerson person, <span class="predefined-type">String</span> address) {
+    <span class="predefined-type">String</span> startLocation = address.trim().replaceAll(<span class="string"><span class="delimiter">&quot;</span><span class="content"> </span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">+</span><span class="delimiter">&quot;</span></span>);
+    <span class="predefined-type">String</span> endLocation = person.getAddress().toString().trim().replaceAll(<span class="string"><span class="delimiter">&quot;</span><span class="content"> </span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">+</span><span class="delimiter">&quot;</span></span>);
+    loadPage(GOOGLE_MAP_DIRECTION_URL_PREFIX + startLocation
+            + GOOGLE_MAP_SEARCH_URL_SUFFIX + endLocation
+            + GOOGLE_MAP_SEARCH_URL_SUFFIX);
+}
+
+<span class="directive">public</span> <span class="type">void</span> loadPage(<span class="predefined-type">String</span> url) {
+    Platform.runLater(() -&gt; browser.getEngine().load(url));
+}
+
+<span class="directive">private</span>  <span class="type">void</span> handleBrowserPanelFindRouteEvent(BrowserPanelFindRouteEvent event) {
+    logger.info(LogsCenter.getEventHandlingLogMessage(event));
+    loadRoutePage(event.getSelectedPerson(), event.getAddress());
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following sequence diagrams show you how the Map commands work:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/MapShowCommandSequenceDiagram.png" alt="MapShowCommandSequenceDiagram" width="800">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/MapRouteCommandSequenceDiagram.png" alt="MapRouteCommandSequenceDiagram" width="800">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If no argument is provided after the command word, an invalid format message will be shown.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If the index number provided is out of the bound of person list, an invalid person index message will be shown.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If no prefix is found inside the argument when typing <code>m-route</code> command, then an invalid format message will be shown.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">4.2.1. Design Considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Locate a person in Google map<br>
+<strong>Alternative 1 (current choice):</strong> Add the string value of address to Google map URL<br>
+<strong>Pros:</strong> The process of finding the location using Google map is simple and straightforward.<br>
+<strong>Cons:</strong> Google map is not able to find the location or route if the location is not in Singapore.<br>
+<strong>Alternative 2:</strong> Use some other online maps (e.g. Baidu Map)<br>
+<strong>Pros:</strong> You are able to find the location in the map even it is not in Singapore.<br>
+<strong>Cons:</strong> The URL will not be changing during the process, thus it is not easy to achieve the map functions.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="birthday-mechanism"><a class="link" href="#birthday-mechanism">4.3. Birthday mechanism</a></h3>
+<div class="paragraph">
+<p>The birthday feature allows you to add/update/remove birthday to a selected person. The birthday value is not required when you add a person, since you might not know the birthday of every person. You are not allowed to use <code>edit</code> command to update person&#8217;s birthday.</p>
+</div>
+<div class="paragraph">
+<p>When you are executing the birthday related commands, only one person is allowed to be selected. The <code>BIRTHDAY</code> parameter needs to follow DD/MM/YYYY format. Only the valid date values are allowed to be stored into person&#8217;s birthday.</p>
+</div>
+<div class="paragraph">
+<p>The following diagram shows the inheritance diagram for Birthday commands:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/BirthdayCommandClassDiagram.png" alt="BirthdayCommandClassDiagram" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>During the implementation, birthday commands parser classes extracts the index number of the person as well as birthday value, and passes them to the corresponding birthday classes. The default birthday value of each person is <code>01/01/1900</code>. To add birthday to a person, we actually updated the person&#8217;s birthday with the new birthday value. To delete a person&#8217;s birthday, we just update the person&#8217;s birthday and set it as default value. Updating a person&#8217;s birthday is similar to adding birthday to the person. The two functions are the same in implementation.</p>
+</div>
+<div class="paragraph">
+<p>Each time a person is selected from the person list panel, we check the value of the selected person&#8217;s birthday. If it is default value, it will not be shown in the person details panel.</p>
+</div>
+<div class="paragraph">
+<p>The adding birthday function is implemented this way:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="predefined-type">List</span>&lt;ReadOnlyPerson&gt; lastShownList = model.getFilteredPersonList();
+    <span class="keyword">if</span> (targetIndex.getZeroBased() &gt;= lastShownList.size()) {
+        <span class="keyword">throw</span> <span class="keyword">new</span> CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    ReadOnlyPerson currentPerson = lastShownList.get(targetIndex.getZeroBased());
+    Person personToEdit = (Person) lastShownList.get(targetIndex.getZeroBased());
+    personToEdit.setBirthday(birthdayToAdd);
+
+    <span class="keyword">try</span> {
+        model.updatePerson(currentPerson, personToEdit);
+    } <span class="keyword">catch</span> (DuplicatePersonException dpe) {
+        <span class="keyword">throw</span> <span class="keyword">new</span> CommandException(MESSAGE_DUPLICATE_PERSON);
+    } <span class="keyword">catch</span> (PersonNotFoundException pnfe) {
+        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="exception">AssertionError</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">The target person cannot be missing</span><span class="delimiter">&quot;</span></span>);
+    }
+
+    model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
+    EventsCenter.getInstance().post(<span class="keyword">new</span> JumpToListRequestEvent(targetIndex));
+
+    <span class="keyword">return</span> <span class="keyword">new</span> CommandResult(<span class="predefined-type">String</span>.format(MESSAGE_ADD_BIRTHDAY_SUCCESS, personToEdit));</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The removing birthday function is implemented this way:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="predefined-type">List</span>&lt;ReadOnlyPerson&gt; lastShownList = model.getFilteredPersonList();
+    <span class="keyword">if</span> (targetIndex.getZeroBased() &gt;= lastShownList.size()) {
+        <span class="keyword">throw</span> <span class="keyword">new</span> CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    ReadOnlyPerson currentPerson = lastShownList.get(targetIndex.getZeroBased());
+    Person personToEdit = (Person) lastShownList.get(targetIndex.getZeroBased());
+    Birthday birthdayToAdd = <span class="keyword">new</span> Birthday();
+    personToEdit.setBirthday(birthdayToAdd);
+
+    <span class="keyword">try</span> {
+        model.updatePerson(currentPerson, personToEdit);
+    } <span class="keyword">catch</span> (DuplicatePersonException dpe) {
+        <span class="keyword">throw</span> <span class="keyword">new</span> CommandException(MESSAGE_DUPLICATE_PERSON);
+    } <span class="keyword">catch</span> (PersonNotFoundException pnfe) {
+        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="exception">AssertionError</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">The target person cannot be missing</span><span class="delimiter">&quot;</span></span>);
+    }
+
+    model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
+    EventsCenter.getInstance().post(<span class="keyword">new</span> JumpToListRequestEvent(targetIndex));
+
+    <span class="keyword">return</span> <span class="keyword">new</span> CommandResult(<span class="predefined-type">String</span>.format(MESSAGE_REMOVE_BIRTHDAY_SUCCESS, personToEdit));</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following sequence diagrams show you how the birthday commands work:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/BirthdayAddCommandSequenceDiagram.png" alt="BirthdayAddCommandSequenceDiagram" width="800">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/BirthdayRemoveCommandSequenceDiagram.png" alt="BirthdayRemoveCommandSequenceDiagram" width="800">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If no argument is provided after the command word, an invalid format message will be shown.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If the index number provided is out of the bound of person list, an invalid person index message will be shown.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If an invalid birthday is provided for birthday-remove command, an invalid input birthday message will be shown.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">4.3.1. Design Considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Birthday value of a contact<br>
+<strong>Alternative 1 (current choice):</strong> Every person without specifying a birthday has a default birthday value <code>01/01/1900</code><br>
+<strong>Pros:</strong> It is easy to create a person object without specifying the birthday value.<br>
+<strong>Cons:</strong> The birthday will not be shown in the person details panel if the person&#8217;s birthday is exactly the default birthday.<br>
+<strong>Alternative 2:</strong> Initialize a person&#8217;s birthday only when a birthday is added to the person, and set the birthday object as <code>null</code> when deleting the birthday<br>
+<strong>Pros:</strong> There is no default birthday for each person, thus any date can be shown in person details panel.<br>
+<strong>Cons:</strong> It is not convenient every time we want to create a new person object.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="undo-redo-mechanism"><a class="link" href="#undo-redo-mechanism">4.4. Undo/Redo mechanism</a></h3>
 <div class="paragraph">
 <p>The undo/redo mechanism is facilitated by an <code>UndoRedoStack</code>, which resides inside <code>LogicManager</code>. It supports undoing and redoing of commands that modifies the state of the address book (e.g. <code>add</code>, <code>edit</code>). Such commands will inherit from <code>UndoableCommand</code>.</p>
 </div>
@@ -896,7 +1228,7 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">4.2.1. Design Considerations</a></h4>
+<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">4.4.1. Design Considerations</a></h4>
 <div class="paragraph">
 <p><strong>Aspect:</strong> Implementation of <code>UndoableCommand</code><br>
 <strong>Alternative 1 (current choice):</strong> Add a new abstract method <code>executeUndoableCommand()</code><br>
@@ -940,7 +1272,7 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </div>
 </div>
 <div class="sect2">
-<h3 id="sorting-mechanism"><a class="link" href="#sorting-mechanism">4.3. Sorting Mechanism</a></h3>
+<h3 id="sorting-mechanism"><a class="link" href="#sorting-mechanism">4.5. Sorting Mechanism</a></h3>
 <div class="paragraph">
 <p>The sorting mechanism is facilitated by <code>SortCommandParser</code> and <code>SortCommand</code>, with both classes residing in the <code>Logic</code> component of the address book. Since the address book state will be modified during the sorting process, the <code>sort</code> has to be undoable.</p>
 </div>
@@ -991,7 +1323,7 @@ If the list is found to be empty, an <code>EmptyListException</code> will be thr
 </table>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">4.3.1. Design Considerations</a></h4>
+<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">4.5.1. Design Considerations</a></h4>
 <div class="paragraph">
 <p><strong>Aspect:</strong> Initialising of <code>Comparator&lt;ReadOnlyPerson&gt;</code><br>
 <strong>Alternative 1 (current choice):</strong> Initialise in <code>SortCommand</code><br>
@@ -1024,7 +1356,7 @@ If the list is found to be empty, an <code>EmptyListException</code> will be thr
 </div>
 </div>
 <div class="sect2">
-<h3 id="adding-a-tag-to-multiple-people"><a class="link" href="#adding-a-tag-to-multiple-people">4.4. Adding a tag to multiple people</a></h3>
+<h3 id="adding-a-tag-to-multiple-people"><a class="link" href="#adding-a-tag-to-multiple-people">4.6. Adding a tag to multiple people</a></h3>
 <div class="paragraph">
 <p>Adding a tag to multiple people is facilitated by <code>TagAddCommand</code>, which extends <code>UndoableCommand</code>, it supports undoing and redoing of commands that modifies the state of the address book.</p>
 </div>
@@ -1065,7 +1397,7 @@ The <code>TagAddCommandParser</code> returns <code>TagAddCommand</code> after ex
 </div>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">4.4.1. Design Considerations</a></h4>
+<h4 id="design-considerations-6"><a class="link" href="#design-considerations-6">4.6.1. Design Considerations</a></h4>
 <div class="paragraph">
 <p><strong>Aspect:</strong> Implementation of adding a tag to person(s) by indices<br>
 <strong>Alternative 1 (current choice):</strong> Add a new Command class <code>TagAddCommand</code><br>
@@ -1098,18 +1430,77 @@ The <code>TagAddCommandParser</code> returns <code>TagAddCommand</code> after ex
 </div>
 </div>
 <div class="sect2">
-<h3 id="improvements-on-deletecommand"><a class="link" href="#improvements-on-deletecommand">4.5. Improvements on DeleteCommand</a></h3>
+<h3 id="improvements-on-deletecommand"><a class="link" href="#improvements-on-deletecommand">4.7. Improvements on DeleteCommand</a></h3>
 <div class="paragraph">
 <p>We have improved the delete command to let it be able to delete by multiple indexes or a name with prefix. The reason why we do this is to improve the efficiency to delete the contacts.The prefix for deleting by name is <code>n/</code>. The prefix for deleting by indexes is <code>I/</code>.</p>
 </div>
 <div class="paragraph">
-<p>The way we implemented this is to change the DeleteCommandParser and DeleteCommand.</p>
+<p>The following sequence diagram shows how the delete command works:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/DeleteCommandSequenceDiagram.png" alt="DeleteCommandSequenceDiagram" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>You can see that the way we implemented this is to change the DeleteCommandParser and DeleteCommand.</p>
 </div>
 <div class="paragraph">
 <p>As for the DeleteCommandParser, we check whether there is the prefix we want in the userInput. Once the prefix is identified, if it is a <code>n/</code>, it will directly return back the parameters to DeleteCommand. If it is a <code>I/</code>, the parameters will be parsed by ParserUtil and return back the results to DeleteCommand.</p>
 </div>
 <div class="paragraph">
-<p>As for the DeleteCommand, it can deal with two kinds of parameters: a list of indexes or a name string. If it is a list of indexes, the DeleteCommand will check whether the indexes are within the size of all persons and assert command failure if there is an illegal index. If it is a name string, the DeleteCommand will assert command failure when there is no such person in the list with name given and when there are multiple persons with the same name given.</p>
+<p>For example, the parser for Index is implemented this way:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="directive">static</span> <span class="predefined-type">ArrayList</span>&lt;Index&gt; parseIndexes(<span class="predefined-type">String</span> oneBasedIndexes) <span class="directive">throws</span> IllegalValueException {
+        <span class="predefined-type">String</span><span class="type">[]</span> ns = oneBasedIndexes.trim().split(<span class="string"><span class="delimiter">&quot;</span><span class="content"> </span><span class="delimiter">&quot;</span></span>);
+        <span class="predefined-type">ArrayList</span>&lt;Index&gt; numbers = <span class="keyword">new</span> <span class="predefined-type">ArrayList</span>&lt;&gt;();
+        <span class="type">boolean</span> allvalid = <span class="predefined-constant">true</span>;
+        <span class="keyword">for</span> (<span class="predefined-type">String</span> a : ns) {
+            <span class="predefined-type">String</span> s = a.trim();
+            <span class="keyword">if</span> (StringUtil.isNonZeroUnsignedInteger(s)) {
+                numbers.add(Index.fromOneBased(<span class="predefined-type">Integer</span>.parseInt(s)));
+            } <span class="keyword">else</span> {
+                allvalid = <span class="predefined-constant">false</span>;
+
+            }
+        }
+        <span class="keyword">if</span> (!allvalid) {
+            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalValueException(MESSAGE_INVALID_INDEX);
+        }
+        <span class="keyword">return</span> numbers;
+
+    }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As for the DeleteCommand, you can use it to deal with two kinds of parameters: a list of indexes or a name string. If it is a list of indexes, the DeleteCommand will check whether the indexes are within the size of all persons and assert command failure if there is an illegal index. If it is a name string, the DeleteCommand will assert command failure when there is no such person in the list with name given and when there are multiple persons with the same name given.</p>
+</div>
+<div class="paragraph">
+<p>For example, the command delete people by index is implemented this way:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"> <span class="predefined-type">List</span>&lt;ReadOnlyPerson&gt; lastShownList =  model.getFilteredPersonList();
+ <span class="predefined-type">ArrayList</span>&lt;ReadOnlyPerson&gt; personstodelete =  <span class="keyword">new</span> <span class="predefined-type">ArrayList</span>&lt;ReadOnlyPerson&gt;();
+ <span class="comment">//...delete name logic</span>
+ <span class="keyword">for</span> (Index s: targetIndexs) {
+     <span class="keyword">if</span> (s.getZeroBased() &gt;= lastShownList.size()) {
+          allvalid = <span class="predefined-constant">false</span>;
+         } <span class="keyword">else</span> {
+          personstodelete.add(lastShownList.get(s.getZeroBased()));
+          exist = <span class="predefined-constant">true</span>;
+         }
+ }
+ <span class="comment">//...dealing duplicate logic...</span>
+ <span class="keyword">if</span> (allvalid &amp;&amp; exist) {
+    <span class="keyword">try</span> {
+        model.deletePerson(personstodelete);
+    }
+    <span class="comment">//...catch exception logic...</span>
+ }</code></pre>
+</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1118,7 +1509,7 @@ The <code>TagAddCommandParser</code> returns <code>TagAddCommand</code> after ex
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-If the parameter doesn&#8217;t start with correct prefix, then the command can&#8217;t identify what kind of input it deals with, and a <code>ParseException</code> will be thrown when parsing.
+If your input doesn&#8217;t start with correct prefix, then the command can&#8217;t identify what kind of input it deals with, and a <code>ParseException</code> will be thrown when parsing.
 </td>
 </tr>
 </table>
@@ -1130,7 +1521,7 @@ If the parameter doesn&#8217;t start with correct prefix, then the command can&#
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-If the parameter contains illegal values or nothing after the prefix, the the command can&#8217;t identify the target person, and a <code>ParseException</code> will be thrown when parsing.
+If your input contains illegal values or nothing after the prefix, the the command can&#8217;t identify the target person, and a <code>ParseException</code> will be thrown when parsing.
 </td>
 </tr>
 </table>
@@ -1142,7 +1533,7 @@ If the parameter contains illegal values or nothing after the prefix, the the co
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-If the parameter is index and it is out of bound of person list, then the command can&#8217;t find the person to delete, and a <code>CommandException</code> will be thrown when processsing.
+If your input is index and it is out of bound of person list, then the command can&#8217;t find the person to delete, and a <code>CommandException</code> will be thrown when processsing.
 </td>
 </tr>
 </table>
@@ -1154,7 +1545,7 @@ If the parameter is index and it is out of bound of person list, then the comman
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-If the parameter is name and there is no person with such name in the list, then the command can&#8217;t find the person to delete, and a <code>CommandException</code> will be thrown when processsing.
+If your input is a name and there is no person with such name in the list, then the command can&#8217;t find the person to delete, and a <code>CommandException</code> will be thrown when processsing.
 </td>
 </tr>
 </table>
@@ -1163,7 +1554,7 @@ If the parameter is name and there is no person with such name in the list, then
 <p>Moreover, if there is more than one person in the list with the name give, then the command don&#8217;t know which one ot delete. It will show all the person with same name in GUI and remind the user to choose one to delete.</p>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-5"><a class="link" href="#design-considerations-5">4.5.1. Design Considerations</a></h4>
+<h4 id="design-considerations-7"><a class="link" href="#design-considerations-7">4.7.1. Design Considerations</a></h4>
 <div class="paragraph">
 <p><strong>Aspect:</strong>  Implementation of <code>DeleteCommandParser</code><br>
 <strong>Alternative 1 (current choice):</strong>  Add a prefix after the command word to distinguish between delete by name or indexes.<br>
@@ -1183,10 +1574,105 @@ If the parameter is name and there is no person with such name in the list, then
 <strong>Pros:</strong>  It cost users less time to delete a person if they know the sequence of the persons with the same name.<br>
 <strong>Cons:</strong> It is hard to guarantee the right person is deleted. The user may need to redo to fix it.</p>
 </div>
+<div class="paragraph">
+<p>===Improvement on HelpCommand</p>
+</div>
+<div class="paragraph">
+<p>We make the help command to be able to alert the usage of a speified command.</p>
+</div>
+<div class="paragraph">
+<p>The way we do it is to make the help command paser to identify the command word after 'help' and show the command usage of that command.</p>
+</div>
+<div class="paragraph">
+<p>For example, you can see the implementation of the help command parser as follow:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> HelpCommand parse(<span class="predefined-type">String</span> args) <span class="directive">throws</span> <span class="exception">ParseException</span> {
+    <span class="predefined-type">String</span> input = args.toLowerCase().trim();
+
+    <span class="keyword">if</span> (input.equals(AddCommand.COMMAND_WORD) || input.equals(AddCommand.COMMAND_WORD_2)
+        || input.equals(AddCommand.COMMAND_WORD_3)) {
+        <span class="keyword">return</span> <span class="keyword">new</span> HelpCommand(<span class="string"><span class="delimiter">&quot;</span><span class="content">add</span><span class="delimiter">&quot;</span></span>);
+    }<span class="comment">//... other command logic...</span>
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If the input command word after 'help' can not be identified, then you will see the whole UserGuide.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>===RecycleBin Mechanism</p>
+</div>
+<div class="paragraph">
+<p>We design a recycle bin in the iConnect to store the person removed from address book. In this way, users can restore the people they wrongly deleted. You may think that it can be done by udno/redo command. Actually, if users want to restore a person they deleted long time ago, then the undo/redo command would not hlep.</p>
+</div>
+<div class="paragraph">
+<p>The users can interact with bin using four commands:'bin-list', 'bin-delete', 'bin-clear', 'bin-restore';</p>
+</div>
+<div class="paragraph">
+<p>The way we deal with recycle bin storage is the same as we deal with addressbook storage. We store the recycle bin as a xml file and read and save it in the same way as address book storage. Then we put the addressbook and recycleibn into model.</p>
+</div>
+<div class="paragraph">
+<p><strong>Bin commands</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>bin-list</code> : List all the people in the recycle bin in list.</p>
+</li>
+<li>
+<p><code>bin-delete</code> : Delete the people in the recycle bin by index as shown in the list.</p>
+</li>
+<li>
+<p><code>bin-clear</code> : Delete all the peopel in the recycle bin.</p>
+</li>
+<li>
+<p><code>bin-restore</code> : Restore the people in the recycle bin to address book by index.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If we find duplicate people when moving a person to recyclebin or moving a person to addressbook, then this person will be omitted and directly remove.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>===Exporting</p>
+</div>
+<div class="paragraph">
+<p>We are using 'java.io.File' and 'java.io.FileWriter' to export address book data.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The filepath should be a complete path to a specific location of a empty txt file in your computer.</p>
+</li>
+<li>
+<p>The order of the output information is 'person', 'tag', 'event';</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">4.6. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">4.8. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
@@ -1224,7 +1710,7 @@ If the parameter is name and there is no person with such name in the list, then
 </div>
 </div>
 <div class="sect2">
-<h3 id="configuration"><a class="link" href="#configuration">4.7. Configuration</a></h3>
+<h3 id="configuration"><a class="link" href="#configuration">4.9. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
@@ -2763,7 +3249,7 @@ for <code>RemarkCommandParser</code>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-07 06:40:14 +00:00
+Last updated 2017-11-07 18:19:46 +00:00
 </div>
 </div>
 </body>

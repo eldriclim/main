@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.3">
+<title>Zhao Pengyu - Project Portfolio</title>
+<link rel="stylesheet" href="../stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css">
+</head>
+<body class="article">
+<div id="header">
+<h1>Zhao Pengyu - Project Portfolio</h1>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="project-iconnect"><a class="link" href="#project-iconnect">Project: iConnect</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Iconnect is a desktop address book application used for University Students to manage their contacts information and schedule event. It has many attractive features such as using time table to mark up the event, using google map to show the location and using recycle bin to hold deleted person to allow restore.</p>
+</div>
+<div class="paragraph">
+<p><strong>Code contributed</strong>: [<a href="https://github.com">Functional code</a>] [<a href="https://github.com">Test code</a>] {give links to collated code files}</p>
+</div>
+<div class="sect2">
+<h3 id="enhancement-added-help-delete-export-bin-list-bin-clear-bin-delete-bin-restore"><a class="link" href="#enhancement-added-help-delete-export-bin-list-bin-clear-bin-delete-bin-restore">Enhancement Added: Help/Delete/Export/bin-list/bin-clear/bin-delete/bin-restore</a></h3>
+<div class="sect3">
+<h4 id="external-behavior"><a class="link" href="#external-behavior">External behavior</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: User Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="deleting-a-person-code-delete-code-em-since-v1-2-em"><a class="link" href="#deleting-a-person-code-delete-code-em-since-v1-2-em">Deleting a person : <code>delete</code> <em>[Since v1.2]</em></a></h3>
+<div class="paragraph">
+<p>If you want to keep your person list clean, just using delete command to remove some people to bin.</p>
+</div>
+<div class="paragraph">
+<p><em>Alias:</em> <code>remove</code> <code>-</code></p>
+</div>
+<div class="paragraph">
+<p>You can delete a group of people from the address book.</p>
+</div>
+<div class="paragraph">
+<p>Format:`delete I/INDEX INDEX &#8230;&#8203;` (or) <code>delete n/Name</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Deletes person with given name or at these given specified <code>INDEX</code>.</p>
+</li>
+<li>
+<p>The index refer to the index numbers shown in the most recent listing.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+<li>
+<p>The name must be the full name of the person.</p>
+</li>
+<li>
+<p>Only one name is allowed for <code>delete</code> command.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>list</code><br>
+<code>delete 1 2</code><br>
+Deletes the 1st and 2nd person in the address book</p>
+</li>
+<li>
+<p><code>list</code><br>
+<code>remove 1 3</code><br>
+Deletes the 1st and 3rd person in the address book</p>
+</li>
+<li>
+<p><code>list</code><br>
+<code>- 2 3</code><br>
+Deletes the 2nd and 3rd person in the address book</p>
+</li>
+<li>
+<p><code>find Betsy</code><br>
+<code>delete 1</code><br>
+Deletes the 1st person in the results of the <code>find</code> command</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="viewing-help-code-help-code-em-since-v1-3-em"><a class="link" href="#viewing-help-code-help-code-em-since-v1-3-em">Viewing help : <code>help</code> <em>[Since v1.3]</em></a></h3>
+<div class="paragraph">
+<p>If you don&#8217;t know how to use some commands, don&#8217;t worry, help command can guide you.</p>
+</div>
+<div class="paragraph">
+<p><em>Alias:</em> <code>h</code></p>
+</div>
+<div class="paragraph">
+<p>You can look up the usage of the given command word using help command.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>help COMMAND</code></p>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>help list</code><br>
+Shows the usage of command <code>list</code></p>
+</li>
+<li>
+<p><code>help add</code><br>
+Shows the usage of command <code>add</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="making-a-backup-address-book-code-export-code-em-coming-in-v1-4-em"><a class="link" href="#making-a-backup-address-book-code-export-code-em-coming-in-v1-4-em">Making a backup address book: <code>export</code> <em>[Coming in v1.4]</em></a></h3>
+<div class="paragraph">
+<p>If you want to keep your address book clean and worry about how to get the contacts back, just export the information.</p>
+</div>
+<div class="paragraph">
+<p>You can keep a backup of your contact details to the given path.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>export PATH</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Export all the information of contacts to the given local address.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="listing-all-persons-removed-code-bin-list-code-em-since-v1-5-em"><a class="link" href="#listing-all-persons-removed-code-bin-list-code-em-since-v1-5-em">Listing all persons removed: <code>bin-list</code> <em>[Since v1.5]</em></a></h3>
+<div class="paragraph">
+<p>If you are worrying about deleting people wrongly, it would be a good way to see if they are in recycle bin.</p>
+</div>
+<div class="paragraph">
+<p>You can see a list of persons removed from the address book.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>bin-list</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="restoring-person-s-code-bin-restore-code-em-since-v1-5-em"><a class="link" href="#restoring-person-s-code-bin-restore-code-em-since-v1-5-em">Restoring person(s) : <code>bin-restore</code> <em>[Since v1.5]</em></a></h3>
+<div class="paragraph">
+<p>You find that people you wrongly deleted from address book in recycle bin, you can restore them back now.</p>
+</div>
+<div class="paragraph">
+<p>You can restore person(s) from bin to address book.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>bin-restore INDEX INDEX &#8230;&#8203;</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Recovers the people at these given specified <code>INDEX</code>.</p>
+</li>
+<li>
+<p>The index refers to the index number shown in the most recent bin-list.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+<li>
+<p>The index must not be greater than the most recent bin size.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>bin-list</code><br>
+<code>bin-restore 1 2</code><br>
+Restores the 1st and 2nd person in the bin-list</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="restoring-person-s-code-bin-delete-code-em-since-v1-5-em"><a class="link" href="#restoring-person-s-code-bin-delete-code-em-since-v1-5-em">Restoring person(s) : <code>bin-delete</code> <em>[Since v1.5]</em></a></h3>
+<div class="paragraph">
+<p>If you want to keep your recycle bin clean, you can delete some of them from recycle bin. But you can&#8217;t get them back.</p>
+</div>
+<div class="paragraph">
+<p>You can delete person(s) from bin.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>bin-delete INDEX INDEX &#8230;&#8203;</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Recovers the people at these given specified <code>INDEX</code>.</p>
+</li>
+<li>
+<p>The index refers to the index number shown in the most recent bin-list.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+<li>
+<p>The index must not be greater than the most recent bin size.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>bin-list</code><br>
+<code>bin-delete 1 2</code><br>
+Delete the 1st and 2nd person in the bin-list</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="clearing-all-contacts-from-bin-code-bin-clear-code-em-since-v1-5-em"><a class="link" href="#clearing-all-contacts-from-bin-code-bin-clear-code-em-since-v1-5-em">Clearing all contacts from bin : <code>bin-clear</code> <em>[Since v1.5]</em></a></h3>
+<div class="paragraph">
+<p>Clears all entries in the bin.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>clear-bin</code></p>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+<div class="sect3">
+<h4 id="justification"><a class="link" href="#justification">Justification</a></h4>
+<div class="paragraph">
+<p>{Justify the need for, and the current design (i.e. external behavior) of, the feature}</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implementation"><a class="link" href="#implementation">Implementation</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: Developer Guide]</mark></p>
+</div>
+<div class="paragraph">
+<p>===Improvement on HelpCommand</p>
+</div>
+<div class="paragraph">
+<p>We make the help command to be able to alert the usage of a speified command.</p>
+</div>
+<div class="paragraph">
+<p>The way we do it is to make the help command paser to identify the command word after 'help' and show the command usage of that command.</p>
+</div>
+<div class="paragraph">
+<p>For example, you can see the implementation of the help command parser as follow:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> HelpCommand parse(<span class="predefined-type">String</span> args) <span class="directive">throws</span> <span class="exception">ParseException</span> {
+    <span class="predefined-type">String</span> input = args.toLowerCase().trim();
+
+    <span class="keyword">if</span> (input.equals(AddCommand.COMMAND_WORD) || input.equals(AddCommand.COMMAND_WORD_2)
+        || input.equals(AddCommand.COMMAND_WORD_3)) {
+        <span class="keyword">return</span> <span class="keyword">new</span> HelpCommand(<span class="string"><span class="delimiter">&quot;</span><span class="content">add</span><span class="delimiter">&quot;</span></span>);
+    }<span class="comment">//... other command logic...</span>
+}</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If the input command word after 'help' can not be identified, then you will see the whole UserGuide.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>===Exporting</p>
+</div>
+<div class="paragraph">
+<p>We are using 'java.io.File' and 'java.io.FileWriter' to export address book data.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The filepath should be a complete path to a specific location of a empty txt file in your computer.</p>
+</li>
+<li>
+<p>The order of the output information is 'person', 'tag', 'event';</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>===RecycleBin Mechanism</p>
+</div>
+<div class="paragraph">
+<p>We design a recycle bin in the iConnect to store the person removed from address book. In this way, users can restore the people they wrongly deleted. You may think that it can be done by udno/redo command. Actually, if users want to restore a person they deleted long time ago, then the undo/redo command would not hlep.</p>
+</div>
+<div class="paragraph">
+<p>The users can interact with bin using four commands:'bin-list', 'bin-delete', 'bin-clear', 'bin-restore';</p>
+</div>
+<div class="paragraph">
+<p>The way we deal with recycle bin storage is the same as we deal with addressbook storage. We store the recycle bin as a xml file and read and save it in the same way as address book storage. Then we put the addressbook and recycleibn into model.</p>
+</div>
+<div class="paragraph">
+<p><strong>Bin commands</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>bin-list</code> : List all the people in the recycle bin in list.</p>
+</li>
+<li>
+<p><code>bin-delete</code> : Delete the people in the recycle bin by index as shown in the list.</p>
+</li>
+<li>
+<p><code>bin-clear</code> : Delete all the peopel in the recycle bin.</p>
+</li>
+<li>
+<p><code>bin-restore</code> : Restore the people in the recycle bin to address book by index.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If we find duplicate people when moving a person to recyclebin or moving a person to addressbook, then this person will be omitted and directly remove.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect2">
+<h3 id="enhancement-proposed-enable-change-of-font-size"><a class="link" href="#enhancement-proposed-enable-change-of-font-size">Enhancement Proposed: Enable change of font size</a></h3>
+
+</div>
+<div class="sect2">
+<h3 id="other-contributions"><a class="link" href="#other-contributions">Other contributions</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Update the GUI of recyclebin list.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2017-11-07 18:19:46 +00:00
+</div>
+</div>
+</body>
+</html>

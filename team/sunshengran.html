@@ -1,0 +1,873 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="generator" content="Asciidoctor 1.5.3">
+<title>Sun Shengran - Project Portfolio</title>
+<link rel="stylesheet" href="../stylesheets/gh-pages.css">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css">
+</head>
+<body class="article">
+<div id="header">
+<h1>Sun Shengran - Project Portfolio</h1>
+</div>
+<div id="content">
+<div class="sect1">
+<h2 id="project-iconnect"><a class="link" href="#project-iconnect">Project: iConnect</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>iConnect is a desktop address book application used for NUS undergraduates social network connection purpose. We aim to make the student&#8217;s school life much easier and more convenient. With this app, students are able to manage their study, work as well as social activities in a more efficient way. The user is required to interact with the app by typing command line, and it has a GUI created with JavaFX for user&#8217;s convenience. It is written in Java, and has about 25 thousand line of codes (kLoC).</p>
+</div>
+<div class="paragraph">
+<p><strong>Code contributed</strong>: [<a href="https://github.com/CS2103AUG2017-W09-B3/main/blob/master/Collated/main/dalessr.md">Functional code</a>] [<a href="https://github.com/CS2103AUG2017-W09-B3/main/blob/master/Collated/test/dalessr.md">Test code</a>]</p>
+</div>
+<div class="sect2">
+<h3 id="enhancements-added-find-map-birthday"><a class="link" href="#enhancements-added-find-map-birthday">Enhancements Added: Find, Map, Birthday</a></h3>
+<div class="sect3">
+<h4 id="external-behavior"><a class="link" href="#external-behavior">External behavior</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: User Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="locating-persons-by-different-attributes-code-find-code-em-since-v1-2-em"><a class="link" href="#locating-persons-by-different-attributes-code-find-code-em-since-v1-2-em">Locating persons by different attributes: <code>find</code> <em>[Since v1.2]</em></a></h3>
+<div class="paragraph">
+<p><em>Alias:</em> <code>search</code> <code>get</code></p>
+</div>
+<div class="paragraph">
+<p>Sometimes you might not remember the full name of a person. Perhaps you only know the phone number or home address of the person. But don&#8217;t worry! By using this command, you are able to search for your contacts by some other informations such as phone number, email and home address. Even if you cannot remember the full name of your friend, you can still easily find him by his partial name!</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>find [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>A prefix is required before entering a different type of keyword.</p>
+</li>
+<li>
+<p>The order of the keywords does not matter. e.g. Hans Bo will match Bo Hans.</p>
+</li>
+<li>
+<p>You can find a person by searching for any substring of the attribute. e.g. hn will match John, 1234 will match 98123476.</p>
+</li>
+<li>
+<p>All keywords regarding a certain attribute should be put after the prefix. e.g. n/alice bob.</p>
+</li>
+<li>
+<p>You can only search for one address per time for Address type.</p>
+</li>
+<li>
+<p>Persons matching at least one keyword will be returned. e.g. Hans Bo will return Hans Gruber, Bo Yang.</p>
+</li>
+<li>
+<p>At least one of the optional fields must be provided.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>find n/John</code><br>
+Returns <code>john</code> and <code>John Doe</code></p>
+</li>
+<li>
+<p><code>search p/98765432</code><br>
+Returns the person having phone number <code>98765432</code></p>
+</li>
+<li>
+<p><code>get e/johndoe@gmail.com</code><br>
+Returns the person having email <code>johndoe@gmail.com</code></p>
+</li>
+<li>
+<p><code>find n/Betsy Tim John a/clementi street</code><br>
+Returns any person having names <code>Betsy</code>, <code>Tim</code>, <code>John</code> or living at <code>Clementi Street</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="find-the-location-of-a-person-using-google-map-code-m-show-code-em-since-v1-3-em"><a class="link" href="#find-the-location-of-a-person-using-google-map-code-m-show-code-em-since-v1-3-em">Find the location of a person using Google Map: <code>m-show</code> <em>[Since v1.3]</em></a></h3>
+<div class="paragraph">
+<p>You might find it not very convenient to only show the contact&#8217;s location as text. Therefore, iConnect allows you to see the location! By using this command, without typing in the person&#8217;s address, you can easily find the location of your friend in Google Map, which will show in the centre browser.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>m-show INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Find the person with the index number.</p>
+</li>
+<li>
+<p>Only one index number is allowed as the input.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+<li>
+<p>The address of the person selected will be shown visually on the browser screen.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>m-show 1</code><br>
+Shows the address of person with index 1 on the google map</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="find-the-route-from-user-s-current-location-to-the-person-seleted-code-m-route-code-em-since-v1-3-em"><a class="link" href="#find-the-route-from-user-s-current-location-to-the-person-seleted-code-m-route-code-em-since-v1-3-em">Find the route from user&#8217;s current location to the person seleted: <code>m-route</code> <em>[Since v1.3]</em></a></h3>
+<div class="paragraph">
+<p>Not only can iConnect show the location, it can also show you how to go there! Simply by adding your current location, it will show you the shortest path from your current address to your friend&#8217;s home in the Google map.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>m-route INDEX a/ADDRESS</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Find the address of the person with the index number.</p>
+</li>
+<li>
+<p>Only one index number is allowed as the input.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+<li>
+<p>The address entered is the current location of the user (the place they want to start from).</p>
+</li>
+<li>
+<p>A route will be shown on the map with the address as start location and selected person&#8217;s address as destination.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>m-route 1 a/Clementi Street</code><br>
+Shows the route from <code>Clementi Street</code> to the address of person with index number <code>1</code></p>
+</li>
+<li>
+<p><code>m-route 7 a/John street, block 123, #01-01</code><br>
+Shows the route from <code>John street, block 123, #01-01</code> to the address of person with index number <code>7</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="adding-the-birthday-to-a-person-code-b-add-code-em-since-v1-4-em"><a class="link" href="#adding-the-birthday-to-a-person-code-b-add-code-em-since-v1-4-em">Adding the birthday to a person : <code>b-add</code> <em>[Since v1.4]</em></a></h3>
+<div class="paragraph">
+<p>Would it be nice if you can store the birthday of your contact so that you won&#8217;t forget to send him a gift? Of course! By using this command, you are allowed to add birthday to a person. You can easily check it out using the calendar in the app. If you accidentally typed a wrong birthday, you can use this command again and enter the correct one.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>b-add INDEX BIRTHDAY</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Adds birthday to the person at the specified <code>INDEX</code>.</p>
+</li>
+<li>
+<p>The index refers to the index number shown in the most recent listing, only one index is allowed.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+<li>
+<p>The <code>BIRTHDAY</code> must follow the format DD/MM/YYYY, and it must be a valid date.</p>
+</li>
+<li>
+<p>To update the birthday of a specified person, use <code>b-add</code> command and enter the new <code>BIRTHDAY</code> value.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>find n/john</code><br>
+<code>b-add 1 18/10/1993</code><br>
+Adds the birthday 18/10/1993 to the first person named john in the address book</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="removing-the-birthday-from-a-person-code-b-remove-code-em-since-v1-5-em"><a class="link" href="#removing-the-birthday-from-a-person-code-b-remove-code-em-since-v1-5-em">Removing the birthday from a person : <code>b-remove</code> <em>[Since v1.5]</em></a></h3>
+<div class="paragraph">
+<p>If you add the birthday to a wrong person, you can always enter this command to remove the birthday from the person.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>b-remove INDEX</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Removes the birthday value from the person at the specified <code>INDEX</code>.</p>
+</li>
+<li>
+<p>The index refers to the index number shown in the most recent listing, only one index is allowed.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+<li>
+<p>The <code>BIRTHDAY</code> removed just now can be restored by using the <code>undo</code> command.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>find n/john</code><br>
+<code>b-remove 1</code><br>
+Removes the birthday from the first person named john in the address book</p>
+</li>
+<li>
+<p><code>b-remove 6</code><br>
+Removes the birthday from the 6th person in the most recent listing, and shows an error if there are less than 6 persons in the list</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+<div class="sect3">
+<h4 id="implementation"><a class="link" href="#implementation">Implementation</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: Developer Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="enhanced-find-mechanism"><a class="link" href="#enhanced-find-mechanism">Enhanced Find mechanism</a></h3>
+<div class="paragraph">
+<p>The enhanced version of find mechanism is facilitated by the <code>AddressBookParser</code>, which resides inside <code>LogicManager</code>. It allows you to search for person(s) by substrings of multiple different attributes (e.g. <code>Name</code>, <code>Phone</code>, <code>Email</code>, <code>Address</code>), which the case is insensitive for <code>Name</code>, <code>Email</code> and <code>Address</code> attributes.</p>
+</div>
+<div class="paragraph">
+<p>You are only allowed to search by <code>Name</code>, <code>Phone</code>, <code>Email</code> or <code>Address</code>. Searching by <code>Tag</code> or <code>Birthday</code> is not allowed. In order to search by tags, you can use the tag-find (<code>t-find</code>) command.</p>
+</div>
+<div class="paragraph">
+<p>The following diagram shows the inheritance diagram for Find command:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/LogicCommandClassDiagram.png" alt="LogicCommandClassDiagram" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>When you are using the find command, you need to provided at least one keyword for any available attribute. Keywords of the same attribute need to be grouped together with a prefix (e.g. <code>n/</code>, <code>p/</code>, <code>e/</code>, <code>a/</code>). In this case, each prefix is allowed to appear at most once.</p>
+</div>
+<div class="paragraph">
+<p>During the implementation, <code>FindCommandParser</code> class splits the keywords of different attributes by searching for the locations of the prefixes, and then stores the keywords into separate ArrayLists. As a <code>NameContainsKeywordsPredicate</code> needs to be passed to <code>FindCommand</code> class, all the keywords from the ArrayLists are added to the predicate in order with each prefix added in front for separation.</p>
+</div>
+<div class="paragraph">
+<p>For example, the parser for name keywords is implemented this way:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="type">int</span> indexOfName = trimmedArgs.indexOf(PREFIX_NAME.getPrefix());
+
+<span class="keyword">if</span> (indexOfName != -<span class="integer">1</span>) {
+    <span class="type">int</span> index = <span class="integer">0</span>;
+    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="integer">0</span>; i &lt; attributeIndexArray.length; i++) {
+        <span class="keyword">if</span> (attributeIndexArray[i] == indexOfName) {
+            index = i;
+            <span class="keyword">break</span>;
+        }
+    }
+    trimmedNames = trimmedArgs.substring(indexOfName + <span class="integer">2</span>, attributeIndexArray[index + <span class="integer">1</span>]).trim();
+}
+
+<span class="predefined-type">List</span>&lt;<span class="predefined-type">String</span>&gt; keyWordsToSearch = <span class="keyword">new</span> <span class="predefined-type">ArrayList</span>&lt;&gt;();
+
+<span class="keyword">if</span> (trimmedNames != <span class="predefined-constant">null</span>) {
+    <span class="predefined-type">String</span><span class="type">[]</span> nameKeywords = trimmedNames.split(<span class="string"><span class="delimiter">&quot;</span><span class="content"> </span><span class="delimiter">&quot;</span></span>);
+    keyWordsToSearch.add(PREFIX_NAME.getPrefix());
+    <span class="keyword">for</span> (<span class="type">int</span> i = <span class="integer">0</span>; i &lt; nameKeywords.length; i++) {
+        keyWordsToSearch.add(nameKeywords[i]);
+    }
+}
+
+NameContainsKeywordsPredicate predicate = <span class="keyword">new</span> NameContainsKeywordsPredicate(keyWordsToSearch);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When <code>FindCommand</code> class is executing, the keywords are taken out from the predicate and stored into separate ArrayLists again by distinguishing the prefixes stored in front of each type of keywords. The reason we do this twice is because we want to keep the consistency of all the command classes instead of changing the parameter type passed into <code>FindCommand</code> class. The contacts can be searched separately by different attributes. For each attribute, every keyword is taken out and compared to the corresponding details of all the persons in the list. Once the keyword is matched to any substring of the person details, then the person&#8217;s name will be stored into a list. After searching all the keywords, a name list with persons with details matching at least one keyword is obtained and passed to <code>updateFilteredPersonList</code> method. Finally, the person list is updated and displayed in the person list panel.</p>
+</div>
+<div class="paragraph">
+<p>For example, searching for name keywords is implemented this way:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="keyword">for</span> (<span class="type">int</span> i = <span class="integer">0</span>; i &lt; model.getAddressBook().getPersonList().size(); i++) {
+    nameList.add(model.getAddressBook().getPersonList().get(i).getName().toString().toLowerCase());
+}
+<span class="keyword">for</span> (<span class="type">int</span> i = <span class="integer">0</span>; i &lt; nameKeywords.size(); i++) {
+    <span class="keyword">for</span> (<span class="type">int</span> j = <span class="integer">0</span>; j &lt; nameList.size(); j++) {
+        <span class="keyword">if</span> (nameList.get(j).contains(nameKeywords.get(i).toLowerCase())) {
+            matchedNames.add(nameList.get(j));
+        }
+    }
+}
+
+<span class="keyword">if</span> (namesMatched != <span class="predefined-constant">null</span>) {
+    namesToSearch.addAll(matchedNames);
+}
+
+NameContainsKeywordsPredicate updatedPredicate = <span class="keyword">new</span> NameContainsKeywordsPredicate(namesToSearch);
+model.updateFilteredPersonList(updatedPredicate);</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows how the find command works:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/FindCommandSequenceDiagram.png" alt="FindCommandSequenceDiagram" width="800">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If no argument is provided after the command word, an invalid format message will be shown.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If no prefix is found inside the argument, then an invalid format message will be shown.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If some dummy values are found before the first prefix and after the command word, then an invalid format message will be shown.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If no keywords are provided after a prefix, then an invalid format message will be shown.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If more than one same prefix is provided, then the person list will be searched only by keywords behind the first prefix.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="design-considerations"><a class="link" href="#design-considerations">Design Considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Find person by <code>Address</code> keyword<br>
+<strong>Alternative 1 (current choice):</strong> Find person by a single <code>Address</code> keyword<br>
+<strong>Pros:</strong> We will not need to separate multiple addresses since it is difficult to distinguish.<br>
+<strong>Cons:</strong> It is inconvenient to find multiple persons from different locations.<br>
+<strong>Alternative 2:</strong> Separate different addresses by a special character (e.g. <code>;</code> or <code>*</code>)<br>
+<strong>Pros:</strong> You are able to find person(s) staying at different locations.<br>
+<strong>Cons:</strong> The find command becomes very long. It is hard for you to type all the addresses correctly.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="map-mechanism"><a class="link" href="#map-mechanism">Map mechanism</a></h3>
+<div class="paragraph">
+<p>Map function shows you the home address of a person in Google Map, which is displayed in the centre browser view panel. It allows you to see your friend&#8217;s location by specifying the index number of the person inside the app. In addition, by entering your current location, it can also show you the shortest path from your location to the selected person&#8217;s location.</p>
+</div>
+<div class="paragraph">
+<p>You are not allowed to find the locations of multiple persons by using this feature. Also, only one starting location is allowed when you are trying to find the route.</p>
+</div>
+<div class="paragraph">
+<p>The following diagram shows the inheritance diagram for the Map commands:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/MapCommandClassDiagram.png" alt="MapCommandClassDiagram" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>When you are using the map-show <code>(m-show)</code> command, you need to specify the index number of the person whom you would like to see the location of. As for the map-route <code>(m-route)</code> command, apart from specifying the index number, you also need to add a prefix <code>a/</code> before you enter your current location. The prefix should appear only once.</p>
+</div>
+<div class="paragraph">
+<p>During the implementation, map command parser class extracts the index number of the contact and passes the value to the corresponding map command. For <code>m-route</code> command, the parser class also extracts your current location by using the prefix symbol. The map command classes will post and raise an event once they are called, based on the parameters they have received.</p>
+</div>
+<div class="paragraph">
+<p>If you enter <code>m-show</code> command, a <code>BrowserPanelShowLocationEvent</code> will start. It will build a Google map URL with the specified location of the person selected, and load the Google map in the browser panel.</p>
+</div>
+<div class="paragraph">
+<p>The event for showing the location is implemented this way:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">BrowserPanelShowLocationEvent</span> <span class="directive">extends</span> BaseEvent {
+
+    <span class="directive">private</span> <span class="directive">final</span> ReadOnlyPerson person;
+
+    <span class="directive">public</span> BrowserPanelShowLocationEvent(ReadOnlyPerson person) {
+        <span class="local-variable">this</span>.person = person;
+    }
+
+    <span class="annotation">@Override</span>
+    <span class="directive">public</span> <span class="predefined-type">String</span> toString() {
+        <span class="keyword">return</span> <span class="local-variable">this</span>.getClass().getSimpleName();
+    }
+
+    <span class="directive">public</span> ReadOnlyPerson getNewSelection() {
+        <span class="keyword">return</span> person;
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The browser panel class that handles this event is implemented this way:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">void</span> loadLocationPage(ReadOnlyPerson person) {
+    loadPage(GOOGLE_MAP_SEARCH_URL_PREFIX + person.getAddress().toString().replaceAll(<span class="string"><span class="delimiter">&quot;</span><span class="content"> </span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">+</span><span class="delimiter">&quot;</span></span>)
+            + GOOGLE_MAP_SEARCH_URL_SUFFIX);
+}
+
+<span class="directive">public</span> <span class="type">void</span> loadPage(<span class="predefined-type">String</span> url) {
+    Platform.runLater(() -&gt; browser.getEngine().load(url));
+}
+
+<span class="directive">private</span> <span class="type">void</span> handleBrowserPanelShowLocationEvent(BrowserPanelShowLocationEvent event) {
+    logger.info(LogsCenter.getEventHandlingLogMessage(event));
+    loadLocationPage(event.getNewSelection());
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you enter <code>m-route</code> command, a <code>BrowserPanelFindRouteEvent</code> will start. It will build a Google map URL with the specified location of the person selected and your location, and load the Google map in the browser panel.</p>
+</div>
+<div class="paragraph">
+<p>The event for displaying the route is implemented this way:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">BrowserPanelFindRouteEvent</span> <span class="directive">extends</span> BaseEvent {
+
+    <span class="directive">private</span> <span class="directive">final</span> ReadOnlyPerson person;
+    <span class="directive">private</span> <span class="directive">final</span> <span class="predefined-type">String</span> address;
+
+    <span class="directive">public</span> BrowserPanelFindRouteEvent(ReadOnlyPerson person, <span class="predefined-type">String</span> address) {
+        <span class="local-variable">this</span>.person = person;
+        <span class="local-variable">this</span>.address = address;
+    }
+
+    <span class="annotation">@Override</span>
+    <span class="directive">public</span> <span class="predefined-type">String</span> toString() {
+        <span class="keyword">return</span> <span class="local-variable">this</span>.getClass().getSimpleName();
+    }
+
+    <span class="directive">public</span> ReadOnlyPerson getSelectedPerson() {
+        <span class="keyword">return</span> person;
+    }
+
+    <span class="directive">public</span> <span class="predefined-type">String</span> getAddress() {
+        <span class="keyword">return</span> address;
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The browser panel class that handles this event is implemented this way:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">void</span> loadRoutePage(ReadOnlyPerson person, <span class="predefined-type">String</span> address) {
+    <span class="predefined-type">String</span> startLocation = address.trim().replaceAll(<span class="string"><span class="delimiter">&quot;</span><span class="content"> </span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">+</span><span class="delimiter">&quot;</span></span>);
+    <span class="predefined-type">String</span> endLocation = person.getAddress().toString().trim().replaceAll(<span class="string"><span class="delimiter">&quot;</span><span class="content"> </span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">+</span><span class="delimiter">&quot;</span></span>);
+    loadPage(GOOGLE_MAP_DIRECTION_URL_PREFIX + startLocation
+            + GOOGLE_MAP_SEARCH_URL_SUFFIX + endLocation
+            + GOOGLE_MAP_SEARCH_URL_SUFFIX);
+}
+
+<span class="directive">public</span> <span class="type">void</span> loadPage(<span class="predefined-type">String</span> url) {
+    Platform.runLater(() -&gt; browser.getEngine().load(url));
+}
+
+<span class="directive">private</span>  <span class="type">void</span> handleBrowserPanelFindRouteEvent(BrowserPanelFindRouteEvent event) {
+    logger.info(LogsCenter.getEventHandlingLogMessage(event));
+    loadRoutePage(event.getSelectedPerson(), event.getAddress());
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following sequence diagrams show you how the Map commands work:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/MapShowCommandSequenceDiagram.png" alt="MapShowCommandSequenceDiagram" width="800">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/MapRouteCommandSequenceDiagram.png" alt="MapRouteCommandSequenceDiagram" width="800">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If no argument is provided after the command word, an invalid format message will be shown.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If the index number provided is out of the bound of person list, an invalid person index message will be shown.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If no prefix is found inside the argument when typing <code>m-route</code> command, then an invalid format message will be shown.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">Design Considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Locate a person in Google map<br>
+<strong>Alternative 1 (current choice):</strong> Add the string value of address to Google map URL<br>
+<strong>Pros:</strong> The process of finding the location using Google map is simple and straightforward.<br>
+<strong>Cons:</strong> Google map is not able to find the location or route if the location is not in Singapore.<br>
+<strong>Alternative 2:</strong> Use some other online maps (e.g. Baidu Map)<br>
+<strong>Pros:</strong> You are able to find the location in the map even it is not in Singapore.<br>
+<strong>Cons:</strong> The URL will not be changing during the process, thus it is not easy to achieve the map functions.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="birthday-mechanism"><a class="link" href="#birthday-mechanism">Birthday mechanism</a></h3>
+<div class="paragraph">
+<p>The birthday feature allows you to add/update/remove birthday to a selected person. The birthday value is not required when you add a person, since you might not know the birthday of every person. You are not allowed to use <code>edit</code> command to update person&#8217;s birthday.</p>
+</div>
+<div class="paragraph">
+<p>When you are executing the birthday related commands, only one person is allowed to be selected. The <code>BIRTHDAY</code> parameter needs to follow DD/MM/YYYY format. Only the valid date values are allowed to be stored into person&#8217;s birthday.</p>
+</div>
+<div class="paragraph">
+<p>The following diagram shows the inheritance diagram for Birthday commands:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/BirthdayCommandClassDiagram.png" alt="BirthdayCommandClassDiagram" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>During the implementation, birthday commands parser classes extracts the index number of the person as well as birthday value, and passes them to the corresponding birthday classes. The default birthday value of each person is <code>01/01/1900</code>. To add birthday to a person, we actually updated the person&#8217;s birthday with the new birthday value. To delete a person&#8217;s birthday, we just update the person&#8217;s birthday and set it as default value. Updating a person&#8217;s birthday is similar to adding birthday to the person. The two functions are the same in implementation.</p>
+</div>
+<div class="paragraph">
+<p>Each time a person is selected from the person list panel, we check the value of the selected person&#8217;s birthday. If it is default value, it will not be shown in the person details panel.</p>
+</div>
+<div class="paragraph">
+<p>The adding birthday function is implemented this way:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="predefined-type">List</span>&lt;ReadOnlyPerson&gt; lastShownList = model.getFilteredPersonList();
+    <span class="keyword">if</span> (targetIndex.getZeroBased() &gt;= lastShownList.size()) {
+        <span class="keyword">throw</span> <span class="keyword">new</span> CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    ReadOnlyPerson currentPerson = lastShownList.get(targetIndex.getZeroBased());
+    Person personToEdit = (Person) lastShownList.get(targetIndex.getZeroBased());
+    personToEdit.setBirthday(birthdayToAdd);
+
+    <span class="keyword">try</span> {
+        model.updatePerson(currentPerson, personToEdit);
+    } <span class="keyword">catch</span> (DuplicatePersonException dpe) {
+        <span class="keyword">throw</span> <span class="keyword">new</span> CommandException(MESSAGE_DUPLICATE_PERSON);
+    } <span class="keyword">catch</span> (PersonNotFoundException pnfe) {
+        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="exception">AssertionError</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">The target person cannot be missing</span><span class="delimiter">&quot;</span></span>);
+    }
+
+    model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
+    EventsCenter.getInstance().post(<span class="keyword">new</span> JumpToListRequestEvent(targetIndex));
+
+    <span class="keyword">return</span> <span class="keyword">new</span> CommandResult(<span class="predefined-type">String</span>.format(MESSAGE_ADD_BIRTHDAY_SUCCESS, personToEdit));</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The removing birthday function is implemented this way:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="predefined-type">List</span>&lt;ReadOnlyPerson&gt; lastShownList = model.getFilteredPersonList();
+    <span class="keyword">if</span> (targetIndex.getZeroBased() &gt;= lastShownList.size()) {
+        <span class="keyword">throw</span> <span class="keyword">new</span> CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+    }
+
+    ReadOnlyPerson currentPerson = lastShownList.get(targetIndex.getZeroBased());
+    Person personToEdit = (Person) lastShownList.get(targetIndex.getZeroBased());
+    Birthday birthdayToAdd = <span class="keyword">new</span> Birthday();
+    personToEdit.setBirthday(birthdayToAdd);
+
+    <span class="keyword">try</span> {
+        model.updatePerson(currentPerson, personToEdit);
+    } <span class="keyword">catch</span> (DuplicatePersonException dpe) {
+        <span class="keyword">throw</span> <span class="keyword">new</span> CommandException(MESSAGE_DUPLICATE_PERSON);
+    } <span class="keyword">catch</span> (PersonNotFoundException pnfe) {
+        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="exception">AssertionError</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">The target person cannot be missing</span><span class="delimiter">&quot;</span></span>);
+    }
+
+    model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+
+    EventsCenter.getInstance().post(<span class="keyword">new</span> JumpToListRequestEvent(targetIndex));
+
+    <span class="keyword">return</span> <span class="keyword">new</span> CommandResult(<span class="predefined-type">String</span>.format(MESSAGE_REMOVE_BIRTHDAY_SUCCESS, personToEdit));</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The following sequence diagrams show you how the birthday commands work:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/BirthdayAddCommandSequenceDiagram.png" alt="BirthdayAddCommandSequenceDiagram" width="800">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/BirthdayRemoveCommandSequenceDiagram.png" alt="BirthdayRemoveCommandSequenceDiagram" width="800">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If no argument is provided after the command word, an invalid format message will be shown.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If the index number provided is out of the bound of person list, an invalid person index message will be shown.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If an invalid birthday is provided for birthday-remove command, an invalid input birthday message will be shown.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-3"><a class="link" href="#design-considerations-3">Design Considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Birthday value of a contact<br>
+<strong>Alternative 1 (current choice):</strong> Every person without specifying a birthday has a default birthday value <code>01/01/1900</code><br>
+<strong>Pros:</strong> It is easy to create a person object without specifying the birthday value.<br>
+<strong>Cons:</strong> The birthday will not be shown in the person details panel if the person&#8217;s birthday is exactly the default birthday.<br>
+<strong>Alternative 2:</strong> Initialize a person&#8217;s birthday only when a birthday is added to the person, and set the birthday object as <code>null</code> when deleting the birthday<br>
+<strong>Pros:</strong> There is no default birthday for each person, thus any date can be shown in person details panel.<br>
+<strong>Cons:</strong> It is not convenient every time we want to create a new person object.</p>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect2">
+<h3 id="enhancement-proposed"><a class="link" href="#enhancement-proposed">Enhancement Proposed:</a></h3>
+<div class="paragraph">
+<p><mark>Start of Extract [from: User Guide]</mark></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="launching-shell-version-code-shell-code-em-coming-in-v2-0-em"><a class="link" href="#launching-shell-version-code-shell-code-em-coming-in-v2-0-em">Launching shell version : <code>shell</code> <em>[Coming in v2.0]</em></a></h3>
+<div class="paragraph">
+<p>By using this command, you can open the shell version of the app. In this way, you are able to use the app without the clutter. You can still achieve most of the operations by only using the shell, except for some features related to the browser (e.g. the Map feature).</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>shell</code></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="adding-a-social-media-url-to-a-person-code-l-add-code-em-coming-in-v2-0-em"><a class="link" href="#adding-a-social-media-url-to-a-person-code-l-add-code-em-coming-in-v2-0-em">Adding a social media URL to a person: <code>l-add</code> <em>[Coming in v2.0]</em></a></h3>
+<div class="paragraph">
+<p>You will find it very convenient to add some social media URLs to your friends so that you are able to see their posts and recent activities simply by clicking those social media icons in the centre person details panel. In this way, you do not need to open each social media app and search for the person before you can see their posts.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>l-add INDEX [tt/TWITTER] / [fb/FACEBOOK] / [nm/NUSMODS] / [ig/INSTAGRAM] / [gh/GITHUB]</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Adds the social media link to the person at the specified <code>INDEX</code>.</p>
+</li>
+<li>
+<p>The index refers to the index number shown in the most recent listing, only one index is allowed.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+<li>
+<p>A prefix is required before entering the corresponding URL. Only one prefix and one URL is allowed for each command.</p>
+</li>
+<li>
+<p>This command will also update the existing value to the input value.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>l-add 1 fb/https://www.facebook.com/dale.sun.507</code><br>
+Adds the Facebook URL to the 1st person in the contact list</p>
+</li>
+<li>
+<p><code>l-add 3 gh/https://github.com/dalessr</code><br>
+Adds the GitHub URL to the 3rd person in the contact list</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="other-contributions"><a class="link" href="#other-contributions">Other contributions</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>GUI design: built the person details panel (Pull requests <a href="https://github.com/CS2103AUG2017-W09-B3/main/pull/84">#84</a>)</p>
+</li>
+<li>
+<p>GUI design: open a new tab in centre panel to display the browser view for each social media icon (Pull requests <a href="https://github.com/CS2103AUG2017-W09-B3/main/pull/98">#98</a>)</p>
+</li>
+<li>
+<p>Wrote additional tests to increase coverage from 78% to 80% (Pull requests <a href="https://github.com/CS2103AUG2017-W09-B3/main/pull/101">#101</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div id="footer">
+<div id="footer-text">
+Last updated 2017-11-07 18:19:46 +00:00
+</div>
+</div>
+</body>
+</html>
