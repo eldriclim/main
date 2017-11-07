@@ -5,390 +5,37 @@
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="generator" content="Asciidoctor 1.5.3">
-<title>iConnect - User Guide</title>
-<link rel="stylesheet" href="stylesheets/gh-pages.css">
+<title>Eldric Lim - Project Portfolio</title>
+<link rel="stylesheet" href="../stylesheets/gh-pages.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.4.0/css/font-awesome.min.css">
-<link rel="stylesheet" href="stylesheets/coderay-asciidoctor.css">
+<link rel="stylesheet" href="../stylesheets/coderay-asciidoctor.css">
 </head>
 <body class="article">
 <div id="header">
-<h1>iConnect - User Guide</h1>
+<h1>Eldric Lim - Project Portfolio</h1>
 </div>
 <div id="content">
-<div id="preamble">
-<div class="sectionbody">
-<div class="paragraph">
-<p>By: <code>Team W09-B03</code>      Since: <code>Sep 2017</code>      Licence: <code>MIT</code></p>
-</div>
-</div>
-<div id="toc" class="toc">
-<div id="toctitle"></div>
-<ul class="sectlevel1">
-<li><a href="#introduction">1. Introduction</a></li>
-<li><a href="#quick-start">2. Quick Start</a></li>
-<li><a href="#features">3. Features</a>
-<ul class="sectlevel2">
-<li><a href="#viewing-help-code-help-code-em-since-v1-3-em">3.1. Viewing help : <code>help</code> <em>[Since v1.3]</em></a></li>
-<li><a href="#adding-a-person-code-add-code-em-since-v1-1-em">3.2. Adding a person: <code>add</code> <em>[Since v1.1]</em></a></li>
-<li><a href="#listing-all-persons-code-list-code-em-since-v1-1-em">3.3. Listing all persons : <code>list</code> <em>[Since v1.1]</em></a></li>
-<li><a href="#editing-a-person-code-edit-code-em-since-v1-1-em">3.4. Editing a person : <code>edit</code> <em>[Since v1.1]</em></a></li>
-<li><a href="#locating-persons-by-different-attributes-code-find-code-em-since-v1-2-em">3.5. Locating persons by different attributes: <code>find</code> <em>[Since v1.2]</em></a></li>
-<li><a href="#sorting-list-of-persons-code-sort-code-em-since-v1-2-em">3.6. Sorting list of persons: <code>sort</code> <em>[Since v1.2]</em></a></li>
-<li><a href="#deleting-a-person-code-delete-code-em-since-v1-2-em">3.7. Deleting a person : <code>delete</code> <em>[Since v1.2]</em></a></li>
-<li><a href="#adding-a-tag-to-a-person-s-code-t-add-code-em-since-v1-1-em">3.8. Adding a tag to a person(s) : <code>t-add</code> <em>[Since v1.1]</em></a></li>
-<li><a href="#setting-a-person-s-as-favourite-code-t-add-code-em-since-v1-3-em">3.9. Setting a person(s) as "favourite" : <code>t-add</code> <em>[Since v1.3]</em></a></li>
-<li><a href="#removing-a-tag-to-a-person-s-code-t-remove-code-em-since-v1-2-em">3.10. Removing a tag to a person(s) : <code>t-remove</code> <em>[Since v1.2]</em></a></li>
-<li><a href="#removing-a-person-s-from-favourite-code-t-remove-code-em-since-v1-2-em">3.11. Removing a person(s) from favourite : <code>t-remove</code> <em>[Since v1.2]</em></a></li>
-<li><a href="#find-the-person-s-with-given-tags-code-t-find-code-em-since-v1-3-em">3.12. Find the person(s) with given tags: <code>t-find</code> <em>[Since v1.3]</em></a></li>
-<li><a href="#find-the-location-of-a-person-using-google-map-code-m-show-code-em-since-v1-3-em">3.13. Find the location of a person using Google Map: <code>m-show</code> <em>[Since v1.3]</em></a></li>
-<li><a href="#find-the-route-from-user-s-current-location-to-the-person-seleted-code-m-route-code-em-since-v1-3-em">3.14. Find the route from user&#8217;s current location to the person seleted: <code>m-route</code> <em>[Since v1.3]</em></a></li>
-<li><a href="#schedule-an-event-s-add-em-since-v1-4-em">3.15. Schedule an Event: s-add <em>[Since v1.4]</em></a></li>
-<li><a href="#cancel-an-event-s-remove-em-since-v1-4-em">3.16. Cancel an Event: s-remove <em>[Since v1.4]</em></a></li>
-<li><a href="#selecting-a-person-code-select-code-em-since-v1-1-em">3.17. Selecting a person : <code>select</code> <em>[Since v1.1]</em></a></li>
-<li><a href="#listing-entered-commands-code-history-code-em-since-v1-1-em">3.18. Listing entered commands : <code>history</code> <em>[Since v1.1]</em></a></li>
-<li><a href="#undoing-previous-command-code-undo-code">3.19. Undoing previous command : <code>undo</code></a></li>
-<li><a href="#redoing-the-previously-undone-command-code-redo-code">3.20. Redoing the previously undone command : <code>redo</code></a></li>
-<li><a href="#restoring-person-s-code-bin-restore-code-em-since-v1-5-em">3.21. Restoring person(s) : <code>bin-restore</code> <em>[Since v1.5]</em></a></li>
-<li><a href="#restoring-person-s-code-bin-delete-code-em-since-v1-5-em">3.22. Restoring person(s) : <code>bin-delete</code> <em>[Since v1.5]</em></a></li>
-<li><a href="#clearing-all-contacts-from-bin-code-bin-clear-code-em-since-v1-5-em">3.23. Clearing all contacts from bin : <code>bin-clear</code> <em>[Since v1.5]</em></a></li>
-<li><a href="#adding-the-birthday-to-a-person-code-b-add-code-em-since-v1-4-em">3.24. Adding the birthday to a person : <code>b-add</code> <em>[Since v1.4]</em></a></li>
-<li><a href="#removing-the-birthday-from-a-person-code-b-remove-code-em-since-v1-5-em">3.25. Removing the birthday from a person : <code>b-remove</code> <em>[Since v1.5]</em></a></li>
-<li><a href="#adding-a-social-media-url-to-a-person-code-l-add-code-em-coming-in-v2-0-em">3.26. Adding a social media URL to a person: <code>l-add</code> <em>[Coming in v2.0]</em></a></li>
-<li><a href="#launching-shell-version-code-shell-code-em-coming-in-v2-0-em">3.27. Launching shell version : <code>shell</code> <em>[Coming in v2.0]</em></a></li>
-<li><a href="#clearing-all-entries-code-clear-code">3.28. Clearing all entries : <code>clear</code></a></li>
-<li><a href="#exiting-the-program-code-exit-code">3.29. Exiting the program : <code>exit</code></a></li>
-<li><a href="#saving-the-data">3.30. Saving the data</a></li>
-</ul>
-</li>
-<li><a href="#faq">4. FAQ</a></li>
-<li><a href="#command-summary">5. Command Summary</a></li>
-</ul>
-</div>
-</div>
 <div class="sect1">
-<h2 id="introduction"><a class="link" href="#introduction">1. Introduction</a></h2>
+<h2 id="project-addressbook-level-4"><a class="link" href="#project-addressbook-level-4">Project: AddressBook - Level 4</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Introducing iConnect, our one-stop student networking application. We aim to serve as your personal secretary to ease your job as a student. Due to the ever-increasing workload, it has become a challenge to keep track of various school commitments while maintaining relationships with peers.</p>
+<p>AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 6 kLoC.</p>
 </div>
 <div class="paragraph">
-<p>With iConnect, missing schedules and losing contact with friends will be a thing of the past.
-Let’s get connected now!</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="quick-start"><a class="link" href="#quick-start">2. Quick Start</a></h2>
-<div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Ensure you have Java version <code>1.8.0_60</code> or later installed in your Computer.</p>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Having any Java 8 version is not enough.<br>
-This app will not work with earlier versions of Java 8.
-</td>
-</tr>
-</table>
-</div>
-</li>
-<li>
-<p>Download the latest <code>iConnect.jar</code> <a href="https://github.com/CS2103AUG2017-W09-B3/main/releases">here</a>.</p>
-</li>
-<li>
-<p>Copy the file to the folder you want to use as the home folder for your iConnect.</p>
-</li>
-<li>
-<p>Double-click the file to start the app. The GUI should appear in a few seconds.</p>
-<div class="imageblock">
-<div class="content">
-<img src="images/Ui.png" alt="Ui" width="790">
-</div>
-</div>
-</li>
-<li>
-<p>Type the command in the command box and press <kbd>Enter</kbd> to execute it.<br>
-e.g. typing <strong><code>help</code></strong> and pressing <kbd>Enter</kbd> will open the help window.</p>
-</li>
-<li>
-<p>Some example commands you can try:</p>
-<div class="ulist">
-<ul>
-<li>
-<p><strong><code>list</code></strong> : lists all contacts</p>
-</li>
-<li>
-<p><strong><code>add</code></strong><code>n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01</code> : adds a contact named <code>John Doe</code> to the Address Book.</p>
-</li>
-<li>
-<p><strong><code>delete</code></strong><code>I/1 3</code> : deletes the 1st and 3rd contact shown in the current list</p>
-</li>
-<li>
-<p><strong><code>exit</code></strong> : exits the app</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p>Refer to the <a href="#features">Features</a> section below for details of each command.</p>
-</li>
-</ol>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="features"><a class="link" href="#features">3. Features</a></h2>
-<div class="sectionbody">
-<div class="exampleblock">
-<div class="content">
-<div class="paragraph">
-<p><strong>Command Format</strong></p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>Words in <code>UPPER_CASE</code> are the parameters to be supplied by the user e.g. in <code>add n/NAME</code>, <code>NAME</code> is a parameter which can be used as <code>add n/John Doe</code>.</p>
-</li>
-<li>
-<p>Items in square brackets are optional e.g <code>n/NAME [t/TAG]</code> can be used as <code>n/John Doe t/friend</code> or as <code>n/John Doe</code>.</p>
-</li>
-<li>
-<p>Items with <code>…</code>​ after them can be used multiple times including zero times e.g. <code>[t/TAG]&#8230;&#8203;</code> can be used as <code>&#160;</code> (i.e. 0 times), <code>t/friend</code>, <code>t/friend t/family</code> etc.</p>
-</li>
-<li>
-<p>Parameters can be in any order e.g. if the command specifies <code>n/NAME p/PHONE_NUMBER</code>, <code>p/PHONE_NUMBER n/NAME</code> is also acceptable.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-iConnect will be referred to as <strong>address book</strong> in the following documentation.
-</td>
-</tr>
-</table>
+<p><strong>Code contributed</strong>: [<a href="https://github.com">Functional code</a>] [<a href="https://github.com">Test code</a>] {give links to collated code files}</p>
 </div>
 <div class="sect2">
-<h3 id="viewing-help-code-help-code-em-since-v1-3-em"><a class="link" href="#viewing-help-code-help-code-em-since-v1-3-em">3.1. Viewing help : <code>help</code> <em>[Since v1.3]</em></a></h3>
+<h3 id="enhancement-added-sort"><a class="link" href="#enhancement-added-sort">Enhancement Added: Sort</a></h3>
+<div class="sect3">
+<h4 id="external-behavior"><a class="link" href="#external-behavior">External behavior</a></h4>
+<hr>
 <div class="paragraph">
-<p>If you don&#8217;t know how to use some commands, don&#8217;t worry, help command can guide you.</p>
+<p><mark>Start of Extract [from: User Guide]</mark></p>
 </div>
-<div class="paragraph">
-<p><em>Alias:</em> <code>h</code></p>
-</div>
-<div class="paragraph">
-<p>You can look up the usage of the given command word using help command.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>help COMMAND</code></p>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>help list</code><br>
-Shows the usage of command <code>list</code></p>
-</li>
-<li>
-<p><code>help add</code><br>
-Shows the usage of command <code>add</code></p>
-</li>
-</ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="adding-a-person-code-add-code-em-since-v1-1-em"><a class="link" href="#adding-a-person-code-add-code-em-since-v1-1-em">3.2. Adding a person: <code>add</code> <em>[Since v1.1]</em></a></h3>
-<div class="paragraph">
-<p><em>Alias:</em> <code>create</code> <code>put</code></p>
-</div>
-<div class="paragraph">
-<p>Stores a person’s contact details to address book records.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]&#8230;&#8203;</code></p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-A person can have any number of tags (including 0)
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01</code></p>
-</li>
-<li>
-<p><code>add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal</code></p>
-</li>
-<li>
-<p><code>creat n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01</code></p>
-</li>
-<li>
-<p><code>put n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01</code></p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="listing-all-persons-code-list-code-em-since-v1-1-em"><a class="link" href="#listing-all-persons-code-list-code-em-since-v1-1-em">3.3. Listing all persons : <code>list</code> <em>[Since v1.1]</em></a></h3>
-<div class="paragraph">
-<p><em>Alias:</em> <code>show</code> <code>all</code></p>
-</div>
-<div class="paragraph">
-<p>Shows a list of all persons stored in address book.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>list</code></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="editing-a-person-code-edit-code-em-since-v1-1-em"><a class="link" href="#editing-a-person-code-edit-code-em-since-v1-1-em">3.4. Editing a person : <code>edit</code> <em>[Since v1.1]</em></a></h3>
-<div class="paragraph">
-<p><em>Alias:</em> <code>update</code> <code>modify</code></p>
-</div>
-<div class="paragraph">
-<p>Edits an existing person in the address book.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]&#8230;&#8203;</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Modifies the person at the specified INDEX. The index refers to the index number shown in the last persons listing. The index must be a positive integer 1, 2, 3, …​</p>
-</li>
-<li>
-<p>At least one of the optional fields must be provided.</p>
-</li>
-<li>
-<p>Existing values will be updated to the input values.</p>
-</li>
-<li>
-<p>When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.</p>
-</li>
-<li>
-<p>You can remove all the person’s tags by typing t/ without specifying any tags after it.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>edit 1 p/91234567 e/johndoe@example.com</code><br>
-Edits the phone number and email address of the 1st person to be <code>91234567</code> and <code>johndoe@example.com</code> respectively</p>
-</li>
-<li>
-<p><code>edit 2 n/Betsy Crower t/</code><br>
-Edits the name of the 2nd person to be <code>Betsy Crower</code> and clears all existing tags</p>
-</li>
-<li>
-<p><code>update 1 p/91234567 e/johndoe@example.com</code><br>
-Edits the phone number and email address of the 1st person to be <code>91234567</code> and <code>johndoe@example.com</code> respectively</p>
-</li>
-<li>
-<p><code>modify 1 p/91234567 e/johndoe@example.com</code><br>
-Edits the phone number and email address of the 1st person to be <code>91234567</code> and <code>johndoe@example.com</code> respectively</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="locating-persons-by-different-attributes-code-find-code-em-since-v1-2-em"><a class="link" href="#locating-persons-by-different-attributes-code-find-code-em-since-v1-2-em">3.5. Locating persons by different attributes: <code>find</code> <em>[Since v1.2]</em></a></h3>
-<div class="paragraph">
-<p><em>Alias:</em> <code>search</code> <code>get</code></p>
-</div>
-<div class="paragraph">
-<p>Sometimes you might not remember the full name of a person. Perhaps you only know the phone number or home address of the person. But don&#8217;t worry! By using this command, you are able to search for your contacts by some other informations such as phone number, email and home address. Even if you cannot remember the full name of your friend, you can still easily find him by his partial name!</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>find [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>A prefix is required before entering a different type of keyword.</p>
-</li>
-<li>
-<p>The order of the keywords does not matter. e.g. Hans Bo will match Bo Hans.</p>
-</li>
-<li>
-<p>You can find a person by searching for any substring of the attribute. e.g. hn will match John, 1234 will match 98123476.</p>
-</li>
-<li>
-<p>All keywords regarding a certain attribute should be put after the prefix. e.g. n/alice bob.</p>
-</li>
-<li>
-<p>You can only search for one address per time for Address type.</p>
-</li>
-<li>
-<p>Persons matching at least one keyword will be returned. e.g. Hans Bo will return Hans Gruber, Bo Yang.</p>
-</li>
-<li>
-<p>At least one of the optional fields must be provided.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>find n/John</code><br>
-Returns <code>john</code> and <code>John Doe</code></p>
-</li>
-<li>
-<p><code>search p/98765432</code><br>
-Returns the person having phone number <code>98765432</code></p>
-</li>
-<li>
-<p><code>get e/johndoe@gmail.com</code><br>
-Returns the person having email <code>johndoe@gmail.com</code></p>
-</li>
-<li>
-<p><code>find n/Betsy Tim John a/clementi street</code><br>
-Returns any person having names <code>Betsy</code>, <code>Tim</code>, <code>John</code> or living at <code>Clementi Street</code></p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="sorting-list-of-persons-code-sort-code-em-since-v1-2-em"><a class="link" href="#sorting-list-of-persons-code-sort-code-em-since-v1-2-em">3.6. Sorting list of persons: <code>sort</code> <em>[Since v1.2]</em></a></h3>
+<h3 id="sorting-list-of-persons-code-sort-code-em-since-v1-2-em"><a class="link" href="#sorting-list-of-persons-code-sort-code-em-since-v1-2-em">Sorting list of persons: <code>sort</code> <em>[Since v1.2]</em></a></h3>
 <div class="paragraph">
 <p>Sorts the full list of persons based on the specified attribute.<br></p>
 </div>
@@ -457,7 +104,7 @@ Returns list of persons sorted by time added in descending order</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="deleting-a-person-code-delete-code-em-since-v1-2-em"><a class="link" href="#deleting-a-person-code-delete-code-em-since-v1-2-em">3.7. Deleting a person : <code>delete</code> <em>[Since v1.2]</em></a></h3>
+<h3 id="deleting-a-person-code-delete-code-em-since-v1-2-em"><a class="link" href="#deleting-a-person-code-delete-code-em-since-v1-2-em">Deleting a person : <code>delete</code> <em>[Since v1.2]</em></a></h3>
 <div class="paragraph">
 <p>If you want to keep your person list clean, just using delete command to remove some people to bin.</p>
 </div>
@@ -522,7 +169,7 @@ Deletes the 1st person in the results of the <code>find</code> command</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="adding-a-tag-to-a-person-s-code-t-add-code-em-since-v1-1-em"><a class="link" href="#adding-a-tag-to-a-person-s-code-t-add-code-em-since-v1-1-em">3.8. Adding a tag to a person(s) : <code>t-add</code> <em>[Since v1.1]</em></a></h3>
+<h3 id="adding-a-tag-to-a-person-s-code-t-add-code-em-since-v1-1-em"><a class="link" href="#adding-a-tag-to-a-person-s-code-t-add-code-em-since-v1-1-em">Adding a tag to a person(s) : <code>t-add</code> <em>[Since v1.1]</em></a></h3>
 <div class="paragraph">
 <p>Adds tag to specified person(s) from the address book.</p>
 </div>
@@ -563,7 +210,7 @@ Adds the tag friends to the 2nd and 3rd person in the address book</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="setting-a-person-s-as-favourite-code-t-add-code-em-since-v1-3-em"><a class="link" href="#setting-a-person-s-as-favourite-code-t-add-code-em-since-v1-3-em">3.9. Setting a person(s) as "favourite" : <code>t-add</code> <em>[Since v1.3]</em></a></h3>
+<h3 id="setting-a-person-s-as-favourite-code-t-add-code-em-since-v1-3-em"><a class="link" href="#setting-a-person-s-as-favourite-code-t-add-code-em-since-v1-3-em">Setting a person(s) as "favourite" : <code>t-add</code> <em>[Since v1.3]</em></a></h3>
 <div class="paragraph">
 <p>Adds favourite tag to specified person(s) from the address book.</p>
 </div>
@@ -612,7 +259,7 @@ Sets 2nd and 3rd person in the address book as favourite</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="removing-a-tag-to-a-person-s-code-t-remove-code-em-since-v1-2-em"><a class="link" href="#removing-a-tag-to-a-person-s-code-t-remove-code-em-since-v1-2-em">3.10. Removing a tag to a person(s) : <code>t-remove</code> <em>[Since v1.2]</em></a></h3>
+<h3 id="removing-a-tag-to-a-person-s-code-t-remove-code-em-since-v1-2-em"><a class="link" href="#removing-a-tag-to-a-person-s-code-t-remove-code-em-since-v1-2-em">Removing a tag to a person(s) : <code>t-remove</code> <em>[Since v1.2]</em></a></h3>
 <div class="paragraph">
 <p>Removes a tag from specified person(s) from the address book.</p>
 </div>
@@ -660,7 +307,7 @@ Removes the tag <code>friends</code> from all person(s) with the tag <code>frien
 </div>
 </div>
 <div class="sect2">
-<h3 id="removing-a-person-s-from-favourite-code-t-remove-code-em-since-v1-2-em"><a class="link" href="#removing-a-person-s-from-favourite-code-t-remove-code-em-since-v1-2-em">3.11. Removing a person(s) from favourite : <code>t-remove</code> <em>[Since v1.2]</em></a></h3>
+<h3 id="removing-a-person-s-from-favourite-code-t-remove-code-em-since-v1-2-em"><a class="link" href="#removing-a-person-s-from-favourite-code-t-remove-code-em-since-v1-2-em">Removing a person(s) from favourite : <code>t-remove</code> <em>[Since v1.2]</em></a></h3>
 <div class="paragraph">
 <p>Removes <code>favourite</code> tag from specified person(s) from the address book.</p>
 </div>
@@ -695,7 +342,7 @@ Removes the tag <code>fav</code> from all person(s) with the the tag <code>fav</
 </div>
 </div>
 <div class="sect2">
-<h3 id="find-the-person-s-with-given-tags-code-t-find-code-em-since-v1-3-em"><a class="link" href="#find-the-person-s-with-given-tags-code-t-find-code-em-since-v1-3-em">3.12. Find the person(s) with given tags: <code>t-find</code> <em>[Since v1.3]</em></a></h3>
+<h3 id="find-the-person-s-with-given-tags-code-t-find-code-em-since-v1-3-em"><a class="link" href="#find-the-person-s-with-given-tags-code-t-find-code-em-since-v1-3-em">Find the person(s) with given tags: <code>t-find</code> <em>[Since v1.3]</em></a></h3>
 <div class="paragraph">
 <p>Finds all persons with the given tag.</p>
 </div>
@@ -729,7 +376,7 @@ Shows all the people with tag <code>friend</code> or tag <code>classmate</code><
 </div>
 </div>
 <div class="sect2">
-<h3 id="find-the-location-of-a-person-using-google-map-code-m-show-code-em-since-v1-3-em"><a class="link" href="#find-the-location-of-a-person-using-google-map-code-m-show-code-em-since-v1-3-em">3.13. Find the location of a person using Google Map: <code>m-show</code> <em>[Since v1.3]</em></a></h3>
+<h3 id="find-the-location-of-a-person-using-google-map-code-m-show-code-em-since-v1-3-em"><a class="link" href="#find-the-location-of-a-person-using-google-map-code-m-show-code-em-since-v1-3-em">Find the location of a person using Google Map: <code>m-show</code> <em>[Since v1.3]</em></a></h3>
 <div class="paragraph">
 <p>You might find it not very convenient to only show the contact&#8217;s location as text. Therefore, iConnect allows you to see the location! By using this command, without typing in the person&#8217;s address, you can easily find the location of your friend in Google Map, which will show in the centre browser.</p>
 </div>
@@ -769,7 +416,7 @@ Shows the address of person with index 1 on the google map</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="find-the-route-from-user-s-current-location-to-the-person-seleted-code-m-route-code-em-since-v1-3-em"><a class="link" href="#find-the-route-from-user-s-current-location-to-the-person-seleted-code-m-route-code-em-since-v1-3-em">3.14. Find the route from user&#8217;s current location to the person seleted: <code>m-route</code> <em>[Since v1.3]</em></a></h3>
+<h3 id="find-the-route-from-user-s-current-location-to-the-person-seleted-code-m-route-code-em-since-v1-3-em"><a class="link" href="#find-the-route-from-user-s-current-location-to-the-person-seleted-code-m-route-code-em-since-v1-3-em">Find the route from user&#8217;s current location to the person seleted: <code>m-route</code> <em>[Since v1.3]</em></a></h3>
 <div class="paragraph">
 <p>Not only can iConnect show the location, it can also show you how to go there! Simply by adding your current location, it will show you the shortest path from your current address to your friend&#8217;s home in the Google map.</p>
 </div>
@@ -816,7 +463,7 @@ Shows the route from <code>John street, block 123, #01-01</code> to the address 
 </div>
 </div>
 <div class="sect2">
-<h3 id="schedule-an-event-s-add-em-since-v1-4-em"><a class="link" href="#schedule-an-event-s-add-em-since-v1-4-em">3.15. Schedule an Event: s-add <em>[Since v1.4]</em></a></h3>
+<h3 id="schedule-an-event-s-add-em-since-v1-4-em"><a class="link" href="#schedule-an-event-s-add-em-since-v1-4-em">Schedule an Event: s-add <em>[Since v1.4]</em></a></h3>
 <div class="paragraph">
 <p>Adds an event, along with the members involved, into the calendar.</p>
 </div>
@@ -875,7 +522,7 @@ Adds a two-hour long event called ‘Exam Date’ on 4th of December 2017 at 2:3
 </div>
 </div>
 <div class="sect2">
-<h3 id="cancel-an-event-s-remove-em-since-v1-4-em"><a class="link" href="#cancel-an-event-s-remove-em-since-v1-4-em">3.16. Cancel an Event: s-remove <em>[Since v1.4]</em></a></h3>
+<h3 id="cancel-an-event-s-remove-em-since-v1-4-em"><a class="link" href="#cancel-an-event-s-remove-em-since-v1-4-em">Cancel an Event: s-remove <em>[Since v1.4]</em></a></h3>
 <div class="paragraph">
 <p>Removes an event from the calendar.</p>
 </div>
@@ -949,7 +596,7 @@ Removes 3 events with the index 1, 2 and 3.
 </div>
 </div>
 <div class="sect2">
-<h3 id="selecting-a-person-code-select-code-em-since-v1-1-em"><a class="link" href="#selecting-a-person-code-select-code-em-since-v1-1-em">3.17. Selecting a person : <code>select</code> <em>[Since v1.1]</em></a></h3>
+<h3 id="selecting-a-person-code-select-code-em-since-v1-1-em"><a class="link" href="#selecting-a-person-code-select-code-em-since-v1-1-em">Selecting a person : <code>select</code> <em>[Since v1.1]</em></a></h3>
 <div class="paragraph">
 <p><em>Alias:</em> <code>choose</code></p>
 </div>
@@ -995,7 +642,7 @@ Selects the 1st person in the results of the <code>find</code> command</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="listing-entered-commands-code-history-code-em-since-v1-1-em"><a class="link" href="#listing-entered-commands-code-history-code-em-since-v1-1-em">3.18. Listing entered commands : <code>history</code> <em>[Since v1.1]</em></a></h3>
+<h3 id="listing-entered-commands-code-history-code-em-since-v1-1-em"><a class="link" href="#listing-entered-commands-code-history-code-em-since-v1-1-em">Listing entered commands : <code>history</code> <em>[Since v1.1]</em></a></h3>
 <div class="paragraph">
 <p><em>Alias:</em> <code>record</code></p>
 </div>
@@ -1021,7 +668,7 @@ Selects the 1st person in the results of the <code>find</code> command</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">3.19. Undoing previous command : <code>undo</code></a></h3>
+<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">Undoing previous command : <code>undo</code></a></h3>
 <div class="paragraph">
 <p>Restores the address book to the state before the previous <em>undoable</em> command was executed.</p>
 </div>
@@ -1068,7 +715,7 @@ The <code>undo</code> command fails as there are no undoable commands executed p
 </div>
 </div>
 <div class="sect2">
-<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">3.20. Redoing the previously undone command : <code>redo</code></a></h3>
+<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">Redoing the previously undone command : <code>redo</code></a></h3>
 <div class="paragraph">
 <p>Reverses the most recent <code>undo</code> command.</p>
 </div>
@@ -1112,7 +759,7 @@ The <code>redo</code> command fails as there are no <code>undo</code> commands e
 </div>
 </div>
 <div class="sect2">
-<h3 id="restoring-person-s-code-bin-restore-code-em-since-v1-5-em"><a class="link" href="#restoring-person-s-code-bin-restore-code-em-since-v1-5-em">3.21. Restoring person(s) : <code>bin-restore</code> <em>[Since v1.5]</em></a></h3>
+<h3 id="restoring-person-s-code-bin-restore-code-em-since-v1-5-em"><a class="link" href="#restoring-person-s-code-bin-restore-code-em-since-v1-5-em">Restoring person(s) : <code>bin-restore</code> <em>[Since v1.5]</em></a></h3>
 <div class="paragraph">
 <p>You find that people you wrongly deleted from address book in recycle bin, you can restore them back now.</p>
 </div>
@@ -1156,7 +803,7 @@ Restores the 1st and 2nd person in the bin-list</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="restoring-person-s-code-bin-delete-code-em-since-v1-5-em"><a class="link" href="#restoring-person-s-code-bin-delete-code-em-since-v1-5-em">3.22. Restoring person(s) : <code>bin-delete</code> <em>[Since v1.5]</em></a></h3>
+<h3 id="restoring-person-s-code-bin-delete-code-em-since-v1-5-em"><a class="link" href="#restoring-person-s-code-bin-delete-code-em-since-v1-5-em">Restoring person(s) : <code>bin-delete</code> <em>[Since v1.5]</em></a></h3>
 <div class="paragraph">
 <p>If you want to keep your recycle bin clean, you can delete some of them from recycle bin. But you can&#8217;t get them back.</p>
 </div>
@@ -1200,7 +847,7 @@ Delete the 1st and 2nd person in the bin-list</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="clearing-all-contacts-from-bin-code-bin-clear-code-em-since-v1-5-em"><a class="link" href="#clearing-all-contacts-from-bin-code-bin-clear-code-em-since-v1-5-em">3.23. Clearing all contacts from bin : <code>bin-clear</code> <em>[Since v1.5]</em></a></h3>
+<h3 id="clearing-all-contacts-from-bin-code-bin-clear-code-em-since-v1-5-em"><a class="link" href="#clearing-all-contacts-from-bin-code-bin-clear-code-em-since-v1-5-em">Clearing all contacts from bin : <code>bin-clear</code> <em>[Since v1.5]</em></a></h3>
 <div class="paragraph">
 <p>Clears all entries in the bin.</p>
 </div>
@@ -1209,7 +856,7 @@ Delete the 1st and 2nd person in the bin-list</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="adding-the-birthday-to-a-person-code-b-add-code-em-since-v1-4-em"><a class="link" href="#adding-the-birthday-to-a-person-code-b-add-code-em-since-v1-4-em">3.24. Adding the birthday to a person : <code>b-add</code> <em>[Since v1.4]</em></a></h3>
+<h3 id="adding-the-birthday-to-a-person-code-b-add-code-em-since-v1-4-em"><a class="link" href="#adding-the-birthday-to-a-person-code-b-add-code-em-since-v1-4-em">Adding the birthday to a person : <code>b-add</code> <em>[Since v1.4]</em></a></h3>
 <div class="paragraph">
 <p>Would it be nice if you can store the birthday of your contact so that you won&#8217;t forget to send him a gift? Of course! By using this command, you are allowed to add birthday to a person. You can easily check it out using the calendar in the app. If you accidentally typed a wrong birthday, you can use this command again and enter the correct one.</p>
 </div>
@@ -1253,7 +900,7 @@ Adds the birthday 18/10/1993 to the first person named john in the address book<
 </div>
 </div>
 <div class="sect2">
-<h3 id="removing-the-birthday-from-a-person-code-b-remove-code-em-since-v1-5-em"><a class="link" href="#removing-the-birthday-from-a-person-code-b-remove-code-em-since-v1-5-em">3.25. Removing the birthday from a person : <code>b-remove</code> <em>[Since v1.5]</em></a></h3>
+<h3 id="removing-the-birthday-from-a-person-code-b-remove-code-em-since-v1-5-em"><a class="link" href="#removing-the-birthday-from-a-person-code-b-remove-code-em-since-v1-5-em">Removing the birthday from a person : <code>b-remove</code> <em>[Since v1.5]</em></a></h3>
 <div class="paragraph">
 <p>If you add the birthday to a wrong person, you can always enter this command to remove the birthday from the person.</p>
 </div>
@@ -1298,7 +945,7 @@ Removes the birthday from the 6th person in the most recent listing, and shows a
 </div>
 </div>
 <div class="sect2">
-<h3 id="adding-a-social-media-url-to-a-person-code-l-add-code-em-coming-in-v2-0-em"><a class="link" href="#adding-a-social-media-url-to-a-person-code-l-add-code-em-coming-in-v2-0-em">3.26. Adding a social media URL to a person: <code>l-add</code> <em>[Coming in v2.0]</em></a></h3>
+<h3 id="adding-a-social-media-url-to-a-person-code-l-add-code-em-coming-in-v2-0-em"><a class="link" href="#adding-a-social-media-url-to-a-person-code-l-add-code-em-coming-in-v2-0-em">Adding a social media URL to a person: <code>l-add</code> <em>[Coming in v2.0]</em></a></h3>
 <div class="paragraph">
 <p>You will find it very convenient to add some social media URLs to your friends so that you are able to see their posts and recent activities simply by clicking those social media icons in the centre person details panel. In this way, you do not need to open each social media app and search for the person before you can see their posts.</p>
 </div>
@@ -1345,7 +992,7 @@ Adds the GitHub URL to the 3rd person in the contact list</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="launching-shell-version-code-shell-code-em-coming-in-v2-0-em"><a class="link" href="#launching-shell-version-code-shell-code-em-coming-in-v2-0-em">3.27. Launching shell version : <code>shell</code> <em>[Coming in v2.0]</em></a></h3>
+<h3 id="launching-shell-version-code-shell-code-em-coming-in-v2-0-em"><a class="link" href="#launching-shell-version-code-shell-code-em-coming-in-v2-0-em">Launching shell version : <code>shell</code> <em>[Coming in v2.0]</em></a></h3>
 <div class="paragraph">
 <p>By using this command, you can open the shell version of the app. In this way, you are able to use the app without the clutter. You can still achieve most of the operations by only using the shell, except for some features related to the browser (e.g. the Map feature).</p>
 </div>
@@ -1354,7 +1001,7 @@ Adds the GitHub URL to the 3rd person in the contact list</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">3.28. Clearing all entries : <code>clear</code></a></h3>
+<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">Clearing all entries : <code>clear</code></a></h3>
 <div class="paragraph">
 <p>Clears all entries from the address book.</p>
 </div>
@@ -1363,7 +1010,7 @@ Adds the GitHub URL to the 3rd person in the contact list</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">3.29. Exiting the program : <code>exit</code></a></h3>
+<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">Exiting the program : <code>exit</code></a></h3>
 <div class="paragraph">
 <p>Exits the program.</p>
 </div>
@@ -1372,7 +1019,7 @@ Adds the GitHub URL to the 3rd person in the contact list</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="saving-the-data"><a class="link" href="#saving-the-data">3.30. Saving the data</a></h3>
+<h3 id="saving-the-data"><a class="link" href="#saving-the-data">Saving the data</a></h3>
 <div class="paragraph">
 <p>Address book data are saved in the hard disk automatically after any command that changes the data.<br>
 There is no need to save manually.</p>
@@ -1381,7 +1028,7 @@ There is no need to save manually.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="faq"><a class="link" href="#faq">4. FAQ</a></h2>
+<h2 id="faq"><a class="link" href="#faq">FAQ</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><strong>Q</strong>: How do I transfer my data to another Computer?<br>
@@ -1394,7 +1041,7 @@ There is no need to save manually.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="command-summary"><a class="link" href="#command-summary">5. Command Summary</a></h2>
+<h2 id="command-summary"><a class="link" href="#command-summary">Command Summary</a></h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
@@ -1518,6 +1165,135 @@ e.g. <code>l-add 1 gh/https://github.com/dalessr</code></p>
 <p><strong>Exit</strong> : <code>exit</code></p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+<div class="sect3">
+<h4 id="justification"><a class="link" href="#justification">Justification</a></h4>
+<div class="paragraph">
+<p>{Justify the need for, and the current design (i.e. external behavior) of, the feature}</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="implementation"><a class="link" href="#implementation">Implementation</a></h4>
+<hr>
+<div class="paragraph">
+<p><mark>Start of Extract [from: Developer Guide]</mark></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="sorting-mechanism"><a class="link" href="#sorting-mechanism">Sorting Mechanism</a></h3>
+<div class="paragraph">
+<p>The sorting mechanism is facilitated by <code>SortCommandParser</code> and <code>SortCommand</code>, with both classes residing in the <code>Logic</code> component of the address book. Since the address book state will be modified during the sorting process, the <code>sort</code> has to be undoable.</p>
+</div>
+<div class="paragraph">
+<p><code>SortCommandParser</code> takes in an argument in the form of <code>[PREFIX]/[ORDER]</code> that defines how <code>UniquePersonList</code> should be sorted, with <code>PREFIX</code> specifying the sort type and <code>ORDER</code> specifying the sort order. It first checks for validity against a regular expression. Once verified, the argument will be tokenized to identify the sort order and sort type. A <code>SortCommand</code> object is then created with the identified sort type and sort order.</p>
+</div>
+<div class="paragraph">
+<p>The <code>PREFIX</code> can be any of the following: <code>n/</code> for sorting persons by name, <code>p/</code> for sorting persons by phone number, <code>e/</code> for sorting persons by email, <code>a/</code> for sorting persons by address and <code>t/</code> for sorting persons by the time they was first added into the address book. The <code>ORDER</code> can be either <code>asc</code> for sorting in ascending order or <code>dsc</code> for sorting in descending order. Suppose both <code>PREFIX</code> and <code>ORDER</code> are not specified, the argument will be defaulted to name in ascending order. Alternatively, suppose the <code>ORDER</code> is not specified, it will be defaulted to ascending.</p>
+</div>
+<div class="paragraph">
+<p>Upon execution of <code>SortCommand</code>, a <code>Comparator&lt;ReadOnlyPerson&gt;</code> will be initialised based on the sort type and sort order it receives. A <code>sortPerson</code> function call will be made to <code>Model</code>, which propagates down to <code>UniquePersonList</code>, where the sorting of the <code>internalList</code> occurs. Since sorting of <code>internalList</code> results in the change of state to address book, <code>SortCommand</code> is to be implemented as an <code>UndoableCommand</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/LogicCommandClassDiagram_Sort.png" alt="LogicCommandClassDiagram Sort" width="800">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Implementation of Sorting Mechanism requires both the manipulation of <code>Logic</code> and <code>Model</code> component of address book.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows the flow of operation from the point the address book receives an input to the output of the result.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/SortPersonSdForLogic.png" alt="SortPersonSdForLogic" width="800">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If the list is found to be empty, an <code>EmptyListException</code> will be thrown from <code>UniquePersonList</code>. The command should be terminated without any state change, keeping the redoStack clean of changes.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="design-considerations"><a class="link" href="#design-considerations">Design Considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Initialising of <code>Comparator&lt;ReadOnlyPerson&gt;</code><br>
+<strong>Alternative 1 (current choice):</strong> Initialise in <code>SortCommand</code><br>
+<strong>Pros:</strong> Clear separation of concerns, <code>SortCommandParser</code> to handle identifying of attribute to sort by only.<br>
+<strong>Cons:</strong> Hard for new developers to follow as other commands like <code>AddCommand</code> handles object creation in its parser.<br>
+<strong>Alternative 2: </strong> Initialise in <code>UniquePersonList</code><br>
+<strong>Pros:</strong> Straightforward as initialises the <code>Comparator</code> where it is used.<br>
+<strong>Cons:</strong> <code>UniquePersonList</code> is at a lower level and should only handle a minimal set of <code>Person</code> related operations, and not logical operations like string matching.<br></p>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Sorting by multiple attribute<br>
+<strong>Alternative 1 (current choice):</strong> Only allows sorting by single attribute<br>
+<strong>Pros:</strong> Fast and arguments to input is straightforward.<br>
+<strong>Cons:</strong> Unable to have fine grain control of how list should appear.<br>
+<strong>Alternative 2:</strong> Allow sorting by multiple attribute<br>
+<strong>Pros:</strong> Enables fine grain control of how list should appear.<br>
+<strong>Cons:</strong> Not necessary as effect is only obvious when contact list is long and has multiple common names. As target audience for iConnect are students, contact list will not be more than few thousand contacts long.<br></p>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Justification for sorting contacts by time added<br>
+<strong>Alternative 1 (current choice):</strong> Allows sorting by time added<br>
+<strong>Pros:</strong> iConnect is design to be an all-in-one scheduling app where it is left open for extended period of time for students to check schedule. Previous implementations required user to exit and relaunch the application for viewing contacts in chronological order again. By allowing sorting by time added, user are also able to toggle to see recently added contacts first.<br>
+<strong>Cons:</strong> Extra attribute has to be added to each user.<br>
+<strong>Alternative 2:</strong> Not implementing sorting by time added<br>
+<strong>Pros:</strong> Can be achieved by restarting app.<br>
+<strong>Cons:</strong> Requires restarting of app which waste time and processing resources when list is long.<br></p>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+<hr>
+</div>
+</div>
+<div class="sect2">
+<h3 id="enhancement-proposed-add-command-code-remark-code"><a class="link" href="#enhancement-proposed-add-command-code-remark-code">Enhancement Proposed: Add command <code>remark</code></a></h3>
+<div class="paragraph">
+<p>{Explain similar to the Undo/Redo feature above.}</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="other-contributions"><a class="link" href="#other-contributions">Other contributions</a></h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Add interactive Calendar and Event list panel (Pull requests <a href="https://github.com/CS2103AUG2017-W09-B3/main/pull/88">#88</a>)</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="project-powerpointlabs"><a class="link" href="#project-powerpointlabs">Project: PowerPointLabs</a></h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>{Optionally (not graded), you may include other projects in your portfolio.}</p>
 </div>
 </div>
 </div>
