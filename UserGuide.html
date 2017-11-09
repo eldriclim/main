@@ -37,7 +37,7 @@
 <li><a href="#deleting-a-person-code-delete-code-em-since-v1-2-em">3.7. Deleting a person : <code>delete</code> <em>[Since v1.2]</em></a></li>
 <li><a href="#adding-a-tag-to-a-person-s-code-t-add-code-em-since-v1-1-em">3.8. Adding a tag to a person(s) : <code>t-add</code> <em>[Since v1.1]</em></a></li>
 <li><a href="#setting-a-person-s-as-favourite-code-t-add-code-em-since-v1-3-em">3.9. Setting a person(s) as "favourite" : <code>t-add</code> <em>[Since v1.3]</em></a></li>
-<li><a href="#removing-a-tag-to-a-person-s-code-t-remove-code-em-since-v1-2-em">3.10. Removing a tag to a person(s) : <code>t-remove</code> <em>[Since v1.2]</em></a></li>
+<li><a href="#removing-a-tag-from-person-s-code-t-remove-code-em-since-v1-2-em">3.10. Removing a tag from person(s) : <code>t-remove</code> <em>[Since v1.2]</em></a></li>
 <li><a href="#removing-a-person-s-from-favourite-code-t-remove-code-em-since-v1-2-em">3.11. Removing a person(s) from favourite : <code>t-remove</code> <em>[Since v1.2]</em></a></li>
 <li><a href="#find-the-person-s-with-given-tags-code-t-find-code-em-since-v1-3-em">3.12. Find the person(s) with given tags: <code>t-find</code> <em>[Since v1.3]</em></a></li>
 <li><a href="#find-the-location-of-a-person-using-google-map-code-m-show-code-em-since-v1-3-em">3.13. Find the location of a person using Google Map: <code>m-show</code> <em>[Since v1.3]</em></a></li>
@@ -524,7 +524,7 @@ Deletes the 1st person in the results of the <code>find</code> command</p>
 <div class="sect2">
 <h3 id="adding-a-tag-to-a-person-s-code-t-add-code-em-since-v1-1-em"><a class="link" href="#adding-a-tag-to-a-person-s-code-t-add-code-em-since-v1-1-em">3.8. Adding a tag to a person(s) : <code>t-add</code> <em>[Since v1.1]</em></a></h3>
 <div class="paragraph">
-<p>Adds tag to specified person(s) from the address book.</p>
+<p>You can add a tag to specified person(s) in the address book current listing.</p>
 </div>
 <div class="paragraph">
 <p>Format: <code>t-add INDEX TAG</code></p>
@@ -534,16 +534,13 @@ Deletes the 1st person in the results of the <code>find</code> command</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Adds tag to the person(s) at the specified <code>INDEX</code>.</p>
-</li>
-<li>
-<p>The index refers to the index number shown in the most recent listing, multiple indices are allowed.</p>
+<p>The index refers to the index number shown in the most recent listing, you can key in multiple indices as well.</p>
 </li>
 <li>
 <p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
 </li>
 <li>
-<p>The [TAG] <strong>must not have its first word as number</strong>.</p>
+<p>The TAG <strong>must not have its first word as number</strong>.</p>
 </li>
 </ul>
 </div>
@@ -557,7 +554,7 @@ Deletes the 1st person in the results of the <code>find</code> command</p>
 <li>
 <p><code>list</code><br>
 <code>t-add 2 3 friends</code><br>
-Adds the tag friends to the 2nd and 3rd person in the address book</p>
+This command adds the tag friends to the 2nd and 3rd person in the address book</p>
 </li>
 </ul>
 </div>
@@ -565,7 +562,7 @@ Adds the tag friends to the 2nd and 3rd person in the address book</p>
 <div class="sect2">
 <h3 id="setting-a-person-s-as-favourite-code-t-add-code-em-since-v1-3-em"><a class="link" href="#setting-a-person-s-as-favourite-code-t-add-code-em-since-v1-3-em">3.9. Setting a person(s) as "favourite" : <code>t-add</code> <em>[Since v1.3]</em></a></h3>
 <div class="paragraph">
-<p>Adds favourite tag to specified person(s) from the address book.</p>
+<p>You can mark specified person(s) from the address book as favourite.</p>
 </div>
 <div class="paragraph">
 <p>Format: <code>t-add INDEX&#8230;&#8203; favourite</code></p>
@@ -575,13 +572,10 @@ Adds the tag friends to the 2nd and 3rd person in the address book</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Sets person(s) at the specified <code>INDEX</code> as favourite.</p>
+<p>All person(s) tagged as <code>favourite</code> by you will be shown as a coral shaped circle in front of the tag list.</p>
 </li>
 <li>
-<p>The <code>favourite</code> can be used interchangeably with <code>fav</code>, and words containing <code>fav</code>.</p>
-</li>
-<li>
-<p>The <code>favourite</code> tag is shown as a coral shaped circle in front of the tag list.</p>
+<p>You can also use <code>fav</code>, and words containing <code>fav</code> interchangeably with <code>favourite</code>.</p>
 </li>
 <li>
 <p>The index refers to the index number shown in the most recent listing, multiple indices are allowed.</p>
@@ -601,20 +595,20 @@ Adds the tag friends to the 2nd and 3rd person in the address book</p>
 <li>
 <p><code>list</code><br>
 <code>t-add 2 3 favourite</code><br>
-Sets 2nd and 3rd person in the address book as favourite</p>
+This command sets 2nd and 3rd person in the address book as favourite</p>
 </li>
 <li>
 <p><code>list</code><br>
 <code>t-add 2 3 fav</code><br>
-Sets 2nd and 3rd person in the address book as favourite</p>
+This command sets 2nd and 3rd person in the address book as favourite</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="removing-a-tag-to-a-person-s-code-t-remove-code-em-since-v1-2-em"><a class="link" href="#removing-a-tag-to-a-person-s-code-t-remove-code-em-since-v1-2-em">3.10. Removing a tag to a person(s) : <code>t-remove</code> <em>[Since v1.2]</em></a></h3>
+<h3 id="removing-a-tag-from-person-s-code-t-remove-code-em-since-v1-2-em"><a class="link" href="#removing-a-tag-from-person-s-code-t-remove-code-em-since-v1-2-em">3.10. Removing a tag from person(s) : <code>t-remove</code> <em>[Since v1.2]</em></a></h3>
 <div class="paragraph">
-<p>Removes a tag from specified person(s) from the address book.</p>
+<p>You can remove a tag from specified person(s) from the address book.</p>
 </div>
 <div class="paragraph">
 <p>Format: <code>t-remove INDEX&#8230;&#8203; TAG</code></p>
@@ -624,19 +618,16 @@ Sets 2nd and 3rd person in the address book as favourite</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Removes a tag from the person(s) at the specified <code>INDEX</code>.</p>
-</li>
-<li>
 <p>The index refers to the index number shown in the most recent listing, multiple indices are allowed.</p>
 </li>
 <li>
 <p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
 </li>
 <li>
-<p>If no index is inputted, the provided [TAG] from all person(s) in the current list with the [TAG] will be removed.</p>
+<p>If you wish to remove a tag from all person(s) in the list, simply leave out the INDEX part.</p>
 </li>
 <li>
-<p>The [TAG] <strong>must not have its first word as number</strong>.</p>
+<p>The [TAG] <strong>must not have its first word as a number</strong>.</p>
 </li>
 </ul>
 </div>
@@ -650,11 +641,11 @@ Sets 2nd and 3rd person in the address book as favourite</p>
 <li>
 <p><code>list</code><br>
 <code>t-remove 2 3 friends</code><br>
-Removes the tag <code>friends</code> from the 2nd and 3rd person in the address book</p>
+This command removes the tag <code>friends</code> from the 2nd and 3rd person in the address book</p>
 </li>
 <li>
 <p><code>t-remove friends</code><br>
-Removes the tag <code>friends</code> from all person(s) with the tag <code>friends</code> in the address book</p>
+This command removes the tag <code>friends</code> from all person(s) with the tag <code>friends</code> in the current listing</p>
 </li>
 </ul>
 </div>
@@ -662,18 +653,25 @@ Removes the tag <code>friends</code> from all person(s) with the tag <code>frien
 <div class="sect2">
 <h3 id="removing-a-person-s-from-favourite-code-t-remove-code-em-since-v1-2-em"><a class="link" href="#removing-a-person-s-from-favourite-code-t-remove-code-em-since-v1-2-em">3.11. Removing a person(s) from favourite : <code>t-remove</code> <em>[Since v1.2]</em></a></h3>
 <div class="paragraph">
-<p>Removes <code>favourite</code> tag from specified person(s) from the address book.</p>
+<p>You can remove specified person(s) in the address book from your <code>favourite</code> list.</p>
 </div>
 <div class="paragraph">
 <p>Format: <code>t-remove INDEX&#8230;&#8203; favourite</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
-<div class="paragraph">
-<p><strong>Removes person(s) at the specified <code>INDEX</code> from <code>favourite</code>.
-* The <code>favourite</code> can be used interchangeably with <code>fav</code>, and words containing <code>fav</code>.
-* If no index is inputted, the tag <code>fav</code> from all person(s) in the current list with <code>fav</code> will be removed.
-* The index *must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+<div class="ulist">
+<ul>
+<li>
+<p>You can also use <code>fav</code>, and words containing <code>fav</code> interchangeably with <code>favourite</code>.</p>
+</li>
+<li>
+<p>If you wish to clear your favourite list, simply leave out the INDEX part.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -685,11 +683,11 @@ Removes the tag <code>friends</code> from all person(s) with the tag <code>frien
 <li>
 <p><code>list</code><br>
 <code>t-remove 2 3 fav</code><br>
-Removes the tag favourite from the 2nd and 3rd person in the address book</p>
+This command removes the tag <code>favourite</code> from the 2nd and 3rd person in the address book</p>
 </li>
 <li>
 <p><code>t-remove fav</code><br>
-Removes the tag <code>fav</code> from all person(s) with the the tag <code>fav</code> in the address book</p>
+This command removes the tag <code>fav</code> from all person(s) with the the tag <code>fav</code> in the address book</p>
 </li>
 </ul>
 </div>
@@ -697,7 +695,7 @@ Removes the tag <code>fav</code> from all person(s) with the the tag <code>fav</
 <div class="sect2">
 <h3 id="find-the-person-s-with-given-tags-code-t-find-code-em-since-v1-3-em"><a class="link" href="#find-the-person-s-with-given-tags-code-t-find-code-em-since-v1-3-em">3.12. Find the person(s) with given tags: <code>t-find</code> <em>[Since v1.3]</em></a></h3>
 <div class="paragraph">
-<p>Finds all persons with the given tag.</p>
+<p>You can find all persons with the given tag.</p>
 </div>
 <div class="paragraph">
 <p>Format: <code>t-find TAG</code></p>
@@ -707,14 +705,26 @@ Removes the tag <code>fav</code> from all person(s) with the the tag <code>fav</
 <div class="ulist">
 <ul>
 <li>
-<p>Find the person(s) with given tags.</p>
-</li>
-<li>
-<p>The results show the people who fulfills at least one of the tags given.</p>
+<p>The results show a list of person(s) who has their <code>tagName</code> matching exactly; also those with <code>tagName</code> containing in <code>TAG</code> or the other way round.</p>
 </li>
 </ul>
 </div>
 </div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>t-find friend</code>
+This command lists all the people with tag <code>friend</code></p>
+</li>
+<li>
+<p><code>t-find frien</code>
+This command could also list all the people with tag <code>friend</code> if any</p>
+</li>
+</ul>
 </div>
 <div class="paragraph">
 <p>Examples:</p>
@@ -1524,7 +1534,7 @@ e.g. <code>l-add 1 gh/https://github.com/dalessr</code></p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-07 19:57:10 +00:00
+Last updated 2017-11-09 08:01:49 +00:00
 </div>
 </div>
 </body>

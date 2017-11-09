@@ -51,9 +51,10 @@
 <li><a href="#undo-redo-mechanism">4.4. Undo/Redo mechanism</a></li>
 <li><a href="#sorting-mechanism">4.5. Sorting Mechanism</a></li>
 <li><a href="#adding-a-tag-to-multiple-people">4.6. Adding a tag to multiple people</a></li>
-<li><a href="#improvements-on-deletecommand">4.7. Improvements on DeleteCommand</a></li>
-<li><a href="#logging">4.8. Logging</a></li>
-<li><a href="#configuration">4.9. Configuration</a></li>
+<li><a href="#removing-a-tag-to-multiple-people">4.7. Removing a tag to multiple people</a></li>
+<li><a href="#improvements-on-deletecommand">4.8. Improvements on DeleteCommand</a></li>
+<li><a href="#logging">4.9. Logging</a></li>
+<li><a href="#configuration">4.10. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#documentation">5. Documentation</a>
@@ -1430,7 +1431,68 @@ The <code>TagAddCommandParser</code> returns <code>TagAddCommand</code> after ex
 </div>
 </div>
 <div class="sect2">
-<h3 id="improvements-on-deletecommand"><a class="link" href="#improvements-on-deletecommand">4.7. Improvements on DeleteCommand</a></h3>
+<h3 id="removing-a-tag-to-multiple-people"><a class="link" href="#removing-a-tag-to-multiple-people">4.7. Removing a tag to multiple people</a></h3>
+<div class="paragraph">
+<p>You can remove a tag from multiple people. This is realized using <code>TagRemoveCommand</code>, which extends <code>UndoableCommand</code>, it supports undoing and redoing of commands that modifies the state of the address book.</p>
+</div>
+<div class="paragraph">
+<p>TagRemoveCommand is implemented in this way:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">TagRemoveCommand</span> <span class="directive">extends</span> UndoableCommand {
+<span class="annotation">@Override</span>
+    <span class="directive">public</span> CommandResult executeUndoableCommand() <span class="directive">throws</span> CommandException {
+        <span class="comment">// ... TagRemoveCommand logic ...</span>
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For example, the user input might be <code>t-remove 1 2 3 college friend</code>.<br>
+After the command word <code>t-remove</code> is parsed at the <code>AddresBookParser</code>, the remaining user input(indices in the list, tag to remove), in the example <code>t-remove 1 2 3 college friend</code>, will be passed to and parsed by <code>TagRemoveCommandParser</code>.
+We also support multiple words as <code>tagName</code>, as long as the first word in <code>tagName</code> is not a number.<br>
+This is because the key is to differentiate between indices and <code>tagName</code> is by identifying the last recognized number. If a <code>tagName</code> has its first word as a number, that word would be treated as index.<br>
+In this case, as <code>3</code> is the last part that is numeric, <code>1 2 3</code> is treated as indices and <code>college friend</code> is treated as <code>tagName</code>.<br>
+The <code>TagRemoveCommandParser</code> returns <code>TagRemoveCommand</code> after execution, which will be further processed by <code>logic</code> component.</p>
+</div>
+<div class="paragraph">
+<p>TagRemoveCommandParser is implemented in this way:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="type">class</span> <span class="class">TagRemoveCommandParser</span> <span class="directive">implements</span> <span class="predefined-type">Parser</span>&lt;TagRemoveCommand&gt; {
+
+    <span class="directive">public</span> TagRemoveCommand parse(<span class="predefined-type">String</span> args) <span class="directive">throws</span> <span class="exception">ParseException</span> {
+        <span class="comment">// ... TagRemoveCommandParser logic ...</span>
+    }
+}</code></pre>
+</div>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-7"><a class="link" href="#design-considerations-7">4.7.1. Design Considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Whether to accept user input that has partially invalid indices<br>
+<strong>Alternative 1 (current choice):</strong> Do not accept<br>
+<strong>Pros:</strong> Easy to implement<br>
+<strong>Cons:</strong> User have to type in the valid indices again<br>
+<strong>Alternative 2:</strong> Ignore the invalid indices<br>
+<strong>Pros:</strong> It is efficient for the user<br>
+<strong>Cons:</strong> Difficult to implement.</p>
+</div>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Whether to accept user input that includes someone without the given tag to remove<br>
+<strong>Alternative 1 (current choice):</strong> Do not accept<br>
+<strong>Pros:</strong> Easy to implement<br>
+<strong>Cons:</strong> User have to type in the valid indices again<br>
+<strong>Alternative 2:</strong> Ignore the invalid indices<br>
+<strong>Pros:</strong> It is efficient for the user<br>
+<strong>Cons:</strong> Difficult to implement and might be an issue for undo/redo operation.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="improvements-on-deletecommand"><a class="link" href="#improvements-on-deletecommand">4.8. Improvements on DeleteCommand</a></h3>
 <div class="paragraph">
 <p>We have improved the delete command to let it be able to delete by multiple indexes or a name with prefix. The reason why we do this is to improve the efficiency to delete the contacts.The prefix for deleting by name is <code>n/</code>. The prefix for deleting by indexes is <code>I/</code>.</p>
 </div>
@@ -1554,7 +1616,7 @@ If your input is a name and there is no person with such name in the list, then 
 <p>Moreover, if there is more than one person in the list with the name give, then the command don&#8217;t know which one ot delete. It will show all the person with same name in GUI and remind the user to choose one to delete.</p>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-7"><a class="link" href="#design-considerations-7">4.7.1. Design Considerations</a></h4>
+<h4 id="design-considerations-8"><a class="link" href="#design-considerations-8">4.8.1. Design Considerations</a></h4>
 <div class="paragraph">
 <p><strong>Aspect:</strong>  Implementation of <code>DeleteCommandParser</code><br>
 <strong>Alternative 1 (current choice):</strong>  Add a prefix after the command word to distinguish between delete by name or indexes.<br>
@@ -1672,7 +1734,7 @@ If we find duplicate people when moving a person to recyclebin or moving a perso
 </div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">4.8. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">4.9. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
@@ -1710,7 +1772,7 @@ If we find duplicate people when moving a person to recyclebin or moving a perso
 </div>
 </div>
 <div class="sect2">
-<h3 id="configuration"><a class="link" href="#configuration">4.9. Configuration</a></h3>
+<h3 id="configuration"><a class="link" href="#configuration">4.10. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
@@ -3249,7 +3311,7 @@ for <code>RemarkCommandParser</code>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-07 19:57:10 +00:00
+Last updated 2017-11-09 08:01:49 +00:00
 </div>
 </div>
 </body>
