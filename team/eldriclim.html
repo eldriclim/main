@@ -373,14 +373,54 @@ This command could also list all the people with tag <code>friend</code> if any<
 </li>
 </ul>
 </div>
+</div>
+<div class="sect2">
+<h3 id="change-the-theme-according-to-user-input-code-theme-code-em-since-v1-5-em"><a class="link" href="#change-the-theme-according-to-user-input-code-theme-code-em-since-v1-5-em">Change the theme according to user input <code>theme</code> <em>[Since v1.5]</em></a></h3>
+<div class="paragraph">
+<p>You can change the current theme into your preferred one.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>theme THEME</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>Currently there are 3 themes available, <code>Twilight</code>, <code>Sunburst</code>, <code>Minimalism</code>.</p>
+</li>
+<li>
+<p><code>Twilight</code> is dark in color; <code>Sunburst</code> is bright and lively; <code>Minimalism</code> is basic and is the default.</p>
+</li>
+<li>
+<p>You can key in <code>Twilight</code> or <code>dark</code> or <code>1</code> to change into dark theme; <code>Sunburst</code> or <code>bright</code> or <code>2`to bright theme and `Minimalism</code> or <code>default</code> or <code>3</code> to default theme.</p>
+</li>
+<li>
+<p>When you only key in <code>theme</code>, the result box would display "1.Twilight 2.Sunburst 3.Minimalism", you can simply key in the index after that to change into your preferred theme.</p>
+</li>
+<li>
+<p>The result indicates that you have successfully changed into your theme of choice.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
 <div class="paragraph">
 <p>Examples:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>t-find friend classmate</code>
-Shows all the people with tag <code>friend</code> or tag <code>classmate</code></p>
+<p><code>theme dark</code>
+This command changed to current theme to Twilight</p>
+</li>
+<li>
+<p><code>theme Twilight</code>
+This command changed to current theme to Twilight</p>
+</li>
+<li>
+<p><code>theme 1</code>
+This command changed to current theme to Twilight</p>
 </li>
 </ul>
 </div>
@@ -754,22 +794,10 @@ The <code>redo</code> command fails as there are no <code>undo</code> commands e
 <code>undo</code> (reverses the <code>delete 1</code> command)<br>
 <code>redo</code> (reapplies the <code>delete 1</code> command)<br>
 <code>redo</code> (reapplies the <code>clear</code> command)<br>
-=== Listing all persons removed: <code>bin-list</code> <em>[Since v1.5]</em></p>
+=== Restoring person(s) : <code>bin-restore</code> <em>[Since v1.5]</em></p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>If you are worrying about deleting people wrongly, it would be a good way to see if they are in recycle bin.</p>
-</div>
-<div class="paragraph">
-<p>You can see a list of persons removed from the address book.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>bin-list</code></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="restoring-person-s-code-bin-restore-code-em-since-v1-5-em"><a class="link" href="#restoring-person-s-code-bin-restore-code-em-since-v1-5-em">Restoring person(s) : <code>bin-restore</code> <em>[Since v1.5]</em></a></h3>
 <div class="paragraph">
 <p>You find that people you wrongly deleted from address book in recycle bin, you can restore them back now.</p>
 </div>
@@ -787,7 +815,7 @@ The <code>redo</code> command fails as there are no <code>undo</code> commands e
 <p>Recovers the people at these given specified <code>INDEX</code>.</p>
 </li>
 <li>
-<p>The index refers to the index number shown in the most recent bin-list.</p>
+<p>The index refers to the index number shown in the current list.</p>
 </li>
 <li>
 <p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
@@ -805,9 +833,8 @@ The <code>redo</code> command fails as there are no <code>undo</code> commands e
 <div class="ulist">
 <ul>
 <li>
-<p><code>bin-list</code><br>
-<code>bin-restore 1 2</code><br>
-Restores the 1st and 2nd person in the bin-list</p>
+<p><code>bin-restore 1 2</code><br>
+Restores the 1st and 2nd person in the recycle bin</p>
 </li>
 </ul>
 </div>
@@ -831,7 +858,7 @@ Restores the 1st and 2nd person in the bin-list</p>
 <p>Recovers the people at these given specified <code>INDEX</code>.</p>
 </li>
 <li>
-<p>The index refers to the index number shown in the most recent bin-list.</p>
+<p>The index refers to the index number shown in the most current list.</p>
 </li>
 <li>
 <p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
@@ -849,9 +876,8 @@ Restores the 1st and 2nd person in the bin-list</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>bin-list</code><br>
-<code>bin-delete 1 2</code><br>
-Delete the 1st and 2nd person in the bin-list</p>
+<p><code>bin-delete 1 2</code><br>
+Delete the 1st and 2nd person in the recycle bin</p>
 </li>
 </ul>
 </div>
@@ -1119,10 +1145,6 @@ e.g. <code>export /desktop/new_folder</code></p>
 e.g. <code>bin-delete 1 2 3</code></p>
 </li>
 <li>
-<p><strong>Binlist</strong> : <code>bin-list</code><br>
-e.g. <code>bin-list</code></p>
-</li>
-<li>
 <p><strong>Binrestore</strong> : <code>bin-restore INDEX INDEX&#8230;&#8203;</code><br>
 e.g. <code>bin-restore 1 2 3</code></p>
 </li>
@@ -1142,16 +1164,6 @@ e.g.<code>select 2</code></p>
 </li>
 <li>
 <p><strong>Redo</strong> : <code>redo</code></p>
-</li>
-<li>
-<p><strong>BinList</strong> : <code>bin-list</code></p>
-</li>
-<li>
-<p><strong>BinRestore</strong> : <code>bin-restore INDEX INDEX&#8230;&#8203;</code><br>
-e.g. <code>bin-restore 1 2</code></p>
-</li>
-<li>
-<p><strong>BinClear</strong> : <code>bin-clear</code></p>
 </li>
 <li>
 <p><strong>BirthdayAdd</strong> : <code>b-add INDEX BIRTHDAY</code><br>
@@ -1310,7 +1322,7 @@ If the list is found to be empty, an <code>EmptyListException</code> will be thr
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-10 13:28:07 +00:00
+Last updated 2017-11-12 05:36:01 +00:00
 </div>
 </div>
 </body>

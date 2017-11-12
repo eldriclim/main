@@ -153,18 +153,6 @@ Shows the usage of command <code>add</code></p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="listing-all-persons-removed-code-bin-list-code-em-since-v1-5-em"><a class="link" href="#listing-all-persons-removed-code-bin-list-code-em-since-v1-5-em">Listing all persons removed: <code>bin-list</code> <em>[Since v1.5]</em></a></h3>
-<div class="paragraph">
-<p>If you are worrying about deleting people wrongly, it would be a good way to see if they are in recycle bin.</p>
-</div>
-<div class="paragraph">
-<p>You can see a list of persons removed from the address book.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>bin-list</code></p>
-</div>
-</div>
-<div class="sect2">
 <h3 id="restoring-person-s-code-bin-restore-code-em-since-v1-5-em"><a class="link" href="#restoring-person-s-code-bin-restore-code-em-since-v1-5-em">Restoring person(s) : <code>bin-restore</code> <em>[Since v1.5]</em></a></h3>
 <div class="paragraph">
 <p>You find that people you wrongly deleted from address book in recycle bin, you can restore them back now.</p>
@@ -183,7 +171,7 @@ Shows the usage of command <code>add</code></p>
 <p>Recovers the people at these given specified <code>INDEX</code>.</p>
 </li>
 <li>
-<p>The index refers to the index number shown in the most recent bin-list.</p>
+<p>The index refers to the index number shown in the current list.</p>
 </li>
 <li>
 <p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
@@ -201,9 +189,8 @@ Shows the usage of command <code>add</code></p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>bin-list</code><br>
-<code>bin-restore 1 2</code><br>
-Restores the 1st and 2nd person in the bin-list</p>
+<p><code>bin-restore 1 2</code><br>
+Restores the 1st and 2nd person in the recycle bin</p>
 </li>
 </ul>
 </div>
@@ -227,7 +214,7 @@ Restores the 1st and 2nd person in the bin-list</p>
 <p>Recovers the people at these given specified <code>INDEX</code>.</p>
 </li>
 <li>
-<p>The index refers to the index number shown in the most recent bin-list.</p>
+<p>The index refers to the index number shown in the most current list.</p>
 </li>
 <li>
 <p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
@@ -245,9 +232,8 @@ Restores the 1st and 2nd person in the bin-list</p>
 <div class="ulist">
 <ul>
 <li>
-<p><code>bin-list</code><br>
-<code>bin-delete 1 2</code><br>
-Delete the 1st and 2nd person in the bin-list</p>
+<p><code>bin-delete 1 2</code><br>
+Delete the 1st and 2nd person in the recycle bin</p>
 </li>
 </ul>
 </div>
@@ -275,6 +261,153 @@ Delete the 1st and 2nd person in the bin-list</p>
 <hr>
 <div class="paragraph">
 <p><mark>Start of Extract [from: Developer Guide]</mark></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="improvements-on-deletecommand"><a class="link" href="#improvements-on-deletecommand">Improvements on DeleteCommand</a></h3>
+<div class="paragraph">
+<p>We have improved the delete command to let it be able to delete by multiple indexes or a name with prefix. The reason why we do this is to improve the efficiency to delete the contacts.The prefix for deleting by name is <code>n/</code>. The prefix for deleting by indexes is <code>I/</code>.</p>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows how the delete command works:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/DeleteCommandSequenceDiagram.png" alt="DeleteCommandSequenceDiagram" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p>You can see that the way we implemented this is to change the DeleteCommandParser and DeleteCommand.</p>
+</div>
+<div class="paragraph">
+<p>As for the DeleteCommandParser, we check whether there is the prefix we want in the userInput. Once the prefix is identified, if it is a <code>n/</code>, it will directly return back the parameters to DeleteCommand. If it is a <code>I/</code>, the parameters will be parsed by ParserUtil and return back the results to DeleteCommand.</p>
+</div>
+<div class="paragraph">
+<p>For example, the parser for Index is implemented this way:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"><span class="directive">public</span> <span class="directive">static</span> <span class="predefined-type">ArrayList</span>&lt;Index&gt; parseIndexes(<span class="predefined-type">String</span> oneBasedIndexes) <span class="directive">throws</span> IllegalValueException {
+        <span class="predefined-type">String</span><span class="type">[]</span> ns = oneBasedIndexes.trim().split(<span class="string"><span class="delimiter">&quot;</span><span class="content"> </span><span class="delimiter">&quot;</span></span>);
+        <span class="predefined-type">ArrayList</span>&lt;Index&gt; numbers = <span class="keyword">new</span> <span class="predefined-type">ArrayList</span>&lt;&gt;();
+        <span class="type">boolean</span> allvalid = <span class="predefined-constant">true</span>;
+        <span class="keyword">for</span> (<span class="predefined-type">String</span> a : ns) {
+            <span class="predefined-type">String</span> s = a.trim();
+            <span class="keyword">if</span> (StringUtil.isNonZeroUnsignedInteger(s)) {
+                numbers.add(Index.fromOneBased(<span class="predefined-type">Integer</span>.parseInt(s)));
+            } <span class="keyword">else</span> {
+                allvalid = <span class="predefined-constant">false</span>;
+
+            }
+        }
+        <span class="keyword">if</span> (!allvalid) {
+            <span class="keyword">throw</span> <span class="keyword">new</span> IllegalValueException(MESSAGE_INVALID_INDEX);
+        }
+        <span class="keyword">return</span> numbers;
+
+    }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As for the DeleteCommand, you can use it to deal with two kinds of parameters: a list of indexes or a name string. If it is a list of indexes, the DeleteCommand will check whether the indexes are within the size of all persons and assert command failure if there is an illegal index. If it is a name string, the DeleteCommand will assert command failure when there is no such person in the list with name given and when there are multiple persons with the same name given.</p>
+</div>
+<div class="paragraph">
+<p>For example, the command delete people by index is implemented this way:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java"> <span class="predefined-type">List</span>&lt;ReadOnlyPerson&gt; lastShownList =  model.getFilteredPersonList();
+ <span class="predefined-type">ArrayList</span>&lt;ReadOnlyPerson&gt; personstodelete =  <span class="keyword">new</span> <span class="predefined-type">ArrayList</span>&lt;ReadOnlyPerson&gt;();
+ <span class="comment">//...delete name logic</span>
+ <span class="keyword">for</span> (Index s: targetIndexs) {
+     <span class="keyword">if</span> (s.getZeroBased() &gt;= lastShownList.size()) {
+          allvalid = <span class="predefined-constant">false</span>;
+         } <span class="keyword">else</span> {
+          personstodelete.add(lastShownList.get(s.getZeroBased()));
+          exist = <span class="predefined-constant">true</span>;
+         }
+ }
+ <span class="comment">//...dealing duplicate logic...</span>
+ <span class="keyword">if</span> (allvalid &amp;&amp; exist) {
+    <span class="keyword">try</span> {
+        model.deletePerson(personstodelete);
+    }
+    <span class="comment">//...catch exception logic...</span>
+ }</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If your input doesn&#8217;t start with correct prefix, then the command can&#8217;t identify what kind of input it deals with, and a <code>ParseException</code> will be thrown when parsing.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If your input contains illegal values or nothing after the prefix, the the command can&#8217;t identify the target person, and a <code>ParseException</code> will be thrown when parsing.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If your input is index and it is out of bound of person list, then the command can&#8217;t find the person to delete, and a <code>CommandException</code> will be thrown when processsing.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If your input is a name and there is no person with such name in the list, then the command can&#8217;t find the person to delete, and a <code>CommandException</code> will be thrown when processsing.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Moreover, if there is more than one person in the list with the name give, then the command don&#8217;t know which one ot delete. It will show all the person with same name in GUI and remind the user to choose one to delete.</p>
+</div>
+<div class="sect3">
+<h4 id="design-considerations"><a class="link" href="#design-considerations">Design Considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect:</strong>  Implementation of <code>DeleteCommandParser</code><br>
+<strong>Alternative 1 (current choice):</strong>  Add a prefix after the command word to distinguish between delete by name or indexes.<br>
+<strong>Pros:</strong>  It is more convenient to identify the type of input to deal with.<br>
+<strong>Cons:</strong>  It is less convenient for users to type in the prefix.<br>
+<strong>Alternative 2:</strong> Use the type of first input word after command word to differentiate.<br>
+<strong>Pros:</strong>  It is more convenient for the users to type.<br>
+<strong>Cons:</strong> It is harder for the developer to find the type if the users give a name with all numbers to a contact.</p>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Aspect:</strong>  How to deal with multiple persons with same name condition<br>
+<strong>Alternative 1 (current choice):</strong>  Do not delete the persons and show all the persons with the same target name on the list. Remind the user to decide which one to delete.<br>
+<strong>Pros:</strong>  It considers more about the users. Try to ensure the target is the person who the users want to delete.<br>
+<strong>Cons:</strong>  It cost users more time to delete a person if they don&#8217;t know the index of the target.<br>
+<strong>Alternative 2:</strong> Delete the first person with the name in the list and show it to user.<br>
+<strong>Pros:</strong>  It cost users less time to delete a person if they know the sequence of the persons with the same name.<br>
+<strong>Cons:</strong> It is hard to guarantee the right person is deleted. The user may need to redo to fix it.</p>
 </div>
 <div class="paragraph">
 <p>===Improvement on HelpCommand</p>
@@ -396,7 +529,7 @@ If we find duplicate people when moving a person to recyclebin or moving a perso
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-10 13:28:07 +00:00
+Last updated 2017-11-12 05:36:01 +00:00
 </div>
 </div>
 </body>
