@@ -1,5 +1,5 @@
 # eldriclim
-###### /java/seedu/address/commons/events/ui/CalendarSelectionChangedEvent.java
+###### \java\seedu\address\commons\events\ui\CalendarSelectionChangedEvent.java
 ``` java
 /**
  * When a selection is made in the calendar
@@ -22,7 +22,7 @@ public class CalendarSelectionChangedEvent extends BaseEvent {
     }
 }
 ```
-###### /java/seedu/address/commons/events/ui/EventPanelSelectionChangedEvent.java
+###### \java\seedu\address\commons\events\ui\EventPanelSelectionChangedEvent.java
 ``` java
 /**
  * When a selection is made in the EventListPanel
@@ -42,10 +42,7 @@ public class EventPanelSelectionChangedEvent extends BaseEvent {
 
     public ObservableList<ReadOnlyPerson> getMemberAsArrayList() {
 
-        List<ReadOnlyPerson> memberList = new ArrayList<>(
-                selectedEvent.getMemberList().asReadOnlyMemberList());
-
-        return FXCollections.observableArrayList(memberList);
+        return FXCollections.observableArrayList(selectedEvent.getMemberList().asReadOnlyMemberList());
     }
 
     public String getEventName() {
@@ -53,7 +50,7 @@ public class EventPanelSelectionChangedEvent extends BaseEvent {
     }
 }
 ```
-###### /java/seedu/address/commons/events/ui/ScheduleUpdateEvent.java
+###### \java\seedu\address\commons\events\ui\ScheduleUpdateEvent.java
 ``` java
 /**
  * When schedule is being updated
@@ -76,14 +73,16 @@ public class ScheduleUpdateEvent extends BaseEvent {
     }
 }
 ```
-###### /java/seedu/address/commons/util/DateTimeUtil.java
+###### \java\seedu\address\commons\util\DateTimeUtil.java
 ``` java
+
 /**
  * Utility methods for checking event overlaps
  */
 public class DateTimeUtil {
 
-    public static final DateTimeFormatter EVENT_DATETIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    public static final DateTimeFormatter EVENT_DATETIME_FORMAT = DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm")
+            .withResolverStyle(ResolverStyle.STRICT);
 
     public static String parseLocalDateTimeToString(LocalDateTime dateTime) {
         return dateTime.format(EVENT_DATETIME_FORMAT);
@@ -210,7 +209,7 @@ public class DateTimeUtil {
 
 }
 ```
-###### /java/seedu/address/commons/util/EventOutputUtil.java
+###### \java\seedu\address\commons\util\EventOutputUtil.java
 ``` java
 
 /**
@@ -290,7 +289,7 @@ public class EventOutputUtil {
     }
 }
 ```
-###### /java/seedu/address/commons/util/StringUtil.java
+###### \java\seedu\address\commons\util\StringUtil.java
 ``` java
     /**
      * Output a series of Strings with the specified separator.
@@ -315,7 +314,7 @@ public class EventOutputUtil {
     }
 }
 ```
-###### /java/seedu/address/logic/commands/ScheduleAddCommand.java
+###### \java\seedu\address\logic\commands\ScheduleAddCommand.java
 ``` java
 
 /**
@@ -402,6 +401,15 @@ public class ScheduleAddCommand extends UndoableCommand {
         }
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ScheduleAddCommand // instanceof handles nulls
+                && eventName.equals(((ScheduleAddCommand) other).eventName)
+                && eventTime.equals(((ScheduleAddCommand) other).eventTime)
+                && eventDuration.equals(((ScheduleAddCommand) other).eventDuration)
+                && uniqueMemberIndexes.equals(((ScheduleAddCommand) other).uniqueMemberIndexes));
+    }
 
     /**
      * Stores the details of modified person with updated event list. Each non-empty field value will replace the
@@ -441,7 +449,7 @@ public class ScheduleAddCommand extends UndoableCommand {
     }
 }
 ```
-###### /java/seedu/address/logic/commands/ScheduleRemoveCommand.java
+###### \java\seedu\address\logic\commands\ScheduleRemoveCommand.java
 ``` java
 
 /**
@@ -522,6 +530,13 @@ public class ScheduleRemoveCommand extends UndoableCommand {
         }
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ScheduleRemoveCommand // instanceof handles nulls
+                && uniqueEventIndexes.equals(((ScheduleRemoveCommand) other).uniqueEventIndexes));
+    }
+
 
     /**
      * Stores the details of modified person with updated event list. Each non-empty field value will replace the
@@ -560,41 +575,13 @@ public class ScheduleRemoveCommand extends UndoableCommand {
             return modifiableEventList;
         }
 
-        public Name getName() {
-            return name;
-        }
-
-        public Phone getPhone() {
-            return phone;
-        }
-
-        public Email getEmail() {
-            return email;
-        }
-
-        public Address getAddress() {
-            return address;
-        }
-
-        public Set<Tag> getTags() {
-            return tags;
-        }
-
-        public Set<Event> getEvents() {
-            return events;
-        }
-
-        public DateAdded getDateAdded() {
-            return dateAdded;
-        }
-
         public Person createUpdatedPerson() {
             return new Person(name, birthday, phone, email, address, tags, events, dateAdded);
         }
     }
 }
 ```
-###### /java/seedu/address/logic/commands/SortCommand.java
+###### \java\seedu\address\logic\commands\SortCommand.java
 ``` java
 /**
  * Sorts list of all contacts base on given parameter.
@@ -702,7 +689,7 @@ public class SortCommand extends UndoableCommand {
     }
 }
 ```
-###### /java/seedu/address/logic/parser/exceptions/DateParseException.java
+###### \java\seedu\address\logic\parser\exceptions\DateParseException.java
 ``` java
 /**
  * Represents a parse error encountered when parsing Date.
@@ -714,7 +701,7 @@ public class DateParseException extends ParseException {
     }
 }
 ```
-###### /java/seedu/address/logic/parser/ParserUtil.java
+###### \java\seedu\address\logic\parser\ParserUtil.java
 ``` java
     //// Event-related parsing
 
@@ -740,9 +727,11 @@ public class DateParseException extends ParseException {
             throws DateTimeParseException, NumberFormatException, IllegalValueException {
         requireNonNull(time);
         requireNonNull(duration);
+
+        LocalDateTime eventTime = DateTimeUtil.parseStringToLocalDateTime(time.get());
+
         return (time.isPresent())
-                ? Optional.of(new EventTime(DateTimeUtil.parseStringToLocalDateTime(time.get()),
-                DateTimeUtil.parseDuration(duration)))
+                ? Optional.of(new EventTime(eventTime, DateTimeUtil.parseDuration(duration)))
                 : Optional.empty();
     }
 
@@ -763,7 +752,82 @@ public class DateParseException extends ParseException {
 
 }
 ```
-###### /java/seedu/address/logic/parser/ScheduleRemoveCommandParser.java
+###### \java\seedu\address\logic\parser\ScheduleAddCommandParser.java
+``` java
+/**
+ * Parses input arguments and creates a new ScheduleAddCommand object
+ */
+public class ScheduleAddCommandParser implements Parser<ScheduleAddCommand> {
+
+    static final String ERROR_INVALID_DATE = "Invalid date detected.";
+    static final String ERROR_PARSING_DURATION = "Duration has to be in the following format: #d#h#m\n"
+            + "d:day, h:hour, m:minute";
+
+    /**
+     * Parses the given {@code String} of arguments in the context of the ScheduleAddCommand
+     * and returns an ScheduleAddCommand object for execution.
+     *
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public ScheduleAddCommand parse(String args) throws ParseException {
+        args.trim();
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_EVENT_NAME, PREFIX_EVENT_TIME,
+                        PREFIX_EVENT_DURATION, PREFIX_EVENT_MEMBER);
+
+        if (!arePrefixesPresent(argMultimap, PREFIX_EVENT_NAME, PREFIX_EVENT_TIME)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ScheduleAddCommand.MESSAGE_USAGE));
+        }
+
+
+        try {
+            String durationInput = argMultimap.getValue(PREFIX_EVENT_DURATION).isPresent()
+                    ? argMultimap.getValue(PREFIX_EVENT_DURATION).get().trim()
+                    : "";
+
+            if (!durationInput.matches("^|((?!$)(?:(\\d+)d)?(?:(\\d+)h)?(?:(\\d+)m)?)$")) {
+                throw new ParseException(ERROR_PARSING_DURATION);
+            }
+
+            EventName eventName = ParserUtil.parseEventName(argMultimap.getValue(PREFIX_EVENT_NAME)).get();
+
+
+
+            EventTime eventTime = ParserUtil.parseEventTime(
+                    argMultimap.getValue(PREFIX_EVENT_TIME), durationInput).get();
+
+            EventDuration eventDuration = ParserUtil.parseEventDuration(
+                    durationInput);
+
+
+            ArrayList<Index> indexList = argMultimap.getValue(PREFIX_EVENT_MEMBER).isPresent()
+                    ? ParserUtil.parseIndexes(argMultimap.getValue(PREFIX_EVENT_MEMBER).get())
+                    : new ArrayList<>();
+
+            Set<Index> uniqueMemberIndexes = new HashSet<>(indexList);
+
+            return new ScheduleAddCommand(eventName, eventTime, eventDuration, uniqueMemberIndexes);
+        } catch (IllegalValueException ive) {
+            throw new ParseException(ive.getMessage(), ive);
+        } catch (DateTimeParseException dve) {
+            throw new ParseException(ERROR_INVALID_DATE);
+        }
+    }
+
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+
+
+}
+```
+###### \java\seedu\address\logic\parser\ScheduleRemoveCommandParser.java
 ``` java
 /**
  * Parses input arguments and creates a new ScheduleRemoveCommand object
@@ -811,7 +875,7 @@ public class ScheduleRemoveCommandParser implements Parser<ScheduleRemoveCommand
 
 }
 ```
-###### /java/seedu/address/logic/parser/SortCommandParser.java
+###### \java\seedu\address\logic\parser\SortCommandParser.java
 ``` java
 /**
  * Parses input arguments and creates a new SortCommand object
@@ -879,7 +943,7 @@ public class SortCommandParser implements Parser<SortCommand> {
     }
 }
 ```
-###### /java/seedu/address/model/AddressBook.java
+###### \java\seedu\address\model\AddressBook.java
 ``` java
 
     /**
@@ -1078,7 +1142,7 @@ public class SortCommandParser implements Parser<SortCommand> {
         events.forEach(this::syncMasterEventListMembers);
     }
 ```
-###### /java/seedu/address/model/event/Event.java
+###### \java\seedu\address\model\event\Event.java
 ``` java
 
 /**
@@ -1240,7 +1304,7 @@ public class Event {
 
 }
 ```
-###### /java/seedu/address/model/event/EventDuration.java
+###### \java\seedu\address\model\event\EventDuration.java
 ``` java
 /**
  * This Object only serves as a placeholder for UI purposes.
@@ -1287,7 +1351,7 @@ public class EventDuration {
     }
 }
 ```
-###### /java/seedu/address/model/event/EventName.java
+###### \java\seedu\address\model\event\EventName.java
 ``` java
 /**
  * Represents an Event's name in the address book.
@@ -1340,7 +1404,7 @@ public class EventName {
 
 }
 ```
-###### /java/seedu/address/model/event/EventTime.java
+###### \java\seedu\address\model\event\EventTime.java
 ``` java
 /**
  * Represents an Event's start time and duration in the address book.
@@ -1404,7 +1468,7 @@ public class EventTime {
 
 }
 ```
-###### /java/seedu/address/model/event/exceptions/DuplicateEventException.java
+###### \java\seedu\address\model\event\exceptions\DuplicateEventException.java
 ``` java
 /**
  * Signals that the operation will result in duplicate Person objects.
@@ -1415,14 +1479,14 @@ public class DuplicateEventException extends DuplicateDataException {
     }
 }
 ```
-###### /java/seedu/address/model/event/exceptions/EventNotFoundException.java
+###### \java\seedu\address\model\event\exceptions\EventNotFoundException.java
 ``` java
 /**
  * Signals that the operation is unable to find the specified event.
  */
 public class EventNotFoundException extends Exception {}
 ```
-###### /java/seedu/address/model/event/MemberList.java
+###### \java\seedu\address\model\event\MemberList.java
 ``` java
 /**
  * A list of members of a given event that enforces uniqueness between its elements.
@@ -1496,7 +1560,7 @@ public class MemberList {
 
 }
 ```
-###### /java/seedu/address/model/event/UniqueEventList.java
+###### \java\seedu\address\model\event\UniqueEventList.java
 ``` java
 /**
  * A list of events that enforces no nulls and uniqueness between its elements.
@@ -1755,7 +1819,7 @@ public class UniqueEventList implements Iterable<Event> {
     }
 }
 ```
-###### /java/seedu/address/model/ModelManager.java
+###### \java\seedu\address\model\ModelManager.java
 ``` java
     @Override
     public void sortPerson(Comparator<ReadOnlyPerson> sortType, boolean isDescending) throws EmptyListException {
@@ -1814,7 +1878,7 @@ public class UniqueEventList implements Iterable<Event> {
         return addressBook.hasEventClashes(event);
     }
 ```
-###### /java/seedu/address/model/ModelManager.java
+###### \java\seedu\address\model\ModelManager.java
 ``` java
 
     /**
@@ -1850,7 +1914,7 @@ public class UniqueEventList implements Iterable<Event> {
         sortEvents(event.getSelectedDate());
     }
 ```
-###### /java/seedu/address/model/person/DateAdded.java
+###### \java\seedu\address\model\person\DateAdded.java
 ``` java
 /**
  * Represents a Person's address in the address book.
@@ -1906,7 +1970,7 @@ public class DateAdded {
 
 }
 ```
-###### /java/seedu/address/model/person/UniquePersonList.java
+###### \java\seedu\address\model\person\UniquePersonList.java
 ``` java
     /**
      * Sorts the list of persons.
@@ -1928,7 +1992,7 @@ public class DateAdded {
         }
     }
 ```
-###### /java/seedu/address/storage/XmlAdaptedEvent.java
+###### \java\seedu\address\storage\XmlAdaptedEvent.java
 ``` java
 /**
  * JAXB-friendly adapted version of the Event.
@@ -1982,7 +2046,7 @@ public class XmlAdaptedEvent {
 
 }
 ```
-###### /java/seedu/address/storage/XmlSerializableAddressBook.java
+###### \java\seedu\address\storage\XmlSerializableAddressBook.java
 ``` java
     @Override
     public ObservableList<Event> getEventList() {
@@ -1998,7 +2062,7 @@ public class XmlAdaptedEvent {
         return FXCollections.unmodifiableObservableList(events);
     }
 ```
-###### /java/seedu/address/ui/CalendarView.java
+###### \java\seedu\address\ui\CalendarView.java
 ``` java
 
 /**
@@ -2112,7 +2176,7 @@ public class CalendarView extends UiPart<Region> {
     }
 }
 ```
-###### /java/seedu/address/ui/EventCard.java
+###### \java\seedu\address\ui\EventCard.java
 ``` java
 
 /**
@@ -2216,7 +2280,7 @@ public class EventCard extends UiPart<Region> {
     }
 }
 ```
-###### /java/seedu/address/ui/EventListPanel.java
+###### \java\seedu\address\ui\EventListPanel.java
 ``` java
 
 /**

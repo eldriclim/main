@@ -1,5 +1,5 @@
 # Pengyuz
-###### /java/seedu/address/logic/commands/BinclearCommandTest.java
+###### \java\seedu\address\logic\commands\BinclearCommandTest.java
 ``` java
 public class BinclearCommandTest {
 
@@ -25,7 +25,7 @@ public class BinclearCommandTest {
     }
 }
 ```
-###### /java/seedu/address/logic/commands/BindeleteCommandTest.java
+###### \java\seedu\address\logic\commands\BindeleteCommandTest.java
 ``` java
 /**
  * Contains integration tests (interaction with the Model) and unit tests for {@code DeleteCommand}.
@@ -182,7 +182,7 @@ public class BindeleteCommandTest {
 
 }
 ```
-###### /java/seedu/address/logic/commands/BinrestoreCommandTest.java
+###### \java\seedu\address\logic\commands\BinrestoreCommandTest.java
 ``` java
 /**
  * Contains integration tests (interaction with the Model) and unit tests for {@code DeleteCommand}.
@@ -339,7 +339,7 @@ public class BinrestoreCommandTest {
 
 }
 ```
-###### /java/seedu/address/logic/commands/DeleteCommandTest.java
+###### \java\seedu\address\logic\commands\DeleteCommandTest.java
 ``` java
 /**
  * Contains integration tests (interaction with the Model) and unit tests for {@code DeleteCommand}.
@@ -597,7 +597,7 @@ public class DeleteCommandTest {
 
 }
 ```
-###### /java/seedu/address/logic/commands/HelpCommandTest.java
+###### \java\seedu\address\logic\commands\HelpCommandTest.java
 ``` java
 
 public class HelpCommandTest {
@@ -691,7 +691,7 @@ public class HelpCommandTest {
     }
 }
 ```
-###### /java/seedu/address/logic/parser/AddressBookParserTest.java
+###### \java\seedu\address\logic\parser\AddressBookParserTest.java
 ``` java
     @Test
     public void parseCommand_create() throws Exception {
@@ -707,7 +707,7 @@ public class HelpCommandTest {
         assertEquals(new AddCommand(person), command);
     }
 ```
-###### /java/seedu/address/logic/parser/AddressBookParserTest.java
+###### \java\seedu\address\logic\parser\AddressBookParserTest.java
 ``` java
     @Test
     public void parseCommand_remove() throws Exception {
@@ -727,7 +727,7 @@ public class HelpCommandTest {
         assertEquals(new DeleteCommand(todelete), command);
     }
 ```
-###### /java/seedu/address/logic/parser/AddressBookParserTest.java
+###### \java\seedu\address\logic\parser\AddressBookParserTest.java
 ``` java
     @Test
     public void parseCommand_search() throws Exception {
@@ -745,7 +745,7 @@ public class HelpCommandTest {
         assertEquals(new FindCommand(new NameContainsKeywordsPredicate(keywords)), command);
     }
 ```
-###### /java/seedu/address/logic/parser/AddressBookParserTest.java
+###### \java\seedu\address\logic\parser\AddressBookParserTest.java
 ``` java
     @Test
     public void parseCommand_binclear() throws Exception {
@@ -771,7 +771,7 @@ public class HelpCommandTest {
         assertEquals(new BinrestoreCommand(todelete), command);
     }
 ```
-###### /java/seedu/address/logic/parser/BindeleteCommandPaserTest.java
+###### \java\seedu\address\logic\parser\BindeleteCommandPaserTest.java
 ``` java
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
@@ -811,7 +811,7 @@ public class BindeleteCommandPaserTest {
 
 }
 ```
-###### /java/seedu/address/logic/parser/BinrestoreCommandPaserTest.java
+###### \java\seedu\address\logic\parser\BinrestoreCommandPaserTest.java
 ``` java
 /**
  * As we are only doing white-box testing, our test cases do not cover path variations
@@ -852,7 +852,7 @@ public class BinrestoreCommandPaserTest {
 
 }
 ```
-###### /java/seedu/address/logic/parser/DeleteCommandParserTest.java
+###### \java\seedu\address\logic\parser\DeleteCommandParserTest.java
 ``` java
 
 /**
@@ -915,7 +915,7 @@ public class DeleteCommandParserTest {
     }
 }
 ```
-###### /java/seedu/address/logic/parser/HelpCommandParserTest.java
+###### \java\seedu\address\logic\parser\HelpCommandParserTest.java
 ``` java
 
 public class HelpCommandParserTest {
@@ -1003,7 +1003,7 @@ public class HelpCommandParserTest {
 
 }
 ```
-###### /java/seedu/address/testutil/TypicalRecycleBin.java
+###### \java\seedu\address\testutil\TypicalRecycleBin.java
 ``` java
 /**
  * A utility class containing a list of {@code Person} objects to be used in tests.
