@@ -304,7 +304,7 @@ Examples:
 This command removes the tag `friends` from the 2nd and 3rd person in the address book
 * `t-remove friends` +
 This command removes the tag `friends` from all person(s) with the tag `friends` in the current listing
-// tag::tagremove[]
+// end::tagremove[]
 
 // tag::tagremovefav[]
 === Removing person(s) from favourite : `t-remove` _[Since v1.2]_
