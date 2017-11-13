@@ -40,7 +40,7 @@
 <p><em>Alias:</em> <code>search</code> <code>get</code></p>
 </div>
 <div class="paragraph">
-<p>Sometimes you might not remember the full name of a person. Perhaps you only know the phone number or home address of the person. But don&#8217;t worry! By using this command, you are able to search for your contacts by some other informations such as phone number, email and home address. Even if you cannot remember the full name of your friend, you can still easily find him by his partial name!</p>
+<p>Sometimes you might not remember the full name of a person. Perhaps you only know the phone number or home address of the person. By using this command, you are able to search for your contacts by some other informations such as phone number, email and home address. Even if you cannot remember the full name of your friend, you can still easily find him by his partial name.</p>
 </div>
 <div class="paragraph">
 <p>Format: <code>find [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]</code></p>
@@ -59,7 +59,7 @@
 <p>You can find a person by searching for any substring of the attribute. e.g. hn will match John, 1234 will match 98123476.</p>
 </li>
 <li>
-<p>All keywords regarding a certain attribute should be put after the prefix. e.g. n/alice bob.</p>
+<p>All keywords regarding a certain attribute should be put after the prefix. e.g. <code>n/alice bob</code></p>
 </li>
 <li>
 <p>You can only search for one address per time for Address type.</p>
@@ -101,7 +101,7 @@ Returns any person having names <code>Betsy</code>, <code>Tim</code>, <code>John
 <div class="sect2">
 <h3 id="finding-the-location-of-a-person-using-google-map-code-m-show-code-em-since-v1-3-em"><a class="link" href="#finding-the-location-of-a-person-using-google-map-code-m-show-code-em-since-v1-3-em">Finding the location of a person using Google Map : <code>m-show</code> <em>[Since v1.3]</em></a></h3>
 <div class="paragraph">
-<p>You might find it not very convenient to only show the contact&#8217;s location as text. Therefore, iConnect allows you to see the location! By using this command, without typing in the person&#8217;s address, you can easily find the location of your friend in Google Map, which will show in the centre browser.</p>
+<p>You might find it not very useful to just show the contact&#8217;s location as text. By using this command, without typing in the person&#8217;s address, you can easily find the location of your friend in Google Map, which will be shown in the browser tab.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -125,7 +125,7 @@ Returns any person having names <code>Betsy</code>, <code>Tim</code>, <code>John
 <p>Only one index number is allowed as the input.</p>
 </li>
 <li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
 </li>
 <li>
 <p>The address of the person selected will be shown visually on the browser screen.</p>
@@ -149,7 +149,7 @@ Shows the address of person with index 1 on the google map</p>
 <div class="sect2">
 <h3 id="finding-the-route-from-user-s-current-location-to-the-person-selected-code-m-route-code-em-since-v1-3-em"><a class="link" href="#finding-the-route-from-user-s-current-location-to-the-person-selected-code-m-route-code-em-since-v1-3-em">Finding the route from user&#8217;s current location to the person selected : <code>m-route</code> <em>[Since v1.3]</em></a></h3>
 <div class="paragraph">
-<p>Not only can iConnect show the location, it can also show you how to go there! Simply by adding your current location, it will show you the shortest path from your current address to your friend&#8217;s home in the Google map.</p>
+<p>Not only can iConnect show the location, it can also show you how to go there. Simply add your current location and it will show you the shortest path from your current address to your friend&#8217;s home in the Google map.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -173,10 +173,10 @@ Shows the address of person with index 1 on the google map</p>
 <p>Only one index number is allowed as the input.</p>
 </li>
 <li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
 </li>
 <li>
-<p>The address entered is the current location of the user (the place they want to start from).</p>
+<p>The address entered should be your current location (the place you want to start from).</p>
 </li>
 <li>
 <p>A route will be shown on the map with the address as start location and selected person&#8217;s address as destination.</p>
@@ -220,7 +220,7 @@ Shows the route from <code>John street, block 123, #01-01</code> to the address 
 <p>The index refers to the index number shown in the most recent listing, only one index is allowed.</p>
 </li>
 <li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
 </li>
 <li>
 <p>The <code>BIRTHDAY</code> must follow the format DD/MM/YYYY, and it must be a valid date.</p>
@@ -264,7 +264,7 @@ Adds the birthday 18/10/1993 to the first person named john in the address book<
 <p>The index refers to the index number shown in the most recent listing, only one index is allowed.</p>
 </li>
 <li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
 </li>
 <li>
 <p>The <code>BIRTHDAY</code> removed just now can be restored by using the <code>undo</code> command.</p>
@@ -298,13 +298,13 @@ Removes the birthday from the 6th person in the most recent listing, and shows a
 <div class="ulist">
 <ul>
 <li>
-<p>Having the enhanced <code>find</code> command allows users to find specific contacts more efficiently.</p>
+<p>Having the enhanced <code>find</code> command allows you to find specific contacts more efficiently.</p>
 </li>
 <li>
-<p>Having the <code>m-show</code> and <code>m-route</code> command allows users to find the home location of their contacts in case they would like to meet them.</p>
+<p>Having the <code>m-show</code> and <code>m-route</code> command allows you to find the home location of your contacts in case you would like to meet them.</p>
 </li>
 <li>
-<p>Having a <code>b-add</code> and <code>b-remove</code> command allows users to add, update and remove birthdays of their contacts, adding a personal touch to their address book.</p>
+<p>Having a <code>b-add</code> and <code>b-remove</code> command allows you to add, update and remove birthdays of your contacts, adding a personal touch to your address book.</p>
 </li>
 </ul>
 </div>
@@ -323,7 +323,7 @@ Removes the birthday from the 6th person in the most recent listing, and shows a
 <p>The enhanced version of find mechanism is facilitated by the <code>AddressBookParser</code>, which resides inside <code>LogicManager</code>. It allows you to search for person(s) by substrings of multiple different attributes (e.g. <code>Name</code>, <code>Phone</code>, <code>Email</code>, <code>Address</code>), which the case is insensitive for <code>Name</code>, <code>Email</code> and <code>Address</code> attributes.</p>
 </div>
 <div class="paragraph">
-<p>You are only allowed to search by <code>Name</code>, <code>Phone</code>, <code>Email</code> or <code>Address</code>. Searching by <code>Tag</code> or <code>Birthday</code> is not allowed. In order to search by tags, you can use the tag-find (<code>t-find</code>) command.</p>
+<p>You are only allowed to search by <code>Name</code>, <code>Phone</code>, <code>Email</code> or <code>Address</code>. Searching by <code>Tag</code> or <code>Birthday</code> is not allowed. In order to search by tag, you can use the tag-find (<code>t-find</code>) command.</p>
 </div>
 <div class="paragraph">
 <p>The following diagram shows the inheritance diagram for Find command:</p>
@@ -337,7 +337,7 @@ Removes the birthday from the 6th person in the most recent listing, and shows a
 <p><em>Figure 4.1.1 : Structure of Find Command in the Logic Component</em></p>
 </div>
 <div class="paragraph">
-<p>When you are using the find command, you need to provided at least one keyword for any available attribute. Keywords of the same attribute need to be grouped together with a prefix (e.g. <code>n/</code>, <code>p/</code>, <code>e/</code>, <code>a/</code>). In this case, each prefix is allowed to appear at most once.</p>
+<p>When you use the find command, you need to provide at least one keyword for any available attribute. Keywords of the same attribute need to be grouped together with a prefix (e.g. <code>n/</code>, <code>p/</code>, <code>e/</code>, <code>a/</code>). In this case, each prefix is allowed to appear at most once.</p>
 </div>
 <div class="paragraph">
 <p>During the implementation, <code>FindCommandParser</code> class splits the keywords of different attributes by searching for the locations of the prefixes, and then stores the keywords into separate ArrayLists. As a <code>NameContainsKeywordsPredicate</code> needs to be passed to <code>FindCommand</code> class, all the keywords from the ArrayLists are added to the predicate in order with each prefix added in front for separation.</p>
@@ -861,7 +861,7 @@ If an invalid birthday is provided for birthday-remove command, an invalid input
 <p>The index refers to the index number shown in the most recent listing, only one index is allowed.</p>
 </li>
 <li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
 </li>
 <li>
 <p>A prefix is required before entering the corresponding URL. Only one prefix and one URL is allowed for each command.</p>
@@ -925,7 +925,7 @@ Adds the GitHub URL to the 3rd person in the contact list</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-13 14:36:53 +00:00
+Last updated 2017-11-13 14:52:34 +00:00
 </div>
 </div>
 </body>

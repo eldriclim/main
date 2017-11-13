@@ -257,7 +257,7 @@ A person can have any number of tags (including 0)
 <p><code>add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal</code></p>
 </li>
 <li>
-<p><code>creat n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01</code></p>
+<p><code>create n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01</code></p>
 </li>
 <li>
 <p><code>put n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01</code></p>
@@ -293,7 +293,7 @@ A person can have any number of tags (including 0)
 <div class="ulist">
 <ul>
 <li>
-<p>Modifies the person at the specified INDEX. The index refers to the index number shown in the last persons listing. The index must be a positive integer 1, 2, 3, …​</p>
+<p>Modifies the person at the specified INDEX. The index refers to the index number shown in the last persons listing. The index <strong>must be a positive integer</strong> <code>1, 2, 3, …​</code></p>
 </li>
 <li>
 <p>At least one of the optional fields must be provided.</p>
@@ -341,7 +341,7 @@ Edits the phone number and email address of the 1st person to be <code>91234567<
 <p><em>Alias:</em> <code>search</code> <code>get</code></p>
 </div>
 <div class="paragraph">
-<p>Sometimes you might not remember the full name of a person. Perhaps you only know the phone number or home address of the person. But don&#8217;t worry! By using this command, you are able to search for your contacts by some other informations such as phone number, email and home address. Even if you cannot remember the full name of your friend, you can still easily find him by his partial name!</p>
+<p>Sometimes you might not remember the full name of a person. Perhaps you only know the phone number or home address of the person. By using this command, you are able to search for your contacts by some other informations such as phone number, email and home address. Even if you cannot remember the full name of your friend, you can still easily find him by his partial name.</p>
 </div>
 <div class="paragraph">
 <p>Format: <code>find [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]</code></p>
@@ -360,7 +360,7 @@ Edits the phone number and email address of the 1st person to be <code>91234567<
 <p>You can find a person by searching for any substring of the attribute. e.g. hn will match John, 1234 will match 98123476.</p>
 </li>
 <li>
-<p>All keywords regarding a certain attribute should be put after the prefix. e.g. n/alice bob.</p>
+<p>All keywords regarding a certain attribute should be put after the prefix. e.g. <code>n/alice bob</code></p>
 </li>
 <li>
 <p>You can only search for one address per time for Address type.</p>
@@ -471,7 +471,7 @@ Returns list of persons sorted by time added in descending order</p>
 <div class="sect2">
 <h3 id="deleting-a-person-code-delete-code-em-since-v1-2-em"><a class="link" href="#deleting-a-person-code-delete-code-em-since-v1-2-em">3.7. Deleting a person : <code>delete</code> <em>[Since v1.2]</em></a></h3>
 <div class="paragraph">
-<p>If you want to keep your person list clean, just using delete command to remove some people to bin.</p>
+<p>If you want to remove a person from the person list, just use the <code>delete</code> command to put them into the recycle bin.</p>
 </div>
 <div class="paragraph">
 <p><em>Alias:</em> <code>remove</code> <code>-</code></p>
@@ -488,7 +488,7 @@ Returns list of persons sorted by time added in descending order</p>
 <p><em>Figure 3.7.1 : Deleting multiple person</em></p>
 </div>
 <div class="paragraph">
-<p>Format: <code>delete I/INDEX INDEX &#8230;&#8203;</code> (or) <code>delete n/NAME</code></p>
+<p>Format: <code>delete I/INDEX INDEX &#8230;&#8203;</code> OR <code>delete n/NAME</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -501,7 +501,7 @@ Returns list of persons sorted by time added in descending order</p>
 <p>The index refer to the index numbers shown in the most recent listing.</p>
 </li>
 <li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
 </li>
 <li>
 <p>The name must be the full name of the person.</p>
@@ -544,20 +544,20 @@ Deletes the 1st person in the results of the <code>find</code> command</p>
 <div class="sect2">
 <h3 id="adding-a-tag-to-person-s-code-t-add-code-em-since-v1-1-em"><a class="link" href="#adding-a-tag-to-person-s-code-t-add-code-em-since-v1-1-em">3.8. Adding a tag to person(s) : <code>t-add</code> <em>[Since v1.1]</em></a></h3>
 <div class="paragraph">
-<p>You can add a tag to multiple persons specified by the indices in the current person listing. When you have a new project group, you can tag your group members in the contact list to differentiate from the rest of the contacts.</p>
+<p>You can add a tag to multiple persons specified by the indexes in the current person listing. When you have a new project group, you can tag your group members in the contact list to differentiate from the rest of the contacts.</p>
 </div>
 <div class="paragraph">
-<p>Format: <code>t-add INDEX&#8230;&#8203; TAG</code></p>
+<p>Format: <code>t-add INDEX INDEX&#8230;&#8203; TAG</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>The index refers to the index number shown in the most recent listing, you can key in multiple indices as well.</p>
+<p>The index refers to the index number shown in the most recent listing, you can key in multiple indexes as well.</p>
 </li>
 <li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
 </li>
 <li>
 <p>The TAG <strong>must not have its first word as number</strong>.</p>
@@ -593,7 +593,7 @@ This command adds the tag <code>friends</code> to the 2nd and 3rd person in the 
 <p><em>Figure 3.9.1 : Tagging multiple person as favourite</em></p>
 </div>
 <div class="paragraph">
-<p>Format: <code>t-add INDEX&#8230;&#8203; favourite</code></p>
+<p>Format: <code>t-add INDEX INDEX&#8230;&#8203; favourite</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -606,10 +606,10 @@ This command adds the tag <code>friends</code> to the 2nd and 3rd person in the 
 <p>You can also use <code>fav</code>, and words containing <code>fav</code> interchangeably with <code>favourite</code>.</p>
 </li>
 <li>
-<p>The index refers to the index number shown in the most recent listing, multiple indices are allowed.</p>
+<p>The index refers to the index number shown in the most recent listing, multiple indexes are allowed.</p>
 </li>
 <li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
 </li>
 </ul>
 </div>
@@ -636,7 +636,7 @@ This command sets 2nd and 3rd person in the address book as favourite</p>
 <div class="sect2">
 <h3 id="removing-a-tag-from-person-s-code-t-remove-code-em-since-v1-2-em"><a class="link" href="#removing-a-tag-from-person-s-code-t-remove-code-em-since-v1-2-em">3.10. Removing a tag from person(s) : <code>t-remove</code> <em>[Since v1.2]</em></a></h3>
 <div class="paragraph">
-<p>You can remove a tag from specified person(s) from the address book.</p>
+<p>You can remove a tag from specified person(s) from the address book. For example, you may remove <code>CS2103</code> tag from all persons after the module has ended.</p>
 </div>
 <div class="paragraph">
 <p>Format: <code>t-remove INDEX&#8230;&#8203; TAG</code></p>
@@ -646,10 +646,10 @@ This command sets 2nd and 3rd person in the address book as favourite</p>
 <div class="ulist">
 <ul>
 <li>
-<p>The index refers to the index number shown in the most recent listing, multiple indices are allowed.</p>
+<p>The index refers to the index number shown in the most recent listing, multiple indexes are allowed.</p>
 </li>
 <li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
 </li>
 <li>
 <p>If you wish to remove a tag from all person(s) in the list, simply leave out the INDEX.</p>
@@ -713,7 +713,7 @@ This command removes the tag <code>friends</code> from all person(s) with the ta
 <p>If you wish to clear your favourite list, simply leave out the INDEX.</p>
 </li>
 <li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
 </li>
 </ul>
 </div>
@@ -735,7 +735,7 @@ This command removes the tag <code>favourite</code> from the 2nd and 3rd person 
 <div class="sect2">
 <h3 id="finding-the-person-s-with-given-tag-code-t-find-code-em-since-v1-3-em"><a class="link" href="#finding-the-person-s-with-given-tag-code-t-find-code-em-since-v1-3-em">3.12. Finding the person(s) with given tag : <code>t-find</code> <em>[Since v1.3]</em></a></h3>
 <div class="paragraph">
-<p>You can find all persons with the given tag.</p>
+<p>You can find all persons with the given tag. For example, you can find all persons with the tag <code>CS2103</code> using this command.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -853,7 +853,7 @@ This command changes current theme to Twilight</p>
 <div class="sect2">
 <h3 id="finding-the-location-of-a-person-using-google-map-code-m-show-code-em-since-v1-3-em"><a class="link" href="#finding-the-location-of-a-person-using-google-map-code-m-show-code-em-since-v1-3-em">3.14. Finding the location of a person using Google Map : <code>m-show</code> <em>[Since v1.3]</em></a></h3>
 <div class="paragraph">
-<p>You might find it not very convenient to only show the contact&#8217;s location as text. Therefore, iConnect allows you to see the location! By using this command, without typing in the person&#8217;s address, you can easily find the location of your friend in Google Map, which will show in the centre browser.</p>
+<p>You might find it not very useful to just show the contact&#8217;s location as text. By using this command, without typing in the person&#8217;s address, you can easily find the location of your friend in Google Map, which will be shown in the browser tab.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -877,7 +877,7 @@ This command changes current theme to Twilight</p>
 <p>Only one index number is allowed as the input.</p>
 </li>
 <li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
 </li>
 <li>
 <p>The address of the person selected will be shown visually on the browser screen.</p>
@@ -901,7 +901,7 @@ Shows the address of person with index 1 on the google map</p>
 <div class="sect2">
 <h3 id="finding-the-route-from-user-s-current-location-to-the-person-selected-code-m-route-code-em-since-v1-3-em"><a class="link" href="#finding-the-route-from-user-s-current-location-to-the-person-selected-code-m-route-code-em-since-v1-3-em">3.15. Finding the route from user&#8217;s current location to the person selected : <code>m-route</code> <em>[Since v1.3]</em></a></h3>
 <div class="paragraph">
-<p>Not only can iConnect show the location, it can also show you how to go there! Simply by adding your current location, it will show you the shortest path from your current address to your friend&#8217;s home in the Google map.</p>
+<p>Not only can iConnect show the location, it can also show you how to go there. Simply add your current location and it will show you the shortest path from your current address to your friend&#8217;s home in the Google map.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -925,10 +925,10 @@ Shows the address of person with index 1 on the google map</p>
 <p>Only one index number is allowed as the input.</p>
 </li>
 <li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
 </li>
 <li>
-<p>The address entered is the current location of the user (the place they want to start from).</p>
+<p>The address entered should be your current location (the place you want to start from).</p>
 </li>
 <li>
 <p>A route will be shown on the map with the address as start location and selected person&#8217;s address as destination.</p>
@@ -1004,7 +1004,7 @@ You will be notified in the result panel if the newly added event clashes with a
 <p>Members added will be reflected in the event list panel.</p>
 </li>
 <li>
-<p>The index must be a positive integer 1, 2, 3, &#8230;&#8203;</p>
+<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
 </li>
 <li>
 <p>TIME will be added in the following format: <code>yyyy-MM-dd HH:mm</code></p>
@@ -1027,7 +1027,7 @@ Adds a two-hour long event called ‘iConnect Conference’ on 4th of December 2
 </li>
 <li>
 <p><code>s-add n/Exam Date t/2017-12-04 14:30 d/120</code><br>
-Adds a two-hour long event called ‘Exam Date’ on 4th of December 2017 at 2:30PM into the addressbook calendar.+</p>
+Adds a two-hour long event called ‘Exam Date’ on 4th of December 2017 at 2:30PM into the addressbook calendar.<br></p>
 </li>
 <li>
 <p><code>s-add n/Email Reminder t/2017-12-04 14:30</code><br>
@@ -1060,7 +1060,7 @@ Adds an event called ‘Email Reminder’ on 4th of December 2017 at 2:30PM into
 <p><code>INDEX</code> in this case is referring to the index of events in the event list panel</p>
 </li>
 <li>
-<p>The index must be a positive integer 1, 2, 3, &#8230;&#8203;</p>
+<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
 </li>
 <li>
 <p>Person details will be updated each time a deletion of event is made.</p>
@@ -1102,6 +1102,9 @@ Removes 3 events with the index 1, 2 and 3.</p>
 <ul>
 <li>
 <p>Exports all the information of contacts to the given local address.</p>
+</li>
+<li>
+<p>Forward slash should be used instead of back slash.</p>
 </li>
 </ul>
 </div>
@@ -1291,7 +1294,7 @@ The <code>redo</code> command fails as there are no <code>undo</code> commands e
 <p>The index refers to the index number shown in the current list.</p>
 </li>
 <li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
 </li>
 <li>
 <p>The index must not be greater than the most recent bin size.</p>
@@ -1334,7 +1337,7 @@ Restores the 1st and 2nd person in the recycle bin</p>
 <p>The index refers to the index number shown in the most current list.</p>
 </li>
 <li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
 </li>
 <li>
 <p>The index must not be greater than the most recent bin size.</p>
@@ -1398,7 +1401,7 @@ Delete the 1st and 2nd person in the recycle bin</p>
 <p>The index refers to the index number shown in the most recent listing, only one index is allowed.</p>
 </li>
 <li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
 </li>
 <li>
 <p>The <code>BIRTHDAY</code> must follow the format DD/MM/YYYY, and it must be a valid date.</p>
@@ -1442,7 +1445,7 @@ Adds the birthday 18/10/1993 to the first person named john in the address book<
 <p>The index refers to the index number shown in the most recent listing, only one index is allowed.</p>
 </li>
 <li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
 </li>
 <li>
 <p>The <code>BIRTHDAY</code> removed just now can be restored by using the <code>undo</code> command.</p>
@@ -1487,7 +1490,7 @@ Removes the birthday from the 6th person in the most recent listing, and shows a
 <p>The index refers to the index number shown in the most recent listing, only one index is allowed.</p>
 </li>
 <li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
 </li>
 <li>
 <p>A prefix is required before entering the corresponding URL. Only one prefix and one URL is allowed for each command.</p>
@@ -1707,7 +1710,7 @@ e.g. <code>l-add 1 gh/https://github.com/dalessr</code></p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-13 14:36:53 +00:00
+Last updated 2017-11-13 14:52:34 +00:00
 </div>
 </div>
 </body>

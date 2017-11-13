@@ -44,20 +44,20 @@ Let’s get connected now!</p>
 <div class="sect2">
 <h3 id="adding-a-tag-to-person-s-code-t-add-code-em-since-v1-1-em"><a class="link" href="#adding-a-tag-to-person-s-code-t-add-code-em-since-v1-1-em">Adding a tag to person(s) : <code>t-add</code> <em>[Since v1.1]</em></a></h3>
 <div class="paragraph">
-<p>You can add a tag to multiple persons specified by the indices in the current person listing. When you have a new project group, you can tag your group members in the contact list to differentiate from the rest of the contacts.</p>
+<p>You can add a tag to multiple persons specified by the indexes in the current person listing. When you have a new project group, you can tag your group members in the contact list to differentiate from the rest of the contacts.</p>
 </div>
 <div class="paragraph">
-<p>Format: <code>t-add INDEX&#8230;&#8203; TAG</code></p>
+<p>Format: <code>t-add INDEX INDEX&#8230;&#8203; TAG</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>The index refers to the index number shown in the most recent listing, you can key in multiple indices as well.</p>
+<p>The index refers to the index number shown in the most recent listing, you can key in multiple indexes as well.</p>
 </li>
 <li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
 </li>
 <li>
 <p>The TAG <strong>must not have its first word as number</strong>.</p>
@@ -82,7 +82,7 @@ This command adds the tag <code>friends</code> to the 2nd and 3rd person in the 
 <div class="sect2">
 <h3 id="removing-a-tag-from-person-s-code-t-remove-code-em-since-v1-2-em"><a class="link" href="#removing-a-tag-from-person-s-code-t-remove-code-em-since-v1-2-em">Removing a tag from person(s) : <code>t-remove</code> <em>[Since v1.2]</em></a></h3>
 <div class="paragraph">
-<p>You can remove a tag from specified person(s) from the address book.</p>
+<p>You can remove a tag from specified person(s) from the address book. For example, you may remove <code>CS2103</code> tag from all persons after the module has ended.</p>
 </div>
 <div class="paragraph">
 <p>Format: <code>t-remove INDEX&#8230;&#8203; TAG</code></p>
@@ -92,10 +92,10 @@ This command adds the tag <code>friends</code> to the 2nd and 3rd person in the 
 <div class="ulist">
 <ul>
 <li>
-<p>The index refers to the index number shown in the most recent listing, multiple indices are allowed.</p>
+<p>The index refers to the index number shown in the most recent listing, multiple indexes are allowed.</p>
 </li>
 <li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
 </li>
 <li>
 <p>If you wish to remove a tag from all person(s) in the list, simply leave out the INDEX.</p>
@@ -133,6 +133,60 @@ This command removes the tag <code>friends</code> from all person(s) with the ta
 </div>
 </div>
 <div class="sect2">
+<h3 id="setting-person-s-as-favourite-code-t-add-code-em-since-v1-3-em"><a class="link" href="#setting-person-s-as-favourite-code-t-add-code-em-since-v1-3-em">Setting person(s) as favourite : <code>t-add</code> <em>[Since v1.3]</em></a></h3>
+<div class="paragraph">
+<p>You can mark specified person(s) from your contact list as <code>favourite</code>. Contacts marked as <code>favourite</code> will always be pinned to top of the contact list.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/tAddCommand.png" alt="tAddCommand" width="500">
+</div>
+</div>
+<div class="paragraph">
+<p><em>Figure 3.9.1 : Tagging multiple person as favourite</em></p>
+</div>
+<div class="paragraph">
+<p>Format: <code>t-add INDEX INDEX&#8230;&#8203; favourite</code></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>All person(s) tagged as <code>favourite</code> by you will be identified by a coral shaped circle after the person name.</p>
+</li>
+<li>
+<p>You can also use <code>fav</code>, and words containing <code>fav</code> interchangeably with <code>favourite</code>.</p>
+</li>
+<li>
+<p>The index refers to the index number shown in the most recent listing, multiple indexes are allowed.</p>
+</li>
+<li>
+<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Examples:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>list</code><br>
+<code>t-add 2 3 favourite</code><br>
+This command sets 2nd and 3rd person in the address book as favourite</p>
+</li>
+<li>
+<p><code>list</code><br>
+<code>t-add 2 3 fav</code><br>
+This command sets 2nd and 3rd person in the address book as favourite</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
 <h3 id="removing-person-s-from-favourite-code-t-remove-code-em-since-v1-2-em"><a class="link" href="#removing-person-s-from-favourite-code-t-remove-code-em-since-v1-2-em">Removing person(s) from favourite : <code>t-remove</code> <em>[Since v1.2]</em></a></h3>
 <div class="paragraph">
 <p>You can remove specified person(s) in the address book from your <code>favourite</code> list.</p>
@@ -159,7 +213,7 @@ This command removes the tag <code>friends</code> from all person(s) with the ta
 <p>If you wish to clear your favourite list, simply leave out the INDEX.</p>
 </li>
 <li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
 </li>
 </ul>
 </div>
@@ -181,7 +235,7 @@ This command removes the tag <code>favourite</code> from the 2nd and 3rd person 
 <div class="sect2">
 <h3 id="finding-the-person-s-with-given-tag-code-t-find-code-em-since-v1-3-em"><a class="link" href="#finding-the-person-s-with-given-tag-code-t-find-code-em-since-v1-3-em">Finding the person(s) with given tag : <code>t-find</code> <em>[Since v1.3]</em></a></h3>
 <div class="paragraph">
-<p>You can find all persons with the given tag.</p>
+<p>You can find all persons with the given tag. For example, you can find all persons with the tag <code>CS2103</code> using this command.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -223,1033 +277,6 @@ This command could also list all the people with tag <code>friend</code> if any<
 </div>
 <div class="sect2">
 <h3 id="changing-the-theme-according-to-user-input-code-theme-code-em-since-v1-5-em"><a class="link" href="#changing-the-theme-according-to-user-input-code-theme-code-em-since-v1-5-em">Changing the theme according to user input : <code>theme</code> <em>[Since v1.5]</em></a></h3>
-<div class="paragraph">
-<p>You can change the current theme into your preferred one.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/twilightTheme.png" alt="twilightTheme" width="790">
-</div>
-</div>
-<div class="paragraph">
-<p><em>Figure 3.13.1 : Twilight Theme</em></p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/sunburstTheme.png" alt="sunburstTheme" width="790">
-</div>
-</div>
-<div class="paragraph">
-<p><em>Figure 3.13.2 : Sunburst Theme</em></p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/minimalismTheme.png" alt="minimalismTheme" width="790">
-</div>
-</div>
-<div class="paragraph">
-<p><em>Figure 3.13.3 : Minimalism Theme</em></p>
-</div>
-<div class="paragraph">
-<p>Format: <code>theme [THEME] OR [INDEX]</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Currently there are 3 themes available, <code>Twilight</code>, <code>Sunburst</code>, <code>Minimalism</code>.</p>
-</li>
-<li>
-<p><code>Twilight</code> is dark in color; <code>Sunburst</code> is bright and lively; <code>Minimalism</code> is basic and is the default.</p>
-</li>
-<li>
-<p>You can key in <code>Twilight</code> or <code>dark</code> or <code>1</code> to change into dark theme; <code>Sunburst</code> or <code>bright</code> or <code>2</code> to bright theme and <code>Minimalism</code> or <code>default</code> or <code>3</code> to default theme.</p>
-</li>
-<li>
-<p>When you only key in <code>theme</code>, the result box would display <code>1.Twilight 2.Sunburst 3.Minimalism</code>, you can simply key in the index to change into the specific theme.</p>
-</li>
-<li>
-<p>The result in result box indicates that you have successfully changed into your theme of choice.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>theme dark</code><br>
-This command changes current theme to Twilight</p>
-</li>
-<li>
-<p><code>theme Twilight</code><br>
-This command changes current theme to Twilight</p>
-</li>
-<li>
-<p><code>theme 1</code><br>
-This command changes current theme to Twilight</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="finding-the-location-of-a-person-using-google-map-code-m-show-code-em-since-v1-3-em"><a class="link" href="#finding-the-location-of-a-person-using-google-map-code-m-show-code-em-since-v1-3-em">Finding the location of a person using Google Map : <code>m-show</code> <em>[Since v1.3]</em></a></h3>
-<div class="paragraph">
-<p>You might find it not very convenient to only show the contact&#8217;s location as text. Therefore, iConnect allows you to see the location! By using this command, without typing in the person&#8217;s address, you can easily find the location of your friend in Google Map, which will show in the centre browser.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/mShowCommand.png" alt="mShowCommand" width="790">
-</div>
-</div>
-<div class="paragraph">
-<p><em>Figure 3.14.1 : Finding the location of a contact</em></p>
-</div>
-<div class="paragraph">
-<p>Format: <code>m-show INDEX</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Find the person with the index number.</p>
-</li>
-<li>
-<p>Only one index number is allowed as the input.</p>
-</li>
-<li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
-</li>
-<li>
-<p>The address of the person selected will be shown visually on the browser screen.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>m-show 1</code><br>
-Shows the address of person with index 1 on the google map</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="finding-the-route-from-user-s-current-location-to-the-person-selected-code-m-route-code-em-since-v1-3-em"><a class="link" href="#finding-the-route-from-user-s-current-location-to-the-person-selected-code-m-route-code-em-since-v1-3-em">Finding the route from user&#8217;s current location to the person selected : <code>m-route</code> <em>[Since v1.3]</em></a></h3>
-<div class="paragraph">
-<p>Not only can iConnect show the location, it can also show you how to go there! Simply by adding your current location, it will show you the shortest path from your current address to your friend&#8217;s home in the Google map.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/mRouteCommand.png" alt="mRouteCommand" width="790">
-</div>
-</div>
-<div class="paragraph">
-<p><em>Figure 3.15.1 : Finding the route from current location to the address of a contact</em></p>
-</div>
-<div class="paragraph">
-<p>Format: <code>m-route INDEX a/ADDRESS</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Find the address of the person with the index number.</p>
-</li>
-<li>
-<p>Only one index number is allowed as the input.</p>
-</li>
-<li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
-</li>
-<li>
-<p>The address entered is the current location of the user (the place they want to start from).</p>
-</li>
-<li>
-<p>A route will be shown on the map with the address as start location and selected person&#8217;s address as destination.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>m-route 1 a/Clementi Street</code><br>
-Shows the route from <code>Clementi Street</code> to the address of person with index number <code>1</code></p>
-</li>
-<li>
-<p><code>m-route 7 a/John street, block 123, #01-01</code><br>
-Shows the route from <code>John street, block 123, #01-01</code> to the address of person with index number <code>7</code></p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="adding-an-event-to-schedule-code-s-add-code-em-since-v1-4-em"><a class="link" href="#adding-an-event-to-schedule-code-s-add-code-em-since-v1-4-em">Adding an Event to Schedule : <code>s-add</code> <em>[Since v1.4]</em></a></h3>
-<div class="paragraph">
-<p>With many commitments at hand, it is easy to overlook an event in your schedule. <code>s-add</code> allows you to add an event to your calendar and include persons from your addressbook as members of the event.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/sAddCommand.png" alt="sAddCommand" width="790">
-</div>
-</div>
-<div class="paragraph">
-<p><em>Figure 3.16.1 : Adding an event titled 'Orientation Camp' to address book</em></p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-Mouse over the greyed-out date in your calendar to see your events for the day.
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-You will be notified in the result panel if the newly added event clashes with another event in your calendar.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Format: <code>s-add [m/INDEX INDEX…] n/NAME t/TIME [d/DURATION]</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Creates an event with the given event name, event time, duration and members.</p>
-</li>
-<li>
-<p>Members added will be reflected in the event list panel.</p>
-</li>
-<li>
-<p>The index must be a positive integer 1, 2, 3, &#8230;&#8203;</p>
-</li>
-<li>
-<p>TIME will be added in the following format: <code>yyyy-MM-dd HH:mm</code></p>
-</li>
-<li>
-<p>If duration is specified, it must be in the following format: <code>#d#h#m</code> (day/hour/minute)</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>s-add m/1 2 3 n/iConnect Conference t/2017-12-04 08:45 d/120</code><br>
-Adds a two-hour long event called ‘iConnect Conference’ on 4th of December 2017 at 8:45AM ,with the specified person at index 1, 2 and 3 into the addressbook calendar.</p>
-</li>
-<li>
-<p><code>s-add n/Exam Date t/2017-12-04 14:30 d/120</code><br>
-Adds a two-hour long event called ‘Exam Date’ on 4th of December 2017 at 2:30PM into the addressbook calendar.+</p>
-</li>
-<li>
-<p><code>s-add n/Email Reminder t/2017-12-04 14:30</code><br>
-Adds an event called ‘Email Reminder’ on 4th of December 2017 at 2:30PM into the addressbook calendar.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="removing-an-event-from-schedule-code-s-remove-code-em-since-v1-4-em"><a class="link" href="#removing-an-event-from-schedule-code-s-remove-code-em-since-v1-4-em">Removing an Event from Schedule : <code>s-remove</code> <em>[Since v1.4]</em></a></h3>
-<div class="paragraph">
-<p>Suppose you want to remove multiple events from your calendar, you can use the <code>s-remove</code> command with the indexes of events to be deleted.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/sRemoveCommand.png" alt="sRemoveCommand" width="790">
-</div>
-</div>
-<div class="paragraph">
-<p><em>Figure 3.17.1 : Removing multiple events from address book</em></p>
-</div>
-<div class="paragraph">
-<p>Format: <code>s-remove I/INDEX INDEX&#8230;&#8203;</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p><code>INDEX</code> in this case is referring to the index of events in the event list panel</p>
-</li>
-<li>
-<p>The index must be a positive integer 1, 2, 3, &#8230;&#8203;</p>
-</li>
-<li>
-<p>Person details will be updated each time a deletion of event is made.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>s-remove I/1</code><br>
-Removes a single event with the index 1.</p>
-</li>
-<li>
-<p><code>s-remove I/1 2 3</code><br>
-Removes 3 events with the index 1, 2 and 3.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="making-a-backup-address-book-code-export-code-em-since-v1-4-em"><a class="link" href="#making-a-backup-address-book-code-export-code-em-since-v1-4-em">Making a backup address book : <code>export</code> <em>[Since v1.4]</em></a></h3>
-<div class="paragraph">
-<p>If you want to keep your address book clean and worry about how to get the contacts back, just export the information.</p>
-</div>
-<div class="paragraph">
-<p>You can keep a backup of your contact details to the given path.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>export PATH</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Exports all the information of contacts to the given local address.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="selecting-a-person-code-select-code-em-since-v1-1-em"><a class="link" href="#selecting-a-person-code-select-code-em-since-v1-1-em">Selecting a person : <code>select</code> <em>[Since v1.1]</em></a></h3>
-<div class="paragraph">
-<p><em>Alias:</em> <code>choose</code></p>
-</div>
-<div class="paragraph">
-<p>Selects the person identified by the index number used in the last person listing.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>select INDEX</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Selects the person and loads the Google search page the person at the specified <code>INDEX</code>.</p>
-</li>
-<li>
-<p>The index refers to the index number shown in the most recent listing.</p>
-</li>
-<li>
-<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>list</code><br>
-<code>select 2</code><br>
-Selects the 2nd person in the address book</p>
-</li>
-<li>
-<p><code>find Betsy</code><br>
-<code>choose 1</code><br>
-Selects the 1st person in the results of the <code>find</code> command</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="listing-entered-commands-code-history-code-em-since-v1-1-em"><a class="link" href="#listing-entered-commands-code-history-code-em-since-v1-1-em">Listing entered commands : <code>history</code> <em>[Since v1.1]</em></a></h3>
-<div class="paragraph">
-<p><em>Alias:</em> <code>record</code></p>
-</div>
-<div class="paragraph">
-<p>Lists all the commands that you have entered in reverse chronological order.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>history</code> or <code>record</code></p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Pressing the <kbd>&uarr;</kbd> and <kbd>&darr;</kbd> arrows will display the previous and next input respectively in the command box.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">Undoing previous command : <code>undo</code></a></h3>
-<div class="paragraph">
-<p>Restores the address book to the state before the previous <em>undoable</em> command was executed.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>undo</code></p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Undoable commands: those commands that modify the address book&#8217;s content (<code>add</code>, <code>delete</code>, <code>edit</code> and <code>clear</code>(including the corresponding shortcut command )).</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>delete I/1</code><br>
-<code>list</code><br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br></p>
-</li>
-<li>
-<p><code>select 1</code><br>
-<code>list</code><br>
-<code>undo</code><br>
-The <code>undo</code> command fails as there are no undoable commands executed previously</p>
-</li>
-<li>
-<p><code>delete I/1 2</code><br>
-<code>clear</code><br>
-<code>undo</code> (reverses the <code>clear</code> command)<br>
-<code>undo</code> (reverses the <code>delete I/1 2</code> command)<br></p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">Redoing the previously undone command : <code>redo</code></a></h3>
-<div class="paragraph">
-<p>Reverses the most recent <code>undo</code> command.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>redo</code></p>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>delete I/1</code><br>
-<code>undo</code> (reverses the <code>delete I/1</code> command)<br>
-<code>redo</code> (reapplies the <code>delete I/1</code> command)<br></p>
-</li>
-<li>
-<p><code>delete I/1 2</code><br>
-<code>redo</code><br>
-The <code>redo</code> command fails as there are no <code>undo</code> commands executed previously</p>
-</li>
-<li>
-<p><code>delete I/1</code><br>
-<code>clear</code><br>
-<code>undo</code> (reverses the <code>clear</code> command)<br>
-<code>undo</code> (reverses the <code>delete I/1</code> command)<br>
-<code>redo</code> (reapplies the <code>delete I/1</code> command)<br>
-<code>redo</code> (reapplies the <code>clear</code> command)<br></p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="restoring-person-s-from-recycle-bin-code-bin-restore-code-em-since-v1-5-em"><a class="link" href="#restoring-person-s-from-recycle-bin-code-bin-restore-code-em-since-v1-5-em">Restoring person(s) from recycle bin : <code>bin-restore</code> <em>[Since v1.5]</em></a></h3>
-<div class="paragraph">
-<p>You find that people you wrongly deleted from address book in recycle bin, you can restore them back now.</p>
-</div>
-<div class="paragraph">
-<p>You can restore person(s) from bin to address book.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/multiRestoreCommand.png" alt="multiRestoreCommand" width="600">
-</div>
-</div>
-<div class="paragraph">
-<p><em>Figure 3.23.1 : Restoring multiple persons from recycle bin</em></p>
-</div>
-<div class="paragraph">
-<p>Format: <code>bin-restore INDEX INDEX &#8230;&#8203;</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Recovers the people at these given specified <code>INDEX</code>.</p>
-</li>
-<li>
-<p>The index refers to the index number shown in the current list.</p>
-</li>
-<li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
-</li>
-<li>
-<p>The index must not be greater than the most recent bin size.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>bin-restore 1 2</code><br>
-Restores the 1st and 2nd person in the recycle bin</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="deleting-person-s-in-recycle-bin-code-bin-delete-code-em-since-v1-5-em"><a class="link" href="#deleting-person-s-in-recycle-bin-code-bin-delete-code-em-since-v1-5-em">Deleting person(s) in recycle bin : <code>bin-delete</code> <em>[Since v1.5]</em></a></h3>
-<div class="paragraph">
-<p>If you want to keep your recycle bin clean, you can delete some of them from recycle bin. But you can&#8217;t get them back.</p>
-</div>
-<div class="paragraph">
-<p>You can delete person(s) from bin.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>bin-delete INDEX INDEX &#8230;&#8203;</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Recovers the people at these given specified <code>INDEX</code>.</p>
-</li>
-<li>
-<p>The index refers to the index number shown in the most current list.</p>
-</li>
-<li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
-</li>
-<li>
-<p>The index must not be greater than the most recent bin size.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>bin-delete 1 2</code><br>
-Delete the 1st and 2nd person in the recycle bin</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="clearing-all-contacts-from-bin-code-bin-fresh-code-em-since-v1-5-em"><a class="link" href="#clearing-all-contacts-from-bin-code-bin-fresh-code-em-since-v1-5-em">Clearing all contacts from bin : <code>bin-fresh</code> <em>[Since v1.5]</em></a></h3>
-<div class="paragraph">
-<p>If you find all the information in recycle bin is useless, then just clear the recycle bin.</p>
-</div>
-<div class="paragraph">
-<p>You can clear the recycle bin.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>bin-fresh</code></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="increasing-the-font-size-of-ui-code-font-code-em-coming-in-v2-0-em"><a class="link" href="#increasing-the-font-size-of-ui-code-font-code-em-coming-in-v2-0-em">Increasing the font size of UI : <code>font</code> <em>[Coming in v2.0]</em></a></h3>
-<div class="paragraph">
-<p>If you find it is uncomfortable to watch the UI because of the font size, you can choose to increase it or decrease it.</p>
-</div>
-<div class="paragraph">
-<p>You can increase or decrease the size of font.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>font -</code> <code>font +</code></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="adding-the-birthday-to-a-person-code-b-add-code-em-since-v1-4-em"><a class="link" href="#adding-the-birthday-to-a-person-code-b-add-code-em-since-v1-4-em">Adding the birthday to a person : <code>b-add</code> <em>[Since v1.4]</em></a></h3>
-<div class="paragraph">
-<p>Would it be nice if you can store the birthday of your contact so that you won&#8217;t forget to send him a gift? Of course! By using this command, you are allowed to add birthday to a person. You can easily check it out using the calendar in the app. If you accidentally typed a wrong birthday, you can use this command again and enter the correct one.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>b-add INDEX BIRTHDAY</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Adds birthday to the person at the specified <code>INDEX</code>.</p>
-</li>
-<li>
-<p>The index refers to the index number shown in the most recent listing, only one index is allowed.</p>
-</li>
-<li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
-</li>
-<li>
-<p>The <code>BIRTHDAY</code> must follow the format DD/MM/YYYY, and it must be a valid date.</p>
-</li>
-<li>
-<p>To update the birthday of a specified person, use <code>b-add</code> command and enter the new <code>BIRTHDAY</code> value.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>find n/john</code><br>
-<code>b-add 1 18/10/1993</code><br>
-Adds the birthday 18/10/1993 to the first person named john in the address book</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="removing-the-birthday-from-a-person-code-b-remove-code-em-since-v1-5-em"><a class="link" href="#removing-the-birthday-from-a-person-code-b-remove-code-em-since-v1-5-em">Removing the birthday from a person : <code>b-remove</code> <em>[Since v1.5]</em></a></h3>
-<div class="paragraph">
-<p>If you add the birthday to a wrong person, you can always enter this command to remove the birthday from the person.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>b-remove INDEX</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Removes the birthday value from the person at the specified <code>INDEX</code>.</p>
-</li>
-<li>
-<p>The index refers to the index number shown in the most recent listing, only one index is allowed.</p>
-</li>
-<li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
-</li>
-<li>
-<p>The <code>BIRTHDAY</code> removed just now can be restored by using the <code>undo</code> command.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>find n/john</code><br>
-<code>b-remove 1</code><br>
-Removes the birthday from the first person named john in the address book</p>
-</li>
-<li>
-<p><code>b-remove 6</code><br>
-Removes the birthday from the 6th person in the most recent listing, and shows an error if there are less than 6 persons in the list</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="adding-a-social-media-url-to-a-person-code-l-add-code-em-coming-in-v2-0-em"><a class="link" href="#adding-a-social-media-url-to-a-person-code-l-add-code-em-coming-in-v2-0-em">Adding a social media URL to a person : <code>l-add</code> <em>[Coming in v2.0]</em></a></h3>
-<div class="paragraph">
-<p>You will find it very convenient to add some social media URLs to your friends so that you are able to see their posts and recent activities simply by clicking those social media icons in the centre person details panel. In this way, you do not need to open each social media app and search for the person before you can see their posts.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>l-add INDEX [tt/TWITTER] / [fb/FACEBOOK] / [nm/NUSMODS] / [ig/INSTAGRAM] / [gh/GITHUB]</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Adds the social media link to the person at the specified <code>INDEX</code>.</p>
-</li>
-<li>
-<p>The index refers to the index number shown in the most recent listing, only one index is allowed.</p>
-</li>
-<li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
-</li>
-<li>
-<p>A prefix is required before entering the corresponding URL. Only one prefix and one URL is allowed for each command.</p>
-</li>
-<li>
-<p>This command will also update the existing value to the input value.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>l-add 1 fb/https://www.facebook.com/dale.sun.507</code><br>
-Adds the Facebook URL to the 1st person in the contact list</p>
-</li>
-<li>
-<p><code>l-add 3 gh/https://github.com/dalessr</code><br>
-Adds the GitHub URL to the 3rd person in the contact list</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="launching-shell-version-code-shell-code-em-coming-in-v2-0-em"><a class="link" href="#launching-shell-version-code-shell-code-em-coming-in-v2-0-em">Launching shell version : <code>shell</code> <em>[Coming in v2.0]</em></a></h3>
-<div class="paragraph">
-<p>By using this command, you can open the shell version of the app. In this way, you are able to use the app without the clutter. You can still achieve most of the operations by only using the shell, except for some features related to the browser (e.g. the Map feature).</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>shell</code></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="syncing-with-phone-s-contact-list-code-sync-code-em-coming-in-v2-0-em"><a class="link" href="#syncing-with-phone-s-contact-list-code-sync-code-em-coming-in-v2-0-em">Syncing with phone&#8217;s contact list : <code>sync</code> <em>[Coming in v2.0]</em></a></h3>
-<div class="paragraph">
-<p>You can synchronize contact list on your computer with the contact list in the <code>iConnect</code> on your phone.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>sync</code></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="fetching-nusmods-timetable-into-calendar-code-s-nusmods-code-em-coming-in-v2-0-em"><a class="link" href="#fetching-nusmods-timetable-into-calendar-code-s-nusmods-code-em-coming-in-v2-0-em">Fetching NUSMods timetable into calendar : <code>s-nusmods</code> <em>[Coming in v2.0]</em></a></h3>
-<div class="paragraph">
-<p>By using this command, you can fetch your timetable from NUSMods into your calendar</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>s-nusmods l/LINK</code></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">Clearing all entries : <code>clear</code></a></h3>
-<div class="paragraph">
-<p>Clears all entries from the address book.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>clear</code></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">Exiting the program : <code>exit</code></a></h3>
-<div class="paragraph">
-<p>Exits the program.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>exit</code></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="saving-the-data"><a class="link" href="#saving-the-data">Saving the data</a></h3>
-<div class="paragraph">
-<p>Address book data are saved in the hard disk automatically after any command that changes the data.<br>
-There is no need to save manually.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="faq"><a class="link" href="#faq">FAQ</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><strong>Q</strong>: How do I transfer my data to another Computer?<br>
-<strong>A</strong>: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.</p>
-</div>
-<div class="paragraph">
-<p><strong>Q</strong>: Can I use this app without network connection?<br>
-<strong>A</strong>: You can achieve most of the commands offline except for those features using the browser window (e.g. <code>select</code> and <code>m-show</code>).</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="command-summary"><a class="link" href="#command-summary">Command Summary</a></h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Help</strong> : <code>help COMMAND_WORD</code><br>
-e.g. <code>help list</code></p>
-</li>
-<li>
-<p><strong>Add</strong> <code>add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]&#8230;&#8203;</code><br>
-e.g. <code>add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague</code></p>
-</li>
-<li>
-<p><strong>List</strong> : <code>list</code></p>
-</li>
-<li>
-<p><strong>Edit</strong> : <code>edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]&#8230;&#8203;</code><br>
-e.g. <code>edit 2 n/James Lee e/jameslee@example.com</code></p>
-</li>
-<li>
-<p><strong>Find</strong> : <code>find [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]</code><br>
-e.g. <code>find n/James p/8765 e/jamesho@example.com a/clementi street</code></p>
-</li>
-<li>
-<p><strong>Sort</strong> : <code>sort [n/(asc/dsc)] [p/(asc/dsc)] [e/(asc/dsc)] [a/(asc/dsc)] [t/(asc/dsc)]</code><br>
-e.g. <code>sort n/asc</code></p>
-</li>
-<li>
-<p><strong>TagAddFavourite</strong> : <code>t-add INDEX&#8230;&#8203; favourite</code><br>
-e.g. <code>t-add 3 4 favourite</code></p>
-</li>
-<li>
-<p><strong>TagRemove</strong> : <code>t-remove INDEX&#8230;&#8203; TAG</code><br>
-e.g. <code>t-remove 3 4 friends</code></p>
-</li>
-<li>
-<p><strong>TagRemoveFavourite</strong> : <code>t-remove INDEX&#8230;&#8203; favourite</code><br>
-e.g. <code>t-remove 3 4 favourite</code></p>
-</li>
-<li>
-<p><strong>TagFind</strong> : <code>t-find [TAG]</code><br>
-e.g. <code>t-find friends</code></p>
-</li>
-<li>
-<p><strong>Theme</strong> : <code>theme [THEME] OR [INDEX]</code><br>
-e.g. <code>theme Twilight</code></p>
-</li>
-<li>
-<p><strong>MapShow</strong> : <code>m-show INDEX</code><br>
-e.g. <code>m-show 1</code></p>
-</li>
-<li>
-<p><strong>MapRoute</strong> : <code>m-route INDEX a/ADDRESS</code><br>
-e.g. <code>m-show 1 a/NUS</code></p>
-</li>
-<li>
-<p><strong>ScheduleAdd</strong> : <code>s-add [m/INDEX INDEX…] n/NAME t/TIME d/DURATION</code><br>
-e.g. <code>s-add m/1 2 3 n/iConnect Conference t/2017-12-04 08:45 d/2h</code></p>
-</li>
-<li>
-<p><strong>ScheduleRemove</strong> : <code>s-remove I/INDEX INDEX&#8230;&#8203;</code><br>
-e.g. <code>s-remove I/1 2 3</code></p>
-</li>
-<li>
-<p><strong>Export</strong> : <code>export PATH</code><br>
-e.g. <code>export /desktop/new_folder</code></p>
-</li>
-<li>
-<p><strong>Bindelete</strong> : <code>bin-delete INDEX INDEX&#8230;&#8203;</code><br>
-e.g. <code>bin-delete 1 2 3</code></p>
-</li>
-<li>
-<p><strong>Binrestore</strong> : <code>bin-restore INDEX INDEX&#8230;&#8203;</code><br>
-e.g. <code>bin-restore 1 2 3</code></p>
-</li>
-<li>
-<p><strong>Binfresh</strong> : <code>bin-fresh</code><br>
-e.g. <code>bin-fresh</code></p>
-</li>
-<li>
-<p><strong>Font</strong> : <code>font</code><br>
-e.g. <code>font +</code> ,<code>font -</code></p>
-</li>
-<li>
-<p><strong>Select</strong> : <code>select INDEX</code><br>
-e.g. <code>select 2</code></p>
-</li>
-<li>
-<p><strong>History</strong> : <code>history</code></p>
-</li>
-<li>
-<p><strong>Undo</strong> : <code>undo</code></p>
-</li>
-<li>
-<p><strong>Redo</strong> : <code>redo</code></p>
-</li>
-<li>
-<p><strong>BirthdayAdd</strong> : <code>b-add INDEX BIRTHDAY</code><br>
-e.g. <code>b-add 1 18/10/1993</code></p>
-</li>
-<li>
-<p><strong>BirthdayRemove</strong> : <code>b-remove INDEX</code><br>
-e.g. <code>b-remove 1</code></p>
-</li>
-<li>
-<p><strong>LinkAdd</strong> : <code>l-add INDEX [tt/TWITTER] / [fb/FACEBOOK] / [nm/NUSMODS] / [ig/INSTAGRAM] / [gh/GITHUB]</code><br>
-e.g. <code>l-add 1 gh/https://github.com/dalessr</code></p>
-</li>
-<li>
-<p><strong>Shell</strong> : <code>shell</code></p>
-</li>
-<li>
-<p><strong>Clear</strong> : <code>clear</code></p>
-</li>
-<li>
-<p><strong>Exit</strong> : <code>exit</code></p>
-</li>
-</ul>
-</div>
-<div class="sect2">
-<h3 id="setting-person-s-as-favourite-code-t-add-code-em-since-v1-3-em"><a class="link" href="#setting-person-s-as-favourite-code-t-add-code-em-since-v1-3-em">Setting person(s) as favourite : <code>t-add</code> <em>[Since v1.3]</em></a></h3>
-<div class="paragraph">
-<p>You can mark specified person(s) from your contact list as <code>favourite</code>. Contacts marked as <code>favourite</code> will always be pinned to top of the contact list.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/tAddCommand.png" alt="tAddCommand" width="500">
-</div>
-</div>
-<div class="paragraph">
-<p><em>Figure 3.9.1 : Tagging multiple person as favourite</em></p>
-</div>
-<div class="paragraph">
-<p>Format: <code>t-add INDEX&#8230;&#8203; favourite</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>All person(s) tagged as <code>favourite</code> by you will be identified by a coral shaped circle after the person name.</p>
-</li>
-<li>
-<p>You can also use <code>fav</code>, and words containing <code>fav</code> interchangeably with <code>favourite</code>.</p>
-</li>
-<li>
-<p>The index refers to the index number shown in the most recent listing, multiple indices are allowed.</p>
-</li>
-<li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>list</code><br>
-<code>t-add 2 3 favourite</code><br>
-This command sets 2nd and 3rd person in the address book as favourite</p>
-</li>
-<li>
-<p><code>list</code><br>
-<code>t-add 2 3 fav</code><br>
-This command sets 2nd and 3rd person in the address book as favourite</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="removing-person-s-from-favourite-code-t-remove-code-em-since-v1-2-em-2"><a class="link" href="#removing-person-s-from-favourite-code-t-remove-code-em-since-v1-2-em-2">Removing person(s) from favourite : <code>t-remove</code> <em>[Since v1.2]</em></a></h3>
-<div class="paragraph">
-<p>You can remove specified person(s) in the address book from your <code>favourite</code> list.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../images/tRemoveCommand.png" alt="tRemoveCommand" width="500">
-</div>
-</div>
-<div class="paragraph">
-<p><em>Figure 3.11.1 : Removing tag from multiple persons</em></p>
-</div>
-<div class="paragraph">
-<p>Format: <code>t-remove INDEX&#8230;&#8203; favourite</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>You can also use <code>fav</code>, and words containing <code>fav</code> interchangeably with <code>favourite</code>.</p>
-</li>
-<li>
-<p>If you wish to clear your favourite list, simply leave out the INDEX.</p>
-</li>
-<li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>list</code><br>
-<code>t-remove 2 3 fav</code><br>
-This command removes the tag <code>favourite</code> from the 2nd and 3rd person in the address book</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="changing-the-theme-according-to-user-input-code-theme-code-em-since-v1-5-em-2"><a class="link" href="#changing-the-theme-according-to-user-input-code-theme-code-em-since-v1-5-em-2">Changing the theme according to user input : <code>theme</code> <em>[Since v1.5]</em></a></h3>
 <div class="paragraph">
 <p>You can change the current theme into your preferred one.</p>
 </div>
@@ -1431,6 +458,26 @@ It would be impractical to still look for exact match for <code>tagName</code>, 
 </div>
 </div>
 <div class="sect2">
+<h3 id="listing-person-s-with-the-given-tagname"><a class="link" href="#listing-person-s-with-the-given-tagname">Listing person(s) with the given tagName</a></h3>
+<div class="paragraph">
+<p>You can get a list of person(s) with the given <code>tagName</code>. This is realized using <code>TagFindCommand</code>.</p>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows the flow of operation from the point the address book receives an input to the output of the result.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/TagFindCommandSequenceDiagram.png" alt="TagFindCommandSequenceDiagram" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p><em>Figure 4.8.1 : Interactions Inside the Logic Component for the <code>t-find CS2103</code> Command</em></p>
+</div>
+<div class="paragraph">
+<p><code>t-find</code> command shows all person(s) with tag containing or contained in the given <code>tagName</code>. <code>TagFindCommandParser</code> passes a <code>TagMatchingKeywordPredicate</code> to <code>TagFindCommand</code> to update filteredPersonList.</p>
+</div>
+</div>
+<div class="sect2">
 <h3 id="changing-to-the-theme-of-choice"><a class="link" href="#changing-to-the-theme-of-choice">Changing to the theme of choice</a></h3>
 <div class="paragraph">
 <p>You can change to your theme of choice. There are 3 themes currently, <code>Twilight</code>, <code>Sunburst</code> and <code>Minimalism</code>. This command is not undoable.</p>
@@ -1498,7 +545,19 @@ You can just key in the index of your theme of choice instead of the words.<br><
 <div class="sect2">
 <h3 id="enhancement-proposed-add-command-code-sync-code"><a class="link" href="#enhancement-proposed-add-command-code-sync-code">Enhancement Proposed: Add command <code>sync</code></a></h3>
 <div class="paragraph">
-<p>Synchronize the application with phone&#8217;s contact list.</p>
+<p><mark>Start of Extract [from: User Guide]</mark></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="syncing-with-phone-s-contact-list-code-sync-code-em-coming-in-v2-0-em"><a class="link" href="#syncing-with-phone-s-contact-list-code-sync-code-em-coming-in-v2-0-em">Syncing with phone&#8217;s contact list : <code>sync</code> <em>[Coming in v2.0]</em></a></h3>
+<div class="paragraph">
+<p>You can synchronize contact list on your computer with the contact list in the <code>iConnect</code> on your phone.</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>sync</code></p>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
 </div>
 </div>
 <div class="sect2">
@@ -1519,7 +578,7 @@ You can just key in the index of your theme of choice instead of the words.<br><
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-13 14:36:53 +00:00
+Last updated 2017-11-13 14:52:34 +00:00
 </div>
 </div>
 </body>

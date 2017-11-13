@@ -49,16 +49,16 @@
 <li><a href="#map-mechanism">4.2. Map mechanism</a></li>
 <li><a href="#birthday-mechanism">4.3. Birthday mechanism</a></li>
 <li><a href="#undo-redo-mechanism">4.4. Undo/Redo mechanism</a></li>
-<li><a href="#sorting-mechanism">4.5. Sorting Mechanism</a></li>
+<li><a href="#sorting-mechanism">4.5. Sorting mechanism</a></li>
 <li><a href="#adding-a-tag-to-multiple-people">4.6. Adding a tag to multiple people</a></li>
 <li><a href="#removing-a-tag-from-multiple-people">4.7. Removing a tag from multiple people</a></li>
 <li><a href="#listing-person-s-with-the-given-tagname">4.8. Listing person(s) with the given tagName</a></li>
 <li><a href="#changing-to-the-theme-of-choice">4.9. Changing to the theme of choice</a></li>
 <li><a href="#improvements-on-deletecommand">4.10. Improvements on DeleteCommand</a></li>
 <li><a href="#improvement-on-helpcommand">4.11. Improvement on HelpCommand</a></li>
-<li><a href="#recyclebin-mechanism">4.12. RecycleBin Mechanism</a></li>
-<li><a href="#exporting">4.13. Exporting</a></li>
-<li><a href="#scheduler-feature">4.14. Scheduler Feature</a></li>
+<li><a href="#recyclebin-mechanism">4.12. RecycleBin mechanism</a></li>
+<li><a href="#export-mechanism">4.13. Export mechanism</a></li>
+<li><a href="#schedule-mechanism">4.14. Schedule mechanism</a></li>
 <li><a href="#logging">4.15. Logging</a></li>
 <li><a href="#configuration">4.16. Configuration</a></li>
 </ul>
@@ -105,7 +105,7 @@
 <p>iConnect is a command-line interface (CLI) based application which allows students to manage their contacts and keep track of their schedule. This documentation aims to guide you through the development process of iConnect, getting you started as an iConnect contributor. iConnect is written in Java and the editor of choice is IntelliJ IDE.</p>
 </div>
 <div class="paragraph">
-<p>Due its sizable codebase, you may want to get familiarise with the different architectural components to have a better understanding of each component works together.</p>
+<p>Due to its sizable codebase, you may want to get familiarise with the different architectural components to have a better understanding of how each component works together.</p>
 </div>
 </div>
 </div>
@@ -600,7 +600,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <p>The enhanced version of find mechanism is facilitated by the <code>AddressBookParser</code>, which resides inside <code>LogicManager</code>. It allows you to search for person(s) by substrings of multiple different attributes (e.g. <code>Name</code>, <code>Phone</code>, <code>Email</code>, <code>Address</code>), which the case is insensitive for <code>Name</code>, <code>Email</code> and <code>Address</code> attributes.</p>
 </div>
 <div class="paragraph">
-<p>You are only allowed to search by <code>Name</code>, <code>Phone</code>, <code>Email</code> or <code>Address</code>. Searching by <code>Tag</code> or <code>Birthday</code> is not allowed. In order to search by tags, you can use the tag-find (<code>t-find</code>) command.</p>
+<p>You are only allowed to search by <code>Name</code>, <code>Phone</code>, <code>Email</code> or <code>Address</code>. Searching by <code>Tag</code> or <code>Birthday</code> is not allowed. In order to search by tag, you can use the tag-find (<code>t-find</code>) command.</p>
 </div>
 <div class="paragraph">
 <p>The following diagram shows the inheritance diagram for Find command:</p>
@@ -614,7 +614,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <p><em>Figure 4.1.1 : Structure of Find Command in the Logic Component</em></p>
 </div>
 <div class="paragraph">
-<p>When you are using the find command, you need to provided at least one keyword for any available attribute. Keywords of the same attribute need to be grouped together with a prefix (e.g. <code>n/</code>, <code>p/</code>, <code>e/</code>, <code>a/</code>). In this case, each prefix is allowed to appear at most once.</p>
+<p>When you use the find command, you need to provide at least one keyword for any available attribute. Keywords of the same attribute need to be grouped together with a prefix (e.g. <code>n/</code>, <code>p/</code>, <code>e/</code>, <code>a/</code>). In this case, each prefix is allowed to appear at most once.</p>
 </div>
 <div class="paragraph">
 <p>During the implementation, <code>FindCommandParser</code> class splits the keywords of different attributes by searching for the locations of the prefixes, and then stores the keywords into separate ArrayLists. As a <code>NameContainsKeywordsPredicate</code> needs to be passed to <code>FindCommand</code> class, all the keywords from the ArrayLists are added to the predicate in order with each prefix added in front for separation.</p>
@@ -1330,7 +1330,7 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </div>
 </div>
 <div class="sect2">
-<h3 id="sorting-mechanism"><a class="link" href="#sorting-mechanism">4.5. Sorting Mechanism</a></h3>
+<h3 id="sorting-mechanism"><a class="link" href="#sorting-mechanism">4.5. Sorting mechanism</a></h3>
 <div class="paragraph">
 <p>The sorting mechanism is facilitated by <code>SortCommandParser</code> and <code>SortCommand</code>, with both classes residing in the <code>Logic</code> component of the address book. Since the address book state will be modified during the sorting process, the <code>sort</code> has to be undoable.</p>
 </div>
@@ -1920,7 +1920,7 @@ If the input command word after 'help' can not be identified, then you will see 
 </div>
 </div>
 <div class="sect2">
-<h3 id="recyclebin-mechanism"><a class="link" href="#recyclebin-mechanism">4.12. RecycleBin Mechanism</a></h3>
+<h3 id="recyclebin-mechanism"><a class="link" href="#recyclebin-mechanism">4.12. RecycleBin mechanism</a></h3>
 <div class="paragraph">
 <p>We design a recycle bin in the iConnect to store the person removed from address book. In this way, users can restore the people they wrongly deleted. You may think that it can be done by udno/redo command. Actually, if users want to restore a person they deleted long time ago, then the undo/redo command would not hlep.</p>
 </div>
@@ -1982,7 +1982,7 @@ If we find duplicate people (A') when deleting a person (A) to recyclebin or res
 </div>
 </div>
 <div class="sect2">
-<h3 id="exporting"><a class="link" href="#exporting">4.13. Exporting</a></h3>
+<h3 id="export-mechanism"><a class="link" href="#export-mechanism">4.13. Export mechanism</a></h3>
 <div class="paragraph">
 <p>We are using 'java.io.File' and 'java.io.FileWriter' to export address book data.</p>
 </div>
@@ -2009,7 +2009,7 @@ If we find duplicate people (A') when deleting a person (A) to recyclebin or res
 </div>
 </div>
 <div class="sect2">
-<h3 id="scheduler-feature"><a class="link" href="#scheduler-feature">4.14. Scheduler Feature</a></h3>
+<h3 id="schedule-mechanism"><a class="link" href="#schedule-mechanism">4.14. Schedule mechanism</a></h3>
 <div class="paragraph">
 <p>The <code>ScheduleAddCommand</code> allows you to add an <code>Event</code> into address book and is stored in an ArrayList-like <code>UniqueEventList</code> in <code>AddressBook</code>. Each event may have a number of members and they are specified by their <code>Index</code> in the <code>PersonListPanel</code> during the user input phase. The <code>ScheduleRemoveCommand</code> allows you to remove an <code>Event</code> from address book by inputting the <code>Index</code> of an event in the <code>EventListPanel</code>. Note that you may input more than one <code>Index</code> to remove multiple events at a time.</p>
 </div>
@@ -2052,6 +2052,9 @@ If we find duplicate people (A') when deleting a person (A) to recyclebin or res
 <p>Each <code>Person</code> maintains its own <code>UniqueEventList</code> with each element synced to an <code>Event</code> in the master <code>UniqueEventList</code> in <code>AddressBook</code>. In otherwords, both object references each other.</p>
 </div>
 </div>
+</div>
+<div class="paragraph">
+<p><strong>UniqueEventList</strong></p>
 </div>
 <div class="paragraph">
 <p><code>UniqueEventList</code> functions as a List of <code>Events</code> where every element is unique and the uniqueness of an event is defined by its name, time and duration. If two different events have the same value for the three attributes, it is considered to be a duplicate. You can also check if an <code>Event</code> clashes with any of the events in <code>UniqueEventList</code>, by running the <code>hasClashes</code> function which returns true if a clash exist.</p>
@@ -3724,7 +3727,7 @@ for <code>RemarkCommandParser</code>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-13 14:36:53 +00:00
+Last updated 2017-11-13 14:52:34 +00:00
 </div>
 </div>
 </body>

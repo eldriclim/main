@@ -37,7 +37,7 @@
 <div class="sect2">
 <h3 id="deleting-a-person-code-delete-code-em-since-v1-2-em"><a class="link" href="#deleting-a-person-code-delete-code-em-since-v1-2-em">Deleting a person : <code>delete</code> <em>[Since v1.2]</em></a></h3>
 <div class="paragraph">
-<p>If you want to keep your person list clean, just using delete command to remove some people to bin.</p>
+<p>If you want to remove a person from the person list, just use the <code>delete</code> command to put them into the recycle bin.</p>
 </div>
 <div class="paragraph">
 <p><em>Alias:</em> <code>remove</code> <code>-</code></p>
@@ -54,7 +54,7 @@
 <p><em>Figure 3.7.1 : Deleting multiple person</em></p>
 </div>
 <div class="paragraph">
-<p>Format: <code>delete I/INDEX INDEX &#8230;&#8203;</code> (or) <code>delete n/NAME</code></p>
+<p>Format: <code>delete I/INDEX INDEX &#8230;&#8203;</code> OR <code>delete n/NAME</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
@@ -67,7 +67,7 @@
 <p>The index refer to the index numbers shown in the most recent listing.</p>
 </li>
 <li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
 </li>
 <li>
 <p>The name must be the full name of the person.</p>
@@ -159,6 +159,9 @@ Shows this User Guide in the opened Help Window.</p>
 <li>
 <p>Exports all the information of contacts to the given local address.</p>
 </li>
+<li>
+<p>Forward slash should be used instead of back slash.</p>
+</li>
 </ul>
 </div>
 </div>
@@ -194,7 +197,7 @@ Shows this User Guide in the opened Help Window.</p>
 <p>The index refers to the index number shown in the current list.</p>
 </li>
 <li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
 </li>
 <li>
 <p>The index must not be greater than the most recent bin size.</p>
@@ -237,7 +240,7 @@ Restores the 1st and 2nd person in the recycle bin</p>
 <p>The index refers to the index number shown in the most current list.</p>
 </li>
 <li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
+<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
 </li>
 <li>
 <p>The index must not be greater than the most recent bin size.</p>
@@ -488,7 +491,7 @@ If the input command word after 'help' can not be identified, then you will see 
 </div>
 </div>
 <div class="sect2">
-<h3 id="exporting"><a class="link" href="#exporting">Exporting</a></h3>
+<h3 id="export-mechanism"><a class="link" href="#export-mechanism">Export mechanism</a></h3>
 <div class="paragraph">
 <p>We are using 'java.io.File' and 'java.io.FileWriter' to export address book data.</p>
 </div>
@@ -515,7 +518,7 @@ If the input command word after 'help' can not be identified, then you will see 
 </div>
 </div>
 <div class="sect2">
-<h3 id="recyclebin-mechanism"><a class="link" href="#recyclebin-mechanism">RecycleBin Mechanism</a></h3>
+<h3 id="recyclebin-mechanism"><a class="link" href="#recyclebin-mechanism">RecycleBin mechanism</a></h3>
 <div class="paragraph">
 <p>We design a recycle bin in the iConnect to store the person removed from address book. In this way, users can restore the people they wrongly deleted. You may think that it can be done by udno/redo command. Actually, if users want to restore a person they deleted long time ago, then the undo/redo command would not hlep.</p>
 </div>
@@ -601,7 +604,7 @@ If we find duplicate people (A') when deleting a person (A) to recyclebin or res
 <div class="ulist">
 <ul>
 <li>
-<p>Update the GUI of recyclebin list (Pull requests <a href="https://github.com/CS2103AUG2017-W09-B3/main/pull/138" class="bare">https://github.com/CS2103AUG2017-W09-B3/main/pull/138</a> [#138]) and (Pull requests <a href="https://github.com/CS2103AUG2017-W09-B3/main/pull/131" class="bare">https://github.com/CS2103AUG2017-W09-B3/main/pull/131</a> [#131]).</p>
+<p>Update the GUI of recyclebin list (Pull requests <a href="https://github.com/CS2103AUG2017-W09-B3/main/pull/138">#138</a>) and (Pull requests <a href="https://github.com/CS2103AUG2017-W09-B3/main/pull/131">#131</a>).</p>
 </li>
 </ul>
 </div>
@@ -611,7 +614,7 @@ If we find duplicate people (A') when deleting a person (A) to recyclebin or res
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-13 14:36:53 +00:00
+Last updated 2017-11-13 14:52:34 +00:00
 </div>
 </div>
 </body>

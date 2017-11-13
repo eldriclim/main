@@ -16,10 +16,10 @@
 </div>
 <div id="content">
 <div class="sect1">
-<h2 id="project-addressbook-level-4"><a class="link" href="#project-addressbook-level-4">Project: AddressBook - Level 4</a></h2>
+<h2 id="project-iconnect"><a class="link" href="#project-iconnect">Project: iConnect</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 6 kLoC.</p>
+<p>iConnect is a command line based address book that is catered for student. It allows you to manage your contacts and add events to your schedule, adding a personal touch to your address book.</p>
 </div>
 <div class="paragraph">
 <p><strong>Code contributed</strong>: [<a href="https://github.com/CS2103AUG2017-W09-B3/main/blob/master/collated/main/eldriclim.md">Functional code</a>] [<a href="https://github.com/CS2103AUG2017-W09-B3/main/blob/master/collated/test/eldriclim.md">Test code</a>]</p>
@@ -36,7 +36,7 @@
 <p>iConnect is a command-line interface (CLI) based application which allows students to manage their contacts and keep track of their schedule. This documentation aims to guide you through the development process of iConnect, getting you started as an iConnect contributor. iConnect is written in Java and the editor of choice is IntelliJ IDE.</p>
 </div>
 <div class="paragraph">
-<p>Due its sizable codebase, you may want to get familiarise with the different architectural components to have a better understanding of each component works together.</p>
+<p>Due to its sizable codebase, you may want to get familiarise with the different architectural components to have a better understanding of how each component works together.</p>
 </div>
 <div class="paragraph">
 <p><mark>End of Extract</mark></p>
@@ -172,7 +172,7 @@ You will be notified in the result panel if the newly added event clashes with a
 <p>Members added will be reflected in the event list panel.</p>
 </li>
 <li>
-<p>The index must be a positive integer 1, 2, 3, &#8230;&#8203;</p>
+<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
 </li>
 <li>
 <p>TIME will be added in the following format: <code>yyyy-MM-dd HH:mm</code></p>
@@ -195,7 +195,7 @@ Adds a two-hour long event called ‘iConnect Conference’ on 4th of December 2
 </li>
 <li>
 <p><code>s-add n/Exam Date t/2017-12-04 14:30 d/120</code><br>
-Adds a two-hour long event called ‘Exam Date’ on 4th of December 2017 at 2:30PM into the addressbook calendar.+</p>
+Adds a two-hour long event called ‘Exam Date’ on 4th of December 2017 at 2:30PM into the addressbook calendar.<br></p>
 </li>
 <li>
 <p><code>s-add n/Email Reminder t/2017-12-04 14:30</code><br>
@@ -228,7 +228,7 @@ Adds an event called ‘Email Reminder’ on 4th of December 2017 at 2:30PM into
 <p><code>INDEX</code> in this case is referring to the index of events in the event list panel</p>
 </li>
 <li>
-<p>The index must be a positive integer 1, 2, 3, &#8230;&#8203;</p>
+<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
 </li>
 <li>
 <p>Person details will be updated each time a deletion of event is made.</p>
@@ -261,13 +261,13 @@ Removes 3 events with the index 1, 2 and 3.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Having the <code>sort</code> command allows users to fine tune how their person list panel should appear.</p>
+<p>Having the <code>sort</code> command allows you to fine tune how your person list panel should appear.</p>
 </li>
 <li>
-<p>Having the <code>s-add</code> command allows users to add events to their address book to better manage their schedule.</p>
+<p>Having the <code>s-add</code> command allows you to add events to your address book to better manage your schedule.</p>
 </li>
 <li>
-<p>Having the <code>s-remove</code> command allows users to remove events from the address book.</p>
+<p>Having the <code>s-remove</code> command allows you to remove events from the address book.</p>
 </li>
 </ul>
 </div>
@@ -281,7 +281,7 @@ Removes 3 events with the index 1, 2 and 3.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="sorting-mechanism"><a class="link" href="#sorting-mechanism">Sorting Mechanism</a></h3>
+<h3 id="sorting-mechanism"><a class="link" href="#sorting-mechanism">Sorting mechanism</a></h3>
 <div class="paragraph">
 <p>The sorting mechanism is facilitated by <code>SortCommandParser</code> and <code>SortCommand</code>, with both classes residing in the <code>Logic</code> component of the address book. Since the address book state will be modified during the sorting process, the <code>sort</code> has to be undoable.</p>
 </div>
@@ -371,7 +371,7 @@ If the list is found to be empty, an <code>EmptyListException</code> will be thr
 </div>
 </div>
 <div class="sect2">
-<h3 id="scheduler-feature"><a class="link" href="#scheduler-feature">Scheduler Feature</a></h3>
+<h3 id="schedule-mechanism"><a class="link" href="#schedule-mechanism">Schedule mechanism</a></h3>
 <div class="paragraph">
 <p>The <code>ScheduleAddCommand</code> allows you to add an <code>Event</code> into address book and is stored in an ArrayList-like <code>UniqueEventList</code> in <code>AddressBook</code>. Each event may have a number of members and they are specified by their <code>Index</code> in the <code>PersonListPanel</code> during the user input phase. The <code>ScheduleRemoveCommand</code> allows you to remove an <code>Event</code> from address book by inputting the <code>Index</code> of an event in the <code>EventListPanel</code>. Note that you may input more than one <code>Index</code> to remove multiple events at a time.</p>
 </div>
@@ -414,6 +414,9 @@ If the list is found to be empty, an <code>EmptyListException</code> will be thr
 <p>Each <code>Person</code> maintains its own <code>UniqueEventList</code> with each element synced to an <code>Event</code> in the master <code>UniqueEventList</code> in <code>AddressBook</code>. In otherwords, both object references each other.</p>
 </div>
 </div>
+</div>
+<div class="paragraph">
+<p><strong>UniqueEventList</strong></p>
 </div>
 <div class="paragraph">
 <p><code>UniqueEventList</code> functions as a List of <code>Events</code> where every element is unique and the uniqueness of an event is defined by its name, time and duration. If two different events have the same value for the three attributes, it is considered to be a duplicate. You can also check if an <code>Event</code> clashes with any of the events in <code>UniqueEventList</code>, by running the <code>hasClashes</code> function which returns true if a clash exist.</p>
@@ -541,7 +544,7 @@ If the list is found to be empty, an <code>EmptyListException</code> will be thr
 <p>Add Event list panel and card to UI (Pull requests <a href="https://github.com/CS2103AUG2017-W09-B3/main/pull/88">#88</a>)</p>
 </li>
 <li>
-<p>Fix memory leak issue regarding overwritten listeners in program (Pull requests <a href="https://github.com/CS2103AUG2017-W09-B3/main/pull/125" class="bare">https://github.com/CS2103AUG2017-W09-B3/main/pull/125</a>)</p>
+<p>Fix memory leak issue regarding overwritten listeners in program (Pull requests <a href="https://github.com/CS2103AUG2017-W09-B3/main/pull/125">#125</a>)</p>
 </li>
 </ul>
 </div>
@@ -551,7 +554,7 @@ If the list is found to be empty, an <code>EmptyListException</code> will be thr
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-13 14:36:53 +00:00
+Last updated 2017-11-13 14:52:34 +00:00
 </div>
 </div>
 </body>
