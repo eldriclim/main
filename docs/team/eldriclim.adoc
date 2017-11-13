@@ -3,8 +3,8 @@ ifdef::env-github,env-browser[:outfilesuffix: .adoc]
 :imagesDir: ../images
 :stylesDir: ../stylesheets
 
-== Project: AddressBook - Level 4
-AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 6 kLoC.
+== Project: iConnect
+iConnect is a command line based address book that is catered for student. It allows you to manage your contacts and add events to your schedule, adding a personal touch to your address book.
 
 *Code contributed*: [https://github.com/CS2103AUG2017-W09-B3/main/blob/master/collated/main/eldriclim.md[Functional code]] [https://github.com/CS2103AUG2017-W09-B3/main/blob/master/collated/test/eldriclim.md[Test code]]
 
@@ -37,11 +37,11 @@ include::../UserGuide.adoc[tag=sremove]
 
 ==== Justification
 
-* Having the `sort` command allows users to fine tune how their person list panel should appear.
+* Having the `sort` command allows you to fine tune how your person list panel should appear.
 
-* Having the `s-add` command allows users to add events to their address book to better manage their schedule.
+* Having the `s-add` command allows you to add events to your address book to better manage your schedule.
 
-* Having the `s-remove` command allows users to remove events from the address book.
+* Having the `s-remove` command allows you to remove events from the address book.
 
 ==== Implementation
 
@@ -68,4 +68,4 @@ include::../UserGuide.adoc[tag=snusmods]
 
 * Add interactive Calendar to UI (Pull requests https://github.com/CS2103AUG2017-W09-B3/main/pull/88[#88])
 * Add Event list panel and card to UI (Pull requests https://github.com/CS2103AUG2017-W09-B3/main/pull/88[#88])
-* Fix memory leak issue regarding overwritten listeners in program (Pull requests https://github.com/CS2103AUG2017-W09-B3/main/pull/125)
+* Fix memory leak issue regarding overwritten listeners in program (Pull requests https://github.com/CS2103AUG2017-W09-B3/main/pull/125[#125])

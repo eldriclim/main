@@ -27,6 +27,8 @@ include::../UserGuide.adoc[tag=tagaddfav]
 
 include::../UserGuide.adoc[tag=tagremovefav]
 
+include::../UserGuide.adoc[tag=tagfind]
+
 include::../UserGuide.adoc[tag=changetheme]
 
 #End of Extract#
@@ -46,6 +48,8 @@ include::../DeveloperGuide.adoc[tag=tagadd]
 
 include::../DeveloperGuide.adoc[tag=tagremove]
 
+include::../DeveloperGuide.adoc[tag=tagfind]
+
 include::../DeveloperGuide.adoc[tag=changetheme]
 
 #End of Extract#
@@ -54,7 +58,11 @@ include::../DeveloperGuide.adoc[tag=changetheme]
 
 === Enhancement Proposed: Add command `sync`
 
-Synchronize the application with phone's contact list.
+#Start of Extract [from: User Guide]#
+
+include::../UserGuide.adoc[tag=sync]
+
+#End of Extract#
 
 === Other contributions
 
