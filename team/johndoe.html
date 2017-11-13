@@ -62,7 +62,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p><code>delete 1</code><br>
+<p><code>delete I/1</code><br>
 <code>list</code><br>
 <code>undo</code> (reverses the <code>delete 1</code> command)<br></p>
 </li>
@@ -73,10 +73,10 @@
 The <code>undo</code> command fails as there are no undoable commands executed previously</p>
 </li>
 <li>
-<p><code>delete 1 2</code><br>
+<p><code>delete I/1 2</code><br>
 <code>clear</code><br>
 <code>undo</code> (reverses the <code>clear</code> command)<br>
-<code>undo</code> (reverses the <code>delete 1 2</code> command)<br></p>
+<code>undo</code> (reverses the <code>delete I/1 2</code> command)<br></p>
 </li>
 </ul>
 </div>
@@ -95,21 +95,21 @@ The <code>undo</code> command fails as there are no undoable commands executed p
 <div class="ulist">
 <ul>
 <li>
-<p><code>delete 1</code><br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br>
-<code>redo</code> (reapplies the <code>delete 1</code> command)<br></p>
+<p><code>delete I/1</code><br>
+<code>undo</code> (reverses the <code>delete I/1</code> command)<br>
+<code>redo</code> (reapplies the <code>delete I/1</code> command)<br></p>
 </li>
 <li>
-<p><code>delete 1 2</code><br>
+<p><code>delete I/1 2</code><br>
 <code>redo</code><br>
 The <code>redo</code> command fails as there are no <code>undo</code> commands executed previously</p>
 </li>
 <li>
-<p><code>delete 1</code><br>
+<p><code>delete I/1</code><br>
 <code>clear</code><br>
 <code>undo</code> (reverses the <code>clear</code> command)<br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br>
-<code>redo</code> (reapplies the <code>delete 1</code> command)<br>
+<code>undo</code> (reverses the <code>delete I/1</code> command)<br>
+<code>redo</code> (reapplies the <code>delete I/1</code> command)<br>
 <code>redo</code> (reapplies the <code>clear</code> command)<br></p>
 </li>
 </ul>
@@ -144,6 +144,9 @@ The <code>redo</code> command fails as there are no <code>undo</code> commands e
 <div class="content">
 <img src="../images/LogicCommandClassDiagram.png" alt="LogicCommandClassDiagram" width="800">
 </div>
+</div>
+<div class="paragraph">
+<p><em>Figure 4.4.1 : Structure of Undo/Redo Command in the Logic Component</em></p>
 </div>
 <div class="paragraph">
 <p>As you can see from the diagram, <code>UndoableCommand</code> adds an extra layer between the abstract <code>Command</code> class and concrete commands that can be undone, such as the <code>DeleteCommand</code>. Note that extra tasks need to be done when executing a command in an <em>undoable</em> way, such as saving the state of the address book before execution. <code>UndoableCommand</code> contains the high-level algorithm for those extra tasks while the child classes implements the details of how to execute the specific command. Note that this technique of putting the high-level algorithm in the parent class and lower-level steps of the algorithm in child classes is also known as the <a href="https://www.tutorialspoint.com/design_pattern/template_pattern.htm">template pattern</a>.</p>
@@ -195,12 +198,18 @@ The <code>redo</code> command fails as there are no <code>undo</code> commands e
 </div>
 </div>
 <div class="paragraph">
+<p><em>Figure 4.4.2a : UndoRedoStack Typing Delete Command</em></p>
+</div>
+<div class="paragraph">
 <p>As the user continues to use the program, more commands are added into the <code>undoStack</code>. For example, the user may execute <code>add n/David &#8230;&#8203;</code> to add a new person.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="../images/UndoRedoNewCommand1StackDiagram.png" alt="UndoRedoNewCommand1StackDiagram" width="800">
 </div>
+</div>
+<div class="paragraph">
+<p><em>Figure 4.4.2b : UndoRedoStack Typing Add Command</em></p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -225,6 +234,9 @@ If a command fails its execution, it will not be pushed to the <code>UndoRedoSta
 <img src="../images/UndoRedoExecuteUndoStackDiagram.png" alt="UndoRedoExecuteUndoStackDiagram" width="800">
 </div>
 </div>
+<div class="paragraph">
+<p><em>Figure 4.4.2c : UndoRedoStack Typing Undo Command</em></p>
+</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -244,6 +256,9 @@ If the <code>undoStack</code> is empty, then there are no other commands left to
 <div class="content">
 <img src="../images/UndoRedoSequenceDiagram.png" alt="UndoRedoSequenceDiagram" width="800">
 </div>
+</div>
+<div class="paragraph">
+<p><em>Figure 4.4.3 : Interactions Inside the Logic Component for the <code>undo</code> Command</em></p>
 </div>
 <div class="paragraph">
 <p>The redo does the exact opposite (pops from <code>redoStack</code>, push to <code>undoStack</code>, and restores the address book to the state after the command is executed).</p>
@@ -269,6 +284,9 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </div>
 </div>
 <div class="paragraph">
+<p><em>Figure 4.4.4a : UndoRedoStack Typing Redo Command</em></p>
+</div>
+<div class="paragraph">
 <p>Commands that are not undoable are not added into the <code>undoStack</code>. For example, <code>list</code>, which inherits from <code>Command</code> rather than <code>UndoableCommand</code>, will not be added after execution:</p>
 </div>
 <div class="imageblock">
@@ -277,12 +295,18 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </div>
 </div>
 <div class="paragraph">
+<p><em>Figure 4.4.4b : UndoRedoStack Typing List Command</em></p>
+</div>
+<div class="paragraph">
 <p>The following activity diagram summarize what happens inside the <code>UndoRedoStack</code> when a user executes a new command:</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="../images/UndoRedoActivityDiagram.png" alt="UndoRedoActivityDiagram" width="200">
 </div>
+</div>
+<div class="paragraph">
+<p><em>Figure 4.4.5 : UndoRedoStack Entering New Commands</em></p>
 </div>
 <div class="sect3">
 <h4 id="design-considerations"><a class="link" href="#design-considerations">Design Considerations</a></h4>
@@ -364,7 +388,7 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-12 05:36:01 +00:00
+Last updated 2017-11-13 12:32:52 +00:00
 </div>
 </div>
 </body>

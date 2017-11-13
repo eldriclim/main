@@ -51,10 +51,16 @@
 <li><a href="#undo-redo-mechanism">4.4. Undo/Redo mechanism</a></li>
 <li><a href="#sorting-mechanism">4.5. Sorting Mechanism</a></li>
 <li><a href="#adding-a-tag-to-multiple-people">4.6. Adding a tag to multiple people</a></li>
-<li><a href="#removing-a-tag-to-multiple-people">4.7. Removing a tag to multiple people</a></li>
-<li><a href="#improvements-on-deletecommand">4.8. Improvements on DeleteCommand</a></li>
-<li><a href="#logging">4.9. Logging</a></li>
-<li><a href="#configuration">4.10. Configuration</a></li>
+<li><a href="#removing-a-tag-from-multiple-people">4.7. Removing a tag from multiple people</a></li>
+<li><a href="#listing-person-s-with-the-given-tagname">4.8. Listing person(s) with the given tagName</a></li>
+<li><a href="#changing-to-the-theme-of-choice">4.9. Changing to the theme of choice</a></li>
+<li><a href="#improvements-on-deletecommand">4.10. Improvements on DeleteCommand</a></li>
+<li><a href="#improvement-on-helpcommand">4.11. Improvement on HelpCommand</a></li>
+<li><a href="#recyclebin-mechanism">4.12. RecycleBin Mechanism</a></li>
+<li><a href="#exporting">4.13. Exporting</a></li>
+<li><a href="#scheduler-feature">4.14. Scheduler Feature</a></li>
+<li><a href="#logging">4.15. Logging</a></li>
+<li><a href="#configuration">4.16. Configuration</a></li>
 </ul>
 </li>
 <li><a href="#documentation">5. Documentation</a>
@@ -96,7 +102,10 @@
 <h2 id="introduction"><a class="link" href="#introduction">1. Introduction</a></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>iConnect is a one-stop student networking application. We aim to ease the job as a university student. Due to the ever-increasing workload, it has become a challenge to keep track of various school commitments while maintaining relationships with peers.With iConnect, missing schedules and losing contact with friends will be a thing of the past.</p>
+<p>iConnect is a command-line interface (CLI) based application which allows students to manage their contacts and keep track of their schedule. This documentation aims to guide you through the development process of iConnect, getting you started as an iConnect contributor. iConnect is written in Java and the editor of choice is IntelliJ IDE.</p>
+</div>
+<div class="paragraph">
+<p>Due its sizable codebase, you may want to get familiarise with the different architectural components to have a better understanding of each component works together.</p>
 </div>
 </div>
 </div>
@@ -288,7 +297,7 @@ Having both Travis and AppVeyor ensures your App works on both Unix-based platfo
 </div>
 </div>
 <div class="paragraph">
-<p><em>Figure 2.1.1 : Architecture Diagram</em></p>
+<p><em>Figure 3.1.1 : Architecture Diagram</em></p>
 </div>
 <div class="paragraph">
 <p>The <strong><em>Architecture Diagram</em></strong> given above explains the high-level design of the App. Given below is a quick overview of each component.</p>
@@ -372,7 +381,7 @@ The <code>.pptx</code> files used to create diagrams in this document can be fou
 </div>
 </div>
 <div class="paragraph">
-<p><em>Figure 2.1.2 : Class Diagram of the Logic Component</em></p>
+<p><em>Figure 3.1.2 : Class Diagram of the Logic Component</em></p>
 </div>
 <h4 id="events-driven-nature-of-the-design" class="discrete">Events-Driven nature of the design</h4>
 <div class="paragraph">
@@ -384,7 +393,7 @@ The <code>.pptx</code> files used to create diagrams in this document can be fou
 </div>
 </div>
 <div class="paragraph">
-<p><em>Figure 2.1.3a : Component interactions for <code>delete 1</code> command (part 1)</em></p>
+<p><em>Figure 3.1.3a : Component interactions for <code>delete 1</code> command (part 1)</em></p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -407,7 +416,7 @@ Note how the <code>Model</code> simply raises a <code>AddressBookChangedEvent</c
 </div>
 </div>
 <div class="paragraph">
-<p><em>Figure 2.1.3b : Component interactions for <code>delete 1</code> command (part 2)</em></p>
+<p><em>Figure 3.1.3b : Component interactions for <code>delete 1</code> command (part 2)</em></p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -433,7 +442,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 </div>
 </div>
 <div class="paragraph">
-<p><em>Figure 2.2.1 : Structure of the UI Component</em></p>
+<p><em>Figure 3.2.1 : Structure of the UI Component</em></p>
 </div>
 <div class="paragraph">
 <p><strong>API</strong> : <a href="https://github.com/CS2103AUG2017-W09-B3/main/tree/master/src/main/java/seedu/address/ui/Ui.java"><code>Ui.java</code></a></p>
@@ -469,7 +478,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 </div>
 </div>
 <div class="paragraph">
-<p><em>Figure 2.3.1 : Structure of the Logic Component</em></p>
+<p><em>Figure 3.3.1 : Structure of the Logic Component</em></p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -477,7 +486,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 </div>
 </div>
 <div class="paragraph">
-<p><em>Figure 2.3.2 : Structure of Commands in the Logic Component. This diagram shows finer details concerning <code>XYZCommand</code> and <code>Command</code> in Figure 2.3.1</em></p>
+<p><em>Figure 3.3.2 : Structure of Commands in the Logic Component. This diagram shows finer details concerning <code>XYZCommand</code> and <code>Command</code> in Figure 3.3.1</em></p>
 </div>
 <div class="paragraph">
 <p><strong>API</strong> :
@@ -508,7 +517,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 </div>
 </div>
 <div class="paragraph">
-<p><em>Figure 2.3.1 : Interactions Inside the Logic Component for the <code>delete 1</code> Command</em></p>
+<p><em>Figure 3.3.3 : Interactions Inside the Logic Component for the <code>delete 1</code> Command</em></p>
 </div>
 </div>
 <div class="sect2">
@@ -519,7 +528,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 </div>
 </div>
 <div class="paragraph">
-<p><em>Figure 2.4.1 : Structure of the Model Component</em></p>
+<p><em>Figure 3.4.1 : Structure of the Model Component</em></p>
 </div>
 <div class="paragraph">
 <p><strong>API</strong> : <a href="https://github.com/CS2103AUG2017-W09-B3/main/tree/master/src/main/java/seedu/address/model/Model.java"><code>Model.java</code></a></p>
@@ -552,7 +561,7 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 </div>
 </div>
 <div class="paragraph">
-<p><em>Figure 2.5.1 : Structure of the Storage Component</em></p>
+<p><em>Figure 3.5.1 : Structure of the Storage Component</em></p>
 </div>
 <div class="paragraph">
 <p><strong>API</strong> : <a href="https://github.com/CS2103AUG2017-W09-B3/main/tree/master/src/main/java/seedu/address/storage/Storage.java"><code>Storage.java</code></a></p>
@@ -600,6 +609,9 @@ Note how the event is propagated through the <code>EventsCenter</code> to the <c
 <div class="content">
 <img src="images/LogicCommandClassDiagram.png" alt="LogicCommandClassDiagram" width="800">
 </div>
+</div>
+<div class="paragraph">
+<p><em>Figure 4.1.1 : Structure of Find Command in the Logic Component</em></p>
 </div>
 <div class="paragraph">
 <p>When you are using the find command, you need to provided at least one keyword for any available attribute. Keywords of the same attribute need to be grouped together with a prefix (e.g. <code>n/</code>, <code>p/</code>, <code>e/</code>, <code>a/</code>). In this case, each prefix is allowed to appear at most once.</p>
@@ -672,6 +684,9 @@ model.updateFilteredPersonList(updatedPredicate);</code></pre>
 <div class="content">
 <img src="images/FindCommandSequenceDiagram.png" alt="FindCommandSequenceDiagram" width="800">
 </div>
+</div>
+<div class="paragraph">
+<p><em>Figure 4.1.2 : Interactions Inside the Logic Component for the <code>find n/john p/1234 e/example.com</code> Command</em></p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -761,6 +776,9 @@ If more than one same prefix is provided, then the person list will be searched 
 <div class="content">
 <img src="images/MapCommandClassDiagram.png" alt="MapCommandClassDiagram" width="800">
 </div>
+</div>
+<div class="paragraph">
+<p><em>Figure 4.2.1 : Structure of Map Commands in the Logic Component</em></p>
 </div>
 <div class="paragraph">
 <p>When you are using the map-show <code>(m-show)</code> command, you need to specify the index number of the person whom you would like to see the location of. As for the map-route <code>(m-route)</code> command, apart from specifying the index number, you also need to add a prefix <code>a/</code> before you enter your current location. The prefix should appear only once.</p>
@@ -879,10 +897,16 @@ If more than one same prefix is provided, then the person list will be searched 
 <img src="images/MapShowCommandSequenceDiagram.png" alt="MapShowCommandSequenceDiagram" width="800">
 </div>
 </div>
+<div class="paragraph">
+<p><em>Figure 4.2.2 : Interactions Inside the Logic Component for the <code>m-show 1</code> Command</em></p>
+</div>
 <div class="imageblock">
 <div class="content">
 <img src="images/MapRouteCommandSequenceDiagram.png" alt="MapRouteCommandSequenceDiagram" width="800">
 </div>
+</div>
+<div class="paragraph">
+<p><em>Figure 4.2.3 : Interactions Inside the Logic Component for the <code>m-route 1 a/nus</code> Command</em></p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -948,6 +972,9 @@ If no prefix is found inside the argument when typing <code>m-route</code> comma
 <div class="content">
 <img src="images/BirthdayCommandClassDiagram.png" alt="BirthdayCommandClassDiagram" width="800">
 </div>
+</div>
+<div class="paragraph">
+<p><em>Figure 4.3.1 : Structure of Birthday Commands in the Logic Component</em></p>
 </div>
 <div class="paragraph">
 <p>During the implementation, birthday commands parser classes extracts the index number of the person as well as birthday value, and passes them to the corresponding birthday classes. The default birthday value of each person is <code>01/01/1900</code>. To add birthday to a person, we actually updated the person&#8217;s birthday with the new birthday value. To delete a person&#8217;s birthday, we just update the person&#8217;s birthday and set it as default value. Updating a person&#8217;s birthday is similar to adding birthday to the person. The two functions are the same in implementation.</p>
@@ -1022,10 +1049,16 @@ If no prefix is found inside the argument when typing <code>m-route</code> comma
 <img src="images/BirthdayAddCommandSequenceDiagram.png" alt="BirthdayAddCommandSequenceDiagram" width="800">
 </div>
 </div>
+<div class="paragraph">
+<p><em>Figure 4.3.2 : Interactions Inside the Logic Component for the <code>b-add 1 01/01/2000</code> Command</em></p>
+</div>
 <div class="imageblock">
 <div class="content">
 <img src="images/BirthdayRemoveCommandSequenceDiagram.png" alt="BirthdayRemoveCommandSequenceDiagram" width="800">
 </div>
+</div>
+<div class="paragraph">
+<p><em>Figure 4.3.3 : Interactions Inside the Logic Component for the <code>b-remove 1</code> Command</em></p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1090,6 +1123,9 @@ If an invalid birthday is provided for birthday-remove command, an invalid input
 </div>
 </div>
 <div class="paragraph">
+<p><em>Figure 4.4.1 : Structure of Undo/Redo Command in the Logic Component</em></p>
+</div>
+<div class="paragraph">
 <p>As you can see from the diagram, <code>UndoableCommand</code> adds an extra layer between the abstract <code>Command</code> class and concrete commands that can be undone, such as the <code>DeleteCommand</code>. Note that extra tasks need to be done when executing a command in an <em>undoable</em> way, such as saving the state of the address book before execution. <code>UndoableCommand</code> contains the high-level algorithm for those extra tasks while the child classes implements the details of how to execute the specific command. Note that this technique of putting the high-level algorithm in the parent class and lower-level steps of the algorithm in child classes is also known as the <a href="https://www.tutorialspoint.com/design_pattern/template_pattern.htm">template pattern</a>.</p>
 </div>
 <div class="paragraph">
@@ -1139,12 +1175,18 @@ If an invalid birthday is provided for birthday-remove command, an invalid input
 </div>
 </div>
 <div class="paragraph">
+<p><em>Figure 4.4.2a : UndoRedoStack Typing Delete Command</em></p>
+</div>
+<div class="paragraph">
 <p>As the user continues to use the program, more commands are added into the <code>undoStack</code>. For example, the user may execute <code>add n/David &#8230;&#8203;</code> to add a new person.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/UndoRedoNewCommand1StackDiagram.png" alt="UndoRedoNewCommand1StackDiagram" width="800">
 </div>
+</div>
+<div class="paragraph">
+<p><em>Figure 4.4.2b : UndoRedoStack Typing Add Command</em></p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1169,6 +1211,9 @@ If a command fails its execution, it will not be pushed to the <code>UndoRedoSta
 <img src="images/UndoRedoExecuteUndoStackDiagram.png" alt="UndoRedoExecuteUndoStackDiagram" width="800">
 </div>
 </div>
+<div class="paragraph">
+<p><em>Figure 4.4.2c : UndoRedoStack Typing Undo Command</em></p>
+</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -1188,6 +1233,9 @@ If the <code>undoStack</code> is empty, then there are no other commands left to
 <div class="content">
 <img src="images/UndoRedoSequenceDiagram.png" alt="UndoRedoSequenceDiagram" width="800">
 </div>
+</div>
+<div class="paragraph">
+<p><em>Figure 4.4.3 : Interactions Inside the Logic Component for the <code>undo</code> Command</em></p>
 </div>
 <div class="paragraph">
 <p>The redo does the exact opposite (pops from <code>redoStack</code>, push to <code>undoStack</code>, and restores the address book to the state after the command is executed).</p>
@@ -1213,6 +1261,9 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </div>
 </div>
 <div class="paragraph">
+<p><em>Figure 4.4.4a : UndoRedoStack Typing Redo Command</em></p>
+</div>
+<div class="paragraph">
 <p>Commands that are not undoable are not added into the <code>undoStack</code>. For example, <code>list</code>, which inherits from <code>Command</code> rather than <code>UndoableCommand</code>, will not be added after execution:</p>
 </div>
 <div class="imageblock">
@@ -1221,12 +1272,18 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 </div>
 </div>
 <div class="paragraph">
+<p><em>Figure 4.4.4b : UndoRedoStack Typing List Command</em></p>
+</div>
+<div class="paragraph">
 <p>The following activity diagram summarize what happens inside the <code>UndoRedoStack</code> when a user executes a new command:</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="images/UndoRedoActivityDiagram.png" alt="UndoRedoActivityDiagram" width="200">
 </div>
+</div>
+<div class="paragraph">
+<p><em>Figure 4.4.5 : UndoRedoStack Entering New Commands</em></p>
 </div>
 <div class="sect3">
 <h4 id="design-considerations-4"><a class="link" href="#design-considerations-4">4.4.1. Design Considerations</a></h4>
@@ -1278,10 +1335,10 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 <p>The sorting mechanism is facilitated by <code>SortCommandParser</code> and <code>SortCommand</code>, with both classes residing in the <code>Logic</code> component of the address book. Since the address book state will be modified during the sorting process, the <code>sort</code> has to be undoable.</p>
 </div>
 <div class="paragraph">
-<p><code>SortCommandParser</code> takes in an argument in the form of <code>[PREFIX]/[ORDER]</code> that defines how <code>UniquePersonList</code> should be sorted, with <code>PREFIX</code> specifying the sort type and <code>ORDER</code> specifying the sort order. It first checks for validity against a regular expression. Once verified, the argument will be tokenized to identify the sort order and sort type. A <code>SortCommand</code> object is then created with the identified sort type and sort order.</p>
+<p><code>SortCommandParser</code> takes in an argument in the form of <code>[PREFIX]/[ORDER]</code> that defines how <code>UniquePersonList</code> should be sorted. You may customise the sort operation, with <code>PREFIX</code> specifying the sort type and <code>ORDER</code> specifying the sort order. It first checks for validity against a regular expression. Once verified, the argument will be tokenized to identify your specified sort order and sort type. A <code>SortCommand</code> object is then created with the identified sort type and sort order.</p>
 </div>
 <div class="paragraph">
-<p>The <code>PREFIX</code> can be any of the following: <code>n/</code> for sorting persons by name, <code>p/</code> for sorting persons by phone number, <code>e/</code> for sorting persons by email, <code>a/</code> for sorting persons by address and <code>t/</code> for sorting persons by the time they was first added into the address book. The <code>ORDER</code> can be either <code>asc</code> for sorting in ascending order or <code>dsc</code> for sorting in descending order. Suppose both <code>PREFIX</code> and <code>ORDER</code> are not specified, the argument will be defaulted to name in ascending order. Alternatively, suppose the <code>ORDER</code> is not specified, it will be defaulted to ascending.</p>
+<p>The <code>PREFIX</code> can be any of the following: <code>n/</code> for sorting persons by name, <code>p/</code> for sorting persons by phone number, <code>e/</code> for sorting persons by email, <code>a/</code> for sorting persons by address and <code>t/</code> for sorting persons by the time they was first added into the address book. The <code>ORDER</code> can be either <code>asc</code> for sorting in ascending order or <code>dsc</code> for sorting in descending order. Suppose both <code>PREFIX</code> and <code>ORDER</code> are not specified, your sort operation will be defaulted to name in ascending order. Alternatively, suppose the <code>ORDER</code> is not specified, it will be defaulted to ascending.</p>
 </div>
 <div class="paragraph">
 <p>Upon execution of <code>SortCommand</code>, a <code>Comparator&lt;ReadOnlyPerson&gt;</code> will be initialised based on the sort type and sort order it receives. A <code>sortPerson</code> function call will be made to <code>Model</code>, which propagates down to <code>UniquePersonList</code>, where the sorting of the <code>internalList</code> occurs. Since sorting of <code>internalList</code> results in the change of state to address book, <code>SortCommand</code> is to be implemented as an <code>UndoableCommand</code>.</p>
@@ -1290,6 +1347,9 @@ If the <code>redoStack</code> is empty, then there are no other commands left to
 <div class="content">
 <img src="images/LogicCommandClassDiagram_Sort.png" alt="LogicCommandClassDiagram Sort" width="800">
 </div>
+</div>
+<div class="paragraph">
+<p><em>Figure 4.5.1 : Structure of Sort Command in the Logic Component</em></p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1310,6 +1370,9 @@ Implementation of Sorting Mechanism requires both the manipulation of <code>Logi
 <div class="content">
 <img src="images/SortPersonSdForLogic.png" alt="SortPersonSdForLogic" width="800">
 </div>
+</div>
+<div class="paragraph">
+<p><em>Figure 4.5.2 : Interactions Inside the Logic Component for the <code>sort n/asc</code> Command</em></p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1362,6 +1425,17 @@ If the list is found to be empty, an <code>EmptyListException</code> will be thr
 <p>Adding a tag to multiple people is facilitated by <code>TagAddCommand</code>, which extends <code>UndoableCommand</code>, it supports undoing and redoing of commands that modifies the state of the address book.</p>
 </div>
 <div class="paragraph">
+<p>The following sequence diagram shows the flow of operation from the point the address book receives an input to the output of the result.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/TagAddCommandSequenceDiagram.png" alt="TagAddCommandSequenceDiagram" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p><em>Figure 4.6.1 : Interactions Inside the Logic Component for the <code>t-add 1 2 CS2103</code> Command</em></p>
+</div>
+<div class="paragraph">
 <p>TagAddCommand is implemented in this way:</p>
 </div>
 <div class="listingblock">
@@ -1375,14 +1449,28 @@ If the list is found to be empty, an <code>EmptyListException</code> will be thr
 </div>
 </div>
 <div class="paragraph">
-<p>For example, the user input might be <code>t-add 1 2 3 college friend</code>.<br>
-After the command word <code>t-add</code> is parsed at the <code>AddresBookParser</code>, the remaining user input(indices in the list, tag to add), in the example <code>t-add 1 2 3 college friend</code>, will be passed to and parsed by <code>TagAddCommandParser</code>.
-Different from the previous limitation on the choice of word for <code>tag</code>, which is <code>Alnum</code>, we allow multiple words <code>tagName</code> as well, such as <code>college friend</code>.
-The change of <code>tagName</code> format requires a new algorithm for parsing in the <code>TagAddCommandParser</code>.
-The key is to differentiate between indices and tagName. The parser algorithm would first split the input string into parts by space as delimiter.<br>
-It would then determine whether a part is a word or a number, the parser keeps track of the last recognized number. After processing the entire user input, the parser would treat all parts after the last recognized number as indices and those after it as <code>tagName</code>.
-In this case, as <code>3</code> is the last part that is numeric, <code>1 2 3</code> is treated as indices and <code>college friend</code> is treated as <code>tagName</code>.<br>
-The <code>TagAddCommandParser</code> returns <code>TagAddCommand</code> after execution, which will be further processed by <code>logic</code> component.</p>
+<p>For example, the user input might be <code>t-add 1 2 3 college friend</code>.<br></p>
+</div>
+<div class="paragraph">
+<p>After the command word <code>t-add</code> is parsed at the <code>AddresBookParser</code>, the remaining user input( indices in the list, tag to add), in the example <code>1 2 3 college friend</code>, will be passed to and parsed by <code>TagAddCommandParser</code>.</p>
+</div>
+<div class="paragraph">
+<p>Different from the previous limitation on the choice of word for <code>tag</code>, which is <code>Alnum</code>, we allow multiple words <code>tagName</code> as well, such as <code>college friend</code>.</p>
+</div>
+<div class="paragraph">
+<p>The change of <code>tagName</code> format requires a new algorithm for parsing in the <code>TagAddCommandParser</code>.
+The key is to differentiate between indices and <code>tagName</code>. The parser algorithm would first split the input string into parts by space as delimiter.<br>
+It would then determine whether each part is a word or a number, the parser keeps track of the last recognized number.
+After processing the entire user input, the parser would treat all parts until the last recognized number as indices and those after it as <code>tagName</code>.
+In this case, as <code>3</code> is the last part that is numeric, <code>1 2 3</code> are treated as indices and <code>college friend</code> is treated as <code>tagName</code>.<br></p>
+</div>
+<div class="paragraph">
+<p>The command <code>t-add</code> is also used to add in <code>favourite</code> tag, for example <code>t-add 1 2 3 favourite</code>.<br>
+Person(s) with <code>favourite</code> tag will have a small coral circle next to the person&#8217;s name in the left person list panel. And person(s) with <code>favourite</code> tag would always be pinned to top of the person list.<br>
+We also recognize other words containing <code>fav</code> as <code>favourite</code>, such as <code>favo</code>.<br></p>
+</div>
+<div class="paragraph">
+<p>The <code>TagAddCommandParser</code> returns <code>TagAddCommand</code> after execution, which will be further processed by <code>logic</code> component.</p>
 </div>
 <div class="paragraph">
 <p>TagAddCommandParser is implemented in this way:</p>
@@ -1393,6 +1481,29 @@ The <code>TagAddCommandParser</code> returns <code>TagAddCommand</code> after ex
 
     <span class="directive">public</span> TagAddCommand parse(<span class="predefined-type">String</span> args) <span class="directive">throws</span> <span class="exception">ParseException</span> {
         <span class="comment">// ... TagAddCommandParser logic ...</span>
+        <span class="type">int</span> defaultLastNumberIndex = -<span class="integer">1</span>;
+        <span class="type">int</span> completeNumOfArgs = <span class="integer">2</span>;
+        <span class="predefined-type">String</span> newTag = <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>;
+
+        <span class="type">int</span> lastIndex = defaultLastNumberIndex;
+        <span class="predefined-type">String</span><span class="type">[]</span> argsArray;
+        <span class="predefined-type">ArrayList</span>&lt;Index&gt; index = <span class="keyword">new</span> <span class="predefined-type">ArrayList</span>&lt;&gt;();
+        <span class="keyword">if</span> (args.isEmpty() || (argsArray = args.trim().split(<span class="string"><span class="delimiter">&quot;</span><span class="content"> </span><span class="delimiter">&quot;</span></span>)).length &lt; completeNumOfArgs) {
+            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="exception">ParseException</span>(<span class="predefined-type">String</span>.format(MESSAGE_INVALID_COMMAND_FORMAT, TagAddCommand.MESSAGE_USAGE));
+        }
+        <span class="keyword">try</span> {
+            <span class="keyword">for</span> (<span class="type">int</span> i = <span class="integer">0</span>; i &lt; argsArray.length; i++) {
+                <span class="keyword">if</span> (argsArray[i].matches(<span class="string"><span class="delimiter">&quot;</span><span class="char">\\</span><span class="content">d+</span><span class="delimiter">&quot;</span></span>)) {
+                    index.add(ParserUtil.parseIndex(argsArray[i]));
+                    lastIndex = i;
+                } <span class="keyword">else</span> {
+                    <span class="keyword">break</span>;
+                }
+            }
+        } <span class="keyword">catch</span> (IllegalValueException ive) {
+            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="exception">ParseException</span>(<span class="predefined-type">String</span>.format(MESSAGE_INVALID_COMMAND_FORMAT, TagAddCommand.MESSAGE_USAGE));
+        }
+        <span class="comment">// ... Other TagAddCommandParser logic ...</span>
     }
 }</code></pre>
 </div>
@@ -1401,39 +1512,60 @@ The <code>TagAddCommandParser</code> returns <code>TagAddCommand</code> after ex
 <h4 id="design-considerations-6"><a class="link" href="#design-considerations-6">4.6.1. Design Considerations</a></h4>
 <div class="paragraph">
 <p><strong>Aspect:</strong> Implementation of adding a tag to person(s) by indices<br>
-<strong>Alternative 1 (current choice):</strong> Add a new Command class <code>TagAddCommand</code><br>
-<strong>Pros:</strong> Having a separate command for adding a tag is consistent with a series of tag related operations we designed to have. We can implements <code>UndoableCommand</code> Abstract Class, so that we have undo/redo functionality<br>
-<strong>Cons:</strong> Have to add in a new Command class and the corresponding parser class<br>
-<strong>Alternative 2:</strong> Rewrite EditCommand class<br>
-<strong>Pros:</strong> We only need to change a small part of code and the undo/redo functionality can be preserved<br>
+<strong>Alternative 1 (current choice):</strong> Add a new Command <code>TagAddCommand</code><br>
+<strong>Pros:</strong> Having a separate command for adding a tag is consistent with a series of tag related operations we designed to have. We can implements <code>UndoableCommand</code> Abstract Class, so that we have undo/redo functionality.<br>
+<strong>Cons:</strong> Have to add in a new Command class and the corresponding parser class.<br>
+<strong>Alternative 2:</strong> Modify current EditCommand<br>
+<strong>Pros:</strong> Only need to change a small part of code and the undo/redo functionality can be preserved.<br>
 <strong>Cons:</strong> The current <code>EditCommand</code> only enables the user to edit one person at a time, which makes adding a tag to multiple contacts tedious.</p>
 </div>
 <hr>
 <div class="paragraph">
-<p><strong>Aspect:</strong> Implementation of parsing a TagAddCommand<br>
+<p><strong>Aspect:</strong> Implementation of parsing a <code>TagAddCommand</code><br>
 <strong>Alternative 1 (current choice):</strong> Add a new Parser class <code>TagAddCommandParser</code><br>
-<strong>Pros:</strong> We can design the input format for TagAddCommand and customize the parser<br>
-<strong>Cons:</strong> Have to add in a new Parser class<br>
-<strong>Alternative 2:</strong> Rewrite EditCommandParser class<br>
-<strong>Pros:</strong> We only need to change a small part of code<br>
+<strong>Pros:</strong> The input format can be customized for <code>TagAddCommand</code>.<br>
+<strong>Cons:</strong> Have to add in a new Parser class.<br>
+<strong>Alternative 2:</strong> Make use of <code>EditCommandParser</code><br>
+<strong>Pros:</strong> We only need to change a small part of code.<br>
 <strong>Cons:</strong> User input is restricted by the EditCommand input format.</p>
 </div>
 <hr>
 <div class="paragraph">
 <p><strong>Aspect:</strong> Whether to accept user input that has partially invalid indices<br>
 <strong>Alternative 1 (current choice):</strong> Do not accept<br>
-<strong>Pros:</strong> Easy to implement<br>
-<strong>Cons:</strong> User have to type in the valid indices again<br>
+<strong>Pros:</strong> Easy to implement.<br>
+<strong>Cons:</strong> User has to type in the valid indices again.<br>
 <strong>Alternative 2:</strong> Ignore the invalid indices<br>
-<strong>Pros:</strong> It is efficient for the user<br>
+<strong>Pros:</strong> Efficient for the user.<br>
 <strong>Cons:</strong> Difficult to implement.</p>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Whether to have another command to set person(s) as <code>favourite</code><br>
+<strong>Alternative 1 (current choice):</strong> No, setting <code>favourite</code> utilizes the current <code>t-add</code> command<br>
+<strong>Pros:</strong> User does not need to remember extra commands and treating <code>favourite</code> as <code>tag</code> is intuitive. Other tag-related operations such as <code>t-remove</code> and <code>t-find</code> can also be used to manipulate <code>favourite</code> tag.<br>
+<strong>Cons:</strong> Computationally costly to determine whether person(s) are set as <code>favourite</code>, as the entire <code>tagList</code> needs to be iterated.<br>
+<strong>Alternative 2:</strong> Have a separate set of commands for <code>favourite</code><br>
+<strong>Pros:</strong> Have a clear separation of functions.<br>
+<strong>Cons:</strong> Not user friendly.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="removing-a-tag-to-multiple-people"><a class="link" href="#removing-a-tag-to-multiple-people">4.7. Removing a tag to multiple people</a></h3>
+<h3 id="removing-a-tag-from-multiple-people"><a class="link" href="#removing-a-tag-from-multiple-people">4.7. Removing a tag from multiple people</a></h3>
 <div class="paragraph">
 <p>You can remove a tag from multiple people. This is realized using <code>TagRemoveCommand</code>, which extends <code>UndoableCommand</code>, it supports undoing and redoing of commands that modifies the state of the address book.</p>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows the flow of operation from the point the address book receives an input to the output of the result.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/TagRemoveCommandSequenceDiagram.png" alt="TagRemoveCommandSequenceDiagram" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p><em>Figure 4.7.1 : Interactions Inside the Logic Component for the <code>t-remove CS2103</code> Command</em></p>
 </div>
 <div class="paragraph">
 <p>TagRemoveCommand is implemented in this way:</p>
@@ -1450,11 +1582,20 @@ The <code>TagAddCommandParser</code> returns <code>TagAddCommand</code> after ex
 </div>
 <div class="paragraph">
 <p>For example, the user input might be <code>t-remove 1 2 3 college friend</code>.<br>
-After the command word <code>t-remove</code> is parsed at the <code>AddresBookParser</code>, the remaining user input(indices in the list, tag to remove), in the example <code>t-remove 1 2 3 college friend</code>, will be passed to and parsed by <code>TagRemoveCommandParser</code>.
-We also support multiple words as <code>tagName</code>, as long as the first word in <code>tagName</code> is not a number.<br>
-This is because the key is to differentiate between indices and <code>tagName</code> is by identifying the last recognized number. If a <code>tagName</code> has its first word as a number, that word would be treated as index.<br>
-In this case, as <code>3</code> is the last part that is numeric, <code>1 2 3</code> is treated as indices and <code>college friend</code> is treated as <code>tagName</code>.<br>
-The <code>TagRemoveCommandParser</code> returns <code>TagRemoveCommand</code> after execution, which will be further processed by <code>logic</code> component.</p>
+After the command word <code>t-remove</code> is parsed at the <code>AddresBookParser</code>, the remaining user input( indices in the list, tag to remove), in the example <code>1 2 3 college friend</code>, will be passed to and parsed by <code>TagRemoveCommandParser</code>.</p>
+</div>
+<div class="paragraph">
+<p>We also support multiple words as <code>tagName</code>, as long as the first word in <code>tagName</code> is not a number.<br>
+This is because the key is to differentiate between indices and <code>tagName</code> is by identifying the last recognized number. If a <code>tagName</code> has its first word as a number, that word would be treated as an index instead.<br>
+In this case, as <code>3</code> is the last part that is numeric, <code>1 2 3</code> is treated as indices and <code>college friend</code> is treated as <code>tagName</code>.<br></p>
+</div>
+<div class="paragraph">
+<p><code>tagName</code> keyed in by the user must be of the exact match with the actual <code>tagName</code> in order for that <code>tag</code> to be removed successfully except for <code>favourite</code> tag.<br>
+As <code>tagName</code> for <code>favourite</code> is not shown explicitly to the user other than a coral circle next to the person name, and user can key in any words containing <code>fav</code> to indicate <code>favourite</code>,<br>
+It would be impractical to still look for exact match for <code>tagName</code>, thus, additional checks need to be done to determine whether the user wants to remove a <code>favourite</code> tag and whether the person(s) selected has <code>favourite</code> tag.</p>
+</div>
+<div class="paragraph">
+<p>The <code>TagRemoveCommandParser</code> returns <code>TagRemoveCommand</code> after execution, which will be further processed by <code>logic</code> component.</p>
 </div>
 <div class="paragraph">
 <p>TagRemoveCommandParser is implemented in this way:</p>
@@ -1474,25 +1615,115 @@ The <code>TagRemoveCommandParser</code> returns <code>TagRemoveCommand</code> af
 <div class="paragraph">
 <p><strong>Aspect:</strong> Whether to accept user input that has partially invalid indices<br>
 <strong>Alternative 1 (current choice):</strong> Do not accept<br>
-<strong>Pros:</strong> Easy to implement<br>
-<strong>Cons:</strong> User have to type in the valid indices again<br>
+<strong>Pros:</strong> Easy to implement.<br>
+<strong>Cons:</strong> User have to type in the valid indices again.<br>
 <strong>Alternative 2:</strong> Ignore the invalid indices<br>
-<strong>Pros:</strong> It is efficient for the user<br>
+<strong>Pros:</strong> Efficient for the user.<br>
 <strong>Cons:</strong> Difficult to implement.</p>
 </div>
 <div class="paragraph">
-<p><strong>Aspect:</strong> Whether to accept user input that includes someone without the given tag to remove<br>
+<p><strong>Aspect:</strong> Whether to accept removing a tag from multiple persons if someone does not hava the given tag to remove<br>
 <strong>Alternative 1 (current choice):</strong> Do not accept<br>
-<strong>Pros:</strong> Easy to implement<br>
-<strong>Cons:</strong> User have to type in the valid indices again<br>
+<strong>Pros:</strong> Easy to implement.<br>
+<strong>Cons:</strong> User have to type in the valid indices again.<br>
 <strong>Alternative 2:</strong> Ignore the invalid indices<br>
-<strong>Pros:</strong> It is efficient for the user<br>
+<strong>Pros:</strong> Efficient for the user.<br>
 <strong>Cons:</strong> Difficult to implement and might be an issue for undo/redo operation.</p>
+</div>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Whether to accept user to key in only substring of <code>tagName</code> to remove that tag<br>
+<strong>Alternative 1 (current choice):</strong> Do not accept except for <code>favourite</code> tag<br>
+<strong>Pros:</strong> Prevent the user from removing extra <code>tag</code>.<br>
+<strong>Cons:</strong> User have to type in multiple times to remove similar <code>tag`s such as `friend</code> and <code>college friend</code>.<br>
+<strong>Alternative 2:</strong> Remove all `tag`s containing the given substring<br>
+<strong>Pros:</strong> Efficient for the user.<br>
+<strong>Cons:</strong> The user might not want to remove all tags containing the substring.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="improvements-on-deletecommand"><a class="link" href="#improvements-on-deletecommand">4.8. Improvements on DeleteCommand</a></h3>
+<h3 id="listing-person-s-with-the-given-tagname"><a class="link" href="#listing-person-s-with-the-given-tagname">4.8. Listing person(s) with the given tagName</a></h3>
+<div class="paragraph">
+<p>You can get a list of person(s) with the given <code>tagName</code>. This is realized using <code>TagFindCommand</code>.</p>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows the flow of operation from the point the address book receives an input to the output of the result.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/TagFindCommandSequenceDiagram.png" alt="TagFindCommandSequenceDiagram" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p><em>Figure 4.8.1 : Interactions Inside the Logic Component for the <code>t-find CS2103</code> Command</em></p>
+</div>
+<div class="paragraph">
+<p><code>t-find</code> command shows all person(s) with tag containing or contained in the given <code>tagName</code>. <code>TagFindCommandParser</code> passes a <code>TagMatchingKeywordPredicate</code> to <code>TagFindCommand</code> to update filteredPersonList.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="changing-to-the-theme-of-choice"><a class="link" href="#changing-to-the-theme-of-choice">4.9. Changing to the theme of choice</a></h3>
+<div class="paragraph">
+<p>You can change to your theme of choice. There are 3 themes currently, <code>Twilight</code>, <code>Sunburst</code> and <code>Minimalism</code>. This command is not undoable.</p>
+</div>
+<div class="paragraph">
+<p>SwitchThemeCommand is implemented in this way:</p>
+</div>
+<div class="paragraph">
+<p>For example, the user input might be <code>theme Twilight</code>.<br>
+After the command word <code>theme</code> is parsed at the <code>AddresBookParser</code>, the remaining user input( theme of choice), in the example, <code>Twilight</code>, will be passed to and parsed by <code>SwitchThemeCommandParser</code>.
+We also support other words other than the actual theme name for theme of choice, it might also be <code>dark</code> for <code>Twilight</code>; <code>bright</code> for <code>Sunburst</code> and <code>default</code> for <code>Minimalism</code>.<br>
+If you only key in <code>theme</code>, an error message suggesting the use of this command will be shown in the <code>result box</code>.<br>
+You can just key in the index of your theme of choice instead of the words.<br></p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/SwitchThemeCommandErrorMessage.png" alt="SwitchThemeCommandErrorMessage" width="500">
+</div>
+</div>
+<div class="paragraph">
+<p><em>Figure 4.9.1a : Theme Command Typing Command Word Only</em></p>
+</div>
+<div class="paragraph">
+<p>If you key in an invalid index, an error message will be shown in the <code>result box</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/SwitchThemeCommandInvalidIndex.png" alt="SwitchThemeCommandInvalidIndex" width="300">
+</div>
+</div>
+<div class="paragraph">
+<p><em>Figure 4.9.1b : Theme Command Typing Invalid Index Number</em></p>
+</div>
+<div class="paragraph">
+<p>If you key in an unknown theme word, an error message will be shown in the <code>result box</code>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/SwitchThemeCommandInvalidWord.png" alt="SwitchThemeCommandInvalidWord" width="300">
+</div>
+</div>
+<div class="paragraph">
+<p><em>Figure 4.9.1c : Theme Command Typing Invalid Theme Word</em></p>
+</div>
+<div class="paragraph">
+<p>The <code>SwitchThemeParser</code> returns <code>SwitchThemeCommand</code> after execution, which will be further processed by <code>logic</code> component.</p>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-8"><a class="link" href="#design-considerations-8">4.9.1. Design Considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect:</strong> How to make the command more intuitive<br>
+<strong>Alternative 1 (current choice):</strong> Accept more aliases for theme of choice<br>
+<strong>Pros:</strong> The user does not need to type the full theme name.<br>
+<strong>Cons:</strong> Difficult to implement.<br>
+<strong>Alternative 2:</strong> Accept only the official theme names<br>
+<strong>Pros:</strong> Easy to implement.<br>
+<strong>Cons:</strong> Not user friendly.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="improvements-on-deletecommand"><a class="link" href="#improvements-on-deletecommand">4.10. Improvements on DeleteCommand</a></h3>
 <div class="paragraph">
 <p>We have improved the delete command to let it be able to delete by multiple indexes or a name with prefix. The reason why we do this is to improve the efficiency to delete the contacts.The prefix for deleting by name is <code>n/</code>. The prefix for deleting by indexes is <code>I/</code>.</p>
 </div>
@@ -1503,6 +1734,9 @@ The <code>TagRemoveCommandParser</code> returns <code>TagRemoveCommand</code> af
 <div class="content">
 <img src="images/DeleteCommandSequenceDiagram.png" alt="DeleteCommandSequenceDiagram" width="800">
 </div>
+</div>
+<div class="paragraph">
+<p><em>Figure 4.10.1 : Interactions Inside the Logic Component for the <code>delete I/1</code> Command</em></p>
 </div>
 <div class="paragraph">
 <p>You can see that the way we implemented this is to change the DeleteCommandParser and DeleteCommand.</p>
@@ -1616,7 +1850,7 @@ If your input is a name and there is no person with such name in the list, then 
 <p>Moreover, if there is more than one person in the list with the name give, then the command don&#8217;t know which one ot delete. It will show all the person with same name in GUI and remind the user to choose one to delete.</p>
 </div>
 <div class="sect3">
-<h4 id="design-considerations-8"><a class="link" href="#design-considerations-8">4.8.1. Design Considerations</a></h4>
+<h4 id="design-considerations-9"><a class="link" href="#design-considerations-9">4.10.1. Design Considerations</a></h4>
 <div class="paragraph">
 <p><strong>Aspect:</strong>  Implementation of <code>DeleteCommandParser</code><br>
 <strong>Alternative 1 (current choice):</strong>  Add a prefix after the command word to distinguish between delete by name or indexes.<br>
@@ -1636,14 +1870,26 @@ If your input is a name and there is no person with such name in the list, then 
 <strong>Pros:</strong>  It cost users less time to delete a person if they know the sequence of the persons with the same name.<br>
 <strong>Cons:</strong> It is hard to guarantee the right person is deleted. The user may need to redo to fix it.</p>
 </div>
-<div class="paragraph">
-<p>===Improvement on HelpCommand</p>
 </div>
+</div>
+<div class="sect2">
+<h3 id="improvement-on-helpcommand"><a class="link" href="#improvement-on-helpcommand">4.11. Improvement on HelpCommand</a></h3>
 <div class="paragraph">
 <p>We make the help command to be able to alert the usage of a speified command.</p>
 </div>
 <div class="paragraph">
 <p>The way we do it is to make the help command paser to identify the command word after 'help' and show the command usage of that command.</p>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows how help command works:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/HelpCommandSequenceDiagram.png" alt="HelpCommandSequenceDiagram" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p><em>Figure 4.11.1 : Interactions Inside the Logic Component for the <code>help add</code> Command</em></p>
 </div>
 <div class="paragraph">
 <p>For example, you can see the implementation of the help command parser as follow:</p>
@@ -1672,14 +1918,14 @@ If the input command word after 'help' can not be identified, then you will see 
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p>===RecycleBin Mechanism</p>
 </div>
+<div class="sect2">
+<h3 id="recyclebin-mechanism"><a class="link" href="#recyclebin-mechanism">4.12. RecycleBin Mechanism</a></h3>
 <div class="paragraph">
 <p>We design a recycle bin in the iConnect to store the person removed from address book. In this way, users can restore the people they wrongly deleted. You may think that it can be done by udno/redo command. Actually, if users want to restore a person they deleted long time ago, then the undo/redo command would not hlep.</p>
 </div>
 <div class="paragraph">
-<p>The users can interact with bin using four commands:'bin-list', 'bin-delete', 'bin-clear', 'bin-restore';</p>
+<p>The users can interact with bin using four commands: 'bin-delete', 'bin-fresh', 'bin-restore';</p>
 </div>
 <div class="paragraph">
 <p>The way we deal with recycle bin storage is the same as we deal with addressbook storage. We store the recycle bin as a xml file and read and save it in the same way as address book storage. Then we put the addressbook and recycleibn into model.</p>
@@ -1690,16 +1936,13 @@ If the input command word after 'help' can not be identified, then you will see 
 <div class="ulist">
 <ul>
 <li>
-<p><code>bin-list</code> : List all the people in the recycle bin in list.</p>
+<p><code>bin-delete</code> : Deletes the people in the recycle bin by index as shown in the list.</p>
 </li>
 <li>
-<p><code>bin-delete</code> : Delete the people in the recycle bin by index as shown in the list.</p>
+<p><code>bin-fresh</code> : Deletes all the peopel in the recycle bin.</p>
 </li>
 <li>
-<p><code>bin-clear</code> : Delete all the peopel in the recycle bin.</p>
-</li>
-<li>
-<p><code>bin-restore</code> : Restore the people in the recycle bin to address book by index.</p>
+<p><code>bin-restore</code> : Restores the people in the recycle bin to address book by given index.</p>
 </li>
 </ul>
 </div>
@@ -1710,16 +1953,49 @@ If the input command word after 'help' can not be identified, then you will see 
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-If we find duplicate people when moving a person to recyclebin or moving a person to addressbook, then this person will be omitted and directly remove.
+If we find duplicate people (A') when deleting a person (A) to recyclebin or restoring a person (A) to addressbook, then this person (A') will be omitted and directly removed and the person (A) will remain.
 </td>
 </tr>
 </table>
 </div>
+<div class="sect3">
+<h4 id="design-considerations-10"><a class="link" href="#design-considerations-10">4.12.1. Design Considerations</a></h4>
 <div class="paragraph">
-<p>===Exporting</p>
+<p><strong>Aspect:</strong>  How to deal with duplicate person in recycle bin<br>
+<strong>Alternative 1 (current choice):</strong>  Don&#8217;t put a peron into the recycle bin if we find duplicate person in bin when we delete from address book.<br>
+<strong>Pros:</strong>  It is more convenient to restore a person if we keep the person in bin unique .<br>
+<strong>Cons:</strong>  The information of the second duplicate person will not be stored in adressbook.<br>
+<strong>Alternative 2:</strong> Put the person with duplicate one into recycle bin.<br>
+<strong>Pros:</strong>  It&#8217;s less likely we will lose data when we delete.<br>
+<strong>Cons:</strong>  It is harder when we need to restore a person with duplicate persons in the bin.</p>
 </div>
+<hr>
+<div class="paragraph">
+<p><strong>Aspect:</strong>  Information to store in recycle bin<br>
+<strong>Alternative 1 (current choice):</strong>  Don&#8217;t store the tag and event of a person, and store all the other information.<br>
+<strong>Pros:</strong>  It is more convenient to restore a person without affecting the tag list and event list in address book .<br>
+<strong>Cons:</strong>  Users may need to add the tag and event of a person retored from the recycle bin again.<br>
+<strong>Alternative 2:</strong> Store all the information of a perosn into recycle bin when the person is deleted from address book.<br>
+<strong>Pros:</strong>  Users don&#8217;t need to edit the tag and evnet of restored person again.<br>
+<strong>Cons:</strong>  It costs a lot more work to reload a person with its own tag and event.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="exporting"><a class="link" href="#exporting">4.13. Exporting</a></h3>
 <div class="paragraph">
 <p>We are using 'java.io.File' and 'java.io.FileWriter' to export address book data.</p>
+</div>
+<div class="paragraph">
+<p>The following sequence diagram shows how export command works:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/ExportCommandSequenceDiagram.png" alt="ExportCommandSequenceDiagram" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p><em>Figure 4.13.1 : Interactions Inside the Logic Component for the <code>export path</code> Command</em></p>
 </div>
 <div class="ulist">
 <ul>
@@ -1727,14 +2003,151 @@ If we find duplicate people when moving a person to recyclebin or moving a perso
 <p>The filepath should be a complete path to a specific location of a empty txt file in your computer.</p>
 </li>
 <li>
-<p>The order of the output information is 'person', 'tag', 'event';</p>
+<p>The order of the output information is 'person', 'event';</p>
 </li>
 </ul>
 </div>
 </div>
+<div class="sect2">
+<h3 id="scheduler-feature"><a class="link" href="#scheduler-feature">4.14. Scheduler Feature</a></h3>
+<div class="paragraph">
+<p>The <code>ScheduleAddCommand</code> allows you to add an <code>Event</code> into address book and is stored in an ArrayList-like <code>UniqueEventList</code> in <code>AddressBook</code>. Each event may have a number of members and they are specified by their <code>Index</code> in the <code>PersonListPanel</code> during the user input phase. The <code>ScheduleRemoveCommand</code> allows you to remove an <code>Event</code> from address book by inputting the <code>Index</code> of an event in the <code>EventListPanel</code>. Note that you may input more than one <code>Index</code> to remove multiple events at a time.</p>
+</div>
+<div class="paragraph">
+<p>Since both command requires the modification of <code>AddressBook</code> contents, they implemented as an UndoableCommand.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/LogicCommandClassDiagram_ScheduleCommands.png" alt="LogicCommandClassDiagram ScheduleCommands" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p><em>Figure 4.14.1 : Structure of Schedule-related Commands in the Logic Component</em></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Event-Person Relationship</strong><br></p>
+</div>
+<div class="paragraph">
+<p>Each time an <code>Event</code> is created, four other composite objects are created as well:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>EventName</code> contains a single variable <code>fullName</code> that is verified to only contain alphanumeric characters and spaces and should not be blank.</p>
+</li>
+<li>
+<p><code>EventTime</code> stores and handles the start time, end time and the duration of an event. Since the concept of start and end time involves duration, <code>EvenTime</code> has to have an instance of an event’s duration despite us having <code>EventDuration</code>. You can also check an event’s status, with the function <code>isUpcoming</code> which returns a boolean value.</p>
+</li>
+<li>
+<p><code>EventDuration</code> stores the duration of an event and may range from having a value of 0 to days.</p>
+</li>
+<li>
+<p><code>MemberList</code> stores a list of <code>Person</code> who is involved with the event and may be empty. Each element is synced to a <code>Person</code> in the master <code>UniquePersonList</code> in <code>AddressBook</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Each <code>Person</code> maintains its own <code>UniqueEventList</code> with each element synced to an <code>Event</code> in the master <code>UniqueEventList</code> in <code>AddressBook</code>. In otherwords, both object references each other.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p><code>UniqueEventList</code> functions as a List of <code>Events</code> where every element is unique and the uniqueness of an event is defined by its name, time and duration. If two different events have the same value for the three attributes, it is considered to be a duplicate. You can also check if an <code>Event</code> clashes with any of the events in <code>UniqueEventList</code>, by running the <code>hasClashes</code> function which returns true if a clash exist.</p>
+</div>
+<div class="paragraph">
+<p><strong>Adding an Event to Schedule</strong></p>
+</div>
+<div class="paragraph">
+<p>Each time <code>ScheduleAddCommand</code> is executed, <code>AddressBook</code> first checks if there are any <code>Person</code> involved in the <code>Event</code>. Suppose no <code>Index</code> was specified in the user input, it signifies that the event has no members and is directly added into the <code>UniqueEventList</code> in <code>AddressBook</code>. However, suppose a number of <code>Person</code> has been selected as members in the input, a list of new <code>Person</code> object will be created and events will be added through a person update. Each <code>Person</code> in the new list reflects a <code>Person</code> that was selected, with the addition of the <code>Event</code>, that is to be added, in his/her <code>UniqueEventList</code>. The list of new <code>Person</code> will then be used to update its respective counterpart in <code>AddressBook</code>, where it undergoes a direct replacement followed by a two <code>Event</code>-related syncing. This sync process will result in the adding of events in the master <code>UniqueEventList</code> of <code>AddressBook</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Syncing the Event-Person Relationship</strong></p>
+</div>
+<div class="paragraph">
+<p>The first sync checks that every event of a <code>Person</code> exist is the master <code>UniqueEventList</code> in <code>AddressBook</code>, and points each event to an event in the master list. Suppose an event does not exist in the master list, it is added to the master list before the syncing process. The second sync updates all the <code>Event</code> of each newly edited <code>Person</code> to have their <code>MemberList</code> point to a <code>Person</code> in the master person list in <code>AddressBook</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">    <span class="comment">/**
+     * Ensures that every event in this person:
+     * - exists in the master list {@link #events}
+     * - points to a Event object in the master list
+     */</span>
+    <span class="directive">private</span> <span class="type">void</span> syncMasterEventListWith(Person person) {
+        <span class="directive">final</span> UniqueEventList personEvents = <span class="keyword">new</span> UniqueEventList(person.getEvents());
+        events.mergeFrom(personEvents);
+
+        <span class="comment">// Create map with values = event object references in the master list</span>
+        <span class="comment">// used for checking person event references</span>
+        <span class="directive">final</span> <span class="predefined-type">Map</span>&lt;<span class="predefined-type">Event</span>, <span class="predefined-type">Event</span>&gt; masterEventObjects = <span class="keyword">new</span> <span class="predefined-type">HashMap</span>&lt;&gt;();
+        events.forEach(event -&gt; masterEventObjects.put(event, event));
+
+        <span class="comment">// Rebuild the personal list of events to point to the relevant events in the master event list.</span>
+        <span class="directive">final</span> <span class="predefined-type">Set</span>&lt;<span class="predefined-type">Event</span>&gt; correctEventReferences = <span class="keyword">new</span> <span class="predefined-type">HashSet</span>&lt;&gt;();
+        personEvents.forEach(event -&gt; correctEventReferences.add(masterEventObjects.get(event)));
+        person.setEvents(correctEventReferences);
+    }
+
+    <span class="comment">/**
+     * Ensures that every member in this event:
+     * - points to a person object in the master person list
+     */</span>
+    <span class="directive">private</span> <span class="type">void</span> syncMasterEventListMembers(<span class="predefined-type">Event</span> event) {
+
+        <span class="comment">// Create map with values = person object references in the master list</span>
+        <span class="comment">// used for checking member references</span>
+        <span class="directive">final</span> <span class="predefined-type">Map</span>&lt;Person, Person&gt; masterPersonObjects = <span class="keyword">new</span> <span class="predefined-type">HashMap</span>&lt;&gt;();
+        <span class="local-variable">this</span>.persons.forEach(person -&gt; masterPersonObjects.put(person, person));
+
+        <span class="predefined-type">ArrayList</span>&lt;ReadOnlyPerson&gt; eventMembers = <span class="keyword">new</span> <span class="predefined-type">ArrayList</span>&lt;&gt;();
+        <span class="local-variable">this</span>.persons.asObservableList().stream().filter(readOnlyPerson -&gt;
+                readOnlyPerson.getEvents().contains(event)).forEach(eventMembers::add);
+
+
+        <span class="comment">// Rebuild the list of member to point to the relevant person in the master person list.</span>
+        <span class="directive">final</span> <span class="predefined-type">Set</span>&lt;Person&gt; correctPersonReferences = <span class="keyword">new</span> <span class="predefined-type">HashSet</span>&lt;&gt;();
+        eventMembers.forEach(person -&gt; correctPersonReferences.add(masterPersonObjects.get(person)));
+        event.setMemberList(<span class="keyword">new</span> MemberList(
+                <span class="keyword">new</span> <span class="predefined-type">ArrayList</span>&lt;&gt;(correctPersonReferences)));
+    }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The two syncing process ensures the <code>MemberList</code> of each <code>Event</code> points to a <code>Person</code> in master person list and also having each element in <code>UniqueEventList</code> of <code>Person</code> points to an event in the master event list.</p>
+</div>
+<div class="paragraph">
+<p><strong>Removing an Event from Schedule</strong></p>
+</div>
+<div class="paragraph">
+<p>Similar to the adding of events, the removing of events is also done through an update and sync process. Suppose an <code>Event</code> has an empty <code>MemberList</code>, the specified <code>Event</code> will be directly removed from the master <code>UniqueEventList</code> in <code>AddressBook</code>. However, if the <code>Event</code> that is to be deleted has members involved, it will be removed through the same update and sync process.</p>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-11"><a class="link" href="#design-considerations-11">4.14.1. Design Considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Keeping track of the duration of an <code>Event</code><br>
+<strong>Alternative 1 (current choice):</strong> Create a separate object named <code>EventDuration</code>, despite having a duration stored in <code>EventTime</code><br>
+<strong>Pros:</strong> Implementing a separate object for duration follows the OOP model and also facilitates specific operations in the <code>Logic</code> and <code>UI</code> component. Firstly, duration has its own set of parsing and validation criteria during the input phase, justifying the need for separation. Secondly, duration has to be implemented as a separate object for it to appear as a standalone UI label. Since binding of <code>textProperty</code> read the <code>toString</code> of the binded <code>ObjectProperty</code>, duration has to be stored as a separate <code>ObjectProperty</code>.<br>
+<strong>Cons:</strong> Both <code>EventTime</code> and <code>EventDuration</code> has an instance of duration.<br>
+<strong>Alternative 2:</strong> Stores duration of event in <code>EventTime</code> only<br>
+<strong>Pros:</strong> Lesser code to work with.<br>
+<strong>Cons:</strong> Unable to output duration as a standalone element on the UI due to the restrictions of <code>EventCard</code> label bindings.<br></p>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Uniqueness of an <code>Event</code><br>
+<strong>Alternative 1 (current choice):</strong> Have uniqueness defined by only <code>EventName</code>, <code>EventTime</code> and <code>EventDuration</code><br>
+<strong>Pros:</strong> The absence of <code>MemberList</code> allows for a more straightforward update and sync process during the application&#8217;s initialisation phase. All <code>Person</code> and <code>Event</code> objects are first read and create from <code>addressbook.xml</code> without any referencing to each other. Suppose <code>MemberList</code> is included as part of the uniqueness check, it has to be built before the update process. However, the correct <code>Person</code> does not exist since no event has been added to any <code>Person</code>.<br>
+<strong>Cons:</strong> Uniqueness comparison is not succinct.<br>
+<strong>Alternative 2:</strong> Include <code>MemberList</code> as part of uniqueness test<br>
+<strong>Pros:</strong> Able to create an <code>Event</code> with the the same name, time and duration as long as <code>MemberList</code> elements are different.<br>
+<strong>Cons:</strong> Uniqueness comparison is too lenient and syncing process may be unnecessarily complicated.<br></p>
+</div>
+</div>
 </div>
 <div class="sect2">
-<h3 id="logging"><a class="link" href="#logging">4.9. Logging</a></h3>
+<h3 id="logging"><a class="link" href="#logging">4.15. Logging</a></h3>
 <div class="paragraph">
 <p>We are using <code>java.util.logging</code> package for logging. The <code>LogsCenter</code> class is used to manage the logging levels and logging destinations.</p>
 </div>
@@ -1772,7 +2185,7 @@ If we find duplicate people when moving a person to recyclebin or moving a perso
 </div>
 </div>
 <div class="sect2">
-<h3 id="configuration"><a class="link" href="#configuration">4.10. Configuration</a></h3>
+<h3 id="configuration"><a class="link" href="#configuration">4.16. Configuration</a></h3>
 <div class="paragraph">
 <p>Certain properties of the application can be controlled (e.g App name, logging level) through the configuration file (default: <code>config.json</code>).</p>
 </div>
@@ -1840,7 +2253,7 @@ Alternatively, you can download the AsciiDoc plugin for IntelliJ, which allows y
 </div>
 </div>
 <div class="paragraph">
-<p><em>Figure 5.6.1 : Saving documentation as PDF files in Chrome</em></p>
+<p><em>Figure 5.3.1 : Saving documentation as PDF files in Chrome</em></p>
 </div>
 </div>
 </div>
@@ -3311,7 +3724,7 @@ for <code>RemarkCommandParser</code>.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-12 05:36:01 +00:00
+Last updated 2017-11-13 12:32:52 +00:00
 </div>
 </div>
 </body>

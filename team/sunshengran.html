@@ -22,7 +22,7 @@
 <p>iConnect is a desktop address book application used for NUS undergraduates social network connection purpose. We aim to make the student&#8217;s school life much easier and more convenient. With this app, students are able to manage their study, work as well as social activities in a more efficient way. The user is required to interact with the app by typing command line, and it has a GUI created with JavaFX for user&#8217;s convenience. It is written in Java, and has about 25 thousand line of codes (kLoC).</p>
 </div>
 <div class="paragraph">
-<p><strong>Code contributed</strong>: [<a href="https://github.com/CS2103AUG2017-W09-B3/main/blob/master/Collated/main/dalessr.md">Functional code</a>] [<a href="https://github.com/CS2103AUG2017-W09-B3/main/blob/master/Collated/test/dalessr.md">Test code</a>]</p>
+<p><strong>Code contributed</strong>: [<a href="https://github.com/CS2103AUG2017-W09-B3/main/blob/master/collated/main/dalessr.md">Functional code</a>] [<a href="https://github.com/CS2103AUG2017-W09-B3/main/blob/master/collated/test/dalessr.md">Test code</a>]</p>
 </div>
 <div class="sect2">
 <h3 id="enhancements-added-find-map-birthday"><a class="link" href="#enhancements-added-find-map-birthday">Enhancements Added: Find, Map, Birthday</a></h3>
@@ -35,7 +35,7 @@
 </div>
 </div>
 <div class="sect2">
-<h3 id="locating-persons-by-different-attributes-code-find-code-em-since-v1-2-em"><a class="link" href="#locating-persons-by-different-attributes-code-find-code-em-since-v1-2-em">Locating persons by different attributes: <code>find</code> <em>[Since v1.2]</em></a></h3>
+<h3 id="locating-persons-by-different-attributes-code-find-code-em-since-v1-2-em"><a class="link" href="#locating-persons-by-different-attributes-code-find-code-em-since-v1-2-em">Locating persons by different attributes : <code>find</code> <em>[Since v1.2]</em></a></h3>
 <div class="paragraph">
 <p><em>Alias:</em> <code>search</code> <code>get</code></p>
 </div>
@@ -99,9 +99,17 @@ Returns any person having names <code>Betsy</code>, <code>Tim</code>, <code>John
 </div>
 </div>
 <div class="sect2">
-<h3 id="find-the-location-of-a-person-using-google-map-code-m-show-code-em-since-v1-3-em"><a class="link" href="#find-the-location-of-a-person-using-google-map-code-m-show-code-em-since-v1-3-em">Find the location of a person using Google Map: <code>m-show</code> <em>[Since v1.3]</em></a></h3>
+<h3 id="finding-the-location-of-a-person-using-google-map-code-m-show-code-em-since-v1-3-em"><a class="link" href="#finding-the-location-of-a-person-using-google-map-code-m-show-code-em-since-v1-3-em">Finding the location of a person using Google Map : <code>m-show</code> <em>[Since v1.3]</em></a></h3>
 <div class="paragraph">
 <p>You might find it not very convenient to only show the contact&#8217;s location as text. Therefore, iConnect allows you to see the location! By using this command, without typing in the person&#8217;s address, you can easily find the location of your friend in Google Map, which will show in the centre browser.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/mShowCommand.png" alt="mShowCommand" width="790">
+</div>
+</div>
+<div class="paragraph">
+<p><em>Figure 3.14.1 : Finding the location of a contact</em></p>
 </div>
 <div class="paragraph">
 <p>Format: <code>m-show INDEX</code></p>
@@ -139,9 +147,17 @@ Shows the address of person with index 1 on the google map</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="find-the-route-from-user-s-current-location-to-the-person-seleted-code-m-route-code-em-since-v1-3-em"><a class="link" href="#find-the-route-from-user-s-current-location-to-the-person-seleted-code-m-route-code-em-since-v1-3-em">Find the route from user&#8217;s current location to the person seleted: <code>m-route</code> <em>[Since v1.3]</em></a></h3>
+<h3 id="finding-the-route-from-user-s-current-location-to-the-person-selected-code-m-route-code-em-since-v1-3-em"><a class="link" href="#finding-the-route-from-user-s-current-location-to-the-person-selected-code-m-route-code-em-since-v1-3-em">Finding the route from user&#8217;s current location to the person selected : <code>m-route</code> <em>[Since v1.3]</em></a></h3>
 <div class="paragraph">
 <p>Not only can iConnect show the location, it can also show you how to go there! Simply by adding your current location, it will show you the shortest path from your current address to your friend&#8217;s home in the Google map.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/mRouteCommand.png" alt="mRouteCommand" width="790">
+</div>
+</div>
+<div class="paragraph">
+<p><em>Figure 3.15.1 : Finding the route from current location to the address of a contact</em></p>
 </div>
 <div class="paragraph">
 <p>Format: <code>m-route INDEX a/ADDRESS</code></p>
@@ -278,6 +294,22 @@ Removes the birthday from the 6th person in the most recent listing, and shows a
 </div>
 <hr>
 <div class="sect3">
+<h4 id="justification"><a class="link" href="#justification">Justification</a></h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Having the enhanced <code>find</code> command allows users to find specific contacts more efficiently.</p>
+</li>
+<li>
+<p>Having the <code>m-show</code> and <code>m-route</code> command allows users to find the home location of their contacts in case they would like to meet them.</p>
+</li>
+<li>
+<p>Having a <code>b-add</code> and <code>b-remove</code> command allows users to add, update and remove birthdays of their contacts, adding a personal touch to their address book.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
 <h4 id="implementation"><a class="link" href="#implementation">Implementation</a></h4>
 <hr>
 <div class="paragraph">
@@ -300,6 +332,9 @@ Removes the birthday from the 6th person in the most recent listing, and shows a
 <div class="content">
 <img src="../images/LogicCommandClassDiagram.png" alt="LogicCommandClassDiagram" width="800">
 </div>
+</div>
+<div class="paragraph">
+<p><em>Figure 4.1.1 : Structure of Find Command in the Logic Component</em></p>
 </div>
 <div class="paragraph">
 <p>When you are using the find command, you need to provided at least one keyword for any available attribute. Keywords of the same attribute need to be grouped together with a prefix (e.g. <code>n/</code>, <code>p/</code>, <code>e/</code>, <code>a/</code>). In this case, each prefix is allowed to appear at most once.</p>
@@ -372,6 +407,9 @@ model.updateFilteredPersonList(updatedPredicate);</code></pre>
 <div class="content">
 <img src="../images/FindCommandSequenceDiagram.png" alt="FindCommandSequenceDiagram" width="800">
 </div>
+</div>
+<div class="paragraph">
+<p><em>Figure 4.1.2 : Interactions Inside the Logic Component for the <code>find n/john p/1234 e/example.com</code> Command</em></p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -461,6 +499,9 @@ If more than one same prefix is provided, then the person list will be searched 
 <div class="content">
 <img src="../images/MapCommandClassDiagram.png" alt="MapCommandClassDiagram" width="800">
 </div>
+</div>
+<div class="paragraph">
+<p><em>Figure 4.2.1 : Structure of Map Commands in the Logic Component</em></p>
 </div>
 <div class="paragraph">
 <p>When you are using the map-show <code>(m-show)</code> command, you need to specify the index number of the person whom you would like to see the location of. As for the map-route <code>(m-route)</code> command, apart from specifying the index number, you also need to add a prefix <code>a/</code> before you enter your current location. The prefix should appear only once.</p>
@@ -579,10 +620,16 @@ If more than one same prefix is provided, then the person list will be searched 
 <img src="../images/MapShowCommandSequenceDiagram.png" alt="MapShowCommandSequenceDiagram" width="800">
 </div>
 </div>
+<div class="paragraph">
+<p><em>Figure 4.2.2 : Interactions Inside the Logic Component for the <code>m-show 1</code> Command</em></p>
+</div>
 <div class="imageblock">
 <div class="content">
 <img src="../images/MapRouteCommandSequenceDiagram.png" alt="MapRouteCommandSequenceDiagram" width="800">
 </div>
+</div>
+<div class="paragraph">
+<p><em>Figure 4.2.3 : Interactions Inside the Logic Component for the <code>m-route 1 a/nus</code> Command</em></p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -648,6 +695,9 @@ If no prefix is found inside the argument when typing <code>m-route</code> comma
 <div class="content">
 <img src="../images/BirthdayCommandClassDiagram.png" alt="BirthdayCommandClassDiagram" width="800">
 </div>
+</div>
+<div class="paragraph">
+<p><em>Figure 4.3.1 : Structure of Birthday Commands in the Logic Component</em></p>
 </div>
 <div class="paragraph">
 <p>During the implementation, birthday commands parser classes extracts the index number of the person as well as birthday value, and passes them to the corresponding birthday classes. The default birthday value of each person is <code>01/01/1900</code>. To add birthday to a person, we actually updated the person&#8217;s birthday with the new birthday value. To delete a person&#8217;s birthday, we just update the person&#8217;s birthday and set it as default value. Updating a person&#8217;s birthday is similar to adding birthday to the person. The two functions are the same in implementation.</p>
@@ -722,10 +772,16 @@ If no prefix is found inside the argument when typing <code>m-route</code> comma
 <img src="../images/BirthdayAddCommandSequenceDiagram.png" alt="BirthdayAddCommandSequenceDiagram" width="800">
 </div>
 </div>
+<div class="paragraph">
+<p><em>Figure 4.3.2 : Interactions Inside the Logic Component for the <code>b-add 1 01/01/2000</code> Command</em></p>
+</div>
 <div class="imageblock">
 <div class="content">
 <img src="../images/BirthdayRemoveCommandSequenceDiagram.png" alt="BirthdayRemoveCommandSequenceDiagram" width="800">
 </div>
+</div>
+<div class="paragraph">
+<p><em>Figure 4.3.3 : Interactions Inside the Logic Component for the <code>b-remove 1</code> Command</em></p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -787,7 +843,7 @@ If an invalid birthday is provided for birthday-remove command, an invalid input
 </div>
 </div>
 <div class="sect2">
-<h3 id="adding-a-social-media-url-to-a-person-code-l-add-code-em-coming-in-v2-0-em"><a class="link" href="#adding-a-social-media-url-to-a-person-code-l-add-code-em-coming-in-v2-0-em">Adding a social media URL to a person: <code>l-add</code> <em>[Coming in v2.0]</em></a></h3>
+<h3 id="adding-a-social-media-url-to-a-person-code-l-add-code-em-coming-in-v2-0-em"><a class="link" href="#adding-a-social-media-url-to-a-person-code-l-add-code-em-coming-in-v2-0-em">Adding a social media URL to a person : <code>l-add</code> <em>[Coming in v2.0]</em></a></h3>
 <div class="paragraph">
 <p>You will find it very convenient to add some social media URLs to your friends so that you are able to see their posts and recent activities simply by clicking those social media icons in the centre person details panel. In this way, you do not need to open each social media app and search for the person before you can see their posts.</p>
 </div>
@@ -856,7 +912,10 @@ Adds the GitHub URL to the 3rd person in the contact list</p>
 <p>GUI design: open a new tab in centre panel to display the browser view for each social media icon (Pull requests <a href="https://github.com/CS2103AUG2017-W09-B3/main/pull/98">#98</a>)</p>
 </li>
 <li>
-<p>Wrote additional tests to increase coverage from 78% to 80% (Pull requests <a href="https://github.com/CS2103AUG2017-W09-B3/main/pull/101">#101</a>)</p>
+<p>GUI design: command word auto-completion (Pull requests <a href="https://github.com/CS2103AUG2017-W09-B3/main/pull/120">#120</a>)</p>
+</li>
+<li>
+<p>Wrote additional tests to increase coverage (Pull requests <a href="https://github.com/CS2103AUG2017-W09-B3/main/pull/101">#101</a>, <a href="https://github.com/CS2103AUG2017-W09-B3/main/pull/132">#132</a>)</p>
 </li>
 </ul>
 </div>
@@ -866,7 +925,7 @@ Adds the GitHub URL to the 3rd person in the contact list</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-12 05:36:01 +00:00
+Last updated 2017-11-13 12:32:52 +00:00
 </div>
 </div>
 </body>

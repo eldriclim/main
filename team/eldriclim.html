@@ -22,10 +22,28 @@
 <p>AddressBook - Level 4 is a desktop address book application used for teaching Software Engineering principles. The user interacts with it using a CLI, and it has a GUI created with JavaFX. It is written in Java, and has about 6 kLoC.</p>
 </div>
 <div class="paragraph">
-<p><strong>Code contributed</strong>: [<a href="https://github.com">Functional code</a>] [<a href="https://github.com">Test code</a>] {give links to collated code files}</p>
+<p><strong>Code contributed</strong>: [<a href="https://github.com/CS2103AUG2017-W09-B3/main/blob/master/collated/main/eldriclim.md">Functional code</a>] [<a href="https://github.com/CS2103AUG2017-W09-B3/main/blob/master/collated/test/eldriclim.md">Test code</a>]</p>
 </div>
 <div class="sect2">
-<h3 id="enhancement-added-sort"><a class="link" href="#enhancement-added-sort">Enhancement Added: Sort</a></h3>
+<h3 id="changes-made-to-dg"><a class="link" href="#changes-made-to-dg">Changes made to DG:</a></h3>
+<div class="paragraph">
+<p><mark>Start of Extract [from: Developer Guide]</mark></p>
+</div>
+<div class="paragraph">
+<p><strong>Intro to DG</strong></p>
+</div>
+<div class="paragraph">
+<p>iConnect is a command-line interface (CLI) based application which allows students to manage their contacts and keep track of their schedule. This documentation aims to guide you through the development process of iConnect, getting you started as an iConnect contributor. iConnect is written in Java and the editor of choice is IntelliJ IDE.</p>
+</div>
+<div class="paragraph">
+<p>Due its sizable codebase, you may want to get familiarise with the different architectural components to have a better understanding of each component works together.</p>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="enhancement-added-sort-scheduleadd-scheduleremove"><a class="link" href="#enhancement-added-sort-scheduleadd-scheduleremove">Enhancement Added: Sort, ScheduleAdd, ScheduleRemove</a></h3>
 <div class="sect3">
 <h4 id="external-behavior"><a class="link" href="#external-behavior">External behavior</a></h4>
 <hr>
@@ -35,12 +53,12 @@
 </div>
 </div>
 <div class="sect2">
-<h3 id="sorting-list-of-persons-code-sort-code-em-since-v1-2-em"><a class="link" href="#sorting-list-of-persons-code-sort-code-em-since-v1-2-em">Sorting list of persons: <code>sort</code> <em>[Since v1.2]</em></a></h3>
+<h3 id="sorting-list-of-persons-code-sort-code-em-since-v1-2-em"><a class="link" href="#sorting-list-of-persons-code-sort-code-em-since-v1-2-em">Sorting list of persons : <code>sort</code> <em>[Since v1.2]</em></a></h3>
 <div class="paragraph">
-<p>Sorts the full list of persons based on the specified attribute.<br></p>
+<p>Suppose you wish to have your list of persons ordered by a specific attribute, you may use the <code>sort</code> command to do so. Be it name, email, phone, address or even the time it was first added. You can also choose to specify whether the attribute should be sorted in ascending or descending order, allowing you to have control over how your person panel should appear.<br></p>
 </div>
 <div class="paragraph">
-<p>Format: <code>sort [n/(ASC OR DSC)]</code></p>
+<p>Format: <code>sort [n/(asc OR dsc)]</code></p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -49,7 +67,7 @@
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-The list can be sorted by one of the following attribute: name, phone, email, address, time added.
+Persons tagged as favourite will be sorted at the top of the list, followed by the rest of the contacts.
 </td>
 </tr>
 </table>
@@ -68,10 +86,10 @@ The list can be sorted by one of the following attribute: name, phone, email, ad
 <p>Sorting order depends on the specified choice.</p>
 </li>
 <li>
-<p>The <code>ASC</code> signifies sorting in ascending order.</p>
+<p>The <code>asc</code> signifies sorting in ascending order.</p>
 </li>
 <li>
-<p>The <code>DSC</code> signifies sorting in descending order.</p>
+<p>The <code>dsc</code> signifies sorting in descending order.</p>
 </li>
 <li>
 <p>Entering command without any argument will default to name in ascending order.</p>
@@ -93,432 +111,28 @@ The list can be sorted by one of the following attribute: name, phone, email, ad
 Returns list of persons sorted by name added in ascending order</p>
 </li>
 <li>
-<p><code>sort p/ASC</code><br>
+<p><code>sort p/asc</code><br>
 Returns list of persons sorted by phone in ascending order</p>
 </li>
 <li>
-<p><code>sort t/DSC</code><br>
+<p><code>sort t/dsc</code><br>
 Returns list of persons sorted by time added in descending order</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="deleting-a-person-code-delete-code-em-since-v1-2-em"><a class="link" href="#deleting-a-person-code-delete-code-em-since-v1-2-em">Deleting a person : <code>delete</code> <em>[Since v1.2]</em></a></h3>
+<h3 id="adding-an-event-to-schedule-code-s-add-code-em-since-v1-4-em"><a class="link" href="#adding-an-event-to-schedule-code-s-add-code-em-since-v1-4-em">Adding an Event to Schedule : <code>s-add</code> <em>[Since v1.4]</em></a></h3>
 <div class="paragraph">
-<p>If you want to keep your person list clean, just using delete command to remove some people to bin.</p>
+<p>With many commitments at hand, it is easy to overlook an event in your schedule. <code>s-add</code> allows you to add an event to your calendar and include persons from your addressbook as members of the event.</p>
 </div>
-<div class="paragraph">
-<p><em>Alias:</em> <code>remove</code> <code>-</code></p>
-</div>
-<div class="paragraph">
-<p>You can delete a group of people from the address book.</p>
-</div>
-<div class="paragraph">
-<p>Format:`delete I/INDEX INDEX &#8230;&#8203;` (or) <code>delete n/Name</code></p>
-</div>
-<div class="sidebarblock">
+<div class="imageblock">
 <div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Deletes person with given name or at these given specified <code>INDEX</code>.</p>
-</li>
-<li>
-<p>The index refer to the index numbers shown in the most recent listing.</p>
-</li>
-<li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
-</li>
-<li>
-<p>The name must be the full name of the person.</p>
-</li>
-<li>
-<p>Only one name is allowed for <code>delete</code> command.</p>
-</li>
-</ul>
-</div>
+<img src="../images/sAddCommand.png" alt="sAddCommand" width="790">
 </div>
 </div>
 <div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>list</code><br>
-<code>delete 1 2</code><br>
-Deletes the 1st and 2nd person in the address book</p>
-</li>
-<li>
-<p><code>list</code><br>
-<code>remove 1 3</code><br>
-Deletes the 1st and 3rd person in the address book</p>
-</li>
-<li>
-<p><code>list</code><br>
-<code>- 2 3</code><br>
-Deletes the 2nd and 3rd person in the address book</p>
-</li>
-<li>
-<p><code>find Betsy</code><br>
-<code>delete 1</code><br>
-Deletes the 1st person in the results of the <code>find</code> command</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="adding-a-tag-to-a-person-s-code-t-add-code-em-since-v1-1-em"><a class="link" href="#adding-a-tag-to-a-person-s-code-t-add-code-em-since-v1-1-em">Adding a tag to a person(s) : <code>t-add</code> <em>[Since v1.1]</em></a></h3>
-<div class="paragraph">
-<p>You can add a tag to specified person(s) in the address book current listing.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>t-add INDEX TAG</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>The index refers to the index number shown in the most recent listing, you can key in multiple indices as well.</p>
-</li>
-<li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
-</li>
-<li>
-<p>The TAG <strong>must not have its first word as number</strong>.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>list</code><br>
-<code>t-add 2 3 friends</code><br>
-This command adds the tag friends to the 2nd and 3rd person in the address book</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="setting-a-person-s-as-favourite-code-t-add-code-em-since-v1-3-em"><a class="link" href="#setting-a-person-s-as-favourite-code-t-add-code-em-since-v1-3-em">Setting a person(s) as "favourite" : <code>t-add</code> <em>[Since v1.3]</em></a></h3>
-<div class="paragraph">
-<p>You can mark specified person(s) from the address book as favourite.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>t-add INDEX&#8230;&#8203; favourite</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>All person(s) tagged as <code>favourite</code> by you will be shown as a coral shaped circle in front of the tag list.</p>
-</li>
-<li>
-<p>You can also use <code>fav</code>, and words containing <code>fav</code> interchangeably with <code>favourite</code>.</p>
-</li>
-<li>
-<p>The index refers to the index number shown in the most recent listing, multiple indices are allowed.</p>
-</li>
-<li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>list</code><br>
-<code>t-add 2 3 favourite</code><br>
-This command sets 2nd and 3rd person in the address book as favourite</p>
-</li>
-<li>
-<p><code>list</code><br>
-<code>t-add 2 3 fav</code><br>
-This command sets 2nd and 3rd person in the address book as favourite</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="removing-a-tag-from-person-s-code-t-remove-code-em-since-v1-2-em"><a class="link" href="#removing-a-tag-from-person-s-code-t-remove-code-em-since-v1-2-em">Removing a tag from person(s) : <code>t-remove</code> <em>[Since v1.2]</em></a></h3>
-<div class="paragraph">
-<p>You can remove a tag from specified person(s) from the address book.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>t-remove INDEX&#8230;&#8203; TAG</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>The index refers to the index number shown in the most recent listing, multiple indices are allowed.</p>
-</li>
-<li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
-</li>
-<li>
-<p>If you wish to remove a tag from all person(s) in the list, simply leave out the INDEX part.</p>
-</li>
-<li>
-<p>The [TAG] <strong>must not have its first word as a number</strong>.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>list</code><br>
-<code>t-remove 2 3 friends</code><br>
-This command removes the tag <code>friends</code> from the 2nd and 3rd person in the address book</p>
-</li>
-<li>
-<p><code>t-remove friends</code><br>
-This command removes the tag <code>friends</code> from all person(s) with the tag <code>friends</code> in the current listing</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="removing-a-person-s-from-favourite-code-t-remove-code-em-since-v1-2-em"><a class="link" href="#removing-a-person-s-from-favourite-code-t-remove-code-em-since-v1-2-em">Removing a person(s) from favourite : <code>t-remove</code> <em>[Since v1.2]</em></a></h3>
-<div class="paragraph">
-<p>You can remove specified person(s) in the address book from your <code>favourite</code> list.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>t-remove INDEX&#8230;&#8203; favourite</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>You can also use <code>fav</code>, and words containing <code>fav</code> interchangeably with <code>favourite</code>.</p>
-</li>
-<li>
-<p>If you wish to clear your favourite list, simply leave out the INDEX part.</p>
-</li>
-<li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>list</code><br>
-<code>t-remove 2 3 fav</code><br>
-This command removes the tag <code>favourite</code> from the 2nd and 3rd person in the address book</p>
-</li>
-<li>
-<p><code>t-remove fav</code><br>
-This command removes the tag <code>fav</code> from all person(s) with the the tag <code>fav</code> in the address book</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="find-the-person-s-with-given-tags-code-t-find-code-em-since-v1-3-em"><a class="link" href="#find-the-person-s-with-given-tags-code-t-find-code-em-since-v1-3-em">Find the person(s) with given tags: <code>t-find</code> <em>[Since v1.3]</em></a></h3>
-<div class="paragraph">
-<p>You can find all persons with the given tag.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>t-find TAG</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>The results show a list of person(s) who has their <code>tagName</code> matching exactly; also those with <code>tagName</code> containing in <code>TAG</code> or the other way round.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>t-find friend</code>
-This command lists all the people with tag <code>friend</code></p>
-</li>
-<li>
-<p><code>t-find frien</code>
-This command could also list all the people with tag <code>friend</code> if any</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="change-the-theme-according-to-user-input-code-theme-code-em-since-v1-5-em"><a class="link" href="#change-the-theme-according-to-user-input-code-theme-code-em-since-v1-5-em">Change the theme according to user input <code>theme</code> <em>[Since v1.5]</em></a></h3>
-<div class="paragraph">
-<p>You can change the current theme into your preferred one.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>theme THEME</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Currently there are 3 themes available, <code>Twilight</code>, <code>Sunburst</code>, <code>Minimalism</code>.</p>
-</li>
-<li>
-<p><code>Twilight</code> is dark in color; <code>Sunburst</code> is bright and lively; <code>Minimalism</code> is basic and is the default.</p>
-</li>
-<li>
-<p>You can key in <code>Twilight</code> or <code>dark</code> or <code>1</code> to change into dark theme; <code>Sunburst</code> or <code>bright</code> or <code>2`to bright theme and `Minimalism</code> or <code>default</code> or <code>3</code> to default theme.</p>
-</li>
-<li>
-<p>When you only key in <code>theme</code>, the result box would display "1.Twilight 2.Sunburst 3.Minimalism", you can simply key in the index after that to change into your preferred theme.</p>
-</li>
-<li>
-<p>The result indicates that you have successfully changed into your theme of choice.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>theme dark</code>
-This command changed to current theme to Twilight</p>
-</li>
-<li>
-<p><code>theme Twilight</code>
-This command changed to current theme to Twilight</p>
-</li>
-<li>
-<p><code>theme 1</code>
-This command changed to current theme to Twilight</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="find-the-location-of-a-person-using-google-map-code-m-show-code-em-since-v1-3-em"><a class="link" href="#find-the-location-of-a-person-using-google-map-code-m-show-code-em-since-v1-3-em">Find the location of a person using Google Map: <code>m-show</code> <em>[Since v1.3]</em></a></h3>
-<div class="paragraph">
-<p>You might find it not very convenient to only show the contact&#8217;s location as text. Therefore, iConnect allows you to see the location! By using this command, without typing in the person&#8217;s address, you can easily find the location of your friend in Google Map, which will show in the centre browser.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>m-show INDEX</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Find the person with the index number.</p>
-</li>
-<li>
-<p>Only one index number is allowed as the input.</p>
-</li>
-<li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
-</li>
-<li>
-<p>The address of the person selected will be shown visually on the browser screen.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>m-show 1</code><br>
-Shows the address of person with index 1 on the google map</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="find-the-route-from-user-s-current-location-to-the-person-seleted-code-m-route-code-em-since-v1-3-em"><a class="link" href="#find-the-route-from-user-s-current-location-to-the-person-seleted-code-m-route-code-em-since-v1-3-em">Find the route from user&#8217;s current location to the person seleted: <code>m-route</code> <em>[Since v1.3]</em></a></h3>
-<div class="paragraph">
-<p>Not only can iConnect show the location, it can also show you how to go there! Simply by adding your current location, it will show you the shortest path from your current address to your friend&#8217;s home in the Google map.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>m-route INDEX a/ADDRESS</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Find the address of the person with the index number.</p>
-</li>
-<li>
-<p>Only one index number is allowed as the input.</p>
-</li>
-<li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
-</li>
-<li>
-<p>The address entered is the current location of the user (the place they want to start from).</p>
-</li>
-<li>
-<p>A route will be shown on the map with the address as start location and selected person&#8217;s address as destination.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>m-route 1 a/Clementi Street</code><br>
-Shows the route from <code>Clementi Street</code> to the address of person with index number <code>1</code></p>
-</li>
-<li>
-<p><code>m-route 7 a/John street, block 123, #01-01</code><br>
-Shows the route from <code>John street, block 123, #01-01</code> to the address of person with index number <code>7</code></p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="schedule-an-event-s-add-em-since-v1-4-em"><a class="link" href="#schedule-an-event-s-add-em-since-v1-4-em">Schedule an Event: s-add <em>[Since v1.4]</em></a></h3>
-<div class="paragraph">
-<p>Adds an event, along with the members involved, into the calendar.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>s-add [m/INDEX INDEX…] n/NAME t/TIME d/DURATION</code></p>
+<p><em>Figure 3.16.1 : Adding an event titled 'Orientation Camp' to address book</em></p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -527,17 +141,32 @@ Shows the route from <code>John street, block 123, #01-01</code> to the address 
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-It is possible to create an event without any members.
+Mouse over the greyed-out date in your calendar to see your events for the day.
 </td>
 </tr>
 </table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+You will be notified in the result panel if the newly added event clashes with another event in your calendar.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Format: <code>s-add [m/INDEX INDEX…] n/NAME t/TIME [d/DURATION]</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>Creates an event with the given event name, event time and duration.</p>
+<p>Creates an event with the given event name, event time, duration and members.</p>
 </li>
 <li>
 <p>Members added will be reflected in the event list panel.</p>
@@ -546,10 +175,10 @@ It is possible to create an event without any members.
 <p>The index must be a positive integer 1, 2, 3, &#8230;&#8203;</p>
 </li>
 <li>
-<p>TIME will be added in the following format: yyyy-MM-dd HH:mm</p>
+<p>TIME will be added in the following format: <code>yyyy-MM-dd HH:mm</code></p>
 </li>
 <li>
-<p>Duration must be a positive integer and is in minutes.</p>
+<p>If duration is specified, it must be in the following format: <code>#d#h#m</code> (day/hour/minute)</p>
 </li>
 </ul>
 </div>
@@ -566,37 +195,37 @@ Adds a two-hour long event called ‘iConnect Conference’ on 4th of December 2
 </li>
 <li>
 <p><code>s-add n/Exam Date t/2017-12-04 14:30 d/120</code><br>
-Adds a two-hour long event called ‘Exam Date’ on 4th of December 2017 at 2:30PM into the addressbook calendar.</p>
+Adds a two-hour long event called ‘Exam Date’ on 4th of December 2017 at 2:30PM into the addressbook calendar.+</p>
+</li>
+<li>
+<p><code>s-add n/Email Reminder t/2017-12-04 14:30</code><br>
+Adds an event called ‘Email Reminder’ on 4th of December 2017 at 2:30PM into the addressbook calendar.</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="cancel-an-event-s-remove-em-since-v1-4-em"><a class="link" href="#cancel-an-event-s-remove-em-since-v1-4-em">Cancel an Event: s-remove <em>[Since v1.4]</em></a></h3>
+<h3 id="removing-an-event-from-schedule-code-s-remove-code-em-since-v1-4-em"><a class="link" href="#removing-an-event-from-schedule-code-s-remove-code-em-since-v1-4-em">Removing an Event from Schedule : <code>s-remove</code> <em>[Since v1.4]</em></a></h3>
 <div class="paragraph">
-<p>Removes an event from the calendar.</p>
+<p>Suppose you want to remove multiple events from your calendar, you can use the <code>s-remove</code> command with the indexes of events to be deleted.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/sRemoveCommand.png" alt="sRemoveCommand" width="790">
+</div>
 </div>
 <div class="paragraph">
-<p>Format: <code>s-remove e/INDEX INDEX&#8230;&#8203;</code></p>
+<p><em>Figure 3.17.1 : Removing multiple events from address book</em></p>
 </div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-It is possible to remove multiple events with a single command.
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>Format: <code>s-remove I/INDEX INDEX&#8230;&#8203;</code></p>
 </div>
 <div class="sidebarblock">
 <div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>INDEX is referring to the index of an event in the event list panel</p>
+<p><code>INDEX</code> in this case is referring to the index of events in the event list panel</p>
 </li>
 <li>
 <p>The index must be a positive integer 1, 2, 3, &#8230;&#8203;</p>
@@ -614,577 +243,12 @@ It is possible to remove multiple events with a single command.
 <div class="ulist">
 <ul>
 <li>
-<p><code>s-remove 1</code><br>
+<p><code>s-remove I/1</code><br>
 Removes a single event with the index 1.</p>
 </li>
 <li>
-<p><code>s-remove 1 2 3</code><br>
-Removes 3 events with the index 1, 2 and 3.
-=== Making a backup address book: <code>export</code> <em>[Coming in v1.4]</em></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>If you want to keep your address book clean and worry about how to get the contacts back, just export the information.</p>
-</div>
-<div class="paragraph">
-<p>You can keep a backup of your contact details to the given path.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>export PATH</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Export all the information of contacts to the given local address.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="selecting-a-person-code-select-code-em-since-v1-1-em"><a class="link" href="#selecting-a-person-code-select-code-em-since-v1-1-em">Selecting a person : <code>select</code> <em>[Since v1.1]</em></a></h3>
-<div class="paragraph">
-<p><em>Alias:</em> <code>choose</code></p>
-</div>
-<div class="paragraph">
-<p>Selects the person identified by the index number used in the last person listing.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>select INDEX</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Selects the person and loads the Google search page the person at the specified <code>INDEX</code>.</p>
-</li>
-<li>
-<p>The index refers to the index number shown in the most recent listing.</p>
-</li>
-<li>
-<p>The index <strong>must be a positive integer</strong> <code>1, 2, 3, &#8230;&#8203;</code></p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>list</code><br>
-<code>select 2</code><br>
-Selects the 2nd person in the address book</p>
-</li>
-<li>
-<p><code>find Betsy</code><br>
-<code>choose 1</code><br>
-Selects the 1st person in the results of the <code>find</code> command</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="listing-entered-commands-code-history-code-em-since-v1-1-em"><a class="link" href="#listing-entered-commands-code-history-code-em-since-v1-1-em">Listing entered commands : <code>history</code> <em>[Since v1.1]</em></a></h3>
-<div class="paragraph">
-<p><em>Alias:</em> <code>record</code></p>
-</div>
-<div class="paragraph">
-<p>Lists all the commands that you have entered in reverse chronological order.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>history</code> or <code>record</code></p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Pressing the <kbd>&uarr;</kbd> and <kbd>&darr;</kbd> arrows will display the previous and next input respectively in the command box.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="undoing-previous-command-code-undo-code"><a class="link" href="#undoing-previous-command-code-undo-code">Undoing previous command : <code>undo</code></a></h3>
-<div class="paragraph">
-<p>Restores the address book to the state before the previous <em>undoable</em> command was executed.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>undo</code></p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Undoable commands: those commands that modify the address book&#8217;s content (<code>add</code>, <code>delete</code>, <code>edit</code> and <code>clear</code>(including the corresponding shortcut command )).</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>delete 1</code><br>
-<code>list</code><br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br></p>
-</li>
-<li>
-<p><code>select 1</code><br>
-<code>list</code><br>
-<code>undo</code><br>
-The <code>undo</code> command fails as there are no undoable commands executed previously</p>
-</li>
-<li>
-<p><code>delete 1 2</code><br>
-<code>clear</code><br>
-<code>undo</code> (reverses the <code>clear</code> command)<br>
-<code>undo</code> (reverses the <code>delete 1 2</code> command)<br></p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="redoing-the-previously-undone-command-code-redo-code"><a class="link" href="#redoing-the-previously-undone-command-code-redo-code">Redoing the previously undone command : <code>redo</code></a></h3>
-<div class="paragraph">
-<p>Reverses the most recent <code>undo</code> command.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>redo</code></p>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>delete 1</code><br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br>
-<code>redo</code> (reapplies the <code>delete 1</code> command)<br></p>
-</li>
-<li>
-<p><code>delete 1 2</code><br>
-<code>redo</code><br>
-The <code>redo</code> command fails as there are no <code>undo</code> commands executed previously</p>
-</li>
-<li>
-<p><code>delete 1</code><br>
-<code>clear</code><br>
-<code>undo</code> (reverses the <code>clear</code> command)<br>
-<code>undo</code> (reverses the <code>delete 1</code> command)<br>
-<code>redo</code> (reapplies the <code>delete 1</code> command)<br>
-<code>redo</code> (reapplies the <code>clear</code> command)<br>
-=== Restoring person(s) : <code>bin-restore</code> <em>[Since v1.5]</em></p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>You find that people you wrongly deleted from address book in recycle bin, you can restore them back now.</p>
-</div>
-<div class="paragraph">
-<p>You can restore person(s) from bin to address book.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>bin-restore INDEX INDEX &#8230;&#8203;</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Recovers the people at these given specified <code>INDEX</code>.</p>
-</li>
-<li>
-<p>The index refers to the index number shown in the current list.</p>
-</li>
-<li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
-</li>
-<li>
-<p>The index must not be greater than the most recent bin size.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>bin-restore 1 2</code><br>
-Restores the 1st and 2nd person in the recycle bin</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="restoring-person-s-code-bin-delete-code-em-since-v1-5-em"><a class="link" href="#restoring-person-s-code-bin-delete-code-em-since-v1-5-em">Restoring person(s) : <code>bin-delete</code> <em>[Since v1.5]</em></a></h3>
-<div class="paragraph">
-<p>If you want to keep your recycle bin clean, you can delete some of them from recycle bin. But you can&#8217;t get them back.</p>
-</div>
-<div class="paragraph">
-<p>You can delete person(s) from bin.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>bin-delete INDEX INDEX &#8230;&#8203;</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Recovers the people at these given specified <code>INDEX</code>.</p>
-</li>
-<li>
-<p>The index refers to the index number shown in the most current list.</p>
-</li>
-<li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
-</li>
-<li>
-<p>The index must not be greater than the most recent bin size.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>bin-delete 1 2</code><br>
-Delete the 1st and 2nd person in the recycle bin</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="clearing-all-contacts-from-bin-code-bin-clear-code-em-since-v1-5-em"><a class="link" href="#clearing-all-contacts-from-bin-code-bin-clear-code-em-since-v1-5-em">Clearing all contacts from bin : <code>bin-clear</code> <em>[Since v1.5]</em></a></h3>
-<div class="paragraph">
-<p>Clears all entries in the bin.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>clear-bin</code></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="adding-the-birthday-to-a-person-code-b-add-code-em-since-v1-4-em"><a class="link" href="#adding-the-birthday-to-a-person-code-b-add-code-em-since-v1-4-em">Adding the birthday to a person : <code>b-add</code> <em>[Since v1.4]</em></a></h3>
-<div class="paragraph">
-<p>Would it be nice if you can store the birthday of your contact so that you won&#8217;t forget to send him a gift? Of course! By using this command, you are allowed to add birthday to a person. You can easily check it out using the calendar in the app. If you accidentally typed a wrong birthday, you can use this command again and enter the correct one.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>b-add INDEX BIRTHDAY</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Adds birthday to the person at the specified <code>INDEX</code>.</p>
-</li>
-<li>
-<p>The index refers to the index number shown in the most recent listing, only one index is allowed.</p>
-</li>
-<li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
-</li>
-<li>
-<p>The <code>BIRTHDAY</code> must follow the format DD/MM/YYYY, and it must be a valid date.</p>
-</li>
-<li>
-<p>To update the birthday of a specified person, use <code>b-add</code> command and enter the new <code>BIRTHDAY</code> value.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>find n/john</code><br>
-<code>b-add 1 18/10/1993</code><br>
-Adds the birthday 18/10/1993 to the first person named john in the address book</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="removing-the-birthday-from-a-person-code-b-remove-code-em-since-v1-5-em"><a class="link" href="#removing-the-birthday-from-a-person-code-b-remove-code-em-since-v1-5-em">Removing the birthday from a person : <code>b-remove</code> <em>[Since v1.5]</em></a></h3>
-<div class="paragraph">
-<p>If you add the birthday to a wrong person, you can always enter this command to remove the birthday from the person.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>b-remove INDEX</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Removes the birthday value from the person at the specified <code>INDEX</code>.</p>
-</li>
-<li>
-<p>The index refers to the index number shown in the most recent listing, only one index is allowed.</p>
-</li>
-<li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
-</li>
-<li>
-<p>The <code>BIRTHDAY</code> removed just now can be restored by using the <code>undo</code> command.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>find n/john</code><br>
-<code>b-remove 1</code><br>
-Removes the birthday from the first person named john in the address book</p>
-</li>
-<li>
-<p><code>b-remove 6</code><br>
-Removes the birthday from the 6th person in the most recent listing, and shows an error if there are less than 6 persons in the list</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="adding-a-social-media-url-to-a-person-code-l-add-code-em-coming-in-v2-0-em"><a class="link" href="#adding-a-social-media-url-to-a-person-code-l-add-code-em-coming-in-v2-0-em">Adding a social media URL to a person: <code>l-add</code> <em>[Coming in v2.0]</em></a></h3>
-<div class="paragraph">
-<p>You will find it very convenient to add some social media URLs to your friends so that you are able to see their posts and recent activities simply by clicking those social media icons in the centre person details panel. In this way, you do not need to open each social media app and search for the person before you can see their posts.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>l-add INDEX [tt/TWITTER] / [fb/FACEBOOK] / [nm/NUSMODS] / [ig/INSTAGRAM] / [gh/GITHUB]</code></p>
-</div>
-<div class="sidebarblock">
-<div class="content">
-<div class="ulist">
-<ul>
-<li>
-<p>Adds the social media link to the person at the specified <code>INDEX</code>.</p>
-</li>
-<li>
-<p>The index refers to the index number shown in the most recent listing, only one index is allowed.</p>
-</li>
-<li>
-<p>The index <strong>must be a positive integer</strong> 1, 2, 3, &#8230;&#8203;</p>
-</li>
-<li>
-<p>A prefix is required before entering the corresponding URL. Only one prefix and one URL is allowed for each command.</p>
-</li>
-<li>
-<p>This command will also update the existing value to the input value.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>Examples:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>l-add 1 fb/https://www.facebook.com/dale.sun.507</code><br>
-Adds the Facebook URL to the 1st person in the contact list</p>
-</li>
-<li>
-<p><code>l-add 3 gh/https://github.com/dalessr</code><br>
-Adds the GitHub URL to the 3rd person in the contact list</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="launching-shell-version-code-shell-code-em-coming-in-v2-0-em"><a class="link" href="#launching-shell-version-code-shell-code-em-coming-in-v2-0-em">Launching shell version : <code>shell</code> <em>[Coming in v2.0]</em></a></h3>
-<div class="paragraph">
-<p>By using this command, you can open the shell version of the app. In this way, you are able to use the app without the clutter. You can still achieve most of the operations by only using the shell, except for some features related to the browser (e.g. the Map feature).</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>shell</code></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="clearing-all-entries-code-clear-code"><a class="link" href="#clearing-all-entries-code-clear-code">Clearing all entries : <code>clear</code></a></h3>
-<div class="paragraph">
-<p>Clears all entries from the address book.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>clear</code></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="exiting-the-program-code-exit-code"><a class="link" href="#exiting-the-program-code-exit-code">Exiting the program : <code>exit</code></a></h3>
-<div class="paragraph">
-<p>Exits the program.</p>
-</div>
-<div class="paragraph">
-<p>Format: <code>exit</code></p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="saving-the-data"><a class="link" href="#saving-the-data">Saving the data</a></h3>
-<div class="paragraph">
-<p>Address book data are saved in the hard disk automatically after any command that changes the data.<br>
-There is no need to save manually.</p>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="faq"><a class="link" href="#faq">FAQ</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><strong>Q</strong>: How do I transfer my data to another Computer?<br>
-<strong>A</strong>: Install the app in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Address Book folder.</p>
-</div>
-<div class="paragraph">
-<p><strong>Q</strong>: Can I use this app without network connection?<br>
-<strong>A</strong>: You can achieve most of the commands offline except for those features using the browser window (e.g. <code>select</code> or <code>m-show</code>).</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="command-summary"><a class="link" href="#command-summary">Command Summary</a></h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Help</strong> : <code>help COMMAND_WORD</code>
-e.g. <code>help list</code></p>
-</li>
-<li>
-<p><strong>Add</strong> <code>add n/NAME p/PHONE_NUMBER e/EMAIL a/ADDRESS [t/TAG]&#8230;&#8203;</code><br>
-e.g. <code>add n/James Ho p/22224444 e/jamesho@example.com a/123, Clementi Rd, 1234665 t/friend t/colleague</code></p>
-</li>
-<li>
-<p><strong>List</strong> : <code>list</code></p>
-</li>
-<li>
-<p><strong>Edit</strong> : <code>edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [a/ADDRESS] [t/TAG]&#8230;&#8203;</code><br>
-e.g. <code>edit 2 n/James Lee e/jameslee@example.com</code></p>
-</li>
-<li>
-<p><strong>Find</strong> : <code>find [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]</code><br>
-e.g. <code>find n/James p/8765 e/jamesho@example.com a/clementi street</code></p>
-</li>
-<li>
-<p><strong>Sort</strong> : <code>sort [n/(ASC/DSC)] [p/(ASC/DSC)] [e/(ASC/DSC)] [a/(ASC/DSC)]</code><br>
-e.g. <code>sort n/ASC</code></p>
-</li>
-<li>
-<p><strong>Delete</strong> : <code>delete I/INDEX INDEX&#8230;&#8203;</code><br>
-e.g. <code>delete I/3 4</code></p>
-</li>
-<li>
-<p><strong>TagAdd</strong> : <code>t-add INDEX INDEX&#8230;&#8203; [TAG]</code><br>
-e.g. <code>t-add 3 4 friends</code></p>
-</li>
-<li>
-<p><strong>TagRemove</strong> : <code>t-remove INDEX INDEX&#8230;&#8203; [TAG]</code><br>
-e.g. <code>t-remove 3 4 friends</code></p>
-</li>
-<li>
-<p><strong>TagFind</strong> : <code>t-find [TAG]</code><br>
-e.g. <code>t-find friends</code></p>
-</li>
-<li>
-<p><strong>MapShow</strong> : <code>m-show INDEX</code><br>
-e.g. <code>m-show 1</code></p>
-</li>
-<li>
-<p><strong>MapRoute</strong> : <code>m-route INDEX a/ADDRESS</code><br>
-e.g. <code>m-show 1 a/NUS</code></p>
-</li>
-<li>
-<p><strong>ScheduleAdd</strong> : <code>s-add [m/INDEX INDEX…] n/NAME t/TIME d/DURATION</code><br>
-e.g. <code>s-add m/1 2 3 n/iConnect Conference t/2017-12-04 08:45 d/120</code></p>
-</li>
-<li>
-<p><strong>ScheduleRemove</strong> : <code>s-remove e/INDEX INDEX&#8230;&#8203;</code><br>
-e.g. <code>s-remove e/1 2 3</code></p>
-</li>
-<li>
-<p><strong>Export</strong> : <code>export PATH</code><br>
-e.g. <code>export /desktop/new_folder</code></p>
-</li>
-<li>
-<p><strong>Bindelete</strong> : <code>bin-delete INDEX INDEX&#8230;&#8203;</code><br>
-e.g. <code>bin-delete 1 2 3</code></p>
-</li>
-<li>
-<p><strong>Binrestore</strong> : <code>bin-restore INDEX INDEX&#8230;&#8203;</code><br>
-e.g. <code>bin-restore 1 2 3</code></p>
-</li>
-<li>
-<p><strong>Binclear</strong> : <code>bin-clear</code><br>
-e.g. <code>bin-clear</code></p>
-</li>
-<li>
-<p><strong>Select</strong> : <code>select INDEX</code><br>
-e.g.<code>select 2</code></p>
-</li>
-<li>
-<p><strong>History</strong> : <code>history</code></p>
-</li>
-<li>
-<p><strong>Undo</strong> : <code>undo</code></p>
-</li>
-<li>
-<p><strong>Redo</strong> : <code>redo</code></p>
-</li>
-<li>
-<p><strong>BirthdayAdd</strong> : <code>b-add INDEX BIRTHDAY</code><br>
-e.g. <code>b-add 1 18/10/1993</code></p>
-</li>
-<li>
-<p><strong>BirthdayRemove</strong> : <code>b-remove INDEX</code><br>
-e.g. <code>b-remove 1</code></p>
-</li>
-<li>
-<p><strong>LinkAdd</strong> : <code>l-add INDEX [tt/TWITTER] / [fb/FACEBOOK] / [nm/NUSMODS] / [ig/INSTAGRAM] / [gh/GITHUB]</code><br>
-e.g. <code>l-add 1 gh/https://github.com/dalessr</code></p>
-</li>
-<li>
-<p><strong>Shell</strong> : <code>shell</code></p>
-</li>
-<li>
-<p><strong>Clear</strong> : <code>clear</code></p>
-</li>
-<li>
-<p><strong>Exit</strong> : <code>exit</code></p>
+<p><code>s-remove I/1 2 3</code><br>
+Removes 3 events with the index 1, 2 and 3.</p>
 </li>
 </ul>
 </div>
@@ -1194,8 +258,18 @@ e.g. <code>l-add 1 gh/https://github.com/dalessr</code></p>
 <hr>
 <div class="sect3">
 <h4 id="justification"><a class="link" href="#justification">Justification</a></h4>
-<div class="paragraph">
-<p>{Justify the need for, and the current design (i.e. external behavior) of, the feature}</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Having the <code>sort</code> command allows users to fine tune how their person list panel should appear.</p>
+</li>
+<li>
+<p>Having the <code>s-add</code> command allows users to add events to their address book to better manage their schedule.</p>
+</li>
+<li>
+<p>Having the <code>s-remove</code> command allows users to remove events from the address book.</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect3">
@@ -1205,16 +279,17 @@ e.g. <code>l-add 1 gh/https://github.com/dalessr</code></p>
 <p><mark>Start of Extract [from: Developer Guide]</mark></p>
 </div>
 </div>
+</div>
 <div class="sect2">
 <h3 id="sorting-mechanism"><a class="link" href="#sorting-mechanism">Sorting Mechanism</a></h3>
 <div class="paragraph">
 <p>The sorting mechanism is facilitated by <code>SortCommandParser</code> and <code>SortCommand</code>, with both classes residing in the <code>Logic</code> component of the address book. Since the address book state will be modified during the sorting process, the <code>sort</code> has to be undoable.</p>
 </div>
 <div class="paragraph">
-<p><code>SortCommandParser</code> takes in an argument in the form of <code>[PREFIX]/[ORDER]</code> that defines how <code>UniquePersonList</code> should be sorted, with <code>PREFIX</code> specifying the sort type and <code>ORDER</code> specifying the sort order. It first checks for validity against a regular expression. Once verified, the argument will be tokenized to identify the sort order and sort type. A <code>SortCommand</code> object is then created with the identified sort type and sort order.</p>
+<p><code>SortCommandParser</code> takes in an argument in the form of <code>[PREFIX]/[ORDER]</code> that defines how <code>UniquePersonList</code> should be sorted. You may customise the sort operation, with <code>PREFIX</code> specifying the sort type and <code>ORDER</code> specifying the sort order. It first checks for validity against a regular expression. Once verified, the argument will be tokenized to identify your specified sort order and sort type. A <code>SortCommand</code> object is then created with the identified sort type and sort order.</p>
 </div>
 <div class="paragraph">
-<p>The <code>PREFIX</code> can be any of the following: <code>n/</code> for sorting persons by name, <code>p/</code> for sorting persons by phone number, <code>e/</code> for sorting persons by email, <code>a/</code> for sorting persons by address and <code>t/</code> for sorting persons by the time they was first added into the address book. The <code>ORDER</code> can be either <code>asc</code> for sorting in ascending order or <code>dsc</code> for sorting in descending order. Suppose both <code>PREFIX</code> and <code>ORDER</code> are not specified, the argument will be defaulted to name in ascending order. Alternatively, suppose the <code>ORDER</code> is not specified, it will be defaulted to ascending.</p>
+<p>The <code>PREFIX</code> can be any of the following: <code>n/</code> for sorting persons by name, <code>p/</code> for sorting persons by phone number, <code>e/</code> for sorting persons by email, <code>a/</code> for sorting persons by address and <code>t/</code> for sorting persons by the time they was first added into the address book. The <code>ORDER</code> can be either <code>asc</code> for sorting in ascending order or <code>dsc</code> for sorting in descending order. Suppose both <code>PREFIX</code> and <code>ORDER</code> are not specified, your sort operation will be defaulted to name in ascending order. Alternatively, suppose the <code>ORDER</code> is not specified, it will be defaulted to ascending.</p>
 </div>
 <div class="paragraph">
 <p>Upon execution of <code>SortCommand</code>, a <code>Comparator&lt;ReadOnlyPerson&gt;</code> will be initialised based on the sort type and sort order it receives. A <code>sortPerson</code> function call will be made to <code>Model</code>, which propagates down to <code>UniquePersonList</code>, where the sorting of the <code>internalList</code> occurs. Since sorting of <code>internalList</code> results in the change of state to address book, <code>SortCommand</code> is to be implemented as an <code>UndoableCommand</code>.</p>
@@ -1223,6 +298,9 @@ e.g. <code>l-add 1 gh/https://github.com/dalessr</code></p>
 <div class="content">
 <img src="../images/LogicCommandClassDiagram_Sort.png" alt="LogicCommandClassDiagram Sort" width="800">
 </div>
+</div>
+<div class="paragraph">
+<p><em>Figure 4.5.1 : Structure of Sort Command in the Logic Component</em></p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1243,6 +321,9 @@ Implementation of Sorting Mechanism requires both the manipulation of <code>Logi
 <div class="content">
 <img src="../images/SortPersonSdForLogic.png" alt="SortPersonSdForLogic" width="800">
 </div>
+</div>
+<div class="paragraph">
+<p><em>Figure 4.5.2 : Interactions Inside the Logic Component for the <code>sort n/asc</code> Command</em></p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1287,6 +368,144 @@ If the list is found to be empty, an <code>EmptyListException</code> will be thr
 <strong>Pros:</strong> Can be achieved by restarting app.<br>
 <strong>Cons:</strong> Requires restarting of app which waste time and processing resources when list is long.<br></p>
 </div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="scheduler-feature"><a class="link" href="#scheduler-feature">Scheduler Feature</a></h3>
+<div class="paragraph">
+<p>The <code>ScheduleAddCommand</code> allows you to add an <code>Event</code> into address book and is stored in an ArrayList-like <code>UniqueEventList</code> in <code>AddressBook</code>. Each event may have a number of members and they are specified by their <code>Index</code> in the <code>PersonListPanel</code> during the user input phase. The <code>ScheduleRemoveCommand</code> allows you to remove an <code>Event</code> from address book by inputting the <code>Index</code> of an event in the <code>EventListPanel</code>. Note that you may input more than one <code>Index</code> to remove multiple events at a time.</p>
+</div>
+<div class="paragraph">
+<p>Since both command requires the modification of <code>AddressBook</code> contents, they implemented as an UndoableCommand.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/LogicCommandClassDiagram_ScheduleCommands.png" alt="LogicCommandClassDiagram ScheduleCommands" width="800">
+</div>
+</div>
+<div class="paragraph">
+<p><em>Figure 4.14.1 : Structure of Schedule-related Commands in the Logic Component</em></p>
+</div>
+<div class="sidebarblock">
+<div class="content">
+<div class="paragraph">
+<p><strong>Event-Person Relationship</strong><br></p>
+</div>
+<div class="paragraph">
+<p>Each time an <code>Event</code> is created, four other composite objects are created as well:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>EventName</code> contains a single variable <code>fullName</code> that is verified to only contain alphanumeric characters and spaces and should not be blank.</p>
+</li>
+<li>
+<p><code>EventTime</code> stores and handles the start time, end time and the duration of an event. Since the concept of start and end time involves duration, <code>EvenTime</code> has to have an instance of an event’s duration despite us having <code>EventDuration</code>. You can also check an event’s status, with the function <code>isUpcoming</code> which returns a boolean value.</p>
+</li>
+<li>
+<p><code>EventDuration</code> stores the duration of an event and may range from having a value of 0 to days.</p>
+</li>
+<li>
+<p><code>MemberList</code> stores a list of <code>Person</code> who is involved with the event and may be empty. Each element is synced to a <code>Person</code> in the master <code>UniquePersonList</code> in <code>AddressBook</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Each <code>Person</code> maintains its own <code>UniqueEventList</code> with each element synced to an <code>Event</code> in the master <code>UniqueEventList</code> in <code>AddressBook</code>. In otherwords, both object references each other.</p>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p><code>UniqueEventList</code> functions as a List of <code>Events</code> where every element is unique and the uniqueness of an event is defined by its name, time and duration. If two different events have the same value for the three attributes, it is considered to be a duplicate. You can also check if an <code>Event</code> clashes with any of the events in <code>UniqueEventList</code>, by running the <code>hasClashes</code> function which returns true if a clash exist.</p>
+</div>
+<div class="paragraph">
+<p><strong>Adding an Event to Schedule</strong></p>
+</div>
+<div class="paragraph">
+<p>Each time <code>ScheduleAddCommand</code> is executed, <code>AddressBook</code> first checks if there are any <code>Person</code> involved in the <code>Event</code>. Suppose no <code>Index</code> was specified in the user input, it signifies that the event has no members and is directly added into the <code>UniqueEventList</code> in <code>AddressBook</code>. However, suppose a number of <code>Person</code> has been selected as members in the input, a list of new <code>Person</code> object will be created and events will be added through a person update. Each <code>Person</code> in the new list reflects a <code>Person</code> that was selected, with the addition of the <code>Event</code>, that is to be added, in his/her <code>UniqueEventList</code>. The list of new <code>Person</code> will then be used to update its respective counterpart in <code>AddressBook</code>, where it undergoes a direct replacement followed by a two <code>Event</code>-related syncing. This sync process will result in the adding of events in the master <code>UniqueEventList</code> of <code>AddressBook</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>Syncing the Event-Person Relationship</strong></p>
+</div>
+<div class="paragraph">
+<p>The first sync checks that every event of a <code>Person</code> exist is the master <code>UniqueEventList</code> in <code>AddressBook</code>, and points each event to an event in the master list. Suppose an event does not exist in the master list, it is added to the master list before the syncing process. The second sync updates all the <code>Event</code> of each newly edited <code>Person</code> to have their <code>MemberList</code> point to a <code>Person</code> in the master person list in <code>AddressBook</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="java">    <span class="comment">/**
+     * Ensures that every event in this person:
+     * - exists in the master list {@link #events}
+     * - points to a Event object in the master list
+     */</span>
+    <span class="directive">private</span> <span class="type">void</span> syncMasterEventListWith(Person person) {
+        <span class="directive">final</span> UniqueEventList personEvents = <span class="keyword">new</span> UniqueEventList(person.getEvents());
+        events.mergeFrom(personEvents);
+
+        <span class="comment">// Create map with values = event object references in the master list</span>
+        <span class="comment">// used for checking person event references</span>
+        <span class="directive">final</span> <span class="predefined-type">Map</span>&lt;<span class="predefined-type">Event</span>, <span class="predefined-type">Event</span>&gt; masterEventObjects = <span class="keyword">new</span> <span class="predefined-type">HashMap</span>&lt;&gt;();
+        events.forEach(event -&gt; masterEventObjects.put(event, event));
+
+        <span class="comment">// Rebuild the personal list of events to point to the relevant events in the master event list.</span>
+        <span class="directive">final</span> <span class="predefined-type">Set</span>&lt;<span class="predefined-type">Event</span>&gt; correctEventReferences = <span class="keyword">new</span> <span class="predefined-type">HashSet</span>&lt;&gt;();
+        personEvents.forEach(event -&gt; correctEventReferences.add(masterEventObjects.get(event)));
+        person.setEvents(correctEventReferences);
+    }
+
+    <span class="comment">/**
+     * Ensures that every member in this event:
+     * - points to a person object in the master person list
+     */</span>
+    <span class="directive">private</span> <span class="type">void</span> syncMasterEventListMembers(<span class="predefined-type">Event</span> event) {
+
+        <span class="comment">// Create map with values = person object references in the master list</span>
+        <span class="comment">// used for checking member references</span>
+        <span class="directive">final</span> <span class="predefined-type">Map</span>&lt;Person, Person&gt; masterPersonObjects = <span class="keyword">new</span> <span class="predefined-type">HashMap</span>&lt;&gt;();
+        <span class="local-variable">this</span>.persons.forEach(person -&gt; masterPersonObjects.put(person, person));
+
+        <span class="predefined-type">ArrayList</span>&lt;ReadOnlyPerson&gt; eventMembers = <span class="keyword">new</span> <span class="predefined-type">ArrayList</span>&lt;&gt;();
+        <span class="local-variable">this</span>.persons.asObservableList().stream().filter(readOnlyPerson -&gt;
+                readOnlyPerson.getEvents().contains(event)).forEach(eventMembers::add);
+
+
+        <span class="comment">// Rebuild the list of member to point to the relevant person in the master person list.</span>
+        <span class="directive">final</span> <span class="predefined-type">Set</span>&lt;Person&gt; correctPersonReferences = <span class="keyword">new</span> <span class="predefined-type">HashSet</span>&lt;&gt;();
+        eventMembers.forEach(person -&gt; correctPersonReferences.add(masterPersonObjects.get(person)));
+        event.setMemberList(<span class="keyword">new</span> MemberList(
+                <span class="keyword">new</span> <span class="predefined-type">ArrayList</span>&lt;&gt;(correctPersonReferences)));
+    }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The two syncing process ensures the <code>MemberList</code> of each <code>Event</code> points to a <code>Person</code> in master person list and also having each element in <code>UniqueEventList</code> of <code>Person</code> points to an event in the master event list.</p>
+</div>
+<div class="paragraph">
+<p><strong>Removing an Event from Schedule</strong></p>
+</div>
+<div class="paragraph">
+<p>Similar to the adding of events, the removing of events is also done through an update and sync process. Suppose an <code>Event</code> has an empty <code>MemberList</code>, the specified <code>Event</code> will be directly removed from the master <code>UniqueEventList</code> in <code>AddressBook</code>. However, if the <code>Event</code> that is to be deleted has members involved, it will be removed through the same update and sync process.</p>
+</div>
+<div class="sect3">
+<h4 id="design-considerations-2"><a class="link" href="#design-considerations-2">Design Considerations</a></h4>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Keeping track of the duration of an <code>Event</code><br>
+<strong>Alternative 1 (current choice):</strong> Create a separate object named <code>EventDuration</code>, despite having a duration stored in <code>EventTime</code><br>
+<strong>Pros:</strong> Implementing a separate object for duration follows the OOP model and also facilitates specific operations in the <code>Logic</code> and <code>UI</code> component. Firstly, duration has its own set of parsing and validation criteria during the input phase, justifying the need for separation. Secondly, duration has to be implemented as a separate object for it to appear as a standalone UI label. Since binding of <code>textProperty</code> read the <code>toString</code> of the binded <code>ObjectProperty</code>, duration has to be stored as a separate <code>ObjectProperty</code>.<br>
+<strong>Cons:</strong> Both <code>EventTime</code> and <code>EventDuration</code> has an instance of duration.<br>
+<strong>Alternative 2:</strong> Stores duration of event in <code>EventTime</code> only<br>
+<strong>Pros:</strong> Lesser code to work with.<br>
+<strong>Cons:</strong> Unable to output duration as a standalone element on the UI due to the restrictions of <code>EventCard</code> label bindings.<br></p>
+</div>
+<hr>
+<div class="paragraph">
+<p><strong>Aspect:</strong> Uniqueness of an <code>Event</code><br>
+<strong>Alternative 1 (current choice):</strong> Have uniqueness defined by only <code>EventName</code>, <code>EventTime</code> and <code>EventDuration</code><br>
+<strong>Pros:</strong> The absence of <code>MemberList</code> allows for a more straightforward update and sync process during the application&#8217;s initialisation phase. All <code>Person</code> and <code>Event</code> objects are first read and create from <code>addressbook.xml</code> without any referencing to each other. Suppose <code>MemberList</code> is included as part of the uniqueness check, it has to be built before the update process. However, the correct <code>Person</code> does not exist since no event has been added to any <code>Person</code>.<br>
+<strong>Cons:</strong> Uniqueness comparison is not succinct.<br>
+<strong>Alternative 2:</strong> Include <code>MemberList</code> as part of uniqueness test<br>
+<strong>Pros:</strong> Able to create an <code>Event</code> with the the same name, time and duration as long as <code>MemberList</code> elements are different.<br>
+<strong>Cons:</strong> Uniqueness comparison is too lenient and syncing process may be unnecessarily complicated.<br></p>
+</div>
 <div class="paragraph">
 <p><mark>End of Extract</mark></p>
 </div>
@@ -1294,9 +513,21 @@ If the list is found to be empty, an <code>EmptyListException</code> will be thr
 </div>
 </div>
 <div class="sect2">
-<h3 id="enhancement-proposed-add-command-code-remark-code"><a class="link" href="#enhancement-proposed-add-command-code-remark-code">Enhancement Proposed: Add command <code>remark</code></a></h3>
+<h3 id="enhancement-proposed"><a class="link" href="#enhancement-proposed">Enhancement Proposed:</a></h3>
 <div class="paragraph">
-<p>{Explain similar to the Undo/Redo feature above.}</p>
+<p><mark>Start of Extract [from: User Guide]</mark></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="fetching-nusmods-timetable-into-calendar-code-s-nusmods-code-em-coming-in-v2-0-em"><a class="link" href="#fetching-nusmods-timetable-into-calendar-code-s-nusmods-code-em-coming-in-v2-0-em">Fetching NUSMods timetable into calendar : <code>s-nusmods</code> <em>[Coming in v2.0]</em></a></h3>
+<div class="paragraph">
+<p>By using this command, you can fetch your timetable from NUSMods into your calendar</p>
+</div>
+<div class="paragraph">
+<p>Format: <code>s-nusmods l/LINK</code></p>
+</div>
+<div class="paragraph">
+<p><mark>End of Extract</mark></p>
 </div>
 </div>
 <div class="sect2">
@@ -1304,25 +535,23 @@ If the list is found to be empty, an <code>EmptyListException</code> will be thr
 <div class="ulist">
 <ul>
 <li>
-<p>Add interactive Calendar and Event list panel (Pull requests <a href="https://github.com/CS2103AUG2017-W09-B3/main/pull/88">#88</a>)</p>
+<p>Add interactive Calendar to UI (Pull requests <a href="https://github.com/CS2103AUG2017-W09-B3/main/pull/88">#88</a>)</p>
+</li>
+<li>
+<p>Add Event list panel and card to UI (Pull requests <a href="https://github.com/CS2103AUG2017-W09-B3/main/pull/88">#88</a>)</p>
+</li>
+<li>
+<p>Fix memory leak issue regarding overwritten listeners in program (Pull requests <a href="https://github.com/CS2103AUG2017-W09-B3/main/pull/125" class="bare">https://github.com/CS2103AUG2017-W09-B3/main/pull/125</a>)</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 </div>
-<div class="sect1">
-<h2 id="project-powerpointlabs"><a class="link" href="#project-powerpointlabs">Project: PowerPointLabs</a></h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>{Optionally (not graded), you may include other projects in your portfolio.}</p>
-</div>
-</div>
-</div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-12 05:36:01 +00:00
+Last updated 2017-11-13 12:32:52 +00:00
 </div>
 </div>
 </body>
