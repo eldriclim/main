@@ -1,5 +1,534 @@
 # eldriclim
-###### /java/seedu/address/logic/commands/SortCommandTest.java
+###### \java\seedu\address\logic\commands\ScheduleAddCommandTest.java
+``` java
+public class ScheduleAddCommandTest {
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+    @Test
+    public void testScheduleAddCommand() throws Exception {
+        EventName eventName = new EventName("Event name");
+        EventTime eventTime = new EventTime(LocalDateTime.now(), Duration.ofMinutes(5));
+        EventDuration eventDuration = new EventDuration(Duration.ofMinutes(5));
+
+        Set<Index> uniqueMemberIndexes = new HashSet<>();
+        uniqueMemberIndexes.add(new Index(0));
+
+        ModelStubAcceptingEventAdded modelStub = new ModelStubAcceptingEventAdded();
+
+        ScheduleAddCommand command;
+        command = getScheduleAddCommand(eventName, eventTime, eventDuration,
+                uniqueMemberIndexes, modelStub);
+
+        CommandResult commandResult = command.execute();
+
+        ArrayList<ReadOnlyPerson> expectedMember = new ArrayList<>();
+        expectedMember.add(TypicalPersons.ALICE);
+        Event event = new Event(new MemberList(expectedMember), eventName, eventTime, eventDuration);
+
+        assertEquals(commandResult.feedbackToUser,
+                String.format(ScheduleAddCommand.MESSAGE_SUCCESS, event.toString()));
+
+    }
+
+    @Test
+    public void invalidIndexTest() throws Exception {
+
+        thrown.expectMessage(ScheduleAddCommand.ERROR_INVALID_INDEX);
+
+        ModelStubAcceptingEventAdded modelStub = new ModelStubAcceptingEventAdded();
+
+        EventName eventName = new EventName("Event name");
+        EventTime eventTime = new EventTime(LocalDateTime.now(), Duration.ofMinutes(5));
+        EventDuration eventDuration = new EventDuration(Duration.ofMinutes(5));
+
+        Set<Index> uniqueMemberIndexes = new HashSet<>();
+        uniqueMemberIndexes.add(new Index(modelStub.getFilteredPersonList().size()));
+
+
+        ScheduleAddCommand command;
+        command = getScheduleAddCommand(eventName, eventTime, eventDuration,
+                uniqueMemberIndexes, modelStub);
+
+        command.execute();
+    }
+
+    @Test
+    public void testScheduleRemoveEquals() throws Exception {
+
+        EventName eventName = new EventName("Event name");
+        EventName eventName1 = new EventName("Event name1");
+        EventTime eventTime = new EventTime(LocalDateTime.now(), Duration.ofMinutes(5));
+        EventTime eventTime1 = new EventTime(LocalDateTime.now(), Duration.ofMinutes(2));
+        EventDuration eventDuration = new EventDuration(Duration.ofMinutes(5));
+        EventDuration eventDuration1 = new EventDuration(Duration.ofMinutes(2));
+        Set<Index> uniqueMemberIndexes = new HashSet<>(Arrays.asList(new Index(0)));
+        Set<Index> uniqueMemberIndexes1 = new HashSet<>(Arrays.asList(new Index(1)));
+
+
+        ScheduleAddCommand s1 = new ScheduleAddCommand(eventName, eventTime, eventDuration, uniqueMemberIndexes);
+        ScheduleAddCommand s2Same = new ScheduleAddCommand(eventName, eventTime, eventDuration, uniqueMemberIndexes);
+        ScheduleAddCommand s3DifferentName = new ScheduleAddCommand(eventName1, eventTime, eventDuration,
+                uniqueMemberIndexes);
+
+        //eventTime and eventDuration has to be similar due to a check done in Event class
+        ScheduleAddCommand s4DifferentTime = new ScheduleAddCommand(eventName, eventTime1, eventDuration1,
+                uniqueMemberIndexes);
+
+        ScheduleAddCommand s5DifferentMember = new ScheduleAddCommand(eventName, eventTime, eventDuration,
+                uniqueMemberIndexes1);
+
+        assertTrue(s1.equals(s2Same));
+        assertFalse(s1.equals(s3DifferentName));
+        assertFalse(s1.equals(s4DifferentTime));
+        assertFalse(s1.equals(s5DifferentMember));
+    }
+
+    /**
+     * Generates a new ScheduleAddCommand with the details of the given event.
+     */
+    private ScheduleAddCommand getScheduleAddCommand(EventName eventName, EventTime eventTime,
+                                                     EventDuration eventDuration, Set<Index> uniqueMemberIndexes,
+                                                     Model model) {
+        ScheduleAddCommand command = new ScheduleAddCommand(eventName, eventTime,
+                eventDuration, uniqueMemberIndexes);
+        command.setData(model, new CommandHistory(), new UndoRedoStack());
+        return command;
+    }
+
+    /**
+     * A default model stub that have all of the methods failing.
+     */
+    private class ModelStub implements Model {
+        @Override
+        public void addPerson(ReadOnlyPerson person) throws DuplicatePersonException {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void restorePerson(ReadOnlyPerson person) throws DuplicatePersonException, PersonNotFoundException {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void restorePerson(ArrayList<ReadOnlyPerson> person) throws DuplicatePersonException,
+                PersonNotFoundException {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void sortPerson(Comparator<ReadOnlyPerson> sortType, boolean isDescending) throws EmptyListException {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void resetData(ReadOnlyAddressBook newData, ReadOnlyAddressBook newRecycleibin) {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void resetRecyclebin(ReadOnlyAddressBook newData) {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyAddressBook getAddressBook() {
+            fail("This method should not be called.");
+            return null;
+        }
+
+        @Override
+        public ReadOnlyAddressBook getRecycleBin() {
+            fail("This method should not be called.");
+            return null;
+        }
+
+        @Override
+        public void deletePerson(ReadOnlyPerson target) throws PersonNotFoundException {
+            fail("This method should not be called.");
+        }
+
+        public void deletePerson(ArrayList<ReadOnlyPerson> targets) throws PersonNotFoundException {
+            fail("This method should not be called");
+        }
+
+        public void deleteBinPerson(ArrayList<ReadOnlyPerson> targets) throws PersonNotFoundException {
+            fail("This method should not be called");
+        }
+
+        @Override
+        public void updatePerson(ReadOnlyPerson target, ReadOnlyPerson editedPerson)
+                throws DuplicatePersonException {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<ReadOnlyPerson> getFilteredPersonList() {
+            fail("This method should not be called.");
+            return null;
+        }
+
+        public ObservableList<ReadOnlyPerson> getRecycleBinPersonList() {
+            fail("This method should not be called.");
+            return null;
+        }
+
+        @Override
+        public ObservableList<Event> getEventList() {
+            fail("This method should not be called.");
+            return null;
+        }
+
+        @Override
+        public void updateFilteredPersonList(Predicate<ReadOnlyPerson> predicate) {
+            fail("This method should not be called.");
+        }
+
+        public void updateFilteredBinList(Predicate<ReadOnlyPerson> predicate) {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void updateListOfPerson(ArrayList<ReadOnlyPerson> targets, ArrayList<ReadOnlyPerson> editedPersons)
+                throws DuplicatePersonException, PersonNotFoundException {
+            fail("This method should not be called.");
+
+        }
+
+        @Override
+        public void addEvent(ArrayList<ReadOnlyPerson> targets, ArrayList<ReadOnlyPerson> editedPersons, Event event)
+                throws DuplicateEventException, DuplicatePersonException, PersonNotFoundException {
+            fail("This method should not be called.");
+
+        }
+
+        @Override
+        public void removeEvents(ArrayList<ReadOnlyPerson> targets, ArrayList<ReadOnlyPerson> editedPersons,
+                                 ArrayList<Event> toRemoveEvents)
+                throws DuplicatePersonException, PersonNotFoundException, EventNotFoundException {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void sortEvents(LocalDate date) {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasEvenClashes(Event event) {
+            fail("This method should not be called.");
+            return false;
+        }
+
+    }
+
+    /**
+     * A Model stub that always accept the event being added.
+     */
+    private class ModelStubAcceptingEventAdded extends ModelStub {
+        final ArrayList<Event> eventsAdded = new ArrayList<>();
+
+        @Override
+        public void addEvent(ArrayList<ReadOnlyPerson> targets, ArrayList<ReadOnlyPerson> editedPersons, Event event)
+                throws DuplicateEventException, DuplicatePersonException, PersonNotFoundException {
+
+            ArrayList<ReadOnlyPerson> members = new ArrayList<>();
+            targets.forEach(p -> members.add(p));
+
+            event.setMemberList(new MemberList(targets));
+            eventsAdded.add(new Event(event));
+        }
+
+        @Override
+        public ObservableList<ReadOnlyPerson> getFilteredPersonList() {
+            ArrayList<ReadOnlyPerson> stubList = new ArrayList<>();
+            stubList.add(TypicalPersons.ALICE);
+            stubList.add(TypicalPersons.BOB);
+            stubList.add(TypicalPersons.CARL);
+
+            return FXCollections.observableArrayList(stubList);
+        }
+
+        @Override
+        public ReadOnlyAddressBook getAddressBook() {
+            return new AddressBook();
+        }
+
+        @Override
+        public ReadOnlyAddressBook getRecycleBin() {
+            return new AddressBook();
+        }
+
+        @Override
+        public boolean hasEvenClashes(Event event) {
+            return false;
+        }
+
+        //Overwrite default model stub as filtered list is updated during execution
+        @Override
+        public void updateFilteredPersonList(Predicate<ReadOnlyPerson> predicate) {
+
+        }
+    }
+}
+```
+###### \java\seedu\address\logic\commands\ScheduleRemoveCommandTest.java
+``` java
+public class ScheduleRemoveCommandTest {
+
+    @Test
+    public void testScheduleRemoveCommand() throws Exception {
+        Set<Index> eventListIndex = new HashSet<>();
+        eventListIndex.add(new Index(0));
+
+        ModelStubAcceptingEventRemoved modelStub = new ModelStubAcceptingEventRemoved();
+
+        ScheduleRemoveCommand command;
+
+        command = getScheduleRemoveCommand(eventListIndex, modelStub);
+
+        CommandResult commandResult = command.execute();
+
+
+        ArrayList<ReadOnlyPerson> members = new ArrayList<>();
+        members.add(TypicalPersons.ALICE);
+
+        Event expectedEventToRemove = new Event(new MemberList(members), new EventName("Event name"),
+                new EventTime(LocalDateTime.now(), Duration.ofMinutes(5)),
+                new EventDuration(Duration.ofMinutes(5)));
+
+        assertEquals(commandResult.feedbackToUser,
+                String.format(ScheduleRemoveCommand.MESSAGE_SUCCESS, expectedEventToRemove.toString()));
+    }
+
+    public ScheduleRemoveCommand getScheduleRemoveCommand(Set<Index> eventListIndex, Model model) {
+        ScheduleRemoveCommand command = new ScheduleRemoveCommand(eventListIndex);
+        command.setData(model, new CommandHistory(), new UndoRedoStack());
+        return command;
+    }
+
+    @Test
+    public void testScheduleRemoveEquals() {
+        ScheduleRemoveCommand s1 = new ScheduleRemoveCommand(new HashSet<>(Arrays.asList(new Index(0))));
+        ScheduleRemoveCommand s2 = new ScheduleRemoveCommand(new HashSet<>(Arrays.asList(new Index(0))));
+        ScheduleRemoveCommand s3 = new ScheduleRemoveCommand(new HashSet<>(Arrays.asList(new Index(1))));
+
+        assertTrue(s1.equals(s2));
+        assertFalse(s1.equals(s3));
+    }
+
+    /**
+     * A default model stub that have all of the methods failing.
+     */
+    private class ModelStub implements Model {
+        @Override
+        public void addPerson(ReadOnlyPerson person) throws DuplicatePersonException {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void restorePerson(ReadOnlyPerson person) throws DuplicatePersonException, PersonNotFoundException {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void restorePerson(ArrayList<ReadOnlyPerson> person) throws DuplicatePersonException,
+                PersonNotFoundException {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void sortPerson(Comparator<ReadOnlyPerson> sortType, boolean isDescending) throws EmptyListException {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void resetData(ReadOnlyAddressBook newData, ReadOnlyAddressBook newRecycleibin) {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void resetRecyclebin(ReadOnlyAddressBook newData) {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public ReadOnlyAddressBook getAddressBook() {
+            fail("This method should not be called.");
+            return null;
+        }
+
+        @Override
+        public ReadOnlyAddressBook getRecycleBin() {
+            fail("This method should not be called.");
+            return null;
+        }
+
+        @Override
+        public void deletePerson(ReadOnlyPerson target) throws PersonNotFoundException {
+            fail("This method should not be called.");
+        }
+
+        public void deletePerson(ArrayList<ReadOnlyPerson> targets) throws PersonNotFoundException {
+            fail("This method should not be called");
+        }
+
+        public void deleteBinPerson(ArrayList<ReadOnlyPerson> targets) throws PersonNotFoundException {
+            fail("This method should not be called");
+        }
+
+        @Override
+        public void updatePerson(ReadOnlyPerson target, ReadOnlyPerson editedPerson)
+                throws DuplicatePersonException {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public ObservableList<ReadOnlyPerson> getFilteredPersonList() {
+            fail("This method should not be called.");
+            return null;
+        }
+
+        public ObservableList<ReadOnlyPerson> getRecycleBinPersonList() {
+            fail("This method should not be called.");
+            return null;
+        }
+
+        @Override
+        public ObservableList<Event> getEventList() {
+            fail("This method should not be called.");
+            return null;
+        }
+
+        @Override
+        public void updateFilteredPersonList(Predicate<ReadOnlyPerson> predicate) {
+            fail("This method should not be called.");
+        }
+
+        public void updateFilteredBinList(Predicate<ReadOnlyPerson> predicate) {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void updateListOfPerson(ArrayList<ReadOnlyPerson> targets, ArrayList<ReadOnlyPerson> editedPersons)
+                throws DuplicatePersonException, PersonNotFoundException {
+            fail("This method should not be called.");
+
+        }
+
+        @Override
+        public void addEvent(ArrayList<ReadOnlyPerson> targets, ArrayList<ReadOnlyPerson> editedPersons, Event event)
+                throws DuplicateEventException, DuplicatePersonException, PersonNotFoundException {
+            fail("This method should not be called.");
+
+        }
+
+        @Override
+        public void removeEvents(ArrayList<ReadOnlyPerson> targets, ArrayList<ReadOnlyPerson> editedPersons,
+                                 ArrayList<Event> toRemoveEvents)
+                throws DuplicatePersonException, PersonNotFoundException, EventNotFoundException {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public void sortEvents(LocalDate date) {
+            fail("This method should not be called.");
+        }
+
+        @Override
+        public boolean hasEvenClashes(Event event) {
+            fail("This method should not be called.");
+            return false;
+        }
+
+    }
+
+    /**
+     * A Model stub that always accept the event being removed.
+     */
+    private class ModelStubAcceptingEventRemoved extends ModelStub {
+
+        private ArrayList<Event> eventList = new ArrayList<>();
+        private AddressBook addressBookStub = new AddressBook();
+        private ObservableList<ReadOnlyPerson> filteredPersonListStub;
+
+        @Override
+        public void removeEvents(ArrayList<ReadOnlyPerson> targets, ArrayList<ReadOnlyPerson> editedPersons,
+                                 ArrayList<Event> toRemoveEvents)
+                throws DuplicatePersonException, PersonNotFoundException, EventNotFoundException {
+
+            toRemoveEvents.forEach(e -> eventList.remove(e));
+        }
+
+        @Override
+        public ObservableList<ReadOnlyPerson> getFilteredPersonList() {
+            ArrayList<ReadOnlyPerson> stubList = new ArrayList<>();
+            stubList.add(TypicalPersons.ALICE);
+            stubList.add(TypicalPersons.BOB);
+            stubList.add(TypicalPersons.CARL);
+
+            return FXCollections.observableArrayList(stubList);
+        }
+
+        @Override
+        public ReadOnlyAddressBook getAddressBook() {
+            return addressBookStub;
+        }
+
+        @Override
+        public ReadOnlyAddressBook getRecycleBin() {
+            return new AddressBook();
+        }
+
+        /**
+         * Returns an ObservableList of Events with a single event containing one members.
+         *
+         * @return
+         */
+        @Override
+        public ObservableList<Event> getEventList() {
+            try {
+                eventList.clear();
+                Event e1 = new Event(new MemberList(), new EventName("Event name"),
+                        new EventTime(LocalDateTime.now(), Duration.ofMinutes(5)),
+                        new EventDuration(Duration.ofMinutes(5)));
+
+                eventList.add(e1);
+
+                Person alice = new PersonBuilder().withName("Alice Pauline")
+                        .withAddress("123, Jurong West Ave 6, #08-111").withEmail("alice@example.com")
+                        .withPhone("85355255")
+                        .withTags("friends").build();
+                alice.setEvents(new HashSet<>(Arrays.asList(eventList.get(0))));
+
+                ReadOnlyPerson aliceReadOnly = new Person(alice);
+                addressBookStub.addPerson(aliceReadOnly);
+                addressBookStub.addPerson(TypicalPersons.BOB);
+                addressBookStub.addPerson(TypicalPersons.CARL);
+                ArrayList<ReadOnlyPerson> members = new ArrayList<>();
+                members.add(aliceReadOnly);
+
+                e1.setMemberList(new MemberList(members));
+
+            } catch (IllegalValueException e) {
+                //Should not reach this point, try-catch is used to bypass Override restriction
+                e.printStackTrace();
+            }
+
+            return FXCollections.observableArrayList(eventList);
+
+        }
+
+        @Override
+        public void updateFilteredPersonList(Predicate<ReadOnlyPerson> predicate) {
+            filteredPersonListStub = new FilteredList<ReadOnlyPerson>(addressBookStub.getPersonList());
+            filteredPersonListStub.filtered(predicate);
+        }
+    }
+}
+```
+###### \java\seedu\address\logic\commands\SortCommandTest.java
 ``` java
 public class SortCommandTest {
 
@@ -281,7 +810,118 @@ public class SortCommandTest {
 
 }
 ```
-###### /java/seedu/address/logic/parser/SortCommandParserTest.java
+###### \java\seedu\address\logic\parser\ScheduleAddCommandParserTest.java
+``` java
+public class ScheduleAddCommandParserTest {
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+    final String fullArgs = " m/1 n/Event name t/2017-01-01 10:00 d/5m";
+    final String noMembersArgs = "  n/Event name t/2017-01-01 10:00 d/5m";
+    final String noDurationArgs = " m/1 n/Event name t/2017-01-01 10:00";
+    final String noMemberAndDurationArgs = " n/Event name t/2017-01-01 10:00";
+
+    final String invalidDateFormat = " m/1 n/Event name t/2017-02-29 10:00 d/5m";
+    final String invalidDurationFormat = " n/Event name t/2017-01-01 10:00 d/5m2h";
+    final String invalidNoNameArgs = " t/2017-01-01 10:00";
+    final String invalidNoTimeArgs = " n/Event name";
+
+    private ScheduleAddCommandParser parser = new ScheduleAddCommandParser();
+
+    @Test
+    public void parseSuccessTest() throws IllegalValueException {
+        EventName eventName = new EventName("Event name");
+        Duration duration = Duration.ofMinutes(5);
+        EventTime eventTime = new EventTime(LocalDateTime.of(2017, 1, 1, 10, 0),
+                duration);
+        EventDuration eventDuration = new EventDuration(duration);
+        Set<Index> uniqueMemberIndexes = new HashSet<>();
+        uniqueMemberIndexes.add(new Index(0));
+
+
+        assertParseSuccess(parser, ScheduleAddCommand.COMMAND_WORD + fullArgs,
+                new ScheduleAddCommand(eventName, eventTime, eventDuration, uniqueMemberIndexes));
+
+        assertParseSuccess(parser, ScheduleAddCommand.COMMAND_WORD + noMembersArgs,
+                new ScheduleAddCommand(eventName, eventTime, eventDuration, new HashSet<>()));
+
+
+        //Set duration to default 0 mins
+        eventTime = new EventTime(LocalDateTime.of(2017, 1, 1, 10, 0),
+                Duration.ofMinutes(0));
+        eventDuration = new EventDuration(Duration.ofMinutes(0));
+
+        assertParseSuccess(parser, ScheduleAddCommand.COMMAND_WORD + noDurationArgs,
+                new ScheduleAddCommand(eventName, eventTime, eventDuration, uniqueMemberIndexes));
+
+        assertParseSuccess(parser, ScheduleAddCommand.COMMAND_WORD + noMemberAndDurationArgs,
+                new ScheduleAddCommand(eventName, eventTime, eventDuration, new HashSet<>()));
+
+
+    }
+
+    @Test
+    public void invalidDateTest() throws ParseException {
+        thrown.expectMessage(ScheduleAddCommandParser.ERROR_INVALID_DATE);
+        parser.parse(invalidDateFormat);
+    }
+
+    @Test
+    public void invalidDurationFormatTest() throws ParseException {
+        thrown.expectMessage(ScheduleAddCommandParser.ERROR_PARSING_DURATION);
+        parser.parse(invalidDurationFormat);
+    }
+
+    @Test
+    public void parseFailureTest() {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ScheduleAddCommand.MESSAGE_USAGE);
+
+        // missing name prefix
+        assertParseFailure(parser, ScheduleAddCommand.COMMAND_WORD + invalidNoNameArgs,
+                expectedMessage);
+
+        // missing time prefix
+        assertParseFailure(parser, ScheduleAddCommand.COMMAND_WORD + invalidNoTimeArgs,
+                expectedMessage);
+
+        // missing prefixes
+        assertParseFailure(parser, ScheduleAddCommand.COMMAND_WORD,
+                expectedMessage);
+    }
+}
+```
+###### \java\seedu\address\logic\parser\ScheduleRemoveCommandParserTest.java
+``` java
+public class ScheduleRemoveCommandParserTest {
+
+    @Rule
+    public ExpectedException thrown = ExpectedException.none();
+
+    private ScheduleRemoveCommandParser parser = new ScheduleRemoveCommandParser();
+
+    private String fullArgs = " I/1";
+    private String invalidIndex = " I/a";
+
+    @Test
+    public void parseSuccessTest() throws Exception {
+        assertParseSuccess(parser, ScheduleRemoveCommand.COMMAND_WORD + fullArgs,
+                new ScheduleRemoveCommand(new HashSet<>(Arrays.asList(new Index(0)))));
+
+    }
+
+    @Test
+    public void parseFailureTest() throws Exception {
+        String expectedMessage = String.format(MESSAGE_INVALID_COMMAND_FORMAT, ScheduleRemoveCommand.MESSAGE_USAGE);
+
+        assertParseFailure(parser, ScheduleRemoveCommand.COMMAND_WORD + invalidIndex, MESSAGE_INVALID_INDEX);
+
+        assertParseFailure(parser, ScheduleRemoveCommand.COMMAND_WORD, expectedMessage);
+    }
+
+}
+```
+###### \java\seedu\address\logic\parser\SortCommandParserTest.java
 ``` java
 public class SortCommandParserTest {
 
@@ -346,7 +986,7 @@ public class SortCommandParserTest {
     }
 }
 ```
-###### /java/seedu/address/model/event/EventDurationTest.java
+###### \java\seedu\address\model\event\EventDurationTest.java
 ``` java
 public class EventDurationTest {
 
@@ -394,7 +1034,7 @@ public class EventDurationTest {
     }
 }
 ```
-###### /java/seedu/address/model/event/EventNameTest.java
+###### \java\seedu\address\model\event\EventNameTest.java
 ``` java
 public class EventNameTest {
 
@@ -423,7 +1063,7 @@ public class EventNameTest {
 
 }
 ```
-###### /java/seedu/address/model/event/EventTest.java
+###### \java\seedu\address\model\event\EventTest.java
 ``` java
 public class EventTest {
 
@@ -560,7 +1200,7 @@ public class EventTest {
     }
 }
 ```
-###### /java/seedu/address/model/event/EventTimeTest.java
+###### \java\seedu\address\model\event\EventTimeTest.java
 ``` java
 public class EventTimeTest {
 
@@ -601,7 +1241,7 @@ public class EventTimeTest {
     }
 }
 ```
-###### /java/seedu/address/model/event/MemberListTest.java
+###### \java\seedu\address\model\event\MemberListTest.java
 ``` java
 public class MemberListTest {
 
@@ -690,7 +1330,7 @@ public class MemberListTest {
 
 }
 ```
-###### /java/seedu/address/model/UniqueEventListTest.java
+###### \java\seedu\address\model\UniqueEventListTest.java
 ``` java
 public class UniqueEventListTest {
     private UniqueEventList eventList = new UniqueEventList();

@@ -1,8 +1,8 @@
 # eldriclim
-###### /java/seedu/address/commons/events/ui/CalendarSelectionChangedEvent.java
+###### \java\seedu\address\commons\events\ui\CalendarSelectionChangedEvent.java
 ``` java
 /**
- * When a selection is made in the calendar
+ * Represents a selection change in the Calendar view
  */
 public class CalendarSelectionChangedEvent extends BaseEvent {
 
@@ -22,10 +22,10 @@ public class CalendarSelectionChangedEvent extends BaseEvent {
     }
 }
 ```
-###### /java/seedu/address/commons/events/ui/EventPanelSelectionChangedEvent.java
+###### \java\seedu\address\commons\events\ui\EventPanelSelectionChangedEvent.java
 ``` java
 /**
- * When a selection is made in the EventListPanel
+ * Represents a selection change in the Event List Panel
  */
 public class EventPanelSelectionChangedEvent extends BaseEvent {
 
@@ -42,10 +42,7 @@ public class EventPanelSelectionChangedEvent extends BaseEvent {
 
     public ObservableList<ReadOnlyPerson> getMemberAsArrayList() {
 
-        List<ReadOnlyPerson> memberList = new ArrayList<>(
-                selectedEvent.getMemberList().asReadOnlyMemberList());
-
-        return FXCollections.observableArrayList(memberList);
+        return FXCollections.observableArrayList(selectedEvent.getMemberList().asReadOnlyMemberList());
     }
 
     public String getEventName() {
@@ -53,10 +50,10 @@ public class EventPanelSelectionChangedEvent extends BaseEvent {
     }
 }
 ```
-###### /java/seedu/address/commons/events/ui/ScheduleUpdateEvent.java
+###### \java\seedu\address\commons\events\ui\ScheduleUpdateEvent.java
 ``` java
 /**
- * When schedule is being updated
+ * Represents an update in address book master event list
  */
 public class ScheduleUpdateEvent extends BaseEvent {
 
@@ -76,14 +73,16 @@ public class ScheduleUpdateEvent extends BaseEvent {
     }
 }
 ```
-###### /java/seedu/address/commons/util/DateTimeUtil.java
+###### \java\seedu\address\commons\util\DateTimeUtil.java
 ``` java
+
 /**
- * Utility methods for checking event overlaps
+ * Utility class for handling DateTime operations.
  */
 public class DateTimeUtil {
 
-    public static final DateTimeFormatter EVENT_DATETIME_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");
+    public static final DateTimeFormatter EVENT_DATETIME_FORMAT = DateTimeFormatter.ofPattern("uuuu-MM-dd HH:mm")
+            .withResolverStyle(ResolverStyle.STRICT);
 
     public static String parseLocalDateTimeToString(LocalDateTime dateTime) {
         return dateTime.format(EVENT_DATETIME_FORMAT);
@@ -93,9 +92,13 @@ public class DateTimeUtil {
         return LocalDateTime.parse(input, EVENT_DATETIME_FORMAT);
     }
 
+
     /**
-     * Extracts duration of event if exist.
-     * See header comment of this class regarding the use of {@code Optional} parameters.
+     * Returns a Duration object based on the durationInput.
+     *
+     * @param durationInput user input for duration
+     * @return the parsed Duration object
+     * @throws IllegalValueException if time does not conform to the proper standards
      */
     public static Duration parseDuration(String durationInput) throws IllegalValueException {
 
@@ -138,37 +141,37 @@ public class DateTimeUtil {
 
 
     /**
-     * Checks if two events on a timeline overlaps
+     * Returns true if there is an overlap between the given events.
      *
-     * @param e1 event to compare
-     * @param e2 event to compare against
-     * @return true if overlap is detected; else return false
+     * @param event1 event to compare
+     * @param event2 event to compare against
+     * @return true if overlap is detected
      */
-    public static boolean checkEventClash(Event e1, Event e2) {
+    public static boolean checkEventClash(Event event1, Event event2) {
 
-        if (e1.getEventTime().getStart().isEqual(e2.getEventTime().getStart())) {
+        if (event1.getEventTime().getStart().isEqual(event2.getEventTime().getStart())) {
             return true;
         }
 
-        if (e1.getEventTime().getEnd().isEqual(e2.getEventTime().getEnd())) {
+        if (event1.getEventTime().getEnd().isEqual(event2.getEventTime().getEnd())) {
             return true;
         }
 
-        if (isBetween(e1.getEventTime().getEnd(), e2)) {
+        if (isBetween(event1.getEventTime().getEnd(), event2)) {
             return true;
         }
 
-        if (isBetween(e1.getEventTime().getStart(), e2)) {
+        if (isBetween(event1.getEventTime().getStart(), event2)) {
             return true;
         }
 
-        if (e1.getEventTime().getStart().isAfter(e2.getEventTime().getStart())
-                && e1.getEventTime().getEnd().isBefore(e2.getEventTime().getEnd())) {
+        if (event1.getEventTime().getStart().isAfter(event2.getEventTime().getStart())
+                && event1.getEventTime().getEnd().isBefore(event2.getEventTime().getEnd())) {
             return true;
         }
 
-        if (e2.getEventTime().getStart().isAfter(e1.getEventTime().getStart())
-                && e2.getEventTime().getEnd().isBefore(e1.getEventTime().getEnd())) {
+        if (event2.getEventTime().getStart().isAfter(event1.getEventTime().getStart())
+                && event2.getEventTime().getEnd().isBefore(event1.getEventTime().getEnd())) {
             return true;
         }
 
@@ -177,14 +180,15 @@ public class DateTimeUtil {
     }
 
     /**
-     * Checks if a given time lines between an event
+     * Returns true if given time lies within the duration of an event.
      *
-     * @param t1 a given time
-     * @param e1 an event with a specified duration (start time & end time)
-     * @return true if t1 lines within e1; else returns false
+     * @param time  to check against
+     * @param event with a specified duration (start time & end time)
+     * @return true if time is within event duration
+     * @see Event
      */
-    public static boolean isBetween(LocalDateTime t1, Event e1) {
-        if (t1.isAfter(e1.getEventTime().getStart()) && t1.isBefore(e1.getEventTime().getEnd())) {
+    public static boolean isBetween(LocalDateTime time, Event event) {
+        if (time.isAfter(event.getEventTime().getStart()) && time.isBefore(event.getEventTime().getEnd())) {
             return true;
         } else {
             return false;
@@ -192,25 +196,25 @@ public class DateTimeUtil {
     }
 
     /**
-     * Checks to see if date lies in between Event start time and end time.
+     * Returns true if duration of an event consist of given date.
      *
-     * @param event
-     * @param refDate
-     * @return
+     * @param event         the event to check
+     * @param referenceDate the date to check against
+     * @return true if date is within event duration
      */
-    public static boolean containsReferenceDate(Event event, LocalDate refDate) {
+    public static boolean containsReferenceDate(Event event, LocalDate referenceDate) {
         LocalDate startDate = event.getEventTime().getStart().toLocalDate();
         LocalDate endDate = event.getEventTime().getEnd().toLocalDate();
 
         return
-                startDate.isEqual(refDate)
-                        || endDate.isEqual(refDate)
-                        || (startDate.isBefore(refDate) && endDate.isAfter(refDate));
+                startDate.isEqual(referenceDate)
+                        || endDate.isEqual(referenceDate)
+                        || (startDate.isBefore(referenceDate) && endDate.isAfter(referenceDate));
     }
 
 }
 ```
-###### /java/seedu/address/commons/util/EventOutputUtil.java
+###### \java\seedu\address\commons\util\EventOutputUtil.java
 ``` java
 
 /**
@@ -219,16 +223,16 @@ public class DateTimeUtil {
 public class EventOutputUtil {
 
     /**
-     * Takes in a Duration and outputs it hours and minutes
+     * Returns a Duration in String format, in days, hours and minutes
      *
-     * @param d1 given duration of Event, guaranteed to be less than 23hr59min
+     * @param duration given duration of Event
      * @return a String of Duration in human-readable form
      */
-    public static String toStringDuration(Duration d1) {
+    public static String toStringDuration(Duration duration) {
 
         StringBuilder sb = new StringBuilder();
 
-        int totalSeconds = (int) d1.getSeconds();
+        int totalSeconds = (int) duration.getSeconds();
         int daysOutput = totalSeconds / (60 * 60 * 24);
         int hoursOutput = (totalSeconds % (60 * 60 * 24)) / (60 * 60);
         int minutesOutput = (totalSeconds % (60 * 60)) / 60;
@@ -254,10 +258,10 @@ public class EventOutputUtil {
     }
 
     /**
-     * Takes in a list of members and output their names in readable form
+     * Returns a String representation of a list of members's name.
      *
-     * @param members
-     * @return a String with members name separated by commas
+     * @param members a list of members
+     * @return String with members name separated by commas
      */
     public static String toStringMembers(ArrayList<ReadOnlyPerson> members) {
         if (members.isEmpty()) {
@@ -271,13 +275,14 @@ public class EventOutputUtil {
     }
 
     /**
-     * Outputs an Event details in readable form
+     * Returns a String representation of an Event.
      *
-     * @param eventName
-     * @param eventTime
-     * @param eventDuration
-     * @param memberList
-     * @return
+     * @param eventName the name of an Event
+     * @param eventTime the time of an Event
+     * @param eventDuration the duration of an Event
+     * @param memberList the list of members of an Event
+     * @return String with details of an Event
+     * @see Event#toString()
      */
     public static String toStringEvent(EventName eventName, EventTime eventTime,
                                        EventDuration eventDuration, MemberList memberList) {
@@ -290,14 +295,14 @@ public class EventOutputUtil {
     }
 }
 ```
-###### /java/seedu/address/commons/util/StringUtil.java
+###### \java\seedu\address\commons\util\StringUtil.java
 ``` java
     /**
-     * Output a series of Strings with the specified separator.
+     * Returns a String with list elements linked by the given separator.
      *
      * @param list
      * @param separator
-     * @return
+     * @return a String with list elements linked by the given separator
      */
     public static String multiStringPrint(List<String> list, String separator) {
         Iterator<String> iterator = list.iterator();
@@ -315,7 +320,7 @@ public class EventOutputUtil {
     }
 }
 ```
-###### /java/seedu/address/logic/commands/ScheduleAddCommand.java
+###### \java\seedu\address\logic\commands\ScheduleAddCommand.java
 ``` java
 
 /**
@@ -387,8 +392,7 @@ public class ScheduleAddCommand extends UndoableCommand {
 
             commandResultString += String.format(MESSAGE_SUCCESS, event.toString());
             model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-            Index defaultIndex = new Index(0);
-            EventsCenter.getInstance().post(new JumpToListRequestEvent(defaultIndex));
+            EventsCenter.getInstance().post(new ClearPersonListEvent());
 
             return new CommandResult(commandResultString);
         } catch (DuplicateEventException e) {
@@ -402,10 +406,18 @@ public class ScheduleAddCommand extends UndoableCommand {
         }
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ScheduleAddCommand // instanceof handles nulls
+                && eventName.equals(((ScheduleAddCommand) other).eventName)
+                && eventTime.equals(((ScheduleAddCommand) other).eventTime)
+                && eventDuration.equals(((ScheduleAddCommand) other).eventDuration)
+                && uniqueMemberIndexes.equals(((ScheduleAddCommand) other).uniqueMemberIndexes));
+    }
 
     /**
-     * Stores the details of modified person with updated event list. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * Stores the details of modified person with updated event list.
      */
     private static class EditEventListPersonDescriptor {
         private Name name;
@@ -441,7 +453,7 @@ public class ScheduleAddCommand extends UndoableCommand {
     }
 }
 ```
-###### /java/seedu/address/logic/commands/ScheduleRemoveCommand.java
+###### \java\seedu\address\logic\commands\ScheduleRemoveCommand.java
 ``` java
 
 /**
@@ -505,8 +517,7 @@ public class ScheduleRemoveCommand extends UndoableCommand {
         try {
             model.removeEvents(toUpdatePersons, toReplacePersons, toRemoveEvents);
             model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
-            Index defaultIndex = new Index(0);
-            EventsCenter.getInstance().post(new JumpToListRequestEvent(defaultIndex));
+            EventsCenter.getInstance().post(new ClearPersonListEvent());
 
             return new CommandResult(String.format(MESSAGE_SUCCESS, getRemovedEventsString(toRemoveEvents)));
 
@@ -522,10 +533,16 @@ public class ScheduleRemoveCommand extends UndoableCommand {
         }
     }
 
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof ScheduleRemoveCommand // instanceof handles nulls
+                && uniqueEventIndexes.equals(((ScheduleRemoveCommand) other).uniqueEventIndexes));
+    }
+
 
     /**
-     * Stores the details of modified person with updated event list. Each non-empty field value will replace the
-     * corresponding field value of the person.
+     * Stores the details of modified person with updated event list.
      */
     private static class EditEventListPersonDescriptor {
         private Name name;
@@ -560,41 +577,13 @@ public class ScheduleRemoveCommand extends UndoableCommand {
             return modifiableEventList;
         }
 
-        public Name getName() {
-            return name;
-        }
-
-        public Phone getPhone() {
-            return phone;
-        }
-
-        public Email getEmail() {
-            return email;
-        }
-
-        public Address getAddress() {
-            return address;
-        }
-
-        public Set<Tag> getTags() {
-            return tags;
-        }
-
-        public Set<Event> getEvents() {
-            return events;
-        }
-
-        public DateAdded getDateAdded() {
-            return dateAdded;
-        }
-
         public Person createUpdatedPerson() {
             return new Person(name, birthday, phone, email, address, tags, events, dateAdded);
         }
     }
 }
 ```
-###### /java/seedu/address/logic/commands/SortCommand.java
+###### \java\seedu\address\logic\commands\SortCommand.java
 ``` java
 /**
  * Sorts list of all contacts base on given parameter.
@@ -631,6 +620,8 @@ public class SortCommand extends UndoableCommand {
     private String sortOrderReadable = "ascending";
 
     /**
+     * Creates a SortCommand with the given sort type and sort order.
+     *
      * @param sortType     specify which attribute to sort by
      * @param isDescending specify if sorting is to be in descending order
      */
@@ -702,7 +693,7 @@ public class SortCommand extends UndoableCommand {
     }
 }
 ```
-###### /java/seedu/address/logic/parser/exceptions/DateParseException.java
+###### \java\seedu\address\logic\parser\exceptions\DateParseException.java
 ``` java
 /**
  * Represents a parse error encountered when parsing Date.
@@ -714,7 +705,7 @@ public class DateParseException extends ParseException {
     }
 }
 ```
-###### /java/seedu/address/logic/parser/ParserUtil.java
+###### \java\seedu\address\logic\parser\ParserUtil.java
 ``` java
     //// Event-related parsing
 
@@ -740,9 +731,11 @@ public class DateParseException extends ParseException {
             throws DateTimeParseException, NumberFormatException, IllegalValueException {
         requireNonNull(time);
         requireNonNull(duration);
+
+        LocalDateTime eventTime = DateTimeUtil.parseStringToLocalDateTime(time.get());
+
         return (time.isPresent())
-                ? Optional.of(new EventTime(DateTimeUtil.parseStringToLocalDateTime(time.get()),
-                DateTimeUtil.parseDuration(duration)))
+                ? Optional.of(new EventTime(eventTime, DateTimeUtil.parseDuration(duration)))
                 : Optional.empty();
     }
 
@@ -763,7 +756,82 @@ public class DateParseException extends ParseException {
 
 }
 ```
-###### /java/seedu/address/logic/parser/ScheduleRemoveCommandParser.java
+###### \java\seedu\address\logic\parser\ScheduleAddCommandParser.java
+``` java
+/**
+ * Parses input arguments and creates a new ScheduleAddCommand object
+ */
+public class ScheduleAddCommandParser implements Parser<ScheduleAddCommand> {
+
+    static final String ERROR_INVALID_DATE = "Invalid date detected.";
+    static final String ERROR_PARSING_DURATION = "Duration has to be in the following format: #d#h#m\n"
+            + "d:day, h:hour, m:minute";
+
+    /**
+     * Parses the given {@code String} of arguments in the context of the ScheduleAddCommand
+     * and returns an ScheduleAddCommand object for execution.
+     *
+     * @throws ParseException if the user input does not conform the expected format
+     */
+    public ScheduleAddCommand parse(String args) throws ParseException {
+        args.trim();
+        ArgumentMultimap argMultimap =
+                ArgumentTokenizer.tokenize(args, PREFIX_EVENT_NAME, PREFIX_EVENT_TIME,
+                        PREFIX_EVENT_DURATION, PREFIX_EVENT_MEMBER);
+
+        if (!arePrefixesPresent(argMultimap, PREFIX_EVENT_NAME, PREFIX_EVENT_TIME)) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, ScheduleAddCommand.MESSAGE_USAGE));
+        }
+
+
+        try {
+            String durationInput = argMultimap.getValue(PREFIX_EVENT_DURATION).isPresent()
+                    ? argMultimap.getValue(PREFIX_EVENT_DURATION).get().trim()
+                    : "";
+
+            if (!durationInput.matches("^|((?!$)(?:(\\d+)d)?(?:(\\d+)h)?(?:(\\d+)m)?)$")) {
+                throw new ParseException(ERROR_PARSING_DURATION);
+            }
+
+            EventName eventName = ParserUtil.parseEventName(argMultimap.getValue(PREFIX_EVENT_NAME)).get();
+
+
+
+            EventTime eventTime = ParserUtil.parseEventTime(
+                    argMultimap.getValue(PREFIX_EVENT_TIME), durationInput).get();
+
+            EventDuration eventDuration = ParserUtil.parseEventDuration(
+                    durationInput);
+
+
+            ArrayList<Index> indexList = argMultimap.getValue(PREFIX_EVENT_MEMBER).isPresent()
+                    ? ParserUtil.parseIndexes(argMultimap.getValue(PREFIX_EVENT_MEMBER).get())
+                    : new ArrayList<>();
+
+            Set<Index> uniqueMemberIndexes = new HashSet<>(indexList);
+
+            return new ScheduleAddCommand(eventName, eventTime, eventDuration, uniqueMemberIndexes);
+        } catch (IllegalValueException ive) {
+            throw new ParseException(ive.getMessage(), ive);
+        } catch (DateTimeParseException dve) {
+            throw new ParseException(ERROR_INVALID_DATE);
+        }
+    }
+
+
+    /**
+     * Returns true if none of the prefixes contains empty {@code Optional} values in the given
+     * {@code ArgumentMultimap}.
+     */
+    private static boolean arePrefixesPresent(ArgumentMultimap argumentMultimap, Prefix... prefixes) {
+        return Stream.of(prefixes).allMatch(prefix -> argumentMultimap.getValue(prefix).isPresent());
+    }
+
+
+
+}
+```
+###### \java\seedu\address\logic\parser\ScheduleRemoveCommandParser.java
 ``` java
 /**
  * Parses input arguments and creates a new ScheduleRemoveCommand object
@@ -811,7 +879,7 @@ public class ScheduleRemoveCommandParser implements Parser<ScheduleRemoveCommand
 
 }
 ```
-###### /java/seedu/address/logic/parser/SortCommandParser.java
+###### \java\seedu\address\logic\parser\SortCommandParser.java
 ``` java
 /**
  * Parses input arguments and creates a new SortCommand object
@@ -879,8 +947,41 @@ public class SortCommandParser implements Parser<SortCommand> {
     }
 }
 ```
-###### /java/seedu/address/model/AddressBook.java
+###### \java\seedu\address\model\AddressBook.java
 ``` java
+    /**
+     * Resets the existing data of this {@code AddressBook} with {@code newData}.
+     */
+    public void resetData(ReadOnlyAddressBook newData) {
+        requireNonNull(newData);
+        try {
+            setPersons(newData.getPersonList());
+        } catch (DuplicatePersonException e) {
+            assert false : "AddressBooks should not have duplicate persons";
+        }
+
+        setTags(new HashSet<>(newData.getTagList()));
+        syncMasterTagListWith(persons);
+
+
+        try {
+            setEvents(newData.getEventList());
+        } catch (DuplicateEventException e) {
+            assert false : "AddressBooks should not have duplicate events";
+        }
+        syncMasterEventListWith(persons);
+        syncMasterEventListMembers(events);
+    }
+```
+###### \java\seedu\address\model\AddressBook.java
+``` java
+    public void sortPerson(Comparator<ReadOnlyPerson> sortType, boolean isDescending) throws EmptyListException {
+        persons.sort(sortType, isDescending);
+    }
+```
+###### \java\seedu\address\model\AddressBook.java
+``` java
+    //// event-level operations
 
     /**
      * Replaces the given person {@code target} in the list with {@code editedReadOnlyPerson}.
@@ -1078,7 +1179,7 @@ public class SortCommandParser implements Parser<SortCommand> {
         events.forEach(this::syncMasterEventListMembers);
     }
 ```
-###### /java/seedu/address/model/event/Event.java
+###### \java\seedu\address\model\event\Event.java
 ``` java
 
 /**
@@ -1212,7 +1313,7 @@ public class Event {
     }
 
     /**
-     * Checks all attribute of Events
+     * Returns true if Event is equal.
      *
      * @param other
      * @return true if all attributes are similar; false if otherwise
@@ -1240,7 +1341,7 @@ public class Event {
 
 }
 ```
-###### /java/seedu/address/model/event/EventDuration.java
+###### \java\seedu\address\model\event\EventDuration.java
 ``` java
 /**
  * This Object only serves as a placeholder for UI purposes.
@@ -1287,7 +1388,7 @@ public class EventDuration {
     }
 }
 ```
-###### /java/seedu/address/model/event/EventName.java
+###### \java\seedu\address\model\event\EventName.java
 ``` java
 /**
  * Represents an Event's name in the address book.
@@ -1301,7 +1402,7 @@ public class EventName {
     public final String fullName;
 
     /**
-     * Validates given name.
+     * Creates EventName with a validated name.
      *
      * @throws IllegalValueException if given name string is invalid.
      */
@@ -1316,6 +1417,9 @@ public class EventName {
 
     /**
      * Returns true if a given string is a valid event name.
+     *
+     * @param test String to be tested
+     * @return true if valid
      */
     public static boolean isValidName(String test) {
         return test.matches(EVENTNAME_VALIDATION_REGEX);
@@ -1340,7 +1444,7 @@ public class EventName {
 
 }
 ```
-###### /java/seedu/address/model/event/EventTime.java
+###### \java\seedu\address\model\event\EventTime.java
 ``` java
 /**
  * Represents an Event's start time and duration in the address book.
@@ -1362,7 +1466,7 @@ public class EventTime {
     }
 
     /**
-     * Check the value of isUpcoming by checking current time against start time
+     * Returns true if the Event is an upcoming event.
      *
      * @return boolean value of isUpcoming
      */
@@ -1404,7 +1508,7 @@ public class EventTime {
 
 }
 ```
-###### /java/seedu/address/model/event/exceptions/DuplicateEventException.java
+###### \java\seedu\address\model\event\exceptions\DuplicateEventException.java
 ``` java
 /**
  * Signals that the operation will result in duplicate Person objects.
@@ -1415,14 +1519,14 @@ public class DuplicateEventException extends DuplicateDataException {
     }
 }
 ```
-###### /java/seedu/address/model/event/exceptions/EventNotFoundException.java
+###### \java\seedu\address\model\event\exceptions\EventNotFoundException.java
 ``` java
 /**
  * Signals that the operation is unable to find the specified event.
  */
 public class EventNotFoundException extends Exception {}
 ```
-###### /java/seedu/address/model/event/MemberList.java
+###### \java\seedu\address\model\event\MemberList.java
 ``` java
 /**
  * A list of members of a given event that enforces uniqueness between its elements.
@@ -1462,7 +1566,7 @@ public class MemberList {
     }
 
     /**
-     * Search member list to see if given person exist.
+     * Returns true if given person exist in member list.
      *
      * @param toFind
      * @return returns true if success; false if not found
@@ -1496,8 +1600,9 @@ public class MemberList {
 
 }
 ```
-###### /java/seedu/address/model/event/UniqueEventList.java
+###### \java\seedu\address\model\event\UniqueEventList.java
 ``` java
+
 /**
  * A list of events that enforces no nulls and uniqueness between its elements.
  * Ensures that there is no overlap of events in the list
@@ -1664,15 +1769,15 @@ public class UniqueEventList implements Iterable<Event> {
                 }
                 //End of Priority 1
 
-                //Priority 2: This section pushes events on selected date to top
-                if (o1.getEventTime().getStart().toLocalDate().equals(selectedDate)
-                        && !o2.getEventTime().getStart().toLocalDate().equals(selectedDate)) {
+                //Priority 2: This section pushes ongoing events to top of list (with reference to today)
+                if (DateTimeUtil.containsReferenceDate(o1, today.toLocalDate())
+                        && !DateTimeUtil.containsReferenceDate(o2, today.toLocalDate())) {
                     return -1;
-                } else if (o2.getEventTime().getStart().toLocalDate().equals(selectedDate)
-                        && !o1.getEventTime().getStart().toLocalDate().equals(selectedDate)) {
+                } else if (!DateTimeUtil.containsReferenceDate(o1, today.toLocalDate())
+                        && DateTimeUtil.containsReferenceDate(o2, today.toLocalDate())) {
                     return 1;
-                } else if (o1.getEventTime().getStart().toLocalDate().equals(selectedDate)
-                        && o2.getEventTime().getStart().toLocalDate().equals(selectedDate)) {
+                } else if (DateTimeUtil.containsReferenceDate(o1, today.toLocalDate())
+                        && DateTimeUtil.containsReferenceDate(o2, today.toLocalDate())) {
                     if (o1.getEventTime().getStart().isBefore(o2.getEventTime().getStart())) {
                         return -1;
                     } else if (o2.getEventTime().getStart().isBefore(o1.getEventTime().getStart())) {
@@ -1755,7 +1860,7 @@ public class UniqueEventList implements Iterable<Event> {
     }
 }
 ```
-###### /java/seedu/address/model/ModelManager.java
+###### \java\seedu\address\model\ModelManager.java
 ``` java
     @Override
     public void sortPerson(Comparator<ReadOnlyPerson> sortType, boolean isDescending) throws EmptyListException {
@@ -1814,7 +1919,7 @@ public class UniqueEventList implements Iterable<Event> {
         return addressBook.hasEventClashes(event);
     }
 ```
-###### /java/seedu/address/model/ModelManager.java
+###### \java\seedu\address\model\ModelManager.java
 ``` java
 
     /**
@@ -1833,6 +1938,12 @@ public class UniqueEventList implements Iterable<Event> {
         updateFilteredPersonList(p ->
                 event.getMemberAsArrayList().contains(p)
         );
+        if (filteredPersons.isEmpty()) {
+            EventsCenter.getInstance().post(new ClearPersonListEvent());
+        } else {
+            Index firstIndex = new Index(0);
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(firstIndex));
+        }
     }
 
     /**
@@ -1850,7 +1961,7 @@ public class UniqueEventList implements Iterable<Event> {
         sortEvents(event.getSelectedDate());
     }
 ```
-###### /java/seedu/address/model/person/DateAdded.java
+###### \java\seedu\address\model\person\DateAdded.java
 ``` java
 /**
  * Represents a Person's address in the address book.
@@ -1906,7 +2017,7 @@ public class DateAdded {
 
 }
 ```
-###### /java/seedu/address/model/person/UniquePersonList.java
+###### \java\seedu\address\model\person\UniquePersonList.java
 ``` java
     /**
      * Sorts the list of persons.
@@ -1928,7 +2039,7 @@ public class DateAdded {
         }
     }
 ```
-###### /java/seedu/address/storage/XmlAdaptedEvent.java
+###### \java\seedu\address\storage\XmlAdaptedEvent.java
 ``` java
 /**
  * JAXB-friendly adapted version of the Event.
@@ -1982,7 +2093,7 @@ public class XmlAdaptedEvent {
 
 }
 ```
-###### /java/seedu/address/storage/XmlSerializableAddressBook.java
+###### \java\seedu\address\storage\XmlSerializableAddressBook.java
 ``` java
     @Override
     public ObservableList<Event> getEventList() {
@@ -1998,7 +2109,7 @@ public class XmlAdaptedEvent {
         return FXCollections.unmodifiableObservableList(events);
     }
 ```
-###### /java/seedu/address/ui/CalendarView.java
+###### \java\seedu\address\ui\CalendarView.java
 ``` java
 
 /**
@@ -2061,10 +2172,10 @@ public class CalendarView extends UiPart<Region> {
                         if (eventsByDate.containsKey(item)) {
                             setTooltip(new Tooltip(
                                     StringUtil.multiStringPrint(eventsByDate.get(item), "\n")));
-                            if (!item.isEqual(LocalDate.now())) {
-                                setStyle("-fx-background-color: #a7a7a7; -fx-text-fill: #ffffff;");
 
-                            }
+                            setStyle("-fx-background-color: #a7a7a7; -fx-text-fill: #ffffff;");
+
+
                         }
                     }
                 };
@@ -2112,7 +2223,7 @@ public class CalendarView extends UiPart<Region> {
     }
 }
 ```
-###### /java/seedu/address/ui/EventCard.java
+###### \java\seedu\address\ui\EventCard.java
 ``` java
 
 /**
@@ -2216,7 +2327,7 @@ public class EventCard extends UiPart<Region> {
     }
 }
 ```
-###### /java/seedu/address/ui/EventListPanel.java
+###### \java\seedu\address\ui\EventListPanel.java
 ``` java
 
 /**

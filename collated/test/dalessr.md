@@ -1,5 +1,5 @@
 # dalessr
-###### /java/guitests/guihandles/PersonDetailsPanelHandle.java
+###### \java\guitests\guihandles\PersonDetailsPanelHandle.java
 ``` java
 /**
  * A handler for the {@code PersonDetailsPanel} of the UI.
@@ -44,52 +44,57 @@ public class PersonDetailsPanelHandle extends NodeHandle<Node> {
     }
 }
 ```
-###### /java/guitests/PersonDetailsPanelTest.java
+###### \java\guitests\PersonDetailsPanelTest.java
 ``` java
 public class PersonDetailsPanelTest extends AddressBookGuiTest {
 
     @Test
-    public void openTwitterTabView() {
+    public void openTwitterTabView() throws MalformedURLException {
 
         OpenTwitterWebViewEvent event = new OpenTwitterWebViewEvent();
         postNow(event);
-        assertTrue(true);
+        URL expectedTwitterUrl = new URL(TWITTER_DEFAULT_URL);
+        assertTrue(expectedTwitterUrl.toString().contains("twitter"));
     }
 
     @Test
-    public void openFacebookTabView() {
+    public void openFacebookTabView() throws MalformedURLException {
 
         OpenFaceBookWebViewEvent event = new OpenFaceBookWebViewEvent();
         postNow(event);
-        assertTrue(true);
+        URL expectedFacebookUrl = new URL(FACEBOOK_DEFAULT_URL);
+        assertTrue(expectedFacebookUrl.toString().contains("facebook"));
     }
 
     @Test
-    public void openGithubTabView() {
+    public void openGithubTabView() throws MalformedURLException {
 
         OpenGithubWebViewEvent event = new OpenGithubWebViewEvent();
         postNow(event);
-        assertTrue(true);
+        URL expectedGithubUrl = new URL(GITHUB_DEFAULT_URL);
+        assertTrue(expectedGithubUrl.toString().contains("github"));
     }
 
     @Test
-    public void openInstagramTabView() {
+    public void openInstagramTabView() throws MalformedURLException {
 
         OpenInstagramWebViewEvent event = new OpenInstagramWebViewEvent();
         postNow(event);
-        assertTrue(true);
+        URL expectedInstagramUrl = new URL(INSTAGRAM_DEFAULT_URL);
+        assertTrue(expectedInstagramUrl.toString().contains("instagram"));
     }
 
     @Test
-    public void openNusmodsTabView() {
+    public void openNusmodsTabView() throws MalformedURLException {
 
         OpenNusModsWebViewEvent event = new OpenNusModsWebViewEvent();
         postNow(event);
-        assertTrue(true);
+        URL expectedNusmodsUrl = new URL(NUSMODS_DEFAULT_URL);
+        assertTrue(expectedNusmodsUrl.toString().contains("nusmods"));
     }
 }
 ```
-###### /java/seedu/address/logic/commands/BirthdayAddCommandTest.java
+###### \java\seedu\address\logic\commands\BirthdayAddCommandTest.java
 ``` java
 /**
  * Contains integration tests (interaction with the Model) and unit tests for BirthdayAddCommand.
@@ -190,7 +195,7 @@ public class BirthdayAddCommandTest {
     }
 }
 ```
-###### /java/seedu/address/logic/commands/BirthdayRemoveCommandTest.java
+###### \java\seedu\address\logic\commands\BirthdayRemoveCommandTest.java
 ``` java
 /**
  * Contains integration tests (interaction with the Model) and unit tests for BirthdayRemoveCommand.
@@ -297,7 +302,7 @@ public class BirthdayRemoveCommandTest {
     }
 }
 ```
-###### /java/seedu/address/logic/commands/FindCommandTest.java
+###### \java\seedu\address\logic\commands\FindCommandTest.java
 ``` java
     @Test
     public void execute_multipleNameKeywords_multiplePersonsFound() {
@@ -377,7 +382,7 @@ public class BirthdayRemoveCommandTest {
     }
 
 ```
-###### /java/seedu/address/logic/commands/MapRouteCommandTest.java
+###### \java\seedu\address\logic\commands\MapRouteCommandTest.java
 ``` java
 /**
  * Contains integration tests (interaction with the Model) for {@code MapRouteCommand}.
@@ -496,7 +501,7 @@ public class MapRouteCommandTest {
     }
 }
 ```
-###### /java/seedu/address/logic/commands/MapShowCommandTest.java
+###### \java\seedu\address\logic\commands\MapShowCommandTest.java
 ``` java
 /**
  * Contains integration tests (interaction with the Model) for {@code MapShowCommand}.
@@ -614,7 +619,7 @@ public class MapShowCommandTest {
     }
 }
 ```
-###### /java/seedu/address/logic/parser/AddressBookParserTest.java
+###### \java\seedu\address\logic\parser\AddressBookParserTest.java
 ``` java
     @Test
     public void parseCommand_find() throws Exception {
@@ -644,7 +649,7 @@ public class MapShowCommandTest {
     }
 
 ```
-###### /java/seedu/address/logic/parser/AddressBookParserTest.java
+###### \java\seedu\address\logic\parser\AddressBookParserTest.java
 ``` java
     @Test
     public void parseCommand_map_show() throws Exception {
@@ -662,7 +667,7 @@ public class MapShowCommandTest {
         assertEquals(new MapRouteCommand(INDEX_FIRST_PERSON, startLocation), command);
     }
 ```
-###### /java/seedu/address/logic/parser/BirthdayAddCommandParserTest.java
+###### \java\seedu\address\logic\parser\BirthdayAddCommandParserTest.java
 ``` java
 /**
  * Test scope: similar to {@code SelectCommandParserTest}.
@@ -702,7 +707,7 @@ public class BirthdayAddCommandParserTest {
     }
 }
 ```
-###### /java/seedu/address/logic/parser/BirthdayRemoveCommandParserTest.java
+###### \java\seedu\address\logic\parser\BirthdayRemoveCommandParserTest.java
 ``` java
 /**
  * Test scope: similar to {@code SelectCommandParserTest}.
@@ -736,7 +741,7 @@ public class BirthdayRemoveCommandParserTest {
     }
 }
 ```
-###### /java/seedu/address/logic/parser/FindCommandParserTest.java
+###### \java\seedu\address\logic\parser\FindCommandParserTest.java
 ``` java
     @Test
     public void parse_emptyArg_throwsParseException() {
@@ -790,7 +795,7 @@ public class BirthdayRemoveCommandParserTest {
 
 }
 ```
-###### /java/seedu/address/logic/parser/MapRouteCommandParserTest.java
+###### \java\seedu\address\logic\parser\MapRouteCommandParserTest.java
 ``` java
 /**
  * Test scope: similar to {@code SelectCommandParserTest}.
@@ -819,7 +824,7 @@ public class MapRouteCommandParserTest {
     }
 }
 ```
-###### /java/seedu/address/logic/parser/MapShowCommandParserTest.java
+###### \java\seedu\address\logic\parser\MapShowCommandParserTest.java
 ``` java
 /**
  * Test scope: similar to {@code SelectCommandParserTest}.
@@ -840,7 +845,49 @@ public class MapShowCommandParserTest {
     }
 }
 ```
-###### /java/systemtests/FindCommandSystemTest.java
+###### \java\seedu\address\ui\BrowserPanelTest.java
+``` java
+    @Test
+    public void displayLocation() throws Exception {
+        // default web page
+        URL expectedDefaultPageUrl = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
+        if (expectedDefaultPageUrl.equals(browserPanelHandle.getLoadedUrl())) {
+            assertEquals(expectedDefaultPageUrl, browserPanelHandle.getLoadedUrl());
+        } else {
+            assertTrue(browserPanelHandle.getLoadedUrl().toString().contains("https://ipv4.google.com/sorry/"));
+        }
+
+        // associated Google map of a person's address
+        postNow(showLocationEventStub);
+        URL expectedMapUrl = new URL(GOOGLE_MAP_SEARCH_URL_PREFIX + "123,+Jurong+West+Ave+6,+"
+                + "?dg=dbrw&newdg=1");
+
+        waitUntilBrowserLoaded(browserPanelHandle);
+        assertEquals(expectedMapUrl, browserPanelHandle.getLoadedUrl());
+    }
+
+    @Test
+    public void displayRoute() throws Exception {
+        // default web page
+        URL expectedDefaultPageUrl = MainApp.class.getResource(FXML_FILE_FOLDER + DEFAULT_PAGE);
+        assertEquals(expectedDefaultPageUrl, browserPanelHandle.getLoadedUrl());
+
+        // associated the route from entered location to selected person's address
+        postNow(findRouteEventStub);
+        URL expectedRouteUrl = new URL(GOOGLE_MAP_DIRECTION_URL_PREFIX
+                + startLocation.replaceAll(" ", "+") + GOOGLE_MAP_SEARCH_URL_SUFFIX
+                + ALICE.getAddress().toString().replaceAll(" ", "+") + GOOGLE_MAP_SEARCH_URL_SUFFIX);
+
+        waitUntilBrowserLoaded(browserPanelHandle);
+        if (expectedRouteUrl.equals(browserPanelHandle.getLoadedUrl())) {
+            assertEquals(expectedRouteUrl, browserPanelHandle.getLoadedUrl());
+        } else {
+            assertTrue(browserPanelHandle.getLoadedUrl().toString().contains("https://ipv4.google.com/sorry/"));
+        }
+    }
+}
+```
+###### \java\systemtests\FindCommandSystemTest.java
 ``` java
     @Test
     public void find() {

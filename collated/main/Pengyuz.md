@@ -1,5 +1,5 @@
 # Pengyuz
-###### /java/seedu/address/commons/events/model/RecyclebinChangeEvent.java
+###### \java\seedu\address\commons\events\model\RecyclebinChangeEvent.java
 ``` java
 /** Indicates the Recyclebin in the model has changed*/
 public class RecyclebinChangeEvent extends BaseEvent {
@@ -17,7 +17,7 @@ public class RecyclebinChangeEvent extends BaseEvent {
     }
 }
 ```
-###### /java/seedu/address/logic/commands/BinclearCommand.java
+###### \java\seedu\address\logic\commands\BinclearCommand.java
 ``` java
 /**
  * Clears the recyclebin.
@@ -37,7 +37,7 @@ public class BinclearCommand extends UndoableCommand {
     }
 }
 ```
-###### /java/seedu/address/logic/commands/BindeleteCommand.java
+###### \java\seedu\address\logic\commands\BindeleteCommand.java
 ``` java
 /**
  * Deletes a person identified using it's last displayed index or name from the recycle bin.
@@ -46,7 +46,7 @@ public class BindeleteCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "bin-delete";
 
-    public static final String MESSAGE_SUCCESS = "Forever deleted.";
+    public static final String MESSAGE_SUCCESS = "Deleted from bin.";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":Delete the person in bin.";
     private ArrayList<Index> targets;
     private boolean isValid = true;
@@ -91,7 +91,7 @@ public class BindeleteCommand extends UndoableCommand {
     }
 }
 ```
-###### /java/seedu/address/logic/commands/BinrestoreCommand.java
+###### \java\seedu\address\logic\commands\BinrestoreCommand.java
 ``` java
 /**
  * Restore a person identified using it's last displayed index or name from the recycle bin.
@@ -99,7 +99,7 @@ public class BindeleteCommand extends UndoableCommand {
 public class BinrestoreCommand extends UndoableCommand {
 
     public static final String COMMAND_WORD = "bin-restore";
-    public static final String MESSAGE_SUCCESS = "Resotred";
+    public static final String MESSAGE_SUCCESS = "Restored";
     public static final String MESSAGE_USAGE = COMMAND_WORD + ":Restore the person in bin to address book";
     private ArrayList<Index> targets;
     private boolean isVaild = true;
@@ -149,7 +149,7 @@ public class BinrestoreCommand extends UndoableCommand {
 
 }
 ```
-###### /java/seedu/address/logic/commands/DeleteCommand.java
+###### \java\seedu\address\logic\commands\DeleteCommand.java
 ``` java
 /**
  * Deletes a person identified using it's last displayed index or name from the address book.
@@ -165,7 +165,7 @@ public class DeleteCommand extends UndoableCommand {
             + ": Deletes the person identified by the index number used in the last person listing.\n"
             + "Parameters: INDEX (must be a positive integer) or NAME(exactly same)\n"
             + "Example: " + COMMAND_WORD + " 1" + COMMAND_WORD + "Alex Yeoh";
-    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted";
+    public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the recycle bin";
     private boolean isValid = true;
     private boolean isEmpty = false;
@@ -244,7 +244,7 @@ public class DeleteCommand extends UndoableCommand {
 }
 
 ```
-###### /java/seedu/address/logic/commands/ExportCommand.java
+###### \java\seedu\address\logic\commands\ExportCommand.java
 ``` java
 /**
  * Export the person details in txt.
@@ -277,7 +277,7 @@ public class ExportCommand extends Command {
             output.write("End of file");
             output.close();
         } catch (Exception ioe) {
-            throw new CommandException("can't create a file in the path" + filepath);
+            throw new CommandException("Cannot create a file in the path: " + filepath);
         }
     }
 
@@ -361,7 +361,7 @@ public class ExportCommand extends Command {
     }
 }
 ```
-###### /java/seedu/address/logic/commands/HelpCommand.java
+###### \java\seedu\address\logic\commands\HelpCommand.java
 ``` java
 /**
  * Format full help instructions for every command for display.
@@ -450,7 +450,7 @@ public class HelpCommand extends Command {
     }
 }
 ```
-###### /java/seedu/address/logic/commands/UndoableCommand.java
+###### \java\seedu\address\logic\commands\UndoableCommand.java
 ``` java
     /**
      * Stores the current state of {@code model#recyclebin}.
@@ -494,7 +494,7 @@ public class HelpCommand extends Command {
     }
 }
 ```
-###### /java/seedu/address/logic/parser/BindeleteCommandParser.java
+###### \java\seedu\address\logic\parser\BindeleteCommandParser.java
 ``` java
 /**
  * Parses input arguments and creates a new BindeleteCommand object
@@ -521,7 +521,7 @@ public class BindeleteCommandParser implements Parser<BindeleteCommand> {
     }
 }
 ```
-###### /java/seedu/address/logic/parser/BinrestoreCommandParser.java
+###### \java\seedu\address\logic\parser\BinrestoreCommandParser.java
 ``` java
 /**
  * Parses input arguments and creates a new BinrestoreCommand object
@@ -549,7 +549,7 @@ public class BinrestoreCommandParser implements Parser<BinrestoreCommand> {
 
 }
 ```
-###### /java/seedu/address/logic/parser/DeleteCommandParser.java
+###### \java\seedu\address\logic\parser\DeleteCommandParser.java
 ``` java
 /**
  * Parses input arguments and creates a new DeleteCommand object
@@ -604,34 +604,34 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
 
 }
 ```
-###### /java/seedu/address/logic/parser/ParserUtil.java
+###### \java\seedu\address\logic\parser\ParserUtil.java
 ``` java
     /**
-     * Parses  {@code oneBasedIndex} into an {@code numbers} and return it.the commas will be deleted.
+     * Parses  {@code oneBasedIndexes} into {@code numbers} and return it. The whitespace will be deleted.
      *
-     * @throws IllegalValueException if the specified index is invalid.
+     * @throws IllegalValueException if one of the specified index is invalid.
      */
     public static ArrayList<Index> parseIndexes(String oneBasedIndexes) throws IllegalValueException {
         String[] ns = oneBasedIndexes.trim().split(" ");
         ArrayList<Index> numbers = new ArrayList<>();
-        boolean allvalid = true;
+        boolean isValid = true;
         for (String a : ns) {
             String s = a.trim();
             if (StringUtil.isNonZeroUnsignedInteger(s)) {
                 numbers.add(Index.fromOneBased(Integer.parseInt(s)));
             } else {
-                allvalid = false;
+                isValid = false;
 
             }
         }
-        if (!allvalid) {
+        if (!isValid) {
             throw new IllegalValueException(MESSAGE_INVALID_INDEX);
         }
         return numbers;
 
     }
 ```
-###### /java/seedu/address/model/ModelManager.java
+###### \java\seedu\address\model\ModelManager.java
 ``` java
     @Override
     public void resetRecyclebin(ReadOnlyAddressBook newData) {
@@ -639,20 +639,20 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         indicateRecycleBinChanged();
     }
 ```
-###### /java/seedu/address/model/ModelManager.java
+###### \java\seedu\address\model\ModelManager.java
 ``` java
     @Override
     public ReadOnlyAddressBook getRecycleBin() {
         return recycleBin;
     }
 ```
-###### /java/seedu/address/model/ModelManager.java
+###### \java\seedu\address\model\ModelManager.java
 ``` java
     private void indicateRecycleBinChanged() {
         raise(new RecyclebinChangeEvent(recycleBin));
     }
 ```
-###### /java/seedu/address/model/ModelManager.java
+###### \java\seedu\address\model\ModelManager.java
 ``` java
     @Override
     public synchronized void deletePerson(ArrayList<ReadOnlyPerson> targets) throws PersonNotFoundException,
@@ -673,7 +673,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         indicateAddressBookChanged();
     }
 ```
-###### /java/seedu/address/model/ModelManager.java
+###### \java\seedu\address\model\ModelManager.java
 ``` java
     @Override
     public synchronized void deleteBinPerson(ArrayList<ReadOnlyPerson> targets) throws PersonNotFoundException {
@@ -683,7 +683,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         indicateRecycleBinChanged();
     }
 ```
-###### /java/seedu/address/model/ModelManager.java
+###### \java\seedu\address\model\ModelManager.java
 ``` java
     @Override
     public synchronized void restorePerson(ReadOnlyPerson person) throws DuplicatePersonException,
@@ -696,7 +696,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         indicateAddressBookChanged();
     }
 ```
-###### /java/seedu/address/model/ModelManager.java
+###### \java\seedu\address\model\ModelManager.java
 ``` java
     @Override
     public synchronized void restorePerson(ArrayList<ReadOnlyPerson> targets) throws DuplicatePersonException,
@@ -719,14 +719,14 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         indicateRecycleBinChanged();
     }
 ```
-###### /java/seedu/address/model/ModelManager.java
+###### \java\seedu\address\model\ModelManager.java
 ``` java
     @Override
     public ObservableList<ReadOnlyPerson> getRecycleBinPersonList() {
         return FXCollections.unmodifiableObservableList(filteredRecycle);
     }
 ```
-###### /java/seedu/address/model/ModelManager.java
+###### \java\seedu\address\model\ModelManager.java
 ``` java
     @Override
     public void updateFilteredBinList(Predicate<ReadOnlyPerson> predicate) {
@@ -734,7 +734,7 @@ public class DeleteCommandParser implements Parser<DeleteCommand> {
         filteredRecycle.setPredicate(predicate);
     }
 ```
-###### /java/seedu/address/model/util/SampleRecycleUtil.java
+###### \java\seedu\address\model\util\SampleRecycleUtil.java
 ``` java
 /**
  * Contains utility methods for populating {@code AddressBook} with sample data.
@@ -795,7 +795,7 @@ public class SampleRecycleUtil {
 
 }
 ```
-###### /java/seedu/address/storage/RecycleBinStorage.java
+###### \java\seedu\address\storage\RecycleBinStorage.java
 ``` java
 /**
  * Represents a storage for {@link seedu.address.model.AddressBook}.
@@ -834,7 +834,7 @@ public interface RecycleBinStorage {
 
 }
 ```
-###### /java/seedu/address/storage/StorageManager.java
+###### \java\seedu\address\storage\StorageManager.java
 ``` java
     // ================ RecycleBinStorage methods ==============================
 
@@ -877,7 +877,7 @@ public interface RecycleBinStorage {
         }
     }
 ```
-###### /java/seedu/address/storage/XmlRecycleBinStorage.java
+###### \java\seedu\address\storage\XmlRecycleBinStorage.java
 ``` java
 /**
  * A class to access AddressBook data stored as an xml file on the hard disk.
@@ -942,7 +942,7 @@ public class XmlRecycleBinStorage implements RecycleBinStorage {
 
 }
 ```
-###### /java/seedu/address/ui/RecycleBinCard.java
+###### \java\seedu\address\ui\RecycleBinCard.java
 ``` java
 /**
  * An UI component that displays information of a person in the recycle bin.
@@ -1009,7 +1009,7 @@ public class RecycleBinCard extends UiPart<Region> {
     }
 }
 ```
-###### /java/seedu/address/ui/RecycleBinPanel.java
+###### \java\seedu\address\ui\RecycleBinPanel.java
 ``` java
 /**
  * Panel containing the list of persons in bin.
@@ -1040,7 +1040,7 @@ public class RecycleBinPanel extends UiPart<Region> {
 
 
     /**
-     * Custom {@code ListCell} that displays the graphics of a {@code PersonCard}.
+     * Custom {@code ListCell} that displays the graphics of a {@code RecycleBinCard}.
      */
     class PersonListViewCell extends ListCell<RecycleBinCard> {
 
