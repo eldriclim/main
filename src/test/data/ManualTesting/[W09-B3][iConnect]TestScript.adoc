@@ -20,7 +20,7 @@ Now we will manually test the functionality in groups.
 
 == Testing of the application
 
-Note that person list and event list is now in its natural order, based on when it was first added.
+Note that person list and event list is now in its natural order, based on the order it was first added.
 
 === Theme
 
@@ -153,7 +153,7 @@ Lists all the commands entered in reverse chronological order.
 ==== Adding an Event to Schedule:
 
 `s-add m/1 2 3 n/iConnect Conference t/2017-12-04 08:45 d/2h` +
-A two-hour event "iConnect Conference" on 4th December 2017 at 8:45AM will be added to the specified persons at index 1, 2 and 3 into the calendar. You will be notified of an event clash, since there is already an event during the same time frame. The first person in the updated person list will be selected.
+A two-hour event "iConnect Conference" on 4th December 2017 at 8:45AM will be added to the specified persons at index 1, 2 and 3 into the calendar. You will be notified of an event clash, since there is already an event during the same time frame. Event list panel will be updated and shown in chronological order. The first person in the updated person list will be selected.
 
 `s-add n/Email Reminder t/2017-12-07 14:30` +
 An event "Email Reminder" on 7th December 2017 at 2:30PM with default zero duration will be added into the calendar and the event detail will be updated and shown in the event list in chronological order.
