@@ -20,6 +20,8 @@ Now we will manually test the functionality in groups.
 
 == Testing of the application
 
+Note that person list and event list is now in its natural order, based on when it was first added.
+
 === Theme
 
 ==== Changing the theme according to user input:
@@ -62,8 +64,8 @@ Seven persons satisfying any of the above keywords will be listed. The first per
 `sort` +
 Returns list of persons sorted by name added in ascending order. The first person in the list will be selected.
 
-`sort p/asc` +
-Returns list of persons sorted by phone in ascending order. The first person in the list will be selected.
+`sort p/` +
+Returns list of persons sorted by phone in ascending order when no order is specified. The first person in the list will be selected.
 
 `sort e/dsc` +
 Returns list of persons sorted by email in descending order. The first person in the list will be selected.
@@ -97,7 +99,7 @@ Edits name of the second person to be "Eli". That person will be selected and hi
 ==== Deleting multiple person(s) from address book:
 
 `delete I/1 2 4` +
-Deletes the first, second and fourth person from address book and move them to the recycle bin. First person in the updated person list will be selected.
+Deletes the first, second and fourth person from address book and moves them to the recycle bin. Persons who are involved in events will also have their names removed from them. First person in the updated person list will be selected.
 
 ==== Adding/updating birthday to a person:
 
@@ -151,10 +153,10 @@ Lists all the commands entered in reverse chronological order.
 ==== Adding an Event to Schedule:
 
 `s-add m/1 2 3 n/iConnect Conference t/2017-12-04 08:45 d/2h` +
-A two-hour event "iConnect Conference" on 4th December 2017 at 8:45AM will be added to the specified persons at index 1, 2 and 3 into the calendar. The first person in the updated person list will be selected.
+A two-hour event "iConnect Conference" on 4th December 2017 at 8:45AM will be added to the specified persons at index 1, 2 and 3 into the calendar. You will be notified of an event clash, since there is already an event during the same time frame. The first person in the updated person list will be selected.
 
-`s-add n/Email Reminder t/2017-12-04 14:30` +
-An event "Email Reminder" on 4th December 2017 at 2:30PM with default zero duration will be added into the calendar and the event detail will be updated and shown in the event list in chronological order.
+`s-add n/Email Reminder t/2017-12-07 14:30` +
+An event "Email Reminder" on 7th December 2017 at 2:30PM with default zero duration will be added into the calendar and the event detail will be updated and shown in the event list in chronological order.
 
 ==== Removing an Event from Schedule:
 
@@ -166,12 +168,12 @@ Removes the first and second event in the event list. The result will be shown i
 ==== Finding the location of a person using Google Map:
 
 `m-show 2` +
-The home address of the second person in the current person listing will be shown in the centre browser panel.
+The home address of the second person in the current person listing will be shown in the centre browser panel. Click on the browser tab to view the map.
 
 ==== Finding the route from user's current location to the person selected:
 
 `m-route 3 a/nus` +
-The route from "nus" to the home address of the third person in the current person listing will be shown in the centre browser panel.
+The route from "nus" to the home address of the third person in the current person listing will be shown in the centre browser panel. Click on the browser tab to view the map.
 
 === Tag
 
@@ -183,7 +185,7 @@ A tag "CS2103" will be added to the second and third person in the current perso
 ==== Setting person(s) as favourite:
 
 `t-add 2 3 favourite` +
-A tag "favourite" will be added to the second and third person in the current person listing. A coral circle will be shown beside the selected person names and edited tag list will be shown in the result box. Those two persons will come first in the person list. First person will be selected in the current person listing.
+A tag "favourite" will be added to the second and third person in the current person listing. A coral circle will be shown beside the two persons' names and edited tag list will be shown in the result box. Those two persons will come first in the person list. First person will be selected in the current person listing.
 
 ==== Listing all person(s) with given tag:
 
@@ -205,7 +207,7 @@ All person(s) with tag "favourite" will be removed. No coral circle will be show
 ==== Restore person(s) from recycle bin:
 
 `bin-restore 1 2` +
-The first and second person in the recycle bin will be restored. All the detailed information will be back, except for their tags and relevant events. The last person restored from recycle bin will be selected.
+The first and second person in the recycle bin will be restored. All information of restored persons will be in tact, with exception of their tags and events. The last person restored from recycle bin will be selected.
 
 ==== Delete person(s) from the recycle bin:
 
