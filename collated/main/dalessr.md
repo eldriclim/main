@@ -1,5 +1,5 @@
 # dalessr
-###### /java/seedu/address/commons/events/ui/BrowserPanelFindRouteEvent.java
+###### \java\seedu\address\commons\events\ui\BrowserPanelFindRouteEvent.java
 ``` java
 /**
  * Represents a display of route from start location to end location in the Browser Panel
@@ -28,7 +28,7 @@ public class BrowserPanelFindRouteEvent extends BaseEvent {
     }
 }
 ```
-###### /java/seedu/address/commons/events/ui/BrowserPanelShowLocationEvent.java
+###### \java\seedu\address\commons\events\ui\BrowserPanelShowLocationEvent.java
 ``` java
 /**
  * Represents a display of location in the Browser Panel
@@ -51,7 +51,7 @@ public class BrowserPanelShowLocationEvent extends BaseEvent {
     }
 }
 ```
-###### /java/seedu/address/commons/events/ui/ClearPersonListEvent.java
+###### \java\seedu\address\commons\events\ui\ClearPersonListEvent.java
 ``` java
 /**
  * Indicates a request to clear the person list
@@ -64,7 +64,7 @@ public class ClearPersonListEvent extends BaseEvent {
     }
 }
 ```
-###### /java/seedu/address/commons/events/ui/OpenFaceBookWebViewEvent.java
+###### \java\seedu\address\commons\events\ui\OpenFaceBookWebViewEvent.java
 ``` java
 /**
  * Indicates a request for opening facebook webview
@@ -79,7 +79,7 @@ public class OpenFaceBookWebViewEvent extends BaseEvent {
     }
 }
 ```
-###### /java/seedu/address/commons/events/ui/OpenGithubWebViewEvent.java
+###### \java\seedu\address\commons\events\ui\OpenGithubWebViewEvent.java
 ``` java
 /**
  * Indicates a request for opening github webview
@@ -94,7 +94,7 @@ public class OpenGithubWebViewEvent extends BaseEvent {
     }
 }
 ```
-###### /java/seedu/address/commons/events/ui/OpenInstagramWebViewEvent.java
+###### \java\seedu\address\commons\events\ui\OpenInstagramWebViewEvent.java
 ``` java
 /**
  * Indicates a request for opening instagram webview
@@ -109,7 +109,7 @@ public class OpenInstagramWebViewEvent extends BaseEvent {
     }
 }
 ```
-###### /java/seedu/address/commons/events/ui/OpenNusModsWebViewEvent.java
+###### \java\seedu\address\commons\events\ui\OpenNusModsWebViewEvent.java
 ``` java
 /**
  * Indicates a request for opening nusmods webview
@@ -124,7 +124,7 @@ public class OpenNusModsWebViewEvent extends BaseEvent {
     }
 }
 ```
-###### /java/seedu/address/commons/events/ui/OpenTwitterWebViewEvent.java
+###### \java\seedu\address\commons\events\ui\OpenTwitterWebViewEvent.java
 ``` java
 /**
  * Indicates a request for opening twitter webview
@@ -139,7 +139,7 @@ public class OpenTwitterWebViewEvent extends BaseEvent {
     }
 }
 ```
-###### /java/seedu/address/logic/commands/BirthdayAddCommand.java
+###### \java\seedu\address\logic\commands\BirthdayAddCommand.java
 ``` java
 /**
  * Add a birthday to an existing person in the address book.
@@ -201,7 +201,7 @@ public class BirthdayAddCommand extends UndoableCommand {
     }
 }
 ```
-###### /java/seedu/address/logic/commands/BirthdayRemoveCommand.java
+###### \java\seedu\address\logic\commands\BirthdayRemoveCommand.java
 ``` java
 /**
  * Remove a birthday from an existing person in the address book.
@@ -258,7 +258,7 @@ public class BirthdayRemoveCommand extends UndoableCommand {
     }
 }
 ```
-###### /java/seedu/address/logic/commands/FindCommand.java
+###### \java\seedu\address\logic\commands\FindCommand.java
 ``` java
     @Override
     public CommandResult execute() {
@@ -312,7 +312,11 @@ public class BirthdayRemoveCommand extends UndoableCommand {
         NameContainsKeywordsPredicate updatedPredicate = new NameContainsKeywordsPredicate(namesToSearch);
         model.updateFilteredPersonList(updatedPredicate);
         Index defaultIndex = new Index(0);
-        EventsCenter.getInstance().post(new JumpToListRequestEvent(defaultIndex));
+        if (model.getFilteredPersonList().size() > 0) {
+            EventsCenter.getInstance().post(new JumpToListRequestEvent(defaultIndex));
+        } else {
+            EventsCenter.getInstance().post(new ClearPersonListEvent());
+        }
         return new CommandResult(getMessageForPersonListShownSummary(model.getFilteredPersonList().size()));
     }
 
@@ -420,7 +424,7 @@ public class BirthdayRemoveCommand extends UndoableCommand {
     }
 
 ```
-###### /java/seedu/address/logic/commands/MapRouteCommand.java
+###### \java\seedu\address\logic\commands\MapRouteCommand.java
 ``` java
 /**
  * Shows the route from the entered location to the selected person's address on Google map.
@@ -470,7 +474,7 @@ public class MapRouteCommand extends Command {
     }
 }
 ```
-###### /java/seedu/address/logic/commands/MapShowCommand.java
+###### \java\seedu\address\logic\commands\MapShowCommand.java
 ``` java
 /**
  * Shows the location of a person on Google map identified using it's last displayed index from the address book.
@@ -516,7 +520,7 @@ public class MapShowCommand extends Command {
     }
 }
 ```
-###### /java/seedu/address/logic/parser/AddressBookParser.java
+###### \java\seedu\address\logic\parser\AddressBookParser.java
 ``` java
     private static ArrayList<String> commandNames = new ArrayList<>();
 
@@ -551,7 +555,7 @@ public class MapShowCommand extends Command {
     }
 
 ```
-###### /java/seedu/address/logic/parser/AddressBookParser.java
+###### \java\seedu\address\logic\parser\AddressBookParser.java
 ``` java
     public static ArrayList<String> getCommandNames() {
         return commandNames;
@@ -559,7 +563,7 @@ public class MapShowCommand extends Command {
 
 }
 ```
-###### /java/seedu/address/logic/parser/BirthdayAddCommandParser.java
+###### \java\seedu\address\logic\parser\BirthdayAddCommandParser.java
 ``` java
 /**
  * Parses input arguments and creates a new BirthdayAddCommand object
@@ -590,7 +594,7 @@ public class BirthdayAddCommandParser implements Parser<BirthdayAddCommand> {
     }
 }
 ```
-###### /java/seedu/address/logic/parser/BirthdayRemoveCommandParser.java
+###### \java\seedu\address\logic\parser\BirthdayRemoveCommandParser.java
 ``` java
 /**
  * Parses input arguments and creates a new BirthdayRemoveCommand object
@@ -615,7 +619,7 @@ public class BirthdayRemoveCommandParser implements Parser<BirthdayRemoveCommand
     }
 }
 ```
-###### /java/seedu/address/logic/parser/FindCommandParser.java
+###### \java\seedu\address\logic\parser\FindCommandParser.java
 ``` java
     /**
      * Parses the given {@code String} of arguments in the context of the FindCommand
@@ -757,7 +761,7 @@ public class BirthdayRemoveCommandParser implements Parser<BirthdayRemoveCommand
     }
 }
 ```
-###### /java/seedu/address/logic/parser/MapRouteCommandParser.java
+###### \java\seedu\address\logic\parser\MapRouteCommandParser.java
 ``` java
 /**
  * Parses input arguments and creates a new MapRouteCommand object
@@ -788,7 +792,7 @@ public class MapRouteCommandParser implements Parser<MapRouteCommand> {
     }
 }
 ```
-###### /java/seedu/address/logic/parser/MapShowCommandParser.java
+###### \java\seedu\address\logic\parser\MapShowCommandParser.java
 ``` java
 /**
  * Parses input arguments and creates a new MapShowCommand object
@@ -810,7 +814,7 @@ public class MapShowCommandParser implements Parser<MapShowCommand> {
     }
 }
 ```
-###### /java/seedu/address/model/person/Birthday.java
+###### \java\seedu\address\model\person\Birthday.java
 ``` java
 /**
  * Represents a Person's birthday in the address book.
@@ -875,7 +879,7 @@ public class Birthday {
 
 }
 ```
-###### /java/seedu/address/model/util/SampleDataUtil.java
+###### \java\seedu\address\model\util\SampleDataUtil.java
 ``` java
         try {
             Person[] persons =  new Person[] {
@@ -1278,7 +1282,7 @@ public class Birthday {
 
 }
 ```
-###### /java/seedu/address/ui/BrowserPanel.java
+###### \java\seedu\address\ui\BrowserPanel.java
 ``` java
     /**
      * Loads the google map page on the browser specifying the location of the person selected.
@@ -1304,7 +1308,7 @@ public class Birthday {
     }
 
 ```
-###### /java/seedu/address/ui/BrowserPanel.java
+###### \java\seedu\address\ui\BrowserPanel.java
 ``` java
     @Subscribe
     private void handleBrowserPanelShowLocationEvent(BrowserPanelShowLocationEvent event) {
@@ -1319,12 +1323,19 @@ public class Birthday {
     }
 }
 ```
-###### /java/seedu/address/ui/PersonDetailsPanel.java
+###### \java\seedu\address\ui\PersonDetailsPanel.java
 ``` java
 /**
  * The Contact Details Panel of the App.
  */
 public class PersonDetailsPanel extends UiPart<Region> {
+
+    public static final String TWITTER_DEFAULT_URL = "https://twitter.com/search?q=news&src=typd";
+    public static final String FACEBOOK_DEFAULT_URL = "https://www.facebook.com/people-search.php";
+    public static final String NUSMODS_DEFAULT_URL = "https://nusmods.com/timetable/2017-2018/sem1";
+    public static final String INSTAGRAM_DEFAULT_URL = "https://www.instagram.com/instagram/";
+    public static final String GITHUB_DEFAULT_URL = "https://github.com/github";
+
     private static final String FXML = "PersonDetailsPanel.fxml";
 
     private ObservableList<ReadOnlyPerson> personList;
@@ -1375,7 +1386,7 @@ public class PersonDetailsPanel extends UiPart<Region> {
         tab.setText("twitter");
         tab.setClosable(true);
         WebView webView = new WebView();
-        webView.getEngine().load("https://twitter.com/search?q=news&src=typd");
+        webView.getEngine().load(TWITTER_DEFAULT_URL);
         tab.setContent(webView);
         tabPane.getTabs().add(tab);
     }
@@ -1389,7 +1400,7 @@ public class PersonDetailsPanel extends UiPart<Region> {
         tab.setText("nusmods");
         tab.setClosable(true);
         WebView webView = new WebView();
-        webView.getEngine().load("https://nusmods.com/timetable/2017-2018/sem1");
+        webView.getEngine().load(NUSMODS_DEFAULT_URL);
         tab.setContent(webView);
         tabPane.getTabs().add(tab);
     }
@@ -1403,7 +1414,7 @@ public class PersonDetailsPanel extends UiPart<Region> {
         tab.setText("facebook");
         tab.setClosable(true);
         WebView webView = new WebView();
-        webView.getEngine().load("https://www.facebook.com/people-search.php");
+        webView.getEngine().load(FACEBOOK_DEFAULT_URL);
         tab.setContent(webView);
         tabPane.getTabs().add(tab);
     }
@@ -1417,7 +1428,7 @@ public class PersonDetailsPanel extends UiPart<Region> {
         tab.setText("instagram");
         tab.setClosable(true);
         WebView webView = new WebView();
-        webView.getEngine().load("https://www.instagram.com/instagram/");
+        webView.getEngine().load(INSTAGRAM_DEFAULT_URL);
         tab.setContent(webView);
         tabPane.getTabs().add(tab);
     }
@@ -1431,7 +1442,7 @@ public class PersonDetailsPanel extends UiPart<Region> {
         tab.setText("github");
         tab.setClosable(true);
         WebView webView = new WebView();
-        webView.getEngine().load("https://github.com/github");
+        webView.getEngine().load(GITHUB_DEFAULT_URL);
         tab.setContent(webView);
         tabPane.getTabs().add(tab);
     }
@@ -1577,7 +1588,7 @@ public class PersonDetailsPanel extends UiPart<Region> {
     }
 }
 ```
-###### /resources/view/PersonDetailsPanel.fxml
+###### \resources\view\PersonDetailsPanel.fxml
 ``` fxml
 <StackPane xmlns="http://javafx.com/javafx/8.0.102" xmlns:fx="http://javafx.com/fxml/1">
    <children>

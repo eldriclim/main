@@ -1,7 +1,10 @@
 # ZhangH795
-###### /java/guitests/ThemeGuiTest.java
+###### \java\guitests\ThemeGuiTest.java
 ``` java
 public class ThemeGuiTest extends AddressBookGuiTest {
+    /**
+     * Asserts that the theme after change is Dark Theme.
+     */
     @Test
     public void changeToDarkThemeTest() {
         ArrayList<String> darkTheme = new ArrayList<>();
@@ -12,6 +15,9 @@ public class ThemeGuiTest extends AddressBookGuiTest {
         assertEquals(darkTheme, stage.getScene().getStylesheets());
     }
 
+    /**
+     * Asserts that the theme after change is Bright Theme.
+     */
     @Test
     public void changeToBrightThemeTest() {
         ArrayList<String> brightTheme = new ArrayList<>();
@@ -22,6 +28,9 @@ public class ThemeGuiTest extends AddressBookGuiTest {
         assertEquals(brightTheme, stage.getScene().getStylesheets());
     }
 
+    /**
+     * Asserts that the theme after change is Default Theme.
+     */
     @Test
     public void changeToDefaultThemeTest() {
         ArrayList<String> defaultTheme = new ArrayList<>();
@@ -33,10 +42,11 @@ public class ThemeGuiTest extends AddressBookGuiTest {
     }
 }
 ```
-###### /java/seedu/address/logic/commands/TagAddCommandTest.java
+###### \java\seedu\address\logic\commands\TagAddCommandTest.java
 ``` java
+
 /**
- * Contains integration tests (interaction with the Model) and unit tests for EditCommand.
+ * Contains integration tests (interaction with the Model) and unit tests for TagAddCommand.
  */
 public class TagAddCommandTest {
 
@@ -63,21 +73,13 @@ public class TagAddCommandTest {
                 new UserPrefs());
         expectedModel.updatePerson(model.getFilteredPersonList().get(0), editedPerson);
 
-        String tagChangedDisplayRaw = editedPerson.getTags().toString();
-        int tagListStringStartIndex = 1;
-        int tagListStringEndIndex = tagChangedDisplayRaw.length() - 1;
-        String tagChangedDisplay = editedPerson.getName() + " Tag List: "
-                + tagChangedDisplayRaw.substring(tagListStringStartIndex, tagListStringEndIndex);
-        String expectedMessage = String.format(TagAddCommand.MESSAGE_ADD_TAG_SUCCESS, tagChangedDisplay);
-
-        assertCommandSuccess(tagAddCommand, model, expectedMessage, expectedModel);
+        assertCommandSuccess(tagAddCommand, model, createTagListDisplay(editedPerson), expectedModel);
 
         tagAddCommand = prepareCommand(singlePersonIndexList,
                 new TagAddDescriptor(new PersonBuilder().withATags(VALID_TAG_HUSBAND).build()));
         assertCommandFailure(tagAddCommand, model, String.format(TagAddCommand.MESSAGE_TAG_ALREADY_EXISTS,
                 "[" + VALID_TAG_HUSBAND + "]"));
     }
-
 
     @Test
     public void executeInvalidPersonIndexUnfilteredListFailure() {
@@ -91,7 +93,7 @@ public class TagAddCommandTest {
     }
 
     /**
-     * Add tag to a person in a filtered list where index is larger than size of filtered list,
+     * Adds tag to a person in a filtered list where index is larger than size of filtered list,
      * but smaller than size of address book
      */
     @Test
@@ -118,10 +120,10 @@ public class TagAddCommandTest {
         singlePersonIndexList2.add(INDEX_SECOND_PERSON);
         final TagAddCommand standardCommand = new TagAddCommand(singlePersonIndexList1, DESC_JAMES);
 
-        // same values -> returns true
         TagAddDescriptor copyDescriptor = new TagAddDescriptor(DESC_JAMES);
         TagAddDescriptor copyDescriptor1 = new TagAddDescriptor(DESC_LUCY);
         TagAddCommand commandWithSameValues = new TagAddCommand(singlePersonIndexList1, copyDescriptor);
+        // same values -> returns true
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -147,7 +149,6 @@ public class TagAddCommandTest {
 
         // different descriptor -> returns false
         assertFalse(copyDescriptor.equals(copyDescriptor1));
-
     }
 
     @Test
@@ -177,6 +178,21 @@ public class TagAddCommandTest {
     }
 
     /**
+     * Creates string for edited tag list.
+     * @param editedPerson edited person to show tag list
+     * Returns formatted string to indicate edited tag list.
+     */
+    public String createTagListDisplay(Person editedPerson) {
+        int tagListStringStartIndex = 1;
+        int tagListStringEndIndex;
+        String tagChangedDisplayRaw = editedPerson.getTags().toString();
+        tagListStringEndIndex = tagChangedDisplayRaw.length() - 1;
+        String tagChangedDisplay = editedPerson.getName() + " Tag List: "
+                + tagChangedDisplayRaw.substring(tagListStringStartIndex, tagListStringEndIndex);
+        return String.format(TagAddCommand.MESSAGE_ADD_TAG_SUCCESS, tagChangedDisplay);
+    }
+
+    /**
      * Returns an {@code TagAddCommand} with parameters {@code index} and {@code descriptor}
      */
     private TagAddCommand prepareCommand(ArrayList<Index> index, TagAddDescriptor descriptor) {
@@ -187,8 +203,9 @@ public class TagAddCommandTest {
 
 }
 ```
-###### /java/seedu/address/logic/commands/TagFindCommandTest.java
+###### \java\seedu\address\logic\commands\TagFindCommandTest.java
 ``` java
+
 /**
  * Contains integration tests (interaction with the Model) for {@code TagFindCommand}.
  */
@@ -274,8 +291,9 @@ public class TagFindCommandTest {
     }
 }
 ```
-###### /java/seedu/address/logic/commands/TagRemoveCommandTest.java
+###### \java\seedu\address\logic\commands\TagRemoveCommandTest.java
 ``` java
+
 /**
  * Contains integration tests (interaction with the Model) and unit tests for EditCommand.
  */
@@ -491,5 +509,152 @@ public class TagRemoveCommandTest {
         tagRemoveCommand.setData(model, new CommandHistory(), new UndoRedoStack());
         return tagRemoveCommand;
     }
+}
+```
+###### \java\seedu\address\logic\parser\SwitchThemeCommandParserTest.java
+``` java
+
+public class SwitchThemeCommandParserTest {
+    private SwitchThemeCommandParser parser = new SwitchThemeCommandParser();
+
+    @Test
+    public void parseValidArgsReturnsSwitchThemeCommand() {
+        String themeChoice1 = SwitchThemeCommand.DARK_THEME_WORD3;
+        String themeChoice2 = SwitchThemeCommand.DARK_THEME_WORD1;
+        String themeChoice3 = SwitchThemeCommand.DARK_THEME_WORD2;
+
+        SwitchThemeCommand expectedSwitchThemeCommandOne =
+                new SwitchThemeCommand(themeChoice1);
+        assertParseSuccess(parser, themeChoice1, expectedSwitchThemeCommandOne);
+
+        SwitchThemeCommand expectedSwitchThemeCommandTwo =
+                new SwitchThemeCommand(themeChoice2);
+        assertParseSuccess(parser, themeChoice2, expectedSwitchThemeCommandTwo);
+
+        SwitchThemeCommand expectedSwitchThemeCommandThree =
+                new SwitchThemeCommand(themeChoice3);
+        assertParseSuccess(parser, themeChoice3, expectedSwitchThemeCommandThree);
+    }
+
+    @Test
+    public void parseEmptyArgThrowsParseException() {
+        assertParseFailure(parser, "     ",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, SwitchThemeCommand.MESSAGE_USAGE));
+    }
+}
+```
+###### \java\seedu\address\logic\parser\TagAddCommandParserTest.java
+``` java
+
+public class TagAddCommandParserTest {
+
+    private static final String SPACE = " ";
+    private static final String TAG_EMPTY = " ";
+
+    private static final String MESSAGE_INVALID_FORMAT =
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagAddCommand.MESSAGE_USAGE);
+
+    private TagAddCommandParser parser = new TagAddCommandParser();
+
+    @Test
+    public void parseMissingPartsFailure() {
+        // no index specified
+        assertParseFailure(parser, VALID_TAG_FRIEND, MESSAGE_INVALID_FORMAT);
+
+        // no tag input
+        assertParseFailure(parser, "1 2", MESSAGE_INVALID_FORMAT);
+
+        // no tag specified
+        assertParseFailure(parser, TAG_EMPTY, MESSAGE_INVALID_FORMAT);
+
+        // no user input
+        assertParseFailure(parser, SPACE, MESSAGE_INVALID_FORMAT);
+    }
+
+    @Test
+    public void parseTagAddSuccess() throws Exception {
+        Index targetIndex = INDEX_SECOND_PERSON;
+        ArrayList<Index> singlePersonIndexList = new ArrayList<>();
+        singlePersonIndexList.add(targetIndex);
+
+        Set<Tag> tagSet = new HashSet<>();
+        tagSet.add(new Tag(VALID_TAG_FRIEND));
+
+        String userInput = targetIndex.getOneBased() + SPACE + VALID_TAG_FRIEND;
+        TagAddCommand.TagAddDescriptor descriptor = new TagAddCommand.TagAddDescriptor();
+        descriptor.setTags(tagSet);
+        TagAddCommand expectedCommand = new TagAddCommand(singlePersonIndexList, descriptor);
+
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
+}
+```
+###### \java\seedu\address\logic\parser\TagFindCommandParserTest.java
+``` java
+
+public class TagFindCommandParserTest {
+
+    private TagFindCommandParser parser = new TagFindCommandParser();
+
+    @Test
+    public void parseEmptyArgThrowsParseException() {
+        assertParseFailure(parser, "     ",
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagFindCommand.MESSAGE_USAGE));
+    }
+
+    @Test
+    public void parseValidArgsReturnsTagFindCommand() {
+        boolean looseFind = true;
+        TagFindCommand expectedTagFindCommandOne =
+                new TagFindCommand(new TagMatchingKeywordPredicate("friends", true));
+        assertParseSuccess(parser, "friends", expectedTagFindCommandOne);
+        TagFindCommand expectedTagFindCommandTwo =
+                new TagFindCommand(new TagMatchingKeywordPredicate("friend 2 be", true));
+        assertParseSuccess(parser, "friend 2 be", expectedTagFindCommandTwo);
+        TagFindCommand expectedTagFindCommandThree =
+                new TagFindCommand(new TagMatchingKeywordPredicate("1 2 3", true));
+        assertParseSuccess(parser, "1 2 3", expectedTagFindCommandThree);
+    }
+
+}
+```
+###### \java\seedu\address\logic\parser\TagRemoveCommandParserTest.java
+``` java
+
+public class TagRemoveCommandParserTest {
+
+    private static final String TAG_EMPTY = " ";
+
+    private static final String MESSAGE_INVALID_FORMAT =
+            String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagRemoveCommand.MESSAGE_USAGE);
+
+    private TagRemoveCommandParser parser = new TagRemoveCommandParser();
+
+    @Test
+    public void parseMissingPartsFailure() {
+
+        // no user input
+        assertParseFailure(parser, TAG_EMPTY, MESSAGE_INVALID_FORMAT);
+        // no tagName provided
+        assertParseFailure(parser, "1", MESSAGE_INVALID_FORMAT);
+    }
+
+    @Test
+    public void parseTagRemoveSuccess() throws Exception {
+        Index targetIndex = INDEX_SECOND_PERSON;
+        ArrayList<Index> singlePersonIndexList = new ArrayList<>();
+        singlePersonIndexList.add(targetIndex);
+
+        Set<Tag> tagSet = new HashSet<Tag>();
+        tagSet.add(new Tag(VALID_TAG_FRIEND));
+
+        String userInput = targetIndex.getOneBased() + " " + VALID_TAG_FRIEND;
+        TagRemoveCommand.TagRemoveDescriptor descriptor = new TagRemoveDescriptor();
+        descriptor.setTags(tagSet);
+        TagRemoveCommand expectedCommand = new TagRemoveCommand(singlePersonIndexList, descriptor);
+
+        assertParseSuccess(parser, userInput, expectedCommand);
+    }
+
 }
 ```

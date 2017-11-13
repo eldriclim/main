@@ -97,7 +97,7 @@ Examples:
 
 * `add n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `add n/Betsy Crowe t/friend e/betsycrowe@example.com a/Newgate Prison p/1234567 t/criminal`
-* `creat n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
+* `create n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 * `put n/John Doe p/98765432 e/johnd@example.com a/John street, block 123, #01-01`
 
 === Listing all persons : `list` _[Since v1.1]_
@@ -117,7 +117,7 @@ Edits an existing person in the address book.
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS] [t/TAG]...`
 
 ****
-* Modifies the person at the specified INDEX. The index refers to the index number shown in the last persons listing. The index must be a positive integer 1, 2, 3, …​
+* Modifies the person at the specified INDEX. The index refers to the index number shown in the last persons listing. The index *must be a positive integer* `1, 2, 3, …​`
 * At least one of the optional fields must be provided.
 * Existing values will be updated to the input values.
 * When editing tags, the existing tags of the person will be removed i.e adding of tags is not cumulative.
@@ -140,7 +140,7 @@ Edits the phone number and email address of the 1st person to be `91234567` and 
 
 _Alias:_ `search` `get`
 
-Sometimes you might not remember the full name of a person. Perhaps you only know the phone number or home address of the person. But don't worry! By using this command, you are able to search for your contacts by some other informations such as phone number, email and home address. Even if you cannot remember the full name of your friend, you can still easily find him by his partial name!
+Sometimes you might not remember the full name of a person. Perhaps you only know the phone number or home address of the person. By using this command, you are able to search for your contacts by some other informations such as phone number, email and home address. Even if you cannot remember the full name of your friend, you can still easily find him by his partial name.
 
 Format: `find [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]`
 
@@ -148,7 +148,7 @@ Format: `find [n/NAME] [p/PHONE] [e/EMAIL] [a/ADDRESS]`
 * A prefix is required before entering a different type of keyword.
 * The order of the keywords does not matter. e.g. Hans Bo will match Bo Hans.
 * You can find a person by searching for any substring of the attribute. e.g. hn will match John, 1234 will match 98123476.
-* All keywords regarding a certain attribute should be put after the prefix. e.g. n/alice bob.
+* All keywords regarding a certain attribute should be put after the prefix. e.g. `n/alice bob`
 * You can only search for one address per time for Address type.
 * Persons matching at least one keyword will be returned. e.g. Hans Bo will return Hans Gruber, Bo Yang.
 * At least one of the optional fields must be provided.
@@ -198,7 +198,7 @@ Returns list of persons sorted by time added in descending order
 
 // tag::delete[]
 === Deleting a person : `delete` _[Since v1.2]_
-If you want to keep your person list clean, just using delete command to remove some people to bin.
+If you want to remove a person from the person list, just use the `delete` command to put them into the recycle bin.
 
 _Alias:_ `remove` `-`
 
@@ -207,12 +207,12 @@ You can delete a group of people from the address book.
 image::multiDeleteCommand.png[width="500"]
 _Figure 3.7.1 : Deleting multiple person_
 
-Format: `delete I/INDEX INDEX ...` (or) `delete n/NAME`
+Format: `delete I/INDEX INDEX ...` OR `delete n/NAME`
 
 ****
 * Deletes person with given name or at these given specified `INDEX`.
 * The index refer to the index numbers shown in the most recent listing.
-* The index *must be a positive integer* 1, 2, 3, ...
+* The index *must be a positive integer* `1, 2, 3, ...`
 * The name must be the full name of the person.
 * Only one name is allowed for `delete` command.
 ****
@@ -236,13 +236,13 @@ Deletes the 1st person in the results of the `find` command
 // tag::tagadd[]
 === Adding a tag to person(s) : `t-add` _[Since v1.1]_
 
-You can add a tag to multiple persons specified by the indices in the current person listing. When you have a new project group, you can tag your group members in the contact list to differentiate from the rest of the contacts.
+You can add a tag to multiple persons specified by the indexes in the current person listing. When you have a new project group, you can tag your group members in the contact list to differentiate from the rest of the contacts.
 
-Format: `t-add INDEX... TAG`
+Format: `t-add INDEX INDEX... TAG`
 
 ****
-* The index refers to the index number shown in the most recent listing, you can key in multiple indices as well.
-* The index *must be a positive integer* 1, 2, 3, ...
+* The index refers to the index number shown in the most recent listing, you can key in multiple indexes as well.
+* The index *must be a positive integer* `1, 2, 3, ...`
 * The TAG *must not have its first word as number*.
 ****
 
@@ -261,13 +261,13 @@ You can mark specified person(s) from your contact list as `favourite`. Contacts
 image::tAddCommand.png[width="500"]
 _Figure 3.9.1 : Tagging multiple person as favourite_
 
-Format: `t-add INDEX... favourite`
+Format: `t-add INDEX INDEX... favourite`
 
 ****
 * All person(s) tagged as `favourite` by you will be identified by a coral shaped circle after the person name.
 * You can also use `fav`, and words containing `fav` interchangeably with `favourite`.
-* The index refers to the index number shown in the most recent listing, multiple indices are allowed.
-* The index *must be a positive integer* 1, 2, 3, ...
+* The index refers to the index number shown in the most recent listing, multiple indexes are allowed.
+* The index *must be a positive integer* `1, 2, 3, ...`
 ****
 
 Examples:
@@ -283,13 +283,13 @@ This command sets 2nd and 3rd person in the address book as favourite
 // tag::tagremove[]
 === Removing a tag from person(s) : `t-remove` _[Since v1.2]_
 
-You can remove a tag from specified person(s) from the address book.
+You can remove a tag from specified person(s) from the address book. For example, you may remove `CS2103` tag from all persons after the module has ended.
 
 Format: `t-remove INDEX... TAG`
 
 ****
-* The index refers to the index number shown in the most recent listing, multiple indices are allowed.
-* The index *must be a positive integer* 1, 2, 3, ...
+* The index refers to the index number shown in the most recent listing, multiple indexes are allowed.
+* The index *must be a positive integer* `1, 2, 3, ...`
 * If you wish to remove a tag from all person(s) in the list, simply leave out the INDEX.
 * The TAG *must not have its first word as a number*, for example `1 friend`.
 ****
@@ -304,7 +304,7 @@ Examples:
 This command removes the tag `friends` from the 2nd and 3rd person in the address book
 * `t-remove friends` +
 This command removes the tag `friends` from all person(s) with the tag `friends` in the current listing
-// tag::tagremove[]
+// end::tagremove[]
 
 // tag::tagremovefav[]
 === Removing person(s) from favourite : `t-remove` _[Since v1.2]_
@@ -319,7 +319,7 @@ Format: `t-remove INDEX... favourite`
 ****
 * You can also use `fav`, and words containing `fav` interchangeably with `favourite`.
 * If you wish to clear your favourite list, simply leave out the INDEX.
-* The index *must be a positive integer* 1, 2, 3, ...
+* The index *must be a positive integer* `1, 2, 3, ...`
 ****
 
 Examples:
@@ -332,7 +332,7 @@ This command removes the tag `favourite` from the 2nd and 3rd person in the addr
 // tag::tagfind[]
 === Finding the person(s) with given tag : `t-find` _[Since v1.3]_
 
-You can find all persons with the given tag.
+You can find all persons with the given tag. For example, you can find all persons with the tag `CS2103` using this command.
 
 image::tFindCommand.png[width="500"]
 _Figure 3.12.1 : Finding all persons tagged 'fav'_
@@ -388,7 +388,7 @@ This command changes current theme to Twilight
 // tag::map[]
 === Finding the location of a person using Google Map : `m-show` _[Since v1.3]_
 
-You might find it not very convenient to only show the contact's location as text. Therefore, iConnect allows you to see the location! By using this command, without typing in the person's address, you can easily find the location of your friend in Google Map, which will show in the centre browser.
+You might find it not very useful to just show the contact's location as text. By using this command, without typing in the person's address, you can easily find the location of your friend in Google Map, which will be shown in the browser tab.
 
 image::mShowCommand.png[width="790"]
 _Figure 3.14.1 : Finding the location of a contact_
@@ -398,7 +398,7 @@ Format: `m-show INDEX`
 ****
 * Find the person with the index number.
 * Only one index number is allowed as the input.
-* The index *must be a positive integer* 1, 2, 3, ...
+* The index *must be a positive integer* `1, 2, 3, ...`
 * The address of the person selected will be shown visually on the browser screen.
 ****
 
@@ -409,7 +409,7 @@ Shows the address of person with index 1 on the google map
 
 === Finding the route from user's current location to the person selected : `m-route` _[Since v1.3]_
 
-Not only can iConnect show the location, it can also show you how to go there! Simply by adding your current location, it will show you the shortest path from your current address to your friend's home in the Google map.
+Not only can iConnect show the location, it can also show you how to go there. Simply add your current location and it will show you the shortest path from your current address to your friend's home in the Google map.
 
 image::mRouteCommand.png[width="790"]
 _Figure 3.15.1 : Finding the route from current location to the address of a contact_
@@ -419,8 +419,8 @@ Format: `m-route INDEX a/ADDRESS`
 ****
 * Find the address of the person with the index number.
 * Only one index number is allowed as the input.
-* The index *must be a positive integer* 1, 2, 3, ...
-* The address entered is the current location of the user (the place they want to start from).
+* The index *must be a positive integer* `1, 2, 3, ...`
+* The address entered should be your current location (the place you want to start from).
 * A route will be shown on the map with the address as start location and selected person's address as destination.
 ****
 
@@ -452,7 +452,7 @@ Format: `s-add [m/INDEX INDEX…] n/NAME t/TIME [d/DURATION]`
 ****
 * Creates an event with the given event name, event time, duration and members.
 * Members added will be reflected in the event list panel.
-* The index must be a positive integer 1, 2, 3, ...
+* The index *must be a positive integer* `1, 2, 3, ...`
 * TIME will be added in the following format: `yyyy-MM-dd HH:mm`
 * If duration is specified, it must be in the following format: `#d#h#m` (day/hour/minute)
 ****
@@ -462,7 +462,7 @@ Examples:
 * `s-add m/1 2 3 n/iConnect Conference t/2017-12-04 08:45 d/120` +
 Adds a two-hour long event called ‘iConnect Conference’ on 4th of December 2017 at 8:45AM ,with the specified person at index 1, 2 and 3 into the addressbook calendar.
 * `s-add n/Exam Date t/2017-12-04 14:30 d/120` +
-Adds a two-hour long event called ‘Exam Date’ on 4th of December 2017 at 2:30PM into the addressbook calendar.+
+Adds a two-hour long event called ‘Exam Date’ on 4th of December 2017 at 2:30PM into the addressbook calendar. +
 * `s-add n/Email Reminder t/2017-12-04 14:30` +
 Adds an event called ‘Email Reminder’ on 4th of December 2017 at 2:30PM into the addressbook calendar.
 // end::sadd[]
@@ -479,7 +479,7 @@ Format: `s-remove I/INDEX INDEX...`
 
 ****
 * `INDEX` in this case is referring to the index of events in the event list panel
-* The index must be a positive integer 1, 2, 3, ...
+* The index *must be a positive integer* `1, 2, 3, ...`
 * Person details will be updated each time a deletion of event is made.
 ****
 
@@ -503,6 +503,7 @@ Format: `export PATH`
 
 ****
 * Exports all the information of contacts to the given local address.
+* Forward slash should be used instead of back slash.
 ****
 // end::export[]
 
@@ -609,7 +610,7 @@ Format: `bin-restore INDEX INDEX ...`
 ****
 * Recovers the people at these given specified `INDEX`.
 * The index refers to the index number shown in the current list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* The index *must be a positive integer* `1, 2, 3, ...`
 * The index must not be greater than the most recent bin size.
 ****
 
@@ -629,7 +630,7 @@ Format: `bin-delete INDEX INDEX ...`
 ****
 * Recovers the people at these given specified `INDEX`.
 * The index refers to the index number shown in the most current list.
-* The index *must be a positive integer* 1, 2, 3, ...
+* The index *must be a positive integer* `1, 2, 3, ...`
 * The index must not be greater than the most recent bin size.
 ****
 
@@ -667,7 +668,7 @@ Format: `b-add INDEX BIRTHDAY`
 ****
 * Adds birthday to the person at the specified `INDEX`.
 * The index refers to the index number shown in the most recent listing, only one index is allowed.
-* The index *must be a positive integer* 1, 2, 3, ...
+* The index *must be a positive integer* `1, 2, 3, ...`
 * The `BIRTHDAY` must follow the format DD/MM/YYYY, and it must be a valid date.
 * To update the birthday of a specified person, use `b-add` command and enter the new `BIRTHDAY` value.
 ****
@@ -687,7 +688,7 @@ Format: `b-remove INDEX`
 ****
 * Removes the birthday value from the person at the specified `INDEX`.
 * The index refers to the index number shown in the most recent listing, only one index is allowed.
-* The index *must be a positive integer* 1, 2, 3, ...
+* The index *must be a positive integer* `1, 2, 3, ...`
 * The `BIRTHDAY` removed just now can be restored by using the `undo` command.
 ****
 
@@ -710,7 +711,7 @@ Format: `l-add INDEX [tt/TWITTER] / [fb/FACEBOOK] / [nm/NUSMODS] / [ig/INSTAGRAM
 ****
 * Adds the social media link to the person at the specified `INDEX`.
 * The index refers to the index number shown in the most recent listing, only one index is allowed.
-* The index *must be a positive integer* 1, 2, 3, ...
+* The index *must be a positive integer* `1, 2, 3, ...`
 * A prefix is required before entering the corresponding URL. Only one prefix and one URL is allowed for each command.
 * This command will also update the existing value to the input value.
 ****

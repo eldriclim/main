@@ -18,7 +18,7 @@ By: `Team W09-B03`      Since: `Sep 2017`      Licence: `MIT`
 // tag::dgintro[]
 iConnect is a command-line interface (CLI) based application which allows students to manage their contacts and keep track of their schedule. This documentation aims to guide you through the development process of iConnect, getting you started as an iConnect contributor. iConnect is written in Java and the editor of choice is IntelliJ IDE.
 
-Due its sizable codebase, you may want to get familiarise with the different architectural components to have a better understanding of each component works together.
+Due to its sizable codebase, you may want to get familiarise with the different architectural components to have a better understanding of how each component works together.
 // end::dgintro[]
 
 == Setting up
@@ -230,14 +230,14 @@ This section describes some noteworthy details on how certain features are imple
 
 The enhanced version of find mechanism is facilitated by the `AddressBookParser`, which resides inside `LogicManager`. It allows you to search for person(s) by substrings of multiple different attributes (e.g. `Name`, `Phone`, `Email`, `Address`), which the case is insensitive for `Name`, `Email` and `Address` attributes.
 
-You are only allowed to search by `Name`, `Phone`, `Email` or `Address`. Searching by `Tag` or `Birthday` is not allowed. In order to search by tags, you can use the tag-find (`t-find`) command.
+You are only allowed to search by `Name`, `Phone`, `Email` or `Address`. Searching by `Tag` or `Birthday` is not allowed. In order to search by tag, you can use the tag-find (`t-find`) command.
 
 The following diagram shows the inheritance diagram for Find command:
 
 image::LogicCommandClassDiagram.png[width="800"]
 _Figure 4.1.1 : Structure of Find Command in the Logic Component_
 
-When you are using the find command, you need to provided at least one keyword for any available attribute. Keywords of the same attribute need to be grouped together with a prefix (e.g. `n/`, `p/`, `e/`, `a/`). In this case, each prefix is allowed to appear at most once.
+When you use the find command, you need to provide at least one keyword for any available attribute. Keywords of the same attribute need to be grouped together with a prefix (e.g. `n/`, `p/`, `e/`, `a/`). In this case, each prefix is allowed to appear at most once.
 
 During the implementation, `FindCommandParser` class splits the keywords of different attributes by searching for the locations of the prefixes, and then stores the keywords into separate ArrayLists. As a `NameContainsKeywordsPredicate` needs to be passed to `FindCommand` class, all the keywords from the ArrayLists are added to the predicate in order with each prefix added in front for separation.
 
@@ -705,7 +705,7 @@ _Figure 4.4.5 : UndoRedoStack Entering New Commands_
 // end::undoredo[]
 
 //tag::sortmech[]
-=== Sorting Mechanism
+=== Sorting mechanism
 
 The sorting mechanism is facilitated by `SortCommandParser` and `SortCommand`, with both classes residing in the `Logic` component of the address book. Since the address book state will be modified during the sorting process, the `sort` has to be undoable.
 
@@ -1125,7 +1125,7 @@ If the input command word after 'help' can not be identified, then you will see 
 // end::help[]
 
 // tag::bin[]
-=== RecycleBin Mechanism
+=== RecycleBin mechanism
 
 We design a recycle bin in the iConnect to store the person removed from address book. In this way, users can restore the people they wrongly deleted. You may think that it can be done by udno/redo command. Actually, if users want to restore a person they deleted long time ago, then the undo/redo command would not hlep.
 
@@ -1165,7 +1165,7 @@ If we find duplicate people (A') when deleting a person (A) to recyclebin or res
 // end::bin[]
 
 // tag::export[]
-=== Exporting
+=== Export mechanism
 
 We are using 'java.io.File' and 'java.io.FileWriter' to export address book data.
 
@@ -1179,7 +1179,7 @@ _Figure 4.13.1 : Interactions Inside the Logic Component for the `export path` C
 // end::export[]
 
 // tag::schedule[]
-=== Scheduler Feature
+=== Schedule mechanism
 The `ScheduleAddCommand` allows you to add an `Event` into address book and is stored in an ArrayList-like `UniqueEventList` in `AddressBook`. Each event may have a number of members and they are specified by their `Index` in the `PersonListPanel` during the user input phase. The `ScheduleRemoveCommand` allows you to remove an `Event` from address book by inputting the `Index` of an event in the `EventListPanel`. Note that you may input more than one `Index` to remove multiple events at a time.
 
 Since both command requires the modification of `AddressBook` contents, they implemented as an UndoableCommand.
@@ -1201,6 +1201,8 @@ Each time an `Event` is created, four other composite objects are created as wel
 Each `Person` maintains its own `UniqueEventList` with each element synced to an `Event` in the master `UniqueEventList` in `AddressBook`. In otherwords, both object references each other.
 
 ****
+
+*UniqueEventList*
 
 `UniqueEventList` functions as a List of `Events` where every element is unique and the uniqueness of an event is defined by its name, time and duration. If two different events have the same value for the three attributes, it is considered to be a duplicate. You can also check if an `Event` clashes with any of the events in `UniqueEventList`, by running the `hasClashes` function which returns true if a clash exist.
 

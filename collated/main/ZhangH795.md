@@ -1,18 +1,64 @@
 # ZhangH795
-###### /java/seedu/address/logic/commands/SwitchThemeCommand.java
+###### \java\seedu\address\commons\events\ui\ChangeBrightThemeEvent.java
 ``` java
+
 /**
- * Shows the location of a person on Google map identified using it's last displayed index from the address book.
+ * Indicates a request for App termination
+ */
+public class ChangeBrightThemeEvent extends BaseEvent {
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
+}
+```
+###### \java\seedu\address\commons\events\ui\ChangeDarkThemeEvent.java
+``` java
+
+/**
+ * Indicates a request for App termination
+ */
+public class ChangeDarkThemeEvent extends BaseEvent {
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
+}
+```
+###### \java\seedu\address\commons\events\ui\ChangeDefaultThemeEvent.java
+``` java
+
+/**
+ * Indicates a request for App termination
+ */
+public class ChangeDefaultThemeEvent extends BaseEvent {
+
+    @Override
+    public String toString() {
+        return this.getClass().getSimpleName();
+    }
+}
+```
+###### \java\seedu\address\logic\commands\SwitchThemeCommand.java
+``` java
+
+/**
+ * Changes theme to the user theme of choice.
  */
 public class SwitchThemeCommand extends Command {
 
     public static final String COMMAND_WORD = "theme";
     public static final String DARK_THEME_WORD1 = "dark";
     public static final String DARK_THEME_WORD2 = "Twilight";
+    public static final String DARK_THEME_WORD3 = "1";
     public static final String BRIGHT_THEME_WORD1 = "bright";
     public static final String BRIGHT_THEME_WORD2 = "Sunburst";
+    public static final String BRIGHT_THEME_WORD3 = "2";
     public static final String DEFAULT_THEME_WORD1 = "default";
     public static final String DEFAULT_THEME_WORD2 = "Minimalism";
+    public static final String DEFAULT_THEME_WORD3 = "3";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Change into the theme of choice of iConnect.\n"
@@ -35,11 +81,11 @@ public class SwitchThemeCommand extends Command {
     public CommandResult execute() throws CommandException {
 
         if (userThemeInput.matches("\\d+")) {
-            if ("1".equals(userThemeInput)) {
+            if (DARK_THEME_WORD3.equals(userThemeInput)) {
                 themeChoice = DARK_THEME_WORD2;
-            } else if ("2".equals(userThemeInput)) {
+            } else if (BRIGHT_THEME_WORD3.equals(userThemeInput)) {
                 themeChoice = BRIGHT_THEME_WORD2;
-            } else if ("3".equals(userThemeInput)) {
+            } else if (DEFAULT_THEME_WORD3.equals(userThemeInput)) {
                 themeChoice = DEFAULT_THEME_WORD2;
             } else {
                 throw new CommandException(String.format(MESSAGE_INVALID_INDEX, userThemeInput));
@@ -82,10 +128,12 @@ public class SwitchThemeCommand extends Command {
     }
 }
 ```
-###### /java/seedu/address/logic/commands/TagAddCommand.java
+###### \java\seedu\address\logic\commands\TagAddCommand.java
 ``` java
+
 /**
- * Edits the details of an existing person in the address book.
+ * Adds a tag to existing person(s) in the address book.
+ * If the tag already exists for at least one of the person(s) selected, error would be thrown.
  */
 public class TagAddCommand extends UndoableCommand {
 
@@ -102,13 +150,16 @@ public class TagAddCommand extends UndoableCommand {
     public static final String MESSAGE_ADD_TAG_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
     public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
-    public static final String MESSAGE_TAG_ALREADY_EXISTS = "The %1$s tag entered already exists "
-            + "in some person selected.";
+    public static final String MESSAGE_TAG_ALREADY_EXISTS = "The %1$s tag already exists "
+            + "in person(s) selected.";
     private final ArrayList<Index> index;
     private final TagAddDescriptor tagAddDescriptor;
+    private final int zeroBasedFirstIndex = 0;
+    private final int stringSecondCharIndex = 1;
+    private final int emptyListSize = 0;
 
     /**
-     * @param index of the person in the filtered person list to edit
+     * @param index            of the person in the filtered person list to edit
      * @param tagAddDescriptor details to edit the person with
      */
     public TagAddCommand(ArrayList<Index> index, TagAddDescriptor tagAddDescriptor) {
@@ -123,18 +174,22 @@ public class TagAddCommand extends UndoableCommand {
     public CommandResult executeUndoableCommand() throws CommandException {
         ObservableList<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
         boolean looseFind = false;
-        Tag tagToAdd = (Tag) tagAddDescriptor.getTags().toArray()[0];
-        String tagInString = tagToAdd.toString();
-        String tagInString1 = tagInString.substring(1, tagInString.lastIndexOf("]"));
+
+        Tag tagToAdd = (Tag) tagAddDescriptor.getTags().toArray()[zeroBasedFirstIndex];
+        String tagInStringRaw = tagToAdd.toString();
+        String tagInString = tagInStringRaw.substring(stringSecondCharIndex, tagInStringRaw.lastIndexOf("]"));
+
         StringBuilder editedPersonDisplay = new StringBuilder();
         checkIndexInRange(lastShownList);
-        TagMatchingKeywordPredicate tagPredicate = new TagMatchingKeywordPredicate(tagInString1, looseFind);
+
+        TagMatchingKeywordPredicate tagPredicate = new TagMatchingKeywordPredicate(tagInString, looseFind);
         ObservableList<ReadOnlyPerson> selectedPersonList = createSelectedPersonList(lastShownList);
         FilteredList<ReadOnlyPerson> tagFilteredPersonList = new FilteredList<>(selectedPersonList);
         tagFilteredPersonList.setPredicate(tagPredicate);
-        if (tagFilteredPersonList.size() > 0) {
-            throw new CommandException(String.format(MESSAGE_TAG_ALREADY_EXISTS, tagInString));
+        if (tagFilteredPersonList.size() > emptyListSize) {
+            throw new CommandException(String.format(MESSAGE_TAG_ALREADY_EXISTS, tagInStringRaw));
         }
+
         for (int i = 0; i < index.size(); i++) {
             ReadOnlyPerson personToEdit = lastShownList.get(index.get(i).getZeroBased());
             Set<Tag> originalTagList = personToEdit.getTags();
@@ -151,16 +206,14 @@ public class TagAddCommand extends UndoableCommand {
                 throw new AssertionError("The target person cannot be missing");
             }
             model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+            editedPersonDisplay.append(createTagListDisplay(editedPerson));
 
-            int tagListStringStartIndex = 1;
-            int tagListStringEndIndex;
-            String tagChangedDisplayRaw = editedPerson.getTags().toString();
-            tagListStringEndIndex = tagChangedDisplayRaw.length() - 1;
-            String tagChangedDisplay = editedPerson.getName() + " Tag List: "
-                    + tagChangedDisplayRaw.substring(tagListStringStartIndex, tagListStringEndIndex);
-
-            editedPersonDisplay.append(String.format(MESSAGE_ADD_TAG_SUCCESS, tagChangedDisplay));
-            EventsCenter.getInstance().post(new JumpToListRequestEvent(index.get(0)));
+            if (tagInString.toLowerCase().contains("fav")) {
+                Index firstIndex = new Index(zeroBasedFirstIndex);
+                EventsCenter.getInstance().post(new JumpToListRequestEvent(firstIndex));
+            } else {
+                EventsCenter.getInstance().post(new JumpToListRequestEvent(index.get(zeroBasedFirstIndex)));
+            }
 
             if (i != index.size() - 1) {
                 editedPersonDisplay.append("\n");
@@ -170,7 +223,8 @@ public class TagAddCommand extends UndoableCommand {
     }
 
     /**
-     * @param lastShownList current tag List
+     * Throws CommandException if any of the user input index is invalid.
+     * @param lastShownList current filtered person list
      */
     public void checkIndexInRange(ObservableList<ReadOnlyPerson> lastShownList) throws CommandException {
         for (int i = 0; i < index.size(); i++) {
@@ -181,8 +235,25 @@ public class TagAddCommand extends UndoableCommand {
     }
 
     /**
+     * Creates string for edited tag list.
+     * @param editedPerson edited person to show tag list
+     * Returns formatted string to indicate edited tag list.
+     */
+    public String createTagListDisplay(Person editedPerson) {
+        int tagListStringStartIndex = 1;
+        int tagListStringEndIndex;
+        String tagChangedDisplayRaw = editedPerson.getTags().toString();
+        tagListStringEndIndex = tagChangedDisplayRaw.length() - 1;
+        String tagChangedDisplay = editedPerson.getName() + " Tag List: "
+                + tagChangedDisplayRaw.substring(tagListStringStartIndex, tagListStringEndIndex);
+        return String.format(MESSAGE_ADD_TAG_SUCCESS, tagChangedDisplay);
+    }
+
+    /**
+     * Adds new tag to the copy of existing tag list.
      * @param unmodifiable tag List
-     * @param tagToAdd tag to be added
+     * @param tagToAdd     tag to be added
+     * Returns modifiable tag set.
      */
     public Set<Tag> createModifiableTagSet(Set<Tag> unmodifiable, Tag tagToAdd) {
         Set<Tag> modifiable = new HashSet<>();
@@ -194,7 +265,9 @@ public class TagAddCommand extends UndoableCommand {
     }
 
     /**
+     * Creates selected person list.
      * @param fullPersonList person list
+     * Returns selected person list.
      */
     public ObservableList<ReadOnlyPerson> createSelectedPersonList(ObservableList<ReadOnlyPerson> fullPersonList) {
         ArrayList<ReadOnlyPerson> selectedPersonList = new ArrayList<>();
@@ -207,7 +280,7 @@ public class TagAddCommand extends UndoableCommand {
 
     /**
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * edited with {@code tagAddDescriptor}.
      */
     private static Person createEditedPerson(ReadOnlyPerson personToEdit,
                                              TagAddDescriptor tagAddDescriptor) {
@@ -258,7 +331,8 @@ public class TagAddCommand extends UndoableCommand {
         private Set<Event> events;
         private DateAdded dateAdded;
 
-        public TagAddDescriptor() {}
+        public TagAddDescriptor() {
+        }
 
         public TagAddDescriptor(TagAddDescriptor toCopy) {
             this.name = toCopy.name;
@@ -270,6 +344,7 @@ public class TagAddCommand extends UndoableCommand {
             this.events = toCopy.events;
             this.dateAdded = toCopy.dateAdded;
         }
+
         public TagAddDescriptor(ReadOnlyPerson toCopy) {
             this.name = toCopy.getName();
             this.birthday = toCopy.getBirthday();
@@ -364,11 +439,12 @@ public class TagAddCommand extends UndoableCommand {
     }
 }
 ```
-###### /java/seedu/address/logic/commands/TagFindCommand.java
+###### \java\seedu\address\logic\commands\TagFindCommand.java
 ``` java
+
 /**
- * Finds and lists all persons in address book whose name contains a certain tag.
- * Keyword matching is case insensitive.
+ * Finds and lists all persons whose tag list contains the given tag.
+ * Keyword matching is case insensitive, substring matching is also allowed.
  */
 public class TagFindCommand extends Command {
 
@@ -380,6 +456,7 @@ public class TagFindCommand extends Command {
             + "Example: " + COMMAND_WORD + " " + "friends";
 
     private final TagMatchingKeywordPredicate predicate;
+    private final int firstIndex = 0;
 
     public TagFindCommand(TagMatchingKeywordPredicate keywordPredicate) {
         this.predicate = keywordPredicate;
@@ -389,7 +466,7 @@ public class TagFindCommand extends Command {
     public CommandResult execute() {
         model.updateFilteredPersonList(predicate);
         if (model.getFilteredPersonList().size() > 0) {
-            Index defaultIndex = new Index(0);
+            Index defaultIndex = new Index(firstIndex);
             EventsCenter.getInstance().post(new JumpToListRequestEvent(defaultIndex));
         } else {
             EventsCenter.getInstance().post(new ClearPersonListEvent());
@@ -405,11 +482,12 @@ public class TagFindCommand extends Command {
     }
 }
 ```
-###### /java/seedu/address/logic/commands/TagRemoveCommand.java
+###### \java\seedu\address\logic\commands\TagRemoveCommand.java
 ``` java
 
 /**
  * Removes a tag from existing person(s) in the address book.
+ * If the tag does not exist for at least one of the person(s) selected, error would be thrown.
  */
 public class TagRemoveCommand extends UndoableCommand {
 
@@ -431,6 +509,10 @@ public class TagRemoveCommand extends UndoableCommand {
             + "for some person selected.";
     private ArrayList<Index> index;
     private final TagRemoveDescriptor tagRemoveDescriptor;
+    private final int firstIndex = 0;
+    private final int arrayIndexOffset = 1;
+    private final int emptyListSize = 0;
+    private final int stringSecondCharIndex = 1;
 
     /**
      * @param index               of the person in the filtered person list to edit
@@ -447,28 +529,32 @@ public class TagRemoveCommand extends UndoableCommand {
     @Override
     public CommandResult executeUndoableCommand() throws CommandException {
         ObservableList<ReadOnlyPerson> lastShownList = model.getFilteredPersonList();
-        Tag tagToRemove = (Tag) tagRemoveDescriptor.getTags().toArray()[0];
-        String tagInString = tagToRemove.toString();
-        String tagInString1 = tagInString.substring(1, tagInString.lastIndexOf("]"));
-        boolean looseFind = tagInString1.toLowerCase().contains(FAVOURITE_KEYWORD);
+        Tag tagToRemove = (Tag) tagRemoveDescriptor.getTags().toArray()[firstIndex];
+        String tagInStringRaw = tagToRemove.toString();
+        String tagInString = tagInStringRaw.substring(stringSecondCharIndex, tagInStringRaw.lastIndexOf("]"));
+
+        boolean looseFind = tagInString.toLowerCase().contains(FAVOURITE_KEYWORD);
         boolean removeAll = false;
-        TagMatchingKeywordPredicate tagPredicate = new TagMatchingKeywordPredicate(tagInString1, looseFind);
+        TagMatchingKeywordPredicate tagPredicate = new TagMatchingKeywordPredicate(tagInString, looseFind);
 
         StringBuilder editedPersonDisplay = new StringBuilder();
-        ArrayList<Index> indexList = index;
         checkIndexInRange(lastShownList);
-        if (index.size() == 0) {
+
+        ArrayList<Index> indexList = index;
+        if (index.size() == emptyListSize) {
             removeAll = true;
             indexList = makeFullIndexList(lastShownList.size());
         }
+
         ObservableList<ReadOnlyPerson> selectedPersonList = createSelectedPersonList(indexList, lastShownList);
         FilteredList<ReadOnlyPerson> tagFilteredPersonList = new FilteredList<>(selectedPersonList);
         tagFilteredPersonList.setPredicate(tagPredicate);
-        if (tagFilteredPersonList.size() == 0) {
-            throw new CommandException(String.format(MESSAGE_TAG_NOT_FOUND, tagInString));
+        if (tagFilteredPersonList.size() == emptyListSize) {
+            throw new CommandException(String.format(MESSAGE_TAG_NOT_FOUND, tagInStringRaw));
         } else if (!removeAll && tagFilteredPersonList.size() < indexList.size()) {
-            throw new CommandException(String.format(MESSAGE_TAG_NOT_FOUND_FOR_SOME, tagInString));
+            throw new CommandException(String.format(MESSAGE_TAG_NOT_FOUND_FOR_SOME, tagInStringRaw));
         }
+
         for (int i = 0; i < tagFilteredPersonList.size(); i++) {
             ReadOnlyPerson personToEdit = tagFilteredPersonList.get(i);
             Set<Tag> modifiableTagList = createModifiableTagSet(personToEdit.getTags(), tagToRemove);
@@ -483,19 +569,12 @@ public class TagRemoveCommand extends UndoableCommand {
                 throw new AssertionError("The target person cannot be missing");
             }
             model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
+            editedPersonDisplay.append(createTagListDisplay(editedPerson));
 
-            int tagListStringStartIndex = 1;
-            int tagListStringEndIndex;
-            String tagChangedDisplayRaw = editedPerson.getTags().toString();
-            tagListStringEndIndex = tagChangedDisplayRaw.length() - 1;
-            String tagChangedDisplay = editedPerson.getName() + " Tag List: "
-                    + tagChangedDisplayRaw.substring(tagListStringStartIndex, tagListStringEndIndex);
-
-            editedPersonDisplay.append(String.format(MESSAGE_REMOVE_TAG_SUCCESS, tagChangedDisplay));
-            Index defaultIndex = new Index(0);
+            Index defaultIndex = new Index(firstIndex);
             EventsCenter.getInstance().post(new JumpToListRequestEvent(defaultIndex));
 
-            if (i != indexList.size() - 1) {
+            if (i != indexList.size() - arrayIndexOffset) {
                 editedPersonDisplay.append("\n");
             }
         }
@@ -503,8 +582,10 @@ public class TagRemoveCommand extends UndoableCommand {
     }
 
     /**
+     * Removes a tag from the copy of existing tag list.
      * @param unmodifiable tag List
-     * @param tagToRemove  tag to be removed
+     * @param tagToRemove     tag to be removed
+     * Returns modifiable tag set.
      */
     public Set<Tag> createModifiableTagSet(Set<Tag> unmodifiable, Tag tagToRemove) {
         Set<Tag> modifiable = new HashSet<>();
@@ -519,7 +600,25 @@ public class TagRemoveCommand extends UndoableCommand {
     }
 
     /**
+     * Creates string for edited tag list.
+     * @param editedPerson edited person to show tag list
+     * Returns formatted string to indicate edited tag list.
+     */
+    public String createTagListDisplay(Person editedPerson) {
+        int tagListStringStartIndex = 1;
+        int tagListStringEndIndex;
+        String tagChangedDisplayRaw = editedPerson.getTags().toString();
+        tagListStringEndIndex = tagChangedDisplayRaw.length() - arrayIndexOffset;
+        String tagChangedDisplay = editedPerson.getName() + " Tag List: "
+                + tagChangedDisplayRaw.substring(tagListStringStartIndex, tagListStringEndIndex);
+        return String.format(MESSAGE_REMOVE_TAG_SUCCESS, tagChangedDisplay);
+    }
+
+    /**
+     * Creates selected person list.
+     * @param indexList selected index list
      * @param fullPersonList person list
+     * Returns selected person list.
      */
     public ObservableList<ReadOnlyPerson> createSelectedPersonList(ArrayList<Index> indexList,
                                                                    ObservableList<ReadOnlyPerson> fullPersonList) {
@@ -532,7 +631,9 @@ public class TagRemoveCommand extends UndoableCommand {
     }
 
     /**
+     * Checks whether the tag list contains tag to remove.
      * @param tagList current tag List
+     * Returns true if tag list contains the tag to be removed; false otherwise.
      */
     public boolean containsTag(List<Tag> tagList) {
         Set<Tag> tagsToRemove = tagRemoveDescriptor.getTags();
@@ -547,18 +648,22 @@ public class TagRemoveCommand extends UndoableCommand {
     }
 
     /**
+     * Creates a person index list from 1 to input list size.
      * @param personListSize current person list size
+     * Returns created person list.
      */
     public ArrayList<Index> makeFullIndexList(int personListSize) {
         ArrayList<Index> indexList = new ArrayList<>();
-        for (int i = 1; i <= personListSize; i++) {
+        int firstIndexOneBased = 1;
+        for (int i = firstIndexOneBased; i <= personListSize; i++) {
             indexList.add(Index.fromOneBased(i));
         }
         return indexList;
     }
 
     /**
-     * @param lastShownList current tag List
+     * Throws CommandException if any of the user input index is invalid.
+     * @param lastShownList current filtered person list
      */
     public void checkIndexInRange(ObservableList<ReadOnlyPerson> lastShownList) throws CommandException {
         for (int i = 0; i < index.size(); i++) {
@@ -570,7 +675,7 @@ public class TagRemoveCommand extends UndoableCommand {
 
     /**
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * edited with {@code editPersonDescriptor}.
+     * edited with {@code tagRemoveDescriptor}.
      */
     public Person createEditedPerson(ReadOnlyPerson personToEdit,
                                      TagRemoveDescriptor tagRemoveDescriptor) {
@@ -728,8 +833,9 @@ public class TagRemoveCommand extends UndoableCommand {
     }
 }
 ```
-###### /java/seedu/address/logic/parser/SwitchThemeCommandParser.java
+###### \java\seedu\address\logic\parser\SwitchThemeCommandParser.java
 ``` java
+
 /**
  * Parses input arguments and creates a new SwitchThemeCommand object
  */
@@ -751,8 +857,9 @@ public class SwitchThemeCommandParser implements Parser<SwitchThemeCommand> {
     }
 }
 ```
-###### /java/seedu/address/logic/parser/TagAddCommandParser.java
+###### \java\seedu\address\logic\parser\TagAddCommandParser.java
 ``` java
+
 /**
  * Parses input arguments and creates a new TagAddCommand object
  */
@@ -765,11 +872,17 @@ public class TagAddCommandParser implements Parser<TagAddCommand> {
      */
     public TagAddCommand parse(String args) throws ParseException {
         requireNonNull(args);
+
+        int defaultLastNumberIndex = -1;
+        int arrayIndexOffset = 1;
+        int nextArrayIndex = 1;
+        int completeNumOfArgs = 2;
         String newTag = "";
-        int lastIndex = -1;
+
+        int lastIndex = defaultLastNumberIndex;
         String[] argsArray;
         ArrayList<Index> index = new ArrayList<>();
-        if (args.isEmpty() || (argsArray = args.trim().split(" ")).length < 2) {
+        if (args.isEmpty() || (argsArray = args.trim().split(" ")).length < completeNumOfArgs) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagAddCommand.MESSAGE_USAGE));
         }
         try {
@@ -785,11 +898,11 @@ public class TagAddCommandParser implements Parser<TagAddCommand> {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagAddCommand.MESSAGE_USAGE));
         }
 
-        if (lastIndex == -1 || lastIndex == (argsArray.length - 1)) {
+        if (lastIndex == defaultLastNumberIndex || lastIndex == (argsArray.length - arrayIndexOffset)) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagAddCommand.MESSAGE_USAGE));
         }
         HashSet<String> tagSet = new HashSet<>();
-        for (int i = lastIndex + 1; i < argsArray.length; i++) {
+        for (int i = lastIndex + nextArrayIndex; i < argsArray.length; i++) {
             newTag = newTag.concat(argsArray[i] + " ");
         }
         newTag = newTag.trim();
@@ -816,17 +929,20 @@ public class TagAddCommandParser implements Parser<TagAddCommand> {
     private Optional<Set<Tag>> parseTagsForEdit(Collection<String> tags) throws IllegalValueException {
         assert tags != null;
 
+        int singleElementArraySize = 1;
         if (tags.isEmpty()) {
             return Optional.empty();
         }
-        Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
+        Collection<String> tagSet = tags.size() == singleElementArraySize && tags.contains("")
+                    ? Collections.emptySet() : tags;
         return Optional.of(ParserUtil.parseTags(tagSet));
     }
 
 }
 ```
-###### /java/seedu/address/logic/parser/TagFindCommandParser.java
+###### \java\seedu\address\logic\parser\TagFindCommandParser.java
 ``` java
+
 /**
  * Parses input arguments and creates a new TagFindCommand object
  */
@@ -849,8 +965,9 @@ public class TagFindCommandParser implements Parser<TagFindCommand> {
     }
 }
 ```
-###### /java/seedu/address/logic/parser/TagRemoveCommandParser.java
+###### \java\seedu\address\logic\parser\TagRemoveCommandParser.java
 ``` java
+
 /**
  * Parses input arguments and creates a new TagRemoveCommand object
  */
@@ -862,17 +979,21 @@ public class TagRemoveCommandParser implements Parser<TagRemoveCommand> {
      *
      * @throws ParseException if the user input does not conform the expected format
      */
-
     public TagRemoveCommand parse(String args) throws ParseException {
         requireNonNull(args);
+
+        int defaultLastNumberIndex = -1;
+        int arrayIndexOffset = 1;
+        int nextArrayIndex = 1;
+
         String newTag = "";
-        int lastIndex = -1;
+        int lastIndex = defaultLastNumberIndex;
         ArrayList<Index> index = new ArrayList<>();
-        String[] argsArray;
         if (args.trim().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagRemoveCommand.MESSAGE_USAGE));
         }
-        argsArray = args.trim().split(" ");
+
+        String[] argsArray = args.trim().split(" ");
         try {
             for (int i = 0; i < argsArray.length; i++) {
                 if (argsArray[i].matches("\\d+")) {
@@ -885,12 +1006,13 @@ public class TagRemoveCommandParser implements Parser<TagRemoveCommand> {
         } catch (IllegalValueException ive) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagRemoveCommand.MESSAGE_USAGE));
         }
-        if (lastIndex == argsArray.length - 1) {
+        if (lastIndex == argsArray.length - arrayIndexOffset) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, TagRemoveCommand.MESSAGE_USAGE));
         }
-        for (int i = lastIndex + 1; i < argsArray.length; i++) {
+        for (int i = lastIndex + nextArrayIndex; i < argsArray.length; i++) {
             newTag = newTag.concat(" " + argsArray[i]);
         }
+
         HashSet<String> tagSet = new HashSet<>();
         newTag = newTag.trim();
         tagSet.add(newTag);
@@ -900,10 +1022,10 @@ public class TagRemoveCommandParser implements Parser<TagRemoveCommand> {
         } catch (IllegalValueException ive) {
             throw new ParseException(ive.getMessage(), ive);
         }
-
         if (!tagRemoveDescriptor.isAnyFieldEdited()) {
             throw new ParseException(TagRemoveCommand.MESSAGE_NOT_EDITED);
         }
+
         return new TagRemoveCommand(index, tagRemoveDescriptor);
     }
 
@@ -915,16 +1037,206 @@ public class TagRemoveCommandParser implements Parser<TagRemoveCommand> {
     private Optional<Set<Tag>> parseTagsForEdit(Collection<String> tags) throws IllegalValueException {
         assert tags != null;
 
+        int singleElementArraySize = 1;
         if (tags.isEmpty()) {
             return Optional.empty();
         }
-        Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
+        Collection<String> tagSet = tags.size() == singleElementArraySize && tags.contains("")
+                ? Collections.emptySet() : tags;
         return Optional.of(ParserUtil.parseTags(tagSet));
     }
 
 }
 ```
-###### /resources/view/BrightTheme.css
+###### \java\seedu\address\model\AddressBook.java
+``` java
+    /**
+     * Sort list of person(s), those with favourite tag would come first in the person list.
+     */
+    public void favouriteShownFirst() {
+        persons.sortByFavourite();
+    }
+```
+###### \java\seedu\address\model\person\Person.java
+``` java
+    /**
+     * Checks whether a person has favourite tag.
+     *
+     * @return true if the person has favourite tag
+     */
+    @Override
+    public boolean isFavourite() {
+        for (Tag tag : getTags()) {
+            if (tag.tagName.toLowerCase().contains("fav")) {
+                return true;
+            }
+        }
+        return false;
+    }
+```
+###### \java\seedu\address\model\person\UniquePersonList.java
+``` java
+    /**
+     * Put favourite on top of the person list.
+     */
+    public void sortByFavourite() {
+        internalList.sort(new Comparator<ReadOnlyPerson>() {
+            public int compare(ReadOnlyPerson p1, ReadOnlyPerson p2) {
+                if (p1.isFavourite()) {
+                    return -1;
+                } else if (p2.isFavourite()) {
+                    return 1;
+                } else {
+                    return -1;
+                }
+            }
+        });
+    }
+```
+###### \java\seedu\address\model\tag\TagMatchingKeywordPredicate.java
+``` java
+/**
+ * Tests that a {@code ReadOnlyPerson}'s {@code Tag} matches keyword given.
+ * If looseFind is true, the predicate will compare substrings of tagName and keyword
+ * Otherwise, the predicate will compare the exact word
+ */
+public class TagMatchingKeywordPredicate implements Predicate<ReadOnlyPerson> {
+    private final String keyword;
+    private final boolean looseFind;
+
+    public TagMatchingKeywordPredicate(String keyword, boolean looseFind) {
+        this.keyword = keyword;
+        this.looseFind = looseFind;
+    }
+
+    @Override
+    public boolean test(ReadOnlyPerson person) {
+        Set<Tag> tagList = person.getTags();
+        if (keyword.trim().isEmpty()) {
+            return false;
+        } else {
+            for (Tag tag : tagList) {
+                String current = tag.tagName;
+                if (current.equals(keyword)) {
+                    return true;
+                } else if (looseFind && (current.toLowerCase().contains(keyword.toLowerCase())
+                        || keyword.toLowerCase().contains(current.toLowerCase()))) {
+                    return true;
+                }
+            }
+            return false;
+        }
+    }
+
+    @Override
+    public boolean equals(Object other) {
+        return other == this // short circuit if same object
+                || (other instanceof TagMatchingKeywordPredicate // instanceof handles nulls
+                && this.keyword.equalsIgnoreCase(((TagMatchingKeywordPredicate) other).keyword)); // state check
+    }
+
+    public String getKeyword() {
+        return keyword;
+    }
+}
+```
+###### \java\seedu\address\ui\MainWindow.java
+``` java
+    /**
+     * Change to dark theme.
+     */
+    @FXML
+    public void changeToDarkTheme() {
+        Scene scene = primaryStage.getScene();
+        scene.getStylesheets().setAll("view/DarkTheme.css");
+        primaryStage.setScene(scene);
+        show();
+    }
+
+    /**
+     * Change to bright theme.
+     */
+    @FXML
+    public void changeToBrightTheme() {
+        Scene scene = primaryStage.getScene();
+        scene.getStylesheets().setAll("view/BrightTheme.css");
+        primaryStage.setScene(scene);
+        show();
+    }
+
+    /**
+     * Change to default theme.
+     */
+    @FXML
+    public void changeToDefaultTheme() {
+        Scene scene = primaryStage.getScene();
+        scene.getStylesheets().setAll("view/Extensions.css");
+        primaryStage.setScene(scene);
+        show();
+    }
+```
+###### \java\seedu\address\ui\MainWindow.java
+``` java
+    @Subscribe
+    private void handleDarkThemeEvent(ChangeDarkThemeEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        changeToDarkTheme();
+    }
+
+    @Subscribe
+    private void handleBrightThemeEvent(ChangeBrightThemeEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        changeToBrightTheme();
+    }
+
+    @Subscribe
+    private void handleDefaultThemeEvent(ChangeDefaultThemeEvent event) {
+        logger.info(LogsCenter.getEventHandlingLogMessage(event));
+        changeToDefaultTheme();
+    }
+```
+###### \java\seedu\address\ui\PersonCard.java
+``` java
+    private static String getColorForTag(String tagString) {
+        String color = "";
+        boolean uniqueColor = false;
+        while (!uniqueColor) {
+            color = colors[random.nextInt(colors.length)];
+            if (!tagColorMap.containsKey(tagString)) {
+                if (!tagColorMap.containsValue(color)) {
+                    tagColorMap.put(tagString, color);
+                    break;
+                }
+            } else {
+                color = tagColorMap.get(tagString);
+                break;
+            }
+        }
+        return color;
+    }
+```
+###### \java\seedu\address\ui\PersonCard.java
+``` java
+    /**
+     * Binds the Tag with a randomly generated color
+     */
+    private void initTags(ReadOnlyPerson person) {
+        boolean favourite = false;
+        for (Tag tag : person.getTags()) {
+            if (!tag.tagName.toLowerCase().contains("fav")) {
+                Label tagLabel = new Label(tag.tagName);
+                tagLabel.setStyle("-fx-background-color: " + getColorForTag(tag.tagName));
+                tags.getChildren().add(tagLabel);
+            } else {
+                favourite = true;
+            }
+        }
+        if (favourite) {
+            fav.setVisible(true);
+        }
+    }
+```
+###### \resources\view\BrightTheme.css
 ``` css
 .background {
     -fx-background-color: derive(#1d1d1d, 20%);
