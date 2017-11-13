@@ -18,7 +18,7 @@ Role: Project Advisor
 
 '''
 
-=== Sun Sheng Ran
+=== Sun Shengran
 image::dalessr.jpg[width="150", align="left"]
 {empty}[http://github.com/dalessr[github]] [<<sunshengran#, portfolio>>]
 
@@ -27,7 +27,7 @@ Responsibilities: Logic, UI
 
 '''
 
-=== Eldric  Lim
+=== Eldric Lim Qixun
 image::eldriclim.jpg[width="150", align="left"]
 {empty}[http://github.com/eldriclim[github]] [<<eldriclim#, portfolio>>]
 
@@ -45,7 +45,7 @@ Responsibilities: Logic, UI
 
 '''
 
-=== Zhao Peng Yu
+=== Zhao Pengyu
 image::Pengyuz.jpg[width="150", align="left"]
 {empty}[http://github.com/Pengyuz[github]] [<<zhaopengyu#, portfolio>>]
 
