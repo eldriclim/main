@@ -32,7 +32,7 @@ image::eldriclim.jpg[width="150", align="left"]
 {empty}[http://github.com/eldriclim[github]] [<<eldriclim#, portfolio>>]
 
 Role: Developer +
-Responsibilities: UI
+Responsibilities: UI, Model
 
 '''
 
@@ -41,7 +41,7 @@ image::ZhangH795.jpg[width="150", align="left"]
 {empty}[http://github.com/ZhangH795[github]] [<<ZhangHui#, portfolio>>]
 
 Role: Developer +
-Responsibilities: Model
+Responsibilities: Logic, UI
 
 '''
 
